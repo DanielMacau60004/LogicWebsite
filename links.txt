@@ -1,0 +1,13 @@
+https://dl.acm.org/
+https://dblp.org/
+
+
+#bibliografica 
+
+Teaching logic using a state-of-art proof assistant
+https://www.researchgate.net/publication/44922837_Teaching_logic_using_a_state-of-art_proof_assistant
+
+
+Iltis
+https://arxiv.org/abs/2105.05763
+https://arxiv.org/pdf/1804.03579
