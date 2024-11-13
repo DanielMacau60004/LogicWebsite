@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="ICL">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/ICL.jar!/" />
+      <root url="jar://$PROJECT_DIR$/jasmin.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
