@@ -19,12 +19,12 @@
 %                                 (if omitted defaults to main title without line breaks)
 %-------------------------------------------------------------------
 %         You may use "\\" to force line breaks
-\nttitle(main,en){A Very Long and Impressive\\Thesis Title with a Forced Line Break}%
-\nttitle(main,pt){Um Título de Tese Longo\\e com uma Mudança de Linha Forçada}%
+\nttitle(main,en){Interactive tool for \\practicing and evaluating logic exercises}%
+\nttitle(main,pt){Ferramenta interativa para\\praticar e avaliar exericíos de lógica}%
 
 %         You may use "\\" to force line breaks
-\nttitle(sub,en){Some thoughts on the Life, the Universe,\\and Everything Else}%
-\nttitle(sub,pt){Algumas considerações sobre a Vida,\\o Universo e Tudo o Mais}%
+\nttitle(sub,en){}%
+\nttitle(sub,pt){}%
 
 %         You may NOT use "\\" to force line breaks
 % \nttitle(spine,en){A Very Long and Impressive Thesis Title}%
@@ -40,8 +40,8 @@
 %    the right name for your Department from the given list
 %    otherwise fill the entries below
 %-------------------------------------------------------------------
-\ntdepartment*(pt){Departamento de\\Nome do Departamento}
-\ntdepartment*(en){Department of\\Name of the Department}
+%\ntdepartment*(en){Department of\\Computer Engineering}
+%%\ntdepartment*(pt){Departamento de\\Engenharia Informática}
 
 %-------------------------------------------------------------------
 % DEGREE NAME customization
@@ -53,8 +53,8 @@
 %    the right name(s) for the PhD/MSc program from the given list
 %    otherwise fill the entries below
 %-------------------------------------------------------------------
-\ntdegreename*(pt){Nome do Programa de Estudos}
-\ntdegreename*(en){Study Program Name}
+%\ntdegreename*(en){Study Program Name}
+%\ntdegreename*(pt){Nome do Programa de Estudos}
 
 %-------------------------------------------------------------------
 % DEGREE SPECIALIZATION customization
@@ -64,8 +64,8 @@
 %         You may use "\\" to force line breaks
 %         The stared (*) version will only define if undefined, otherwise ignored
 %-------------------------------------------------------------------
-\ntspecialization*(pt){Designação da Especialidade}
-\ntspecialization*(en){Specialization Name}
+%\ntspecialization*(pt){Designação da Especialidade}
+%\ntspecialization*(en){Specialization Name}
 
 %-------------------------------------------------------------------
 % SPONSORS customization
@@ -86,14 +86,14 @@
 % SYNTAX: \ntauthorname(gender){full name}{abbreviated name}
 %         Use [f] for female and [m] for male
 %-------------------------------------------------------------------
-\ntauthorname(m){John Very Longname Doe}{John Doe}
+\ntauthorname(m){Daniel Gonçalves Fuseta Rosa Macau}{Daniel Macau}
 
 %-------------------------------------------------------------------
 % AUTHOR previous degree
 % SYNTAX: \ntauthordegree{degree}
 %-------------------------------------------------------------------
-\ntauthordegree(en){Master/BSc in Name of Previous Degree}
-\ntauthordegree(pt){Mestrado/Licenciatura em Nome do Grau Anterior}
+\ntauthordegree(en){BSc in Computer Science}
+\ntauthordegree(pt){Licenciatura em Ciências da Computação}
 
 %-------------------------------------------------------------------
 % SUBMISSION/EXAM DATE
@@ -115,10 +115,9 @@
 %                           [m] for male
 %         You may use "\\" to force line breaks
 % Advisers(s)
-\ntaddperson{adviser}(a,f){Mary Doe Adviser Name, Full Professor, NOVA University Lisbon}
+\ntaddperson{adviser}(a,m){Ricardo Gonçalves, Assistant Professor, NOVA University Lisbon}
 % Co-advisers(s)
-\ntaddperson{adviser}(c,m){John Doe Co-Adviser Name, Associate Professor, NOVA University Lisbon}
-\ntaddperson{adviser}(c,f){John Doe other Co-Adviser Name, Full Professor, NOVA University Lisbon}
+\ntaddperson{co-advisers}(ca,m){João Costa Seco, Associate Professor, NOVA University Lisbon}
 
 %-------------------------------------------------------------------
 % COMMITTEE MEMBERS
@@ -132,11 +131,11 @@
 %         For [gender] use: [f] for female
 %                           [m] for male
 %         You may use "\\" to force line breaks
-\ntaddperson{committee}(c,m){Name of the committee chairperson, Full Professor, FCT-NOVA}
-\ntaddperson{committee}(r,m){Name of a rapporteur, Associate Professor, Another University}
+%\ntaddperson{committee}(c,m){Name of the committee chairperson, Full Professor, FCT-NOVA}
+%\ntaddperson{committee}(r,m){Name of a rapporteur, Associate Professor, Another University}
 % \ntaddperson{committee}(r,m){Name of another rapporteur, Assistant Professor, Another University}
 % \ntaddperson{committee}(a,m){Name of the adviser present in defense, Associate Professor, Some University}
 % \ntaddperson{committee}(ca,m){Name of the co-adviser present in defense, Associate Professor, Some University}
-\ntaddperson{committee}(m,f){Another member of the committee, Full Professor, Another University}
-\ntaddperson{committee}(m,f){Yet another member of the committee, Assistant Professor, Another University}
+%\ntaddperson{committee}(m,f){Another member of the committee, Full Professor, Another University}
+%\ntaddperson{committee}(m,f){Yet another member of the committee, Assistant Professor, Another University}
 % \ntaddperson{committee}(g,m){Guest member of the committee, Position, University}

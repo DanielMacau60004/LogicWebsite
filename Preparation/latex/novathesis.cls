@@ -204,7 +204,7 @@
 
 \options{/novathesis/.new family,
   % DOCUMENT
-  doctype/.new choice           = {phd, phdprop, phdplan, msc, mscplan, bsc, plain},
+  doctype/.new choice           = {phdprop, phdplan, msc, mscplan, bsc, plain},
   docstatus/.new choice         = {unset, working, provisional, final}, % in not defined by user, unset will be replaced  “working”
   media/.new choice             = {screen, paper},
   spine/layout/.new choice      = {unset, no, full, trim},
