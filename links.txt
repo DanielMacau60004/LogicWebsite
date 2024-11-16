@@ -11,3 +11,8 @@ https://www.researchgate.net/publication/44922837_Teaching_logic_using_a_state-o
 Iltis
 https://arxiv.org/abs/2105.05763
 https://arxiv.org/pdf/1804.03579
+
+Outros:
+https://2024.splashcon.org/details/splash-2024-SPLASH-E/7/ASSIST-Automated-Feedback-Generation-for-Syntax-and-Logical-Errors-in-Programming-Ex
+https://scholar.google.pt/citations?view_op=view_citation&hl=en&user=vG7Gj6QAAAAJ&sortby=pubdate&authuser=1&citation_for_view=vG7Gj6QAAAAJ:hGdtkIFZdKAC
+https://arxiv.org/pdf/2409.07362
