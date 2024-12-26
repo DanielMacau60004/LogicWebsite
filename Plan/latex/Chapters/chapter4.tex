@@ -14,11 +14,41 @@
 \subsection{Architecture}
 
 %Pode nao fazer sentido ter isto neste chapter
-\section{Logic Exercises}
+\section{Proposed Exercises} FALAR DO FEEDBACK
+The exercises I am proposing are divided into two branches of Logic: Propositional Logic (\ref{chap:prop}) and First-Order Logic (\ref{chap:fol}). Generally, courses that teach logic separate the subject into these two branches, so the idea behind this decision is to cover exercises for both parts of the subject. This way, students will have material to study and to be evaluated on both parts of the course. For each branch, I plan to implement two types of exercises that are similar in both branches. One will involve converting natural language into a formula in propositional/first-order logic, and the other will focus on making deductions in a tree-shaped format. Deduction tree proofs are the kind of exercises where students struggle the most, so i also took that into consideration selecting the exercises. The proposed exercises serve as a guide for planning the implementation. If there is enough time, there may be an opportunity to implement more exercises. The focus of the exercises will not only be on the correctness of the provided solution, but also on offering feedback to help the student better understand what they are doing. Finding the right way to give feedback to the student is challenging because we don’t want to provide too much information, but at the same time, we don’t want the student to feel lost. [REF para o topico de feedback]
+The following sections will discuss the different types of exercises, how they work and can be implemented, how they can be presented to the final users, and various ways to provide the appropriate level of feedback.
 
-\subsection{Classical Propositional Logic}
+\subsection{Propositional Logic}
+
 \subsubsection{Transforming a sentence from natural language to propositional logic}
-\subsubsection{Truth tables}
+This type of exercise essentially involves translating a declarative sentence in natural language into propositional logic. For example, consider the following propositions:
+\[
+p: \text{It is raining}, \quad q: \text{It is cold}.
+\]
+Now, imagine the exercise asks you to write "It is raining and it is cold" in propositional logic, using the propositions defined above. A correct answer would be: \(p \land q\). Another example could be "It is only cold if it is raining," which can have multiple correct answers, such as: \(p \rightarrow q\) or \(\neg p \lor q\).
+
+
+
+
+\textbf{Design: }
+\textbf{Feedback: }
+
+\subsubsection{Deduction trees in propositional logic}
+Exercise description
+\textbf{Design: }
+\textbf{Feedback: }
+
+\subsection{First-Order Logic}
+
+\subsubsection{Transforming a sentence from natural language to propositional logic}
+Exercise description
+\textbf{Design: }
+\textbf{Feedback: }
+
+\subsubsection{Deduction trees in propositional logic}
+Exercise description
+\textbf{Design: }
+\textbf{Feedback: }
 
 \section{Work Plan}
 %...

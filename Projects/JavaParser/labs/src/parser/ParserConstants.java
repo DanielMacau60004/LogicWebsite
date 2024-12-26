@@ -37,25 +37,13 @@ public interface ParserConstants {
   /** RegularExpression Id. */
   int OR = 16;
   /** RegularExpression Id. */
-  int DIFF = 17;
+  int IMPLICATION = 17;
   /** RegularExpression Id. */
-  int SEMICOLON = 18;
+  int EQUIVALENT = 18;
   /** RegularExpression Id. */
-  int IMPLICATION = 19;
+  int LITERAL = 19;
   /** RegularExpression Id. */
-  int EQUIVALENT = 20;
-  /** RegularExpression Id. */
-  int MODELS = 21;
-  /** RegularExpression Id. */
-  int LEFT_BRACKET = 22;
-  /** RegularExpression Id. */
-  int RIGHT_BRACKET = 23;
-  /** RegularExpression Id. */
-  int COMMA = 24;
-  /** RegularExpression Id. */
-  int LITERAL = 25;
-  /** RegularExpression Id. */
-  int TEXT = 26;
+  int PERIOD = 20;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -73,22 +61,16 @@ public interface ParserConstants {
     "\"unit\"",
     "\"(\"",
     "\")\"",
-    "\"true\"",
-    "\"false\"",
-    "\"==\"",
-    "\"~\"",
-    "\"&&\"",
-    "\"||\"",
-    "\"!=\"",
-    "\";\"",
-    "\"->\"",
-    "\"<=>\"",
-    "\"|=\"",
-    "\"{\"",
-    "\"}\"",
-    "\",\"",
+    "\"\\u22a4\"",
+    "\"\\u22a5\"",
+    "\"\\u2261\"",
+    "\"\\u00ac\"",
+    "\"\\u2227\"",
+    "\"\\u2228\"",
+    "\"\\u2192\"",
+    "\"\\u2194\"",
     "<LITERAL>",
-    "<TEXT>",
+    "\".\"",
   };
 
 }

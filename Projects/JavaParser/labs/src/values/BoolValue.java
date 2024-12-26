@@ -20,8 +20,5 @@ public class BoolValue implements Value {
 	public boolean equals(Object obj) {
 		return obj instanceof BoolValue && value == ((BoolValue)obj).getValue();
 	}
-	
-	
-	
-	
+
 }

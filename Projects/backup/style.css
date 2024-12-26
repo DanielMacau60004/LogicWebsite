@@ -1,0 +1,68 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    cursor: default;
+    user-select: none;
+}
+
+#tree {
+    position: absolute;
+    background-color: #f1f1f175;
+    text-align: center;
+    z-index: 1;
+    border-radius: 10px;
+    padding: 15px;
+    border: 1px solid lightgray;
+}
+
+#tree.selected {
+    z-index: 1000 !important;
+}
+
+#tree.dragging {
+    opacity: 0.6;
+}
+
+#branch, #leaf {
+    display: inline-block;
+    background-color: #8282822c;
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-bottom: -6px;
+}
+
+#root.appendable, #leaf.appendable {
+    background-color: green;
+    display: inline-block;
+    padding: 0px 10px 0px 10px;
+    border-radius: 5px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+#root.unappendable, #leaf.unappendable {
+    background-color: red;
+    display: inline-block;
+    padding: 0px 10px 0px 10px;
+    border-radius: 5px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+#root.appendable:hover, #leaf.appendable:hover, 
+#root.merging, #leaf.merging{
+    cursor: grab;
+    background-color: #FFEB3B;
+    transform: scale(1.4);
+    border-radius: 5px;
+}
+ 
+#root.highlightmerging, #leaf.highlightmerging{
+    cursor: grab;
+    background-color: #FFEB3B;
+    border-radius: 5px;
+}
+

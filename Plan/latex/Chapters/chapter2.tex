@@ -10,9 +10,262 @@
 
 \chapter{Background}
 
-\section{Logic}
+\section{Propositional Logic}
+\label{chap:prop}
+Logic in general, is defined as the study of the principles of the reasoning. Propositional logic is a branch of logic that focus on the study of propositions and their relationships. The goal of logic in computer science is to create languages that help us represent situations we deal with as computer scientists. These languages allow us to think about and analyze these situations in a structured way. By using logic, we can build clear and valid arguments about these situations, ensuring they make sense and can be tested, defended or even carried out by a machine. [PAPER LogicInCS]
 
-\subsection{Propositional Logic}
+Proposition is a declarative statement that can either be true (denoted as T or 1) or false (denoted as F or 0), but not both. Propositions are the basic building blocks of propositional logic. 
+
+\textbf{Examples of Propositions:}
+\begin{itemize}
+    \item "It is raining." (can be true or false)
+    \item "The planet is round." (is true)
+    \item "2 + 3 = 4" (is false)
+\end{itemize}
+
+\textbf{Non-Examples of Propositions:}
+\begin{itemize}
+    \item "How was the meal?" (this is a question, not a declarative sentence)
+    \item "Stop watching TV!" (this is an order, it can't be evaluated with true or false)
+\end{itemize}
+
+\subsection{Syntax}
+To define a formal language, one must choose the alphabet of the language and establish the set of words that make up the language. These words are usually called formulas when the formal language is associated with a logic, as is the case here. The alphabet of the language is a set of symbols, and each formula is a finite sequence of symbols from the alphabet.
+Symbols are used to represent propositions and the relationships between them. By convention, propositions are represented by a single lower case letters (example p,q,r). The tables below list all the logical constants, propositional variables, and logical connectives in propositional logic.  
+
+\begin{table}[h!]
+    \centering
+    \resizebox{\textwidth}{!}{  % Resize the table to fit the text width
+    \begin{tabular}{|c|p{6cm}|p{8cm}|}  % Use p{width} for wrapping text
+    \hline
+    \textbf{Symbol} & \textbf{Name} & \textbf{Example} \\ \hline
+    \(\top\) & Top  & \(\top\): "True" \\ \hline
+    \(\bot\) & Bottom  & \(\bot\): "False" \\ \hline
+    \(p\),\(q\),\(r\) & Propositions  & \(p\): "It is raining." \\ \hline
+    \end{tabular}}
+    \caption{Logical Constants and Propositional Variables}
+\end{table}
+
+\begin{table}[h!]
+    \centering
+    \resizebox{\textwidth}{!}{  % Resize the table to fit the text width
+    \begin{tabular}{|c|p{6cm}|c|p{8cm}|}  % Use p{width} for wrapping text
+    \hline
+    \textbf{Symbol} & \textbf{Name} & \textbf{Arity} & \textbf{Example} \\ \hline
+    \(\neg\) & Not & 1 & \(\neg p\): "It is not raining." \\ \hline
+    \(\land\) & And & 2 & \(p \land q\): "It is raining and it is cold." \\ \hline
+    \(\lor\) & Or & 2 & \(p \lor q\): "It is raining or it is cold." \\ \hline
+    \(\to\) & Implication & 2 & \(p \to q\): "If it is raining, then it is cold." \\ \hline
+    \(\leftrightarrow\) & Equivalence & 2 & \(p \leftrightarrow q\): "It is raining if and only if it is cold." \\ \hline
+    \end{tabular}}
+    \caption{Logical Connectives}
+\end{table}
+
+A well-formed formule (WFF) in Propositional Logic is defined recursively according to the following set of rules, which specify the conditions under which a formula is considered well-formed, and these rules build upon each other to allow for the construction of more complex logical expressions.
+
+\[
+\left\{
+\begin{array}{ll}
+\alpha \text{ is WFF} & \text{,if } \alpha \text{ is a proposition,}\\
+\neg \alpha \text{ is a WFF} & \text{,if } \alpha \text{ is a WFF,}\\
+(\alpha) \text{ is a WFF} & \text{,if } \alpha \text{ is a WFF,}\\
+\alpha \land \beta \text{ is a WFF} & \text{,if } \alpha \text{ and } \beta \text{ are WFFs,}\\
+\alpha \lor \beta \text{ is a WFF} & \text{,if } \alpha \text{ and } \beta \text{ are WFFs,} \\
+\alpha \rightarrow \beta \text{ is a WFF} & \text{,if } \alpha \text{ and } \beta \text{ are WFFs,} \\
+\alpha \leftrightarrow \beta \text{ is a WFF} & \text{,if } \alpha \text{ and } \beta \text{ are WFFs} \\
+\end{array}
+\right.
+\]
+
+\textbf{Examples of WFF:}
+\begin{itemize}
+    \item \(\top\): "True" (Represents a tautology).
+    \item \((p \land q) \to r\): "If it is raining and it is cold, then it is snowing."
+    \item \((p \to q) \land (q \to r)\): "If it is raining, then it is cold, and if it is cold, then it is snowing."
+\end{itemize}
+
+\textbf{Non-Examples of WFF:}
+\begin{itemize}
+    \item \(p \lor \): Missing a second proposition after the disjunction.
+    \item \(\neg \land p\): Incorrect placement of negation with a binary operator (\(\land\)) without a second operand.
+    \item \(\neg (\land p)\): Missing a first proposition before the conjunction.
+\end{itemize}
+
+\subsection{Equivalences}
+A key task in propositional logic is to determine if two formulas are logically equivalente (denoted as \(\equiv\)), that happens when both formulas have always the same truth values. There are several methods to check whether two logical formulas are equivalent: 
+
+\begin{itemize}
+    \item \textbf{Truth tables:} A truth table examines all possible combinations of truth values for the propositions involved. To construct a truth table, we need to list all propositions, enumerate all possible truth value combinations for those propositions, and evaluate the truth values of the formulas for each combination. If the results match in all rows, both formulas are equivalent. This combination can easily scale up depending on the number of propositions involved. For example, consider that you have \( n \) propositions, the total number of rows will be \( 2^n \). This is not a feasible method for evaluating large expressions due to the exponential growth in the number of rows. 
+    However, for smaller expressions, truth tables are effective. The table below demonstrates \( p \to q \equiv \lnot p \lor q \).
+    
+    \[
+\begin{array}{|c|c|c|c|}
+\hline
+p & q & p \to q & \lnot p \lor q \\
+\hline
+T & T & T & T \\
+T & F & F & F \\
+F & T & T & T \\
+F & F & T & T \\
+\hline
+\end{array}
+\]
+
+    \item \textbf{Algebraic Manipulation:} This approach relies on a set of rules, known as logical equivalences, that can be used to manipulate expressions, similar to how it works in mathematics. By applying these equivalences, we can transform one logical expression into another that is logically equivalent, meaning both expressions have the same truth value in every scenario.  
+    
+    \begin{itemize}
+        \item \textbf{Identity Law:} \( p \land \top \equiv p \) and \( p \lor \bot \equiv p \)
+        \item \textbf{Domination Law:} \( p \land \bot \equiv \bot \) and \( p \lor \top \equiv \top \) 
+        \item \textbf{Idempotent Law:} \( p \land p \equiv p \)
+        \item \textbf{Negation Law:} \( p \land \neg p \equiv \bot \)
+        \item \textbf{Double Negation Law:} \( \neg (\neg p) \equiv p \)
+        \item \textbf{Commutative Law:} \( p \land q \equiv q \land p \)
+        \item \textbf{Associative Law:} \( (p \land q) \land r \equiv p \land (q \land r) \)
+        \item \textbf{Distributive Law:} \( p \land (q \lor r) \equiv (p \land q) \lor (p \land r) \) and \( p \lor (q \land r) \equiv (p\lor q) \land (p \lor r) \)
+        \item \textbf{Absorption Law:} \( p \land (p \lor q) \equiv p \)
+        \item \textbf{Implication Law:} \( p \to q \equiv \neg p \lor q \)
+        \item \textbf{DeMorgan’s Law:} \( \neg (p \land q) \equiv (\neg p) \lor (\neg q) \) and \( \neg (p \lor q) \equiv (\neg p) \land (\neg q) \)
+    \end{itemize}
+        
+\end{itemize}
+
+
+
+\subsection{Natural Deduction} 
+Another key task in propositional logic, is to determine whether a propositional expression is valid. An expression is considered valid if, for all possible interpretations, its truth value is always true. Regardless of the values assigned to the propositions, the final truth value must be always true. To determine if a sentence if valid, one can use a semantic or a sintatic approach. The semantic approach focuses on the meaning of the formulas in different interpretations, in contrast, the sintatic approach focuses on the manipulation of symbols using a deductive system.
+[PAPER LCGOUVEIADIONISIO] Natural deduction is a type of deduction system that uses rules of inference. By applying proof rules to the premises (\(\varphi_1\)), we hope to get some more formulas, and by applying more proof rules to those, to eventually reach the conclusion (\(\psi\)). [PAPER LOGICINCS] This can be denoted by:
+\[
+\begin{array}{lcl}
+\varphi_1, \varphi_2, \dots, \varphi_n \vdash \psi & \text{With premises} \\
+\vdash \psi & \text{Without premises}
+\end{array}
+\]
+
+There are many styles to represent these proofs. For example, the Fitch-style uses a linear structure, with deeper indentation levels to represent assumptions or intermiate steps in the proof, while Tree-style organizes the proof in a tree-shaped structure. This thesis will focus on the Tree-style representation. The following schema illustrates an example of a proof for \( \vdash \neg (\varphi \lor \psi) \to \neg \varphi \) using the Tree-style representation.
+
+\[
+\frac{\frac{\frac{
+\displaystyle \neg (\varphi \lor \psi)^1 \quad \displaystyle \frac{\psi^2}{(\varphi \lor \psi) \strut} \quad (\lor I_l) }
+{\displaystyle \bot \strut} \quad (\displaystyle \neg E)} {\displaystyle \neg \psi \strut} \quad (\bot, 2) }
+{\neg (\varphi \lor \psi) \to \neg \varphi \strut} \quad (\to I, 1)
+\]
+
+These tree-shaped structure proofs are made up of sequence of rules, idenfified on the right-hand side of the factions. There are many ways to build these proofs: you can go bottom-up by starting from the conclusion, top-down by starting from the presmisses or open clauses, or you can do both at the same time. For example, considering a bottom-up approach, the first rule introduced in the proof above is \((\to I, 1)\). Each rule has it own characteristic and can only be applied under certain circumstances. Here is the list of rules in propositional logic.
+
+[FAZ SENTIDO COLOCAR TODAS?? TENHO QUE EXPLICAR UMA A UMA?]
+
+\[
+\begin{array}{c c}
+
+\multicolumn{2}{c}{
+\frac{\overset{\displaystyle\mathcal{D}_1\strut}{\displaystyle \varphi \strut}\quad \overset{\displaystyle\mathcal{D}_2\strut} {\displaystyle \psi \strut}}{\displaystyle \varphi \land \psi \strut} \quad (\land I)
+} \\[5pt]
+\multicolumn{2}{c}{\textbf{Conjunction Introduction}} \\[10pt]
+
+\frac{\displaystyle \overset{\displaystyle\mathcal{D} \strut} {\varphi \land \psi \strut}}{\displaystyle \varphi \strut} \quad (\land E_r) 
+& \frac{\displaystyle \overset{\displaystyle\mathcal{D} \strut} {\varphi \land \psi \strut}}{\displaystyle \psi \strut} \quad (\land E_k) \\[5pt]
+\textbf{Conjunction Elimination, right} & \textbf{Conjunction Elimination, left} \\[10pt]
+
+\frac{\displaystyle \overset{\displaystyle\mathcal{D} \strut} {\varphi 
+\strut}}{\displaystyle \varphi \vee \psi \strut} \quad (\land I_r) 
+& \frac{\displaystyle \overset{\displaystyle\mathcal{D} \strut} {\psi \strut}}{\displaystyle \varphi \vee \psi \strut} \quad (\land I_l) \\[5pt]
+\textbf{Disjunction Introduction, right} & \textbf{Disjunction Introduction, left} \\[10pt]
+
+\multicolumn{2}{c}{
+\frac{\overset{\displaystyle\mathcal{D}_1 \strut} {\displaystyle\varphi \vee \psi \strut} \quad \quad \overset{\displaystyle[\varphi_1]^m\strut}{\overset{\displaystyle\mathcal{D}_2 \strut} {\displaystyle\psi 
+\strut}} \quad \quad \overset{\displaystyle[\varphi_2]^n\strut}{\overset{\displaystyle\mathcal{D}_3 \strut} {\displaystyle\psi 
+\strut}}}{\displaystyle\psi\strut} \quad (\vee E, m, n)
+} \\[5pt]
+\multicolumn{2}{c}{\textbf{Disjunction Elimination}} \\[10pt]
+
+\frac{\overset{\displaystyle\mathcal{D}_1\strut}{\displaystyle \varphi \strut}\quad \overset{\displaystyle\mathcal{D}_2\strut} {\displaystyle \varphi \to \psi \strut}}{\displaystyle\psi\strut} \quad (\to E) 
+& \frac{\overset{\displaystyle[\varphi]^m\strut}{\overset{\displaystyle\mathcal{D} \strut} {\displaystyle\varphi 
+\strut}}}{\displaystyle \varphi \to \psi \strut} \quad (\to I, m) \\[5pt]
+\textbf{Implication Elimination} & \textbf{Implication Introduction}\\[10pt]
+
+\frac{\overset{\displaystyle\mathcal{D}_1\strut}{\displaystyle \varphi \strut}\quad \overset{\displaystyle\mathcal{D}_2\strut} {\displaystyle \neg \varphi \strut}}{\displaystyle\bot\strut} \quad (\neg E) 
+& \frac{\overset{\displaystyle[\varphi]^m\strut}{\overset{\displaystyle\mathcal{D} \strut} {\displaystyle\bot 
+\strut}}}{\displaystyle\neg \varphi\strut} \quad (\neg I, m) \\[5pt]
+\textbf{Negation Elimination} & \textbf{Negation Introduction}\\[10pt]
+
+\multicolumn{2}{c}{
+\frac{\overset{\displaystyle[\neg\varphi]^m\strut}{\overset{\displaystyle\mathcal{D} \strut} {\displaystyle\bot 
+\strut}}}{\displaystyle \varphi\strut} \quad (\bot, m)
+} \\[5pt]
+\multicolumn{2}{c}{\textbf{Contradiction}} \\[10pt]
+
+\end{array}
+\]
+
+
+\section{First-Order Logic}
+\label{chap:fol}
+Another branch of logic is First-Order Logic (FOL), also known as predicate logic. Unlike propositional logic, which focuses solely on simple declarative statements, first-order logic extends this by introducing quantifiers and predicates, variables, constants and functions. This additional components allows us to express more complex declarative sentences, capturing relationships between objects and their properties in a specified context. [LOGICINCS]
+
+\textbf{Examples of First-Order:}
+\begin{itemize}  
+    \item "There exists a black cat that likes baths." 
+    \item "John is a friend of Mary." 
+    \item "If a variable is a integer and positive, then it is greater than zero." 
+\end{itemize}  
+
+\subsection{Syntax}
+First-Order Logic uses the same syntax as propositional logical but adds more features to turn it more expressive. It introdcues quantifiers that allow us to generalize or specify expressions, making it possible to express universal truths or existencial statements. Quantifiers also enable the introduction of variables within a certain domain. Predicates that are used to express properties or relationships, allowing FOL to capture facts about objects and their interactions. They are always denoted with a capital letter, return a truth value and can have different arities. Similar to predicates, FOL includes functions that represent mappings or computations. Functions are represented with lowercase letters and their return value is a specific value in the domain.
+
+\begin{table}[h!]
+    \centering
+    \resizebox{\textwidth}{!}{  % Resize the table to fit the text width
+    \begin{tabular}{|c|p{4cm}|p{10cm}|}  % Use p{width} for wrapping text
+    \hline
+    \textbf{Symbol} & \textbf{Name} & \textbf{Example} \\ \hline
+    \(x, y, z\) & Variables & \(x\): "An individual object" \\ \hline
+    \(black\) & Constants & \(black\): "Value that is fixed" \\ \hline
+    \(Cat(x)\) & Predicates & \(Cat(x)\): "True if \(x\) is a cat" \\ \hline
+    \(color(x)\) & Functions & \(color(x) = \text{black}\): "The color of \(x\) is black" \\ \hline
+    \end{tabular}}
+    \caption{Examples of variables, constants, predicates, and functions in FOL}
+\end{table}
+
+\begin{table}[h!]
+    \centering
+    \resizebox{\textwidth}{!}{  % Resize the table to fit the text width
+    \begin{tabular}{|c|p{4cm}|p{10cm}|}  % Use p{width} for wrapping text
+    \hline
+    \textbf{Symbol} & \textbf{Name} & \textbf{Example} \\ \hline
+    \(\forall\) & Universal  & \(\forall x \, (Cat(x) \rightarrow Mammal(x))\): "All cats are mammals" \\ \hline
+    \(\exists\) & Existential   & \(\exists x \, (Cat(x) \land color(x) = \text{black} \land LikesBaths(x))\): "There exists a black cat that likes baths" \\ \hline
+    \end{tabular}}
+    \caption{Quantifiers in FOL}
+\end{table}
+
+We can extend the definition of a well-formed formula (WFF) from Proposition Logic to represent a well-formed formula in First-Order Logic. To do this, we first need to introduce a new concept called a term. A term is an expression that represents a specific value in the domain. The schema below shows a simplified version of how to define a WFF in FOL, considering terms, comparisons and mathematical operation between terms.
+[FIRST COURCE IN LOGIC]
+\[
+\left\{
+\begin{array}{ll}
+c \text{ is a term} & \text{, if } c \text{ is a constant,} \\
+x \text{ is a term} & \text{, if } x \text{ is a variable,} \\
+f(t_1, t_2, \dots, t_n) \text{ is a term} & \text{, if } f \text{ is an \(n\)-ary function and } t_1, t_2, \dots, t_n \text{ are terms.}
+\end{array}
+\right.
+\]
+\[
+\left\{
+\begin{array}{ll}
+P(t_1, t_2, \dots, t_n) \text{ is a WFF} & \text{, if } P \text{ is an \(n\)-ary predicate and } t_1, t_2, \dots, t_n \text{ are terms,} \\
+\neg \alpha \text{ is a WFF} & \text{, if } \alpha \text{ is a WFF,} \\
+(\alpha) \text{ is a WFF} & \text{, if } \alpha \text{ is a WFF,} \\
+\forall x \, \alpha \text{ is a WFF} & \text{, if } \alpha \text{ is a WFF and } x \text{ is a variable,} \\
+\exists x \, \alpha \text{ is a WFF} & \text{, if } \alpha \text{ is a WFF and } x \text{ is a variable,} \\
+t_1 \mathbin{\{=, \neq, <, \leq, >, \geq\}} t_2 \text{ is a WFF} & \text{, if } t_1 \text{ and } t_2 \text{ are terms,} \\
+t_1 \mathbin{\{+, -, \times, /\}} t_2 \text{ is a WFF} & \text{, if } t_1 \text{ and } t_2 \text{ are terms.} \\
+\alpha \mathbin{\{\land, \lor, \rightarrow, \leftrightarrow\}} \beta \text{ is a WFF} & \text{, if } \alpha \text{ and } \beta \text{ are WFFs,} 
+\end{array}
+\right.
+\]
+
+\subsection{Equivalences}
 \subsection{Natural Deduction}
+
 
 

@@ -5,236 +5,106 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="961377de-44c0-4ce8-9942-64e88caeedf7" name="Changes" comment="Quase feito">
-      <change afterPath="$PROJECT_DIR$/labs/src/ast/logic/ASTImplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/labs/src/ast/logic/ASTKnowledgeBase.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/labs/src/ast/logic/ASTModels.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/labs/src/main/Test.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/labs/src/types/KnowledgeBaseType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/labs/src/types/ModelsType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/labs/src/types/ProofType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/labs/src/types/TableType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/labs/src/values/KnowledgeBaseValue.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/labs/src/values/ModelsValue.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/labs/src/values/TableValue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/ast/ASTAPairExp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/ast/ASTASingleExp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/ast/PropVisitor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/ast/logic/ASTComp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/ast/symbols/ASTParenthesis.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/interpreter/PropInterpreter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/tests/PropTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/utils/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Plan/latex/Chapters/chapter2.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../../Plan/latex/Chapters/chapter2.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Plan/latex/Chapters/chapter3.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../../Plan/latex/Chapters/chapter3.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Plan/latex/Chapters/chapter4.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../../Plan/latex/Chapters/chapter4.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ICL.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ICL.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ICL.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/labs/src/ast/ASTAExp.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/ASTAExp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/ASTApp.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/ASTFunction.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/ASTGet.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/ASTNew.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/ASTSequence.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/ASTSequence.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/ASTSet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/ASTSequence.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/symbols/ASTSequence.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/labs/src/ast/Exp.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/Exp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/comparisons/ASTAnd.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/logic/ASTAnd.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/comparisons/ASTDiff.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/logic/ASTDiff.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/comparisons/ASTEquals.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/logic/ASTEquivalence.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/comparisons/ASTGreaterOrEqualThan.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/comparisons/ASTGreaterThan.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/comparisons/ASTLowerOrEqualThan.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/comparisons/ASTLowerThan.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/comparisons/ASTNot.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/logic/ASTNot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/comparisons/ASTOr.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/logic/ASTOr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/functions/ASTIf.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/functions/ASTIfElse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/functions/ASTLet.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/functions/ASTWhile.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/operations/ASTAdd.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/operations/ASTDiv.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/operations/ASTMult.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/operations/ASTSub.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/prints/ASTPrint.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/prints/ASTPrintLn.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/strings/ASTSize.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/strings/ASTStr.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/types/ASTId.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/logic/ASTLiteral.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/types/ASTNum.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/types/ASTString.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/compiler/ClassBuilder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/compiler/Closure.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/compiler/CodeGen.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/compiler/Frame.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/compiler/IfBuilder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/compiler/InterfaceBuilder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/compiler/MethodBuilder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/compiler/ObjectBuilder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/compiler/WhileBuilder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/interpreter/Interpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/interpreter/Interpreter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/logic/ASTAnd.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/logic/ASTAnd.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/logic/ASTDiff.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/logic/ASTEquivalence.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/logic/ASTEquivalence.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/logic/ASTImplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/logic/ASTImplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/logic/ASTKnowledgeBase.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/logic/ASTLiteral.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/logic/ASTLiteral.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/logic/ASTModels.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/logic/ASTNot.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/logic/ASTNot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/logic/ASTOr.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/logic/ASTOr.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/types/ASTBool.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/types/ASTBool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/interpreter/Interpreter.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/labs/src/main/Console.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/main/Console.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/labs/src/main/RunFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/main/RunFile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/main/code.eml" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/main/code.eml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/main/scripts/code_chain.eml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/main/scripts/code_fact.eml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/main/scripts/code_fib.eml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/main/scripts/code_new_lang.eml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/main/scripts/code_tree.eml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/main/scripts/strings.eml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/main/Test.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/main/code.eml" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/main/code.logic" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/labs/src/parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/parser/Parser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/labs/src/parser/Parser.jj" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/parser/Parser.jj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/labs/src/parser/ParserConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/parser/ParserConstants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/labs/src/parser/ParserTokenManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/parser/ParserTokenManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/target/Aload.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/target/Astore.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/target/BasicBlock.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/target/Branch.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/target/Goto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/target/IDup.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/target/IGetField.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/target/INew.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/target/IPop.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/target/IPrint.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/target/IPrintln.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/target/IPutField.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/target/IReturn.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/target/IRun.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/target/ISwap.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/target/Instruction.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/target/Nop.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/target/StringInstruction.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/target/integer/IAdd.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/target/integer/IAnd.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/target/integer/IDiv.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/target/integer/IMul.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/target/integer/INeg.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/target/integer/IOr.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/target/integer/ISub.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/target/integer/If_Icmp.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/target/integer/SIPush.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/target/invoke/InvokeInterface.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/target/invoke/InvokeNonSpecial.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/target/invoke/InvokeNonVirtual.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/target/invoke/InvokeSpecial.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/target/invoke/InvokeStatic.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/target/invoke/InvokeVirtual.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/target/string/LDC.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/target/string/SConcat.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/target/string/SSize.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/target/string/SStr.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/target/types/IObjectType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/target/types/IType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/tests/ParserTester.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/tests/ParserTester.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/tests/RandArithmetic.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/tests/RandComparison.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/tests/RandComparison.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/typechecker/TypeChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/typechecker/TypeChecker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/typechecker/errors/AppErrorVariable.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/typechecker/errors/AssignErrorVariable.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/typechecker/errors/DerefErrorVariable.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/typechecker/errors/TypeErrorBinding.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/typechecker/errors/TypeErrorVariable.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/typechecker/errors/UnitNotAllowedError.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/tests/ParserTester.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/tests/RandComparison.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/tests/RandLogic.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/typechecker/TypeBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/typechecker/TypeBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/typechecker/TypeChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/typechecker/PropTypeChecker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/labs/src/types/BoolType.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/types/BoolType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/labs/src/types/ErrorType.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/types/ErrorType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/types/FunctionType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/types/IntType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/types/RefType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/types/StringType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/types/KnowledgeBaseType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/types/ModelsType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/types/ProofType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/types/TableType.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/types/TableType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/labs/src/types/Type.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/types/Type.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/labs/src/types/UnitType.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/types/UnitType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/values/FunctionValue.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/values/IntValue.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/values/RefValue.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/values/StringValue.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/ASTAExp.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/ASTApp.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/ASTFunction$Mapping.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/ASTFunction.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/ASTGet.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/ASTNew.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/values/BoolValue.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/values/BoolValue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/values/KnowledgeBaseValue.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/values/ModelsValue.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/values/TableValue.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/values/TableValue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/values/UnitValue.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/ASTAExp.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/ast/ASTAExp.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/ASTSequence.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/ASTSet.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/Exp$Visitor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/Exp.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/comparisons/ASTAnd.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/comparisons/ASTDiff.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/comparisons/ASTEquals.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/comparisons/ASTGreaterOrEqualThan.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/comparisons/ASTGreaterThan.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/comparisons/ASTLowerOrEqualThan.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/comparisons/ASTLowerThan.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/comparisons/ASTNot.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/comparisons/ASTOr.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/functions/ASTIf.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/functions/ASTIfElse.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/functions/ASTLet$Binding.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/functions/ASTLet.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/functions/ASTWhile.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/operations/ASTAdd.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/operations/ASTDiv.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/operations/ASTMult.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/operations/ASTSub.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/prints/ASTPrint.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/prints/ASTPrintLn.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/strings/ASTSize.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/strings/ASTStr.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/types/ASTBool.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/types/ASTId.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/types/ASTNum.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/types/ASTString.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/compiler/ClassBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/compiler/CodeGen.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/compiler/Frame.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/compiler/IfBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/compiler/WhileBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/Exp.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/ast/Exp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/logic/ASTAnd.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/ast/logic/ASTAnd.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/logic/ASTDiff.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/logic/ASTEquivalence.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/ast/logic/ASTEquivalence.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/logic/ASTImplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/ast/logic/ASTImplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/logic/ASTKnowledgeBase.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/logic/ASTLiteral.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/ast/logic/ASTLiteral.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/logic/ASTModels.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/logic/ASTNot.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/ast/logic/ASTNot.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/logic/ASTOr.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/ast/logic/ASTOr.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/types/ASTBool.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/ast/types/ASTBool.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ICL/interpreter/Interpreter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/main/Console.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/main/RunFile.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/main/Console.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/main/Console.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/main/RunFile.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/main/RunFile.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/main/Test.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ICL/main/code.eml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/parser/ParseException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/parser/Parser.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/parser/Parser.jj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/parser/ParserConstants.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/parser/ParserTokenManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/parser/SimpleCharStream.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/parser/Token.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/parser/TokenMgrError.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/symbols/Env.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/target/Aload.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/target/Astore.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/target/BasicBlock.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/target/Branch.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/target/Goto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/target/IDup.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/target/IGetField.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/target/INew.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/target/IPrint.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/target/IPrintln.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/target/IPutField.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/target/Instruction.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/target/Nop.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/target/StringInstruction.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/target/integer/IAdd.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/target/integer/IAnd.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/target/integer/IDiv.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/target/integer/IMul.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/target/integer/INeg.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/target/integer/IOr.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/target/integer/ISub.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/target/integer/If_Icmp$EIF_ICMP_TYPES.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/target/integer/If_Icmp.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/target/integer/SIPush.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/target/string/LDC.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/target/string/SSize.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/parser/Parser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/parser/Parser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/parser/Parser.jj" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/parser/Parser.jj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/parser/ParserConstants.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/parser/ParserConstants.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/parser/ParserTokenManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/parser/ParserTokenManager.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ICL/tests/ParserTester.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/typechecker/Function.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/typechecker/Header.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/typechecker/TypeBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/tests/RandComparison.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/tests/RandLogic.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/typechecker/ErrorHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/typechecker/ErrorHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/typechecker/TypeBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/typechecker/TypeBuilder.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ICL/typechecker/TypeChecker.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/typechecker/TypeError.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/types/BoolType.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/types/FunctionType.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/types/IntType.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/types/RefType.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/types/StringType.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/types/Type.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/types/UnitType.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/values/BoolValue.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/values/FunctionValue.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/values/IntValue.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/values/RefValue.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/values/StringValue.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/types/BoolType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/types/BoolType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/types/ErrorType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/types/ErrorType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/types/KnowledgeBaseType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/types/ModelsType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/types/ProofType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/types/TableType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/types/TableType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/types/Type.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/types/Type.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/types/UnitType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/types/UnitType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/values/KnowledgeBaseValue.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/values/ModelsValue.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/values/TableValue$Pair.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/values/TableValue$Pair.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/values/TableValue.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/values/TableValue.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ICL/values/UnitValue.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/values/Value.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run.bat" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -255,12 +125,31 @@
         <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
     <option name="RESET_MODE" value="MIXED" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;DanielMacau60004&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/DanielMacau60004/Thesis.git&quot;,
+    &quot;accountId&quot;: &quot;a1f6f68b-9cad-4c6e-8273-ec5161e97fb3&quot;
+  }
+}</component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="2foexDtzJkzWYREr4R8Nu35qViG" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -271,35 +160,53 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.Console.executor": "Run",
+    "Downloaded.Files.Path.Enabled": "false",
+    "JUnit.PropTests.executor": "Run",
+    "JUnit.PropTests.negation.executor": "Run",
+    "JUnit.PropTests.syntaxErrors.executor": "Run",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/mcmac/Desktop/Universidade/5º ano/9º semestre/Qualidade de Software/Bukkit",
-    "project.structure.last.edited": "Modules",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/mcmac/Downloads/textmate-202.5792.39.zip",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+    "project.structure.side.proportion": "0.345977",
+    "settings.editor.selected.configurable": "preferences.fileTypes",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\mcmac\Desktop\Thesis\Projects\JavaParser\labs\src\main" />
       <recent name="C:\Users\mcmac\Desktop\Universidade\4º ano\8º semestre\Interpretação e Compilação de Linguagens\ICL-Project\ICL\labs\src\main\scripts" />
       <recent name="C:\Users\mcmac\Desktop\Universidade\4º ano\8º semestre\Interpretação e Compilação de Linguagens\ICL-Project\ICL\labs\src\main" />
       <recent name="C:\Users\mcmac\Desktop\Universidade\4º ano\8º semestre\Interpretação e Compilação de Linguagens\ICL-Project\ICL\labs\src\target" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\mcmac\Desktop\Thesis\Projects\JavaParser\resources\Logic" />
       <recent name="C:\Users\mcmac\Desktop\Universidade\4º ano\8º semestre\Interpretação e Compilação de Linguagens\ICL-Project\ICL\labs\src\main\scripts" />
       <recent name="C:\Users\mcmac\Desktop\Universidade\4º ano\8º semestre\Interpretação e Compilação de Linguagens\ICL-Project\ICL\labs\src\tests" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ast" />
       <recent name="values" />
-      <recent name="types" />
       <recent name="ast.logic" />
+      <recent name="types" />
       <recent name="target" />
-      <recent name="typechecker" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Console">
+  <component name="RunManager" selected="JUnit.PropTests">
     <configuration name="Console" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="main.Console" />
       <module name="ICL" />
@@ -344,8 +251,58 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="PropTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ICL" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="tests" />
+      <option name="MAIN_CLASS_NAME" value="tests.PropTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PropTests.negation" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ICL" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="tests" />
+      <option name="MAIN_CLASS_NAME" value="tests.PropTests" />
+      <option name="METHOD_NAME" value="negation" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PropTests.syntaxErrors" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ICL" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="tests" />
+      <option name="MAIN_CLASS_NAME" value="tests.PropTests" />
+      <option name="METHOD_NAME" value="syntaxErrors" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.PropTests" />
+        <item itemvalue="JUnit.PropTests.negation" />
+        <item itemvalue="JUnit.PropTests.syntaxErrors" />
         <item itemvalue="Application.Console" />
         <item itemvalue="Application.Test" />
         <item itemvalue="JUnit.ParserTester" />
@@ -353,6 +310,14 @@
         <item itemvalue="JUnit.ParserTester.testsLogic" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.22855.74" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.22855.74" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -362,8 +327,24 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1714472108047</updated>
+      <workItem from="1734947860502" duration="918000" />
+      <workItem from="1734948795828" duration="3601000" />
+      <workItem from="1734952475731" duration="211000" />
+      <workItem from="1734952695030" duration="244000" />
+      <workItem from="1734952947764" duration="186000" />
+      <workItem from="1734953143216" duration="1322000" />
+      <workItem from="1734956999411" duration="951000" />
+      <workItem from="1734957966632" duration="228000" />
+      <workItem from="1734958203220" duration="266000" />
+      <workItem from="1734967508624" duration="948000" />
+      <workItem from="1734968473299" duration="31801000" />
+      <workItem from="1735211885814" duration="19299000" />
+      <workItem from="1735240218107" duration="3203000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="UnknownFeatures">
     <option featureType="com.intellij.fileTypeFactory" implementationName="*.j" />
@@ -388,5 +369,9 @@
     <MESSAGE value="Versao bombada" />
     <MESSAGE value="Quase feito" />
     <option name="LAST_COMMIT_MESSAGE" value="Quase feito" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

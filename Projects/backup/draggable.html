@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag and Drop Example with Merge Animation</title>
+    <style>
+        .draggable {
+            position: absolute;
+            z-index: 9;
+            background-color: #f1f1f1;
+            border: 1px solid #d3d3d3;
+            text-align: center;
+            width: 150px;
+            cursor: move;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .draggableheader {
+            padding: 10px;
+            cursor: move;
+            z-index: 10;
+            background-color: #2196F3;
+            color: #fff;
+        }
+
+        #addButton {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #addButton:hover {
+            background-color: #45a049;
+        }
+
+        .merging {
+            background-color: #FFEB3B; /* Change color to indicate merging */
+            transform: scale(1.1); /* Slightly enlarge to show merging effect */
+        }
+    </style>
+</head>
+
+<body>
+
+    <button id="addButton">Add New Div</button>
+
+    <script>
+        // Function to make elements draggable
+        function dragElement(elmnt) {
+            var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+
+            // If the header is clicked, then move the element
+            elmnt.querySelector(".draggableheader").onmousedown = dragMouseDown;
+
+            function dragMouseDown(e) {
+                e = e || window.event;
+                e.preventDefault();
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                document.onmousemove = elementDrag;
+            }
+
+            function elementDrag(e) {
+                e = e || window.event;
+                e.preventDefault();
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+                elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+
+                // Check for overlap with other elements
+                checkForMerge(elmnt);
+                console.log("a");
+            }
+
+            function closeDragElement() {
+                document.onmouseup = null;
+                document.onmousemove = null;
+                // Remove the merging effect when the drag ends
+                elmnt.classList.remove('merging');
+            }
+        }
+
+        // Function to check if two elements are close enough to merge
+        function checkForMerge(elmnt) {
+            const allDivs = document.querySelectorAll('.draggable');
+            allDivs.forEach(div => {
+                if (div !== elmnt) {
+                    const rect1 = elmnt.getBoundingClientRect();
+                    const rect2 = div.getBoundingClientRect();
+
+                    // Check if the elements overlap (simple bounding box collision)
+                    if (rect1.left < rect2.right &&
+                        rect1.right > rect2.left &&
+                        rect1.top < rect2.bottom &&
+                        rect1.bottom > rect2.top) {
+                        // If they overlap, apply the merging effect
+                        elmnt.classList.add('merging');
+                        div.classList.add('merging');
+                    } else {
+                        // Remove merging effect if not overlapping
+                        elmnt.classList.remove('merging');
+                        div.classList.remove('merging');
+                    }
+                }
+            });
+        }
+
+        // Function to add a new draggable div when the button is clicked
+        document.getElementById("addButton").onclick = function () {
+            var newDiv = document.createElement("div");
+            newDiv.className = "draggable";
+            var divCount = document.querySelectorAll(".draggable").length + 1;
+            newDiv.id = "mydiv" + divCount;
+
+            var header = document.createElement("div");
+            header.className = "draggableheader";
+            header.innerText = "Click here to move DIV " + divCount;
+            newDiv.appendChild(header);
+
+            var p1 = document.createElement("p");
+            p1.innerText = "Move";
+            newDiv.appendChild(p1);
+
+            var p2 = document.createElement("p");
+            p2.innerText = "this";
+            newDiv.appendChild(p2);
+
+            var p3 = document.createElement("p");
+            p3.innerText = "DIV " + divCount;
+            newDiv.appendChild(p3);
+
+            document.body.appendChild(newDiv);
+
+            // Make the new div draggable
+            dragElement(newDiv);
+        };
+    </script>
+
+</body>
+
+</html>

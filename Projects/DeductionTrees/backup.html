@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Character Popup</title>
+    <style>
+        /* Basic styling for the page */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            cursor: default;
+            user-select: none;
+        }
+
+        #inputText {
+            width: 300px;
+            padding: 10px;
+            font-size: 16px;
+            display: block;
+        }
+
+        /* Popup container style */
+        .keyboard {
+            display: none; 
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            z-index: 1000;
+        }
+
+        #keyboard > .key{
+            background-color: #4CAF50;
+            color: white;
+            padding: 5px 10px;
+            margin: 4px;
+            border: none;
+            cursor: pointer; 
+            font-size: 18px;
+            border-radius: 5px;
+        }
+
+        .key:hover {
+            filter: brightness(0.7);
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div>
+        <label for="inputText">Enter text:</label>
+        <input type="text" id="inputText" name="inputText" autocomplete="off" />
+        <div id="keyboard" class="keyboard">
+            <button class="key" onclick="insertChar('ψ')">ψ</button>
+            <button class="key" onclick="insertChar('ω')">ω</button>
+            <button class="key" onclick="insertChar('φ')">φ</button>
+            <button class="key" onclick="insertChar('γ')">γ</button>
+            <button class="key" onclick="insertChar('δ')">δ</button>
+            <button class="key" onclick="insertChar('⊥')">⊥</button>
+            <button class="key" onclick="insertChar('⊤')">⊤</button><br>
+            <button class="key" onclick="insertChar('∧')">∧</button>
+            <button class="key" onclick="insertChar('∨')">∨</button>
+            <button class="key" onclick="insertChar('¬')">¬</button>
+            <button class="key" onclick="insertChar('→')">→</button>
+            <button class="key" onclick="insertChar('(')">(</button>
+            <button class="key" onclick="insertChar(')')">)</button><br>
+            <button class="key" onclick="deleteAtCursor()">Delete</button><br>
+        </div>
+    </div>
+</div>
+
+<script>
+    const inputText = document.getElementById('inputText');
+    const popup = document.getElementById('keyboard');
+
+    inputText.addEventListener('focus', () => {
+        popup.style.display = 'block';
+    });
+
+    document.addEventListener('click', (event) => {
+        // Close the popup only if the click is outside both the input and the popup
+        if (!popup.contains(event.target) && event.target !== inputText) {
+            popup.style.display = 'none';
+        }
+    });
+
+    // Prevent input from losing focus when clicking popup buttons
+    const popupButtons = document.querySelectorAll('.key');
+    popupButtons.forEach(button => {
+        button.addEventListener('click', (event) => {
+            // Prevent the document event listener from being triggered
+            event.stopPropagation();  // Stop the event from reaching the document
+            inputText.focus();  // Ensure input field stays focused
+        });
+    });
+
+    function insertChar(char) {
+        const cursorPos = inputText.selectionStart;  // Get the cursor position
+        const currentValue = inputText.value;
+        
+        // Insert the character at the cursor position
+        const newValue = currentValue.slice(0, cursorPos) + char + currentValue.slice(cursorPos);
+        
+        // Update the input field value
+        inputText.value = newValue;
+        
+        fixText()
+        // Set the cursor position right after the inserted character
+        inputText.selectionStart = inputText.selectionEnd = cursorPos + 2;
+
+    }
+
+    function deleteAtCursor() {
+        const cursorPos = inputText.selectionStart;  // Get the cursor position
+        const currentValue = inputText.value;
+
+        if (cursorPos > 0) {
+            // Delete the character before the cursor position
+            const newValue = currentValue.slice(0, cursorPos - 1) + currentValue.slice(cursorPos);
+            
+            // Update the input field value
+            inputText.value = newValue;
+
+            // Set the cursor position to the correct position after deletion
+            inputText.selectionStart = inputText.selectionEnd = cursorPos - 1;
+        }
+    }
+
+    function fixText() {
+        let currentValue = inputText.value.replace(/\s+/g, '');  // Trim leading/trailing spaces
+        currentValue = currentValue.split('').join(' ');  // Add a space between each character
+        inputText.value = currentValue;
+    }
+
+    // Add a space between each character after every input change
+    inputText.addEventListener('keydown', (e) => {
+        e.preventDefault();  // Prevents the default behavior
+        e.stopPropagation(); // Stops the event from propagating further
+    });
+
+</script>
+
+</body>
+</html>

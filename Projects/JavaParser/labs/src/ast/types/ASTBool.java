@@ -2,8 +2,8 @@ package ast.types;
 
 import ast.ASTAExp;
 import ast.Exp;
+import ast.PropVisitor;
 import parser.Token;
-import typechecker.TypeError;
 
 public class ASTBool extends ASTAExp implements Exp {
 
@@ -15,12 +15,12 @@ public class ASTBool extends ASTAExp implements Exp {
     }
 
     @Override
-    public <T, E> T accept(Visitor<T, E> v, E env){
-        return v.visit(this, env);
+    public <T> T accept(PropVisitor<T> v) {
+        return v.visit(this);
     }
 
     @Override
     public String toString() {
-        return String.valueOf(e);
+        return getToken(token.kind);
     }
 }

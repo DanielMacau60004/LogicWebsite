@@ -44,7 +44,7 @@ public class TypeBuilder {
             return function.getReturn();
         }
 
-        TypeChecker.errorHandler.addException((new TypeErrorParams(exp, values, functions)));
+        PropTypeChecker.errorHandler.addException((new TypeErrorParams(exp, values, functions)));
         exp.setType(ErrorType.singleton);
         return ErrorType.singleton;
     }

@@ -1,13 +1,15 @@
 options {
   STATIC=false;
+  UNICODE_INPUT = true;
+  JAVA_UNICODE_ESCAPE = true;
 }
 
 PARSER_BEGIN(Parser)
 
 package parser;
 import ast.*;
-import ast.logic.ASTLiteral;import ast.types.*;
-import ast.logic.*;
+import ast.logic.ASTLiteral;import ast.symbols.*;
+import ast.logic.*;import ast.types.ASTBool;
 
 public class Parser {
 }
@@ -37,37 +39,25 @@ TOKEN :
   |
   < RPAR : ")" >
   |
-  < TRUE: "true" >
+  < TRUE: "⊤" >
   |
-  < FALSE: "false" >
+  < FALSE: "⊥" >
   |
-  < CMP: "==" >
+  < CMP: "≡" >
   |
-  < NOT: "~" >
+  < NOT: "¬" >
   |
-  < AND: "&&" >
+  < AND: "∧" >
   |
-  < OR: "||" >
+  < OR: "∨" >
   |
-  < DIFF: "!=" >
+  <IMPLICATION: "→">
   |
-  <SEMICOLON : ";">
-  |
-  <IMPLICATION: "->">
-  |
-  <EQUIVALENT: "<=>">
-  |
-  <MODELS: "|=">
-  |
-  <LEFT_BRACKET: "{">
-  |
-  <RIGHT_BRACKET: "}">
-  |
-  <COMMA: ",">
+  <EQUIVALENT: "↔">
   |
   < LITERAL: ["a"-"z"] >
   |
-  < TEXT : "\"" ( ~["\"", "\\"] | "\\" ["\"", "\\"] )* "\"" >
+  <PERIOD : ".">
 }
 
 Exp Start():
@@ -80,17 +70,14 @@ Exp Start():
 Exp Sequences():
 { ASTSequence exps; Exp e; }
 {
-   e = Cmp() <SEMICOLON> {exps = new ASTSequence(e);} ( e = Cmp() <SEMICOLON> {exps.addExp(e);})*
+   e = Cmp() <PERIOD> {exps = new ASTSequence(e);} ( e = Cmp() <PERIOD> {exps.addExp(e);})*
    {return exps;}
 }
 
 Exp Cmp() :
-{ Token t; Exp e1, e2, e3; ASTKnowledgeBase kb = new ASTKnowledgeBase(); }
+{ Token t; Exp e1, e2, e3;}
 {
-
-   <LEFT_BRACKET> e1 = Pred() {kb.addExp(e1);} (<COMMA> e2 = Pred() {kb.addExp(e2);})*
-   <RIGHT_BRACKET> t = <MODELS> e3 = Pred() {return new ASTModels(t, kb, e3);}|
-   e1 = Pred() (t = <EQUIVALENT> e2 = Pred() {e1 = new ASTEquivalence(t,e1,e2);})*
+   e1 = Pred() (t = <CMP> e2 = Pred() {e1 = new ASTComp(t,e1,e2);})*
    { return e1; }
 }
 
@@ -102,18 +89,19 @@ Exp Pred() :
        t =<AND> e2 = Fact() {e1 = new ASTAnd(t, e1,e2);}
        | t = <OR> e2 = Fact() {e1 = new ASTOr(t, e1,e2);}
        | t = <IMPLICATION> e2 = Fact() {e1 = new ASTImplication(t,e1,e2);}
+       | t = <EQUIVALENT> e2 = Fact() {e1 = new ASTEquivalence(t,e1,e2);}
    )*
    { return e1; }
 
 }
 
 Exp Fact() :
-{ Token t;  Exp e;}
+{ Token t, t1;  Exp e;}
 {
  t = <TRUE> { return new ASTBool(t, true); }
  | t = <FALSE> { return new ASTBool(t, false); }
  | t = <NOT> e = Fact() {return new ASTNot(t, e);}
- | <LPAR> e = Pred() <RPAR> {return e;}
+ | t = <LPAR> e = Pred() t1 = <RPAR> {return new ASTParenthesis(t, t1, e);}
  | t = <LITERAL> {return new ASTLiteral(t, token.image);}
 }
 

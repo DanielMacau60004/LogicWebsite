@@ -1,31 +1,19 @@
 package ast.logic;
 
-import ast.ASTAExp;
+import ast.ASTASingleExp;
 import ast.Exp;
+import ast.PropVisitor;
 import parser.Token;
-import typechecker.TypeError;
 
-public class ASTNot extends ASTAExp implements Exp {
-
-    public Exp e;
+public class ASTNot extends ASTASingleExp implements Exp {
 
     public ASTNot(Token token, Exp e) {
-        super(token);
-        this.e = e;
+        super(token, e);
     }
 
     @Override
-    public <T, E> T accept(Visitor<T, E> v, E env) {
-        return v.visit(this, env);
+    public <T> T accept(PropVisitor<T> v) {
+        return v.visit(this);
     }
 
-    @Override
-    public String toString() {
-        return super.toString() + "(" + e + ")";
-    }
-
-    @Override
-    public String proof() {
-        return "("+e.proof()+") "+ this + " [NOT]";
-    }
 }

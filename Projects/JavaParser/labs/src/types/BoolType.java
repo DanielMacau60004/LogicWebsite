@@ -12,13 +12,4 @@ public class BoolType implements Type {
 		return "bool";
 	}
 
-	@Override
-	public boolean isPrimitive() {
-		return true;
-	}
-
-	@Override
-	public String connectedName() {
-		return toString();
-	}
 }

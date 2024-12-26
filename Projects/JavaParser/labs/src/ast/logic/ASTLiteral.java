@@ -2,6 +2,7 @@ package ast.logic;
 
 import ast.ASTAExp;
 import ast.Exp;
+import ast.PropVisitor;
 import parser.Token;
 
 public class ASTLiteral extends ASTAExp implements Exp {
@@ -14,18 +15,12 @@ public class ASTLiteral extends ASTAExp implements Exp {
     }
 
     @Override
-    public <T, E> T accept(Visitor<T, E> v, E env) {
-        return v.visit(this, env);
+    public <T> T accept(PropVisitor<T> v) {
+        return v.visit(this);
     }
-
 
     @Override
     public String toString() {
         return id;
-    }
-
-    @Override
-    public String proof() {
-        return this+" [PROP]";
     }
 }

@@ -1,13 +1,11 @@
 package main;
 
 import ast.Exp;
-import compiler.CodeGen;
-import interpreter.Interpreter;
+import interpreter.PropInterpreter;
 import parser.ParseException;
 import parser.Parser;
-import typechecker.TypeChecker;
+import typechecker.PropTypeChecker;
 import typechecker.TypeCheckerError;
-import values.Value;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -19,14 +17,14 @@ public class RunFile {
         long startTime = System.currentTimeMillis();
 
         Exp e = parser.Start();
-        TypeChecker.checker(e);
+        PropTypeChecker.checker(e);
 
         Date date = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         String formattedDate = dateFormat.format(date);
 
         System.out.printf("###################[%s]###################\n", formattedDate);
-        Interpreter.interpret(e);
+        PropInterpreter.interpret(e);
 
         System.out.println("\n###########################################################");
         long endTime = System.currentTimeMillis();

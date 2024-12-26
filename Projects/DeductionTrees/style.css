@@ -1,0 +1,73 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    cursor: default;
+    user-select: none;
+}
+
+#tree {
+    position: absolute;
+    background-color: #a8a6a62c;
+    text-align: center;
+    border-radius: 10px;
+    padding: 15px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+#tree.selected {
+    z-index: 1000 !important;
+}
+
+#tree.dragging {
+    opacity: 0.6;
+}
+
+#expression{
+    text-align: center;
+    border:none;
+    border-radius: 5px;
+    font-size: 18px !important;
+}
+
+#subtree, #expression {
+    display: inline-block;
+    background-color: #a8a6a62c;
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-bottom: -6px;
+    padding: 0px 10px 0px 10px;
+    transition: transform 0.4s ease, background-color 0.3s ease;
+}
+
+.conclusion {
+    top: unset !important;
+    left: unset !important;
+    position: fixed !important;
+}
+
+#expression.attachable {
+    background-color: rgb(39, 174, 39);
+}
+
+/*#expression:not(.attachable) {
+    background-color: red;
+}*/
+
+#expression.attachable:hover,
+.merging{
+    cursor: grab;
+    background-color: #FFEB3B;
+    transform: scale(1.4);
+    border-radius: 5px;
+}
+ 
+.highlight{
+    background-color: #FFEB3B !important;
+    border-radius: 5px;
+}
+

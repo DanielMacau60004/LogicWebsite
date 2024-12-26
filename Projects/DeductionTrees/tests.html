@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Character Popup</title>
+    <style>
+        /* Basic styling for the page */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            cursor: default;
+            user-select: none;
+        }
+
+        .keyboard-input {
+            width: 300px;
+            padding: 10px;
+            font-size: 16px;
+            display: block;
+            letter-spacing: 0.2em;
+        }
+
+        /* Popup container style */
+        .keyboard {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            z-index: 1000;
+        }
+
+        .key {
+            background-color: #4CAF50;
+            color: white;
+            padding: 5px 10px;
+            margin: 4px;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+
+        .key:hover {
+            filter: brightness(0.7);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div>
+            <input type="text" class="keyboard-input" name="inputText" autocomplete="off" />
+            <input type="text" class="keyboard-input" name="anotherInput" autocomplete="off" />
+            <input type="text" class="keyboard-input" name="inputText" autocomplete="off" />
+            <input type="text" class="keyboard-input" name="anotherInput" autocomplete="off" />
+            <input type="text" class="keyboard-input" name="inputText" autocomplete="off" />
+            <input type="text" class="keyboard-input" name="anotherInput" autocomplete="off" />
+            <input type="text" class="keyboard-input" name="inputText" autocomplete="off" />
+            <input type="text" class="keyboard-input" name="anotherInput" autocomplete="off" />
+            <div id="keyboard" class="keyboard"></div>
+        </div>
+    </div>
+
+    <script>
+        // Select input fields and the keyboard container
+        const popup = document.getElementById('keyboard');
+        const buttons = []
+
+        // Arrays of characters grouped by category
+        const variablesAndConstants = ['ψ', 'ω', 'φ', 'γ', 'δ', '⊥', '⊤'];
+        const symbols = ['∧', '∨', '¬', '→', '(', ')'];
+
+        // Function to create the keyboard buttons dynamically
+        function createKeyboardButtons() {
+            // Create the "Variables & Constants" section
+            const variablesSection = document.createElement('div');
+            variablesAndConstants.forEach(char => {
+                const button = document.createElement('button');
+                button.classList.add('key');
+                button.textContent = char;
+                button.addEventListener('click', () => insertChar(char));
+                variablesSection.appendChild(button);
+                buttons.push(button)
+            });
+
+            // Create the "Symbols" section
+            const symbolsSection = document.createElement('div');
+            symbolsSection.classList.add('keyboard-section');
+            symbols.forEach(char => {
+                const button = document.createElement('button');
+                button.classList.add('key');
+                button.textContent = char;
+                button.addEventListener('click', () => insertChar(char));
+                symbolsSection.appendChild(button);
+                buttons.push(button)
+            });
+
+            // Create the "Delete" button section
+            const deleteSection = document.createElement('div');
+            deleteSection.classList.add('keyboard-section');
+            const deleteButton = document.createElement('button');
+            deleteButton.classList.add('key');
+            deleteButton.textContent = 'Delete';
+            deleteButton.addEventListener('click', deleteAtCursor);
+            deleteSection.appendChild(deleteButton);
+            buttons.push(deleteButton)
+
+            // Append all sections to the keyboard
+            popup.appendChild(variablesSection);
+            popup.appendChild(symbolsSection);
+            popup.appendChild(deleteSection);
+        }
+
+        // Create the keyboard buttons when the page loads
+        createKeyboardButtons();
+
+        // Track which input field is focused
+        let currentInput = null;
+
+        // Function to display the keyboard when an input is focused
+        function showKeyboard(input) {
+            currentInput = input
+            popup.style.display = 'block';
+            positionKeyboard(); // Position the keyboard just below the input field
+        }
+
+        // Function to position the keyboard below the focused input field using percentages
+        function positionKeyboard() {
+            const inputRect = currentInput.getBoundingClientRect(); // Get the position of the input box
+            const inputHeight = inputRect.height;
+            const keyboardHeight = popup.offsetHeight;
+
+            // Position the keyboard using percentages based on input box size
+            const topPosition = (inputRect.bottom + window.scrollY + inputHeight * 0.05) / window.innerHeight * 100;  // 5% of input height
+            const leftPosition = (inputRect.left + window.scrollX + (inputRect.width / 2) - (popup.offsetWidth / 2)) / window.innerWidth * 100;  // Center align
+
+            popup.style.top = `${topPosition}%`; // Top position as a percentage of viewport height
+            popup.style.left = `${leftPosition}%`; // Left position as a percentage of viewport width
+        }
+
+
+        // Event listener to close the keyboard when clicking outside
+        document.addEventListener('click', (event) => {
+            if (!popup.contains(event.target) && !event.target.classList.contains("keyboard-input")) {
+                popup.style.display = 'none';
+            }
+        });
+
+        // Prevent the input from losing focus when clicking popup buttons
+        console.log(buttons.length)
+        buttons.forEach(button => {
+            button.addEventListener('click', (event) => {
+                event.stopPropagation(); // Stop the event from propagating
+
+                currentInput.focus();    // Keep the current input focused
+            });
+        });
+
+        // Insert character at cursor position in the active input field
+        function insertChar(char) {
+            const cursorPos = currentInput.selectionStart;
+            const currentValue = currentInput.value;
+            const newValue = currentValue.slice(0, cursorPos) + char + currentValue.slice(cursorPos);
+            currentInput.value = newValue;
+            currentInput.selectionStart = currentInput.selectionEnd = cursorPos + 1;
+        }
+
+
+        // Delete character at cursor position in the active input field
+        function deleteAtCursor() {
+            var cursorPos = currentInput.selectionStart;
+            const currentValue = currentInput.value;
+            if (cursorPos > 0) {
+
+                const newValue = currentValue.slice(0, cursorPos - 1) + currentValue.slice(cursorPos);
+                currentInput.value = newValue;
+                currentInput.selectionStart = Math.max(0,currentInput.selectionEnd = cursorPos - 1);
+            }
+        }
+
+        // Prevent regular input (keystrokes) and only allow the virtual keyboard
+        const allowedKeys = ['Backspace', 'Delete'];
+        document.querySelectorAll(".keyboard-input").forEach(input => {
+            input.addEventListener('keydown', (e) => {
+  
+            if (!allowedKeys.includes(e.key)) {
+                e.preventDefault();  // Prevents default behavior for all other keys
+                e.stopPropagation(); // Stops the event from propagating further
+            }
+        });
+
+            input.addEventListener('focus', () => showKeyboard(input))
+        })
+       
+    </script>
+
+</body>
+
+</html>

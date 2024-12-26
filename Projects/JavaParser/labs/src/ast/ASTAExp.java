@@ -7,12 +7,9 @@ import types.UnitType;
 
 public abstract class ASTAExp implements Exp {
 
-    private final Token token;
-    private Type type = UnitType.singleton;
+    protected final Token token;
+    protected Type type = UnitType.singleton;
 
-    public ASTAExp() {
-        this.token = null;
-    }
     public ASTAExp(Token token) {
         this.token = token;
     }
@@ -32,11 +29,7 @@ public abstract class ASTAExp implements Exp {
         return type;
     }
 
-    @Override
-    public String toString() {
-        return token == null ? super.toString() : ParserConstants.tokenImage[token.kind].replace("\"","");
+    protected String getToken(int kind) {
+        return ParserConstants.tokenImage[kind].replace("\"","");
     }
-
-    @Override
-    public String proof() {return "";}
 }

@@ -12,13 +12,4 @@ public class TableType implements Type {
 		return "table";
 	}
 
-	@Override
-	public boolean isPrimitive() {
-		return true;
-	}
-
-	@Override
-	public String connectedName() {
-		return toString();
-	}
 }

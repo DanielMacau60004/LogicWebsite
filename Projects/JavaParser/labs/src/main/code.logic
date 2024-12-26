@@ -1,0 +1,12 @@
+/*
+¬ : negation
+→ : implication
+↔ : bi-conditional (if and only if)
+∧ : conjunction (and)
+∨ : disjunction (or)
+∀ : universal quantifier (for all)
+∃ : existential quantifier (there exists)
+⊥, ⊤, ≡
+*/
+⊤ ≡ ¬⊥.
+(q ∨ ¬p) → r.

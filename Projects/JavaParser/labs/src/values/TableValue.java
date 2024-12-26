@@ -1,187 +1,167 @@
 package values;
 
+import ast.Exp;
+
 import java.util.*;
-import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class TableValue implements Value {
 
-    SortedSet<String> literals = new TreeSet<>();
-    Map<String, BoolValue> rows = new TreeMap<>();
+    private static final String PIPE = " | ";
+    private static final String DASH = "---+";
+    private static final String TRUE = "T";
+    private static final String FALSE = "F";
+    private static final String LINE_BREAK = "--------";
 
+    private final String exp;
+    private final SortedSet<String> literals;
+    private final BoolValue[] results;
 
-    public TableValue(String literal) {
-        literals.add(literal);
-        rows.put("1", new BoolValue(true));
-        rows.put("0", new BoolValue(false));
+    TableValue(String exp, SortedSet<String> literals, BoolValue[] results) {
+        this.exp = exp;
+        this.literals = new TreeSet<>(literals);
+        this.results = results;
     }
 
-    public TableValue(TableValue table1, Function<BoolValue, BoolValue> operation) {
-        literals.addAll(table1.literals);
-
-        Map<String, Integer> indexes = new TreeMap<>();
-
-        int index = 0;
-        for (String literal : literals)
-            indexes.put(literal, index++);
-
-        iterateCombinations((map -> {
-            StringBuilder result = new StringBuilder();
-
-            for (String lit : table1.literals)
-                result.append(map.charAt(indexes.get(lit)));
-
-            //Apply operation
-            BoolValue transResult = operation.apply(table1.getResult(result.toString()));
-            rows.put(map, transResult);
-        }));
-
+    public TableValue(String exp, BoolValue value) {
+        this.exp = exp;
+        this.literals = new TreeSet<>();
+        this.results = new BoolValue[]{value};
     }
 
-    public String getLiteralByIndex(int index) {
-        int i = 0;
-        for (String literal : literals) {
-            if (i == index)
-                return literal;
-            i++;
-        }
-        return null;
+    public TableValue(String exp, String literal) {
+        this.exp = exp;
+        this.literals = new TreeSet<>();
+        this.literals.add(literal);
+        this.results = new BoolValue[]{new BoolValue(false), new BoolValue(true)};
     }
 
-    /*
-    public BoolValue getValue(String literal, String row) {
-        row.charAt(literals.)
-    }*/
-
-    public TableValue(TableValue table1, TableValue table2, Function<Pair<BoolValue>, BoolValue> operation) {
-        literals.addAll(table1.literals);
-        literals.addAll(table2.literals);
-
-        Map<String, Integer> indexes = new LinkedHashMap<>();
-
-        int index = 0;
-        for (String literal : literals)
-            indexes.put(literal, index++);
-
-        iterateCombinations((map -> {
-            StringBuilder result1 = new StringBuilder();
-            StringBuilder result2 = new StringBuilder();
-
-            for (String lit : table1.literals)
-                result1.append(map.charAt(indexes.get(lit)));
-            for (String lit : table2.literals)
-                result2.append(map.charAt(indexes.get(lit)));
-
-            //Apply operation
-            rows.put(map, operation.apply(new Pair<>(
-                    table1.getResult(result1.toString()), table2.getResult(result2.toString()))
-            ));
-        }));
-
+    private BoolValue queryValue(int combination, SortedSet<String> others) {
+        return results[queryIndex(combination, others)];
     }
 
-    private BoolValue getResult(String input) {
-        return rows.get(input);
-    }
+    private int queryIndex(int combination, SortedSet<String> others) {
+        int c = 0;
+        int i = literals.size() - 1;
 
-    @Override
-    public String toString() {
-        StringBuilder str = new StringBuilder();
-        for (String lit : literals)
-            str.append(" ").append(lit).append(" |");
-        str.append(" Result\n");
-        for (String ignored : literals)
-            str.append("---+");
-        str.append("------\n");
+        int position = others.size() - 1;
+        for (String literal : others) {
+            int bitValue = (combination >> position) & 1;
 
-        for (String map : rows.keySet()) {
-            str.append(" ");
-            for (int i = 0; i < map.length(); i++)
-                str.append(map.charAt(i) == '1' ? "T" : "F").append(" | ");
-            str.append(rows.get(map).getValue() ? "T" : "F");
-            str.append("\n");
+            if (literals.contains(literal)) {
+                c += (int) Math.pow(2, i) * bitValue;
+                i--;
+            }
+            position--;
         }
 
-        return str.toString();
+        return c;
     }
 
-    private void iterateCombinations(Consumer<String> method) {
-        int n = literals.size();
-        int rows = (int) Math.pow(2, n);
+    public TableValue transform(String exp, Function<BoolValue, BoolValue> operation) {
+        final SortedSet<String> literals = new TreeSet<>(this.literals);
+        final BoolValue[] results = new BoolValue[this.results.length];
 
-        for (int i = 0; i < rows; i++) {
-            String binaryString = String.format("%" + n + "s", Integer.toBinaryString(i)).replace(' ', '0');
-            method.accept(binaryString);
+        for (int i = 0; i < results.length; i++)
+            results[i] = operation.apply(this.results[i]);
+
+        return new TableValue(exp, literals, results);
+    }
+
+    public TableValue transform(String exp, TableValue table, Function<Pair<BoolValue>, BoolValue> operation) {
+        final SortedSet<String> literals = new TreeSet<>(this.literals);
+        literals.addAll(table.literals);
+
+        int size = (int) Math.pow(2, literals.size());
+        final BoolValue[] results = new BoolValue[size];
+
+        for (int i = 0; i < size; i++) {
+            BoolValue left = this.queryValue(i, literals);
+            BoolValue right = table.queryValue(i, literals);
+            results[i] = operation.apply(new Pair<>(left, right));
         }
+
+        return new TableValue(exp, literals, results);
+    }
+
+    public TableValue shorten(SortedSet<String> literals) {
+        if (this.literals.equals(literals))
+            return this;
+
+        final BoolValue[] results = new BoolValue[Math.max(1, literals.size())];
+
+        for (int i = 0; i < this.results.length; i++) {
+            int oldIndex = queryIndex(i, literals);
+            BoolValue value = this.results[i];
+            BoolValue oldValue = this.results[oldIndex];
+
+            if (oldValue != null && !oldValue.equals(value))
+                return null;
+            results[oldIndex] = value;
+        }
+
+        return new TableValue(exp, literals, results);
+    }
+
+    public List<BoolValue> getResults() {
+        return Arrays.stream(results).toList();
     }
 
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof TableValue otherTable) {
 
-            int[] indexes = new int[literals.size()];
-            for(int i = 0; i< indexes.length; i++)
-                indexes[i]=i;
+            SortedSet<String> intersection = new TreeSet<>(literals);
+            intersection.retainAll(otherTable.literals);
 
-            List<int[]> permutations = new ArrayList<>();
-            permute(permutations, indexes, 0, literals.size());
+            //Same size tables
+            TableValue left = shorten(intersection);
+            TableValue right = otherTable.shorten(intersection);
 
-            for (int[] perm : permutations) {
-                boolean result = true;
+            if (left == null || right == null)
+                return false;
 
-                for (String line : rows.keySet()) {
-                    StringBuilder permLine = new StringBuilder();
-                    for (int index : perm)
-                        permLine.append(line.charAt(index));
+            for (int i = 0; i < left.results.length; i++)
+                if (!left.results[i].equals(right.results[i]))
+                    return false;
 
-                    if (!rows.get(line).equals(otherTable.getResult(permLine.toString()))) {
-                        result = false;
-                        break;
-                    }
-                }
-                if (result) //Found an equivalence
-                    return true;
-
-            }
+            return true;
         }
-
         return false;
     }
 
-    private static void permute(List<int[]> permutations, int[] arr, int index, int n) {
-        if (index == n) {
-            permutations.add(arr.clone());
-            return;
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder(" ");
+
+        for (String lit : literals)
+            str.append(lit).append(PIPE);
+        str.append(exp).append("\n");
+
+        for (String ignored : literals)
+            str.append(DASH);
+        str.append(LINE_BREAK).append("\n");
+
+        int n = literals.size();
+        for (int i = 0; i < results.length; i++) {
+            str.append(" ");
+
+            if (!literals.isEmpty()) {
+                String binary = String.format("%" + n + "s", Integer.toBinaryString(i))
+                        .replace(" ", FALSE + PIPE)
+                        .replace("0", FALSE + PIPE)
+                        .replace("1", TRUE + PIPE);
+                str.append(binary);
+            }
+
+            str.append(results[i].getValue() ? TRUE : FALSE);
+            str.append("\n");
         }
-        for (int i = index; i < n; i++) {
-            swap(arr, index, i);
-            permute(permutations, arr, index + 1, n);
-            swap(arr, index, i); // backtrack
-        }
+
+        return str.toString();
     }
 
-    private static void swap(int[] array, int i, int j) {
-        int temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-    }
-
-    public class Pair<T> {
-        private T left;
-        private T right;
-
-        public Pair(T left, T right) {
-            this.left = left;
-            this.right = right;
-        }
-
-        public T getLeft() {
-            return left;
-        }
-
-        public T getRight() {
-            return right;
-        }
+    public record Pair<T>(T left, T right) {
     }
 
 }

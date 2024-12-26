@@ -10,14 +10,5 @@ public class UnitType implements Type {
 	public String toString() {
 		return "unit";
 	}
-	@Override
-	public boolean isPrimitive() {
-		return false;
-	}
-
-	@Override
-	public String connectedName() {
-		return "unit";
-	}
 
 }
