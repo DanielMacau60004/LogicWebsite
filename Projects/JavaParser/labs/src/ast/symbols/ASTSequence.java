@@ -1,18 +1,15 @@
 package ast.symbols;
 
-import ast.ASTAExp;
-import ast.Exp;
-import ast.PropVisitor;
+import ast.*;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class ASTSequence extends ASTAExp implements Exp {
+public class ASTSequence extends ASTAExp {
 
     public List<Exp> sequence;
 
     public ASTSequence(Exp firstExp) {
-        super(null);
         sequence = new LinkedList<>();
         sequence.add(firstExp);
     }
@@ -25,6 +22,9 @@ public class ASTSequence extends ASTAExp implements Exp {
     public <T> T accept(PropVisitor<T> v) {
         return v.visit(this);
     }
+
+    @Override
+    public <T, E> T accept(FOLVisitor<T, E> v, E env) { return v.visit(this, env); }
 
     @Override
     public String toString() {

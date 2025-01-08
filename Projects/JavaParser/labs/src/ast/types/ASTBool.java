@@ -1,16 +1,13 @@
 package ast.types;
 
-import ast.ASTAExp;
-import ast.Exp;
-import ast.PropVisitor;
-import parser.Token;
+import ast.*;
+import parser.ExpressionsParser;
 
-public class ASTBool extends ASTAExp implements Exp {
+public class ASTBool extends ASTAExp {
 
     public boolean e;
 
-    public ASTBool(Token token, boolean e) {
-        super(token);
+    public ASTBool(boolean e) {
         this.e = e;
     }
 
@@ -19,8 +16,10 @@ public class ASTBool extends ASTAExp implements Exp {
         return v.visit(this);
     }
 
+    public <T, E> T accept(FOLVisitor<T, E> v, E env) { return v.visit(this, env); }
+
     @Override
     public String toString() {
-        return getToken(token.kind);
+        return getToken(e ? ExpressionsParser.TRUE : ExpressionsParser.FALSE);
     }
 }

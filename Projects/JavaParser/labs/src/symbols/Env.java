@@ -9,7 +9,7 @@ public class Env<T> {
     private Env<T> prev;
 
     public Env() {
-        table = new Hashtable<>(20);
+        table = new LinkedHashMap<>();
     }
 
     Env(Env<T> prev) {
@@ -31,6 +31,17 @@ public class Env<T> {
         list.addAll(table.keySet().stream().filter(s -> s.contains(expression) || expression.contains(s)).toList());
         if (prev != null)
             prev.getMatching(expression, list);
+    }
+
+    public List<T> list() {
+        return list(new LinkedList<>());
+    }
+
+    private List<T> list(List<T> list) {
+        if (prev != null)
+            list = prev.list(list);
+        list.addAll(table.values());
+        return list;
     }
 
     public T find(String id) {

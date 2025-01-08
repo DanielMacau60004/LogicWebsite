@@ -4,9 +4,7 @@ import ast.Exp;
 import typechecker.Function;
 import typechecker.TypeError;
 import types.Type;
-import types.UnitType;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -14,8 +12,7 @@ import java.util.stream.Collectors;
 public class TypeErrorParams extends TypeError {
 
     public TypeErrorParams(Exp exp, List<Type> values, Set<Function> functions) {
-        super(buildMessage(exp, values, functions),
-                exp.getToken().beginLine, exp.getToken().beginColumn);
+        super(buildMessage(exp, values, functions));
     }
 
     private static String buildMessage(Exp exp, List<Type> values, Set<Function> functions) {

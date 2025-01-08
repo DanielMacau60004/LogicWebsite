@@ -1,18 +1,16 @@
 package ast.symbols;
 
-import ast.ASTASingleExp;
 import ast.Exp;
+import ast.FOLVisitor;
+import ast.types.ASTASingleExp;
 import ast.PropVisitor;
-import parser.Token;
+import parser.ExpressionsParser;
 
-public class ASTParenthesis extends ASTASingleExp implements Exp {
-    public Token left, right;
+public class ASTParenthesis extends ASTASingleExp {
     public Exp e;
 
-    public ASTParenthesis(Token left, Token right, Exp e) {
-        super(left, e);
-        this.left = left;
-        this.right = right;
+    public ASTParenthesis(Exp e) {
+        super(e);
         this.e = e;
     }
 
@@ -22,7 +20,10 @@ public class ASTParenthesis extends ASTASingleExp implements Exp {
     }
 
     @Override
+    public <T, E> T accept(FOLVisitor<T, E> v, E env) { return v.visit(this, env); }
+
+    @Override
     public String toString() {
-        return getToken(left.kind) + e.toString() + getToken(right.kind);
+        return getToken(ExpressionsParser.LPAR) + e.toString() + getToken(ExpressionsParser.RPAR);
     }
 }

@@ -1,14 +1,15 @@
 package ast.logic;
 
-import ast.ASTASingleExp;
 import ast.Exp;
+import ast.FOLVisitor;
+import ast.types.ASTASingleExp;
 import ast.PropVisitor;
-import parser.Token;
+import parser.ExpressionsParser;
 
-public class ASTNot extends ASTASingleExp implements Exp {
+public class ASTNot extends ASTASingleExp {
 
-    public ASTNot(Token token, Exp e) {
-        super(token, e);
+    public ASTNot(Exp e) {
+        super(e);
     }
 
     @Override
@@ -16,4 +17,11 @@ public class ASTNot extends ASTASingleExp implements Exp {
         return v.visit(this);
     }
 
+    @Override
+    public <T, E> T accept(FOLVisitor<T, E> v, E env) { return v.visit(this, env); }
+
+    @Override
+    public String toString() {
+        return getToken(ExpressionsParser.NOT) + exp.toString();
+    }
 }

@@ -1,11 +1,10 @@
 package ast;
 
 import parser.Token;
+import symbols.Env;
 import types.Type;
 
 public interface Exp {
-
-    Token getToken();
 
     void setType(Type type);
 
@@ -13,4 +12,5 @@ public interface Exp {
 
     <T> T accept(PropVisitor<T> v);
 
+    <T,E> T accept(FOLVisitor<T,E> v, E env);
 }

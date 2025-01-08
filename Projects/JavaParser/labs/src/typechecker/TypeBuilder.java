@@ -12,6 +12,7 @@ public class TypeBuilder {
     private final Exp exp;
     private final List<Type> values;
     private final Set<Function> functions;
+    private ErrorHandler errorHandler;
 
     TypeBuilder(Exp exp, Type... type) {
         this(exp, Arrays.asList(type));
@@ -25,6 +26,11 @@ public class TypeBuilder {
 
     TypeBuilder addFunction(Function function) {
         this.functions.add(function);
+        return this;
+    }
+
+    TypeBuilder setErrorHandler(ErrorHandler errorHandler) {
+        this.errorHandler = errorHandler;
         return this;
     }
 
@@ -44,7 +50,8 @@ public class TypeBuilder {
             return function.getReturn();
         }
 
-        PropTypeChecker.errorHandler.addException((new TypeErrorParams(exp, values, functions)));
+        if (errorHandler != null)
+            errorHandler.addException((new TypeErrorParams(exp, values, functions)));
         exp.setType(ErrorType.singleton);
         return ErrorType.singleton;
     }

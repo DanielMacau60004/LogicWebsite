@@ -8,10 +8,10 @@ public class TypeError extends Exception implements Comparable<TypeError> {
     private final int line;
     private final int col;
 
-    public TypeError(String message, int line, int col) {
+    public TypeError(String message) {
         super(message);
-        this.line = line;
-        this.col = col;
+        this.line = 0;
+        this.col = 0;
     }
 
     public int getLine() {

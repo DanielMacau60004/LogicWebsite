@@ -1,23 +1,12 @@
 package ast;
 
-import parser.ParserConstants;
-import parser.Token;
+import parser.ExpressionsParser;
 import types.Type;
 import types.UnitType;
 
 public abstract class ASTAExp implements Exp {
 
-    protected final Token token;
     protected Type type = UnitType.singleton;
-
-    public ASTAExp(Token token) {
-        this.token = token;
-    }
-
-    @Override
-    public Token getToken() {
-        return token;
-    }
 
     @Override
     public void setType(Type type) {
@@ -29,7 +18,15 @@ public abstract class ASTAExp implements Exp {
         return type;
     }
 
+    @Override
+    public <T> T accept(PropVisitor<T> v) {
+        throw new RuntimeException("This operation is not valid in propositional logic");}
+
+    @Override
+    public <T, E> T accept(FOLVisitor<T, E> v, E env) {
+        throw new RuntimeException("This operation is not valid in first-order logic");}
+
     protected String getToken(int kind) {
-        return ParserConstants.tokenImage[kind].replace("\"","");
+        return ExpressionsParser.tokenImage[kind].replace("\"","");
     }
 }

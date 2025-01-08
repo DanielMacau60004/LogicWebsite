@@ -5,106 +5,98 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="961377de-44c0-4ce8-9942-64e88caeedf7" name="Changes" comment="Quase feito">
-      <change afterPath="$PROJECT_DIR$/labs/src/ast/ASTAPairExp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/labs/src/ast/ASTASingleExp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/labs/src/ast/PropVisitor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/labs/src/ast/logic/ASTComp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/labs/src/ast/symbols/ASTParenthesis.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/labs/src/interpreter/PropInterpreter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/labs/src/tests/PropTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/labs/src/utils/Utils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/ast/FOLVisitor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/ast/horn/CNFClausesVisitor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/ast/horn/HornClauses.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/ast/horn/ImplicationFOLVisitor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/ast/horn/NegationFOLVisitor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/ast/horn/ReorderFOLVisitor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/ast/horn/SkolemFOLVisitor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/ast/horn/StandardizeFOLVisitor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/ast/logic/ASTExistential.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/ast/logic/ASTFun.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/ast/logic/ASTUniversal.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/ast/symbols/ASTDelPred.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/ast/types/ASTConstant.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/ast/types/ASTHornClause.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/ast/types/ASTHornClauses.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/ast/types/ASTPred.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/ast/types/ASTTerm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/ast/types/ASTVariable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/interpreter/FOLInterpreter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/parser/ExpressionsParser.jj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/typechecker/FOLTypeChecker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/typechecker/errors/TypeErrorDuplicatedDeclaration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/typechecker/errors/TypeErrorExpression.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/types/ConstantType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/types/DelPredType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/types/TermType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/types/VariableType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Plan/latex/Chapters/chapter2.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../../Plan/latex/Chapters/chapter2.tex" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Plan/latex/Chapters/chapter3.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../../Plan/latex/Chapters/chapter3.tex" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Plan/latex/Chapters/chapter4.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../../Plan/latex/Chapters/chapter4.tex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICL.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ICL.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ICL.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/labs/src/ast/ASTAExp.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/ASTAExp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/ASTSequence.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/symbols/ASTSequence.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/ASTAPairExp.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/types/ASTAPairExp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/ASTASingleExp.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/types/ASTASingleExp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/labs/src/ast/Exp.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/Exp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/PropVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/PropVisitor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/labs/src/ast/logic/ASTAnd.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/logic/ASTAnd.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/logic/ASTDiff.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/logic/ASTComp.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/logic/ASTComp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/labs/src/ast/logic/ASTEquivalence.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/logic/ASTEquivalence.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/labs/src/ast/logic/ASTImplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/logic/ASTImplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/logic/ASTKnowledgeBase.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/labs/src/ast/logic/ASTLiteral.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/logic/ASTLiteral.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/logic/ASTModels.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/labs/src/ast/logic/ASTNot.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/logic/ASTNot.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/labs/src/ast/logic/ASTOr.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/logic/ASTOr.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/symbols/ASTParenthesis.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/symbols/ASTParenthesis.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/symbols/ASTSequence.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/symbols/ASTSequence.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/labs/src/ast/types/ASTBool.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/types/ASTBool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/interpreter/Interpreter.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/labs/src/main/Console.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/main/Console.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/labs/src/main/RunFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/main/RunFile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/main/Test.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/main/code.eml" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/main/code.logic" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/parser/Parser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/parser/Parser.jj" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/parser/Parser.jj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/parser/ParserConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/parser/ParserConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/parser/ParserTokenManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/parser/ParserTokenManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/tests/ParserTester.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/tests/RandComparison.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/tests/RandLogic.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/main/code.logic" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/main/code.logic" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/parser/ExpressionsParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/parser/Parser.jj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/parser/ParserConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/parser/ExpressionsParserConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/parser/ParserTokenManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/parser/ExpressionsParserTokenManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/symbols/Env.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/symbols/Env.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/tests/PropTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/tests/PropTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/typechecker/PropTypeChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/typechecker/PropTypeChecker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/labs/src/typechecker/TypeBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/typechecker/TypeBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/typechecker/TypeChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/typechecker/PropTypeChecker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/types/BoolType.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/types/BoolType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/types/ErrorType.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/types/ErrorType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/types/KnowledgeBaseType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/types/ModelsType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/types/ProofType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/types/TableType.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/types/TableType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/types/Type.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/types/Type.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/types/UnitType.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/types/UnitType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/values/BoolValue.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/values/BoolValue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/values/KnowledgeBaseValue.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/values/ModelsValue.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/typechecker/TypeError.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/typechecker/TypeError.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/typechecker/errors/TypeErrorParams.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/typechecker/errors/TypeErrorParams.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/labs/src/values/TableValue.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/values/TableValue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/values/UnitValue.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/ASTAExp.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/ast/ASTAExp.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/ASTSequence.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/Exp$Visitor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/ASTAPairExp.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/ASTASingleExp.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/Exp.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/ast/Exp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/PropVisitor.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/ast/PropVisitor.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/logic/ASTAnd.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/ast/logic/ASTAnd.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/logic/ASTDiff.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/logic/ASTComp.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/ast/logic/ASTComp.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/logic/ASTEquivalence.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/ast/logic/ASTEquivalence.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/logic/ASTImplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/ast/logic/ASTImplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/logic/ASTKnowledgeBase.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/logic/ASTLiteral.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/ast/logic/ASTLiteral.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/logic/ASTModels.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/logic/ASTNot.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/ast/logic/ASTNot.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/logic/ASTOr.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/ast/logic/ASTOr.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/symbols/ASTParenthesis.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/ast/symbols/ASTParenthesis.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/symbols/ASTSequence.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/ast/symbols/ASTSequence.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/types/ASTBool.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/ast/types/ASTBool.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/interpreter/Interpreter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/interpreter/PropInterpreter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/interpreter/PropInterpreter.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ICL/main/Console.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/main/Console.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ICL/main/RunFile.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/main/RunFile.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/main/Test.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/main/code.eml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/parser/Parser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/parser/Parser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/parser/Parser.jj" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/parser/Parser.jj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/parser/ParserConstants.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/parser/ParserConstants.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/parser/ParserTokenManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/parser/ParserTokenManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/tests/ParserTester.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/tests/RandComparison.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/tests/RandLogic.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/typechecker/ErrorHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/typechecker/ErrorHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/main/code.logic" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/main/code.logic" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/parser/Parser.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/parser/Parser.jj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/parser/ParserConstants.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/parser/ParserTokenManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/symbols/Env.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/symbols/Env.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/tests/PropTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/tests/PropTests.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/typechecker/PropTypeChecker.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/typechecker/PropTypeChecker.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ICL/typechecker/TypeBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/typechecker/TypeBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/typechecker/TypeChecker.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/types/BoolType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/types/BoolType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/types/ErrorType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/types/ErrorType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/types/KnowledgeBaseType.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/types/ModelsType.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/types/ProofType.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/types/TableType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/types/TableType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/types/Type.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/types/Type.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/types/UnitType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/types/UnitType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/values/KnowledgeBaseValue.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/values/ModelsValue.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/typechecker/TypeError.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/typechecker/TypeError.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/typechecker/errors/TypeErrorParams.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/typechecker/errors/TypeErrorParams.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ICL/values/TableValue$Pair.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/values/TableValue$Pair.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ICL/values/TableValue.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/values/TableValue.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/values/UnitValue.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run.bat" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,7 +165,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/mcmac/Downloads/textmate-202.5792.39.zip",
+    "last_opened_file_path": "C:/Users/mcmac/Desktop/Thesis/Projects/JavaParser/labs/src/parser",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -188,10 +180,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\mcmac\Desktop\Thesis\Projects\JavaParser\labs\src\parser" />
+      <recent name="C:\Users\mcmac\Desktop\Thesis\Projects\JavaParser\labs\src\typechecker\errors" />
       <recent name="C:\Users\mcmac\Desktop\Thesis\Projects\JavaParser\labs\src\main" />
       <recent name="C:\Users\mcmac\Desktop\Universidade\4º ano\8º semestre\Interpretação e Compilação de Linguagens\ICL-Project\ICL\labs\src\main\scripts" />
       <recent name="C:\Users\mcmac\Desktop\Universidade\4º ano\8º semestre\Interpretação e Compilação de Linguagens\ICL-Project\ICL\labs\src\main" />
-      <recent name="C:\Users\mcmac\Desktop\Universidade\4º ano\8º semestre\Interpretação e Compilação de Linguagens\ICL-Project\ICL\labs\src\target" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\mcmac\Desktop\Thesis\Projects\JavaParser\resources\Logic" />
@@ -199,14 +192,14 @@
       <recent name="C:\Users\mcmac\Desktop\Universidade\4º ano\8º semestre\Interpretação e Compilação de Linguagens\ICL-Project\ICL\labs\src\tests" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="ast" />
-      <recent name="values" />
-      <recent name="ast.logic" />
       <recent name="types" />
-      <recent name="target" />
+      <recent name="ast.symbols" />
+      <recent name="ast.types" />
+      <recent name="ast.horn" />
+      <recent name="ast.logic" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.PropTests">
+  <component name="RunManager" selected="Application.Console">
     <configuration name="Console" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="main.Console" />
       <module name="ICL" />
@@ -300,10 +293,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Console" />
         <item itemvalue="JUnit.PropTests" />
         <item itemvalue="JUnit.PropTests.negation" />
         <item itemvalue="JUnit.PropTests.syntaxErrors" />
-        <item itemvalue="Application.Console" />
         <item itemvalue="Application.Test" />
         <item itemvalue="JUnit.ParserTester" />
         <item itemvalue="JUnit.ParserTester.testNumbersLogic" />
@@ -340,6 +333,14 @@
       <workItem from="1734968473299" duration="31801000" />
       <workItem from="1735211885814" duration="19299000" />
       <workItem from="1735240218107" duration="3203000" />
+      <workItem from="1735476478083" duration="1428000" />
+      <workItem from="1735485254678" duration="25915000" />
+      <workItem from="1735651451707" duration="15129000" />
+      <workItem from="1735815051958" duration="40000" />
+      <workItem from="1735922727378" duration="7559000" />
+      <workItem from="1735996624267" duration="26653000" />
+      <workItem from="1736032071064" duration="159000" />
+      <workItem from="1736080401450" duration="31599000" />
     </task>
     <servers />
   </component>

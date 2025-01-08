@@ -14,9 +14,10 @@
 \subsection{Architecture}
 
 %Pode nao fazer sentido ter isto neste chapter
-\section{Proposed Exercises} FALAR DO FEEDBACK
+\section{Proposed Exercises}
+
 The exercises I am proposing are divided into two branches of Logic: Propositional Logic (\ref{chap:prop}) and First-Order Logic (\ref{chap:fol}). Generally, courses that teach logic separate the subject into these two branches, so the idea behind this decision is to cover exercises for both parts of the subject. This way, students will have material to study and to be evaluated on both parts of the course. For each branch, I plan to implement two types of exercises that are similar in both branches. One will involve converting natural language into a formula in propositional/first-order logic, and the other will focus on making deductions in a tree-shaped format. Deduction tree proofs are the kind of exercises where students struggle the most, so i also took that into consideration selecting the exercises. The proposed exercises serve as a guide for planning the implementation. If there is enough time, there may be an opportunity to implement more exercises. The focus of the exercises will not only be on the correctness of the provided solution, but also on offering feedback to help the student better understand what they are doing. Finding the right way to give feedback to the student is challenging because we don’t want to provide too much information, but at the same time, we don’t want the student to feel lost. [REF para o topico de feedback]
-The following sections will discuss the different types of exercises, how they work and can be implemented, how they can be presented to the final users, and various ways to provide the appropriate level of feedback.
+The following sections will discuss the different types of exercises, how they work, how they can be presented to the final users, and various ways to provide the appropriate level of feedback.
 
 \subsection{Propositional Logic}
 
@@ -25,18 +26,26 @@ This type of exercise essentially involves translating a declarative sentence in
 \[
 p: \text{It is raining}, \quad q: \text{It is cold}.
 \]
-Now, imagine the exercise asks you to write "It is raining and it is cold" in propositional logic, using the propositions defined above. A correct answer would be: \(p \land q\). Another example could be "It is only cold if it is raining," which can have multiple correct answers, such as: \(p \rightarrow q\) or \(\neg p \lor q\).
+Now, imagine the exercise asks you to write "It is raining and it is cold" in propositional logic, using the propositions defined above. A correct answer would be: \(p \land q\). Another example could be "If it is cold, it is raining," which can have multiple correct answers, such as: \(q \rightarrow p\) or \(\neg q \lor p\). While developing this exercise we need to create a parser to check weather the expression is well formed or not (\ref{chap:prop-syntax}). We also have to consider that there may be more than one possible anwser for the same question so it would be necessary to create a system to check equivalences between expressions like the ones described in \ref{chap:prop-equivalences}. 
 
 
+\textbf{Design: } The Graphic User Interface (GUI) for this exercises will include a list of propositions written in natural language, with each sentence associated with a corresponding letter (literals). The user will then be presented with multiple exercises based on the same set of propositions, each one with increasing complexity. Below each exercise, an input box will be available for the user to enter their anwser. To assist the user in typing sentences using propositional symbols, a custom keyboard will appear when the input box is clinked. This layout is inspired by the one used in Iltis(\ref{chap:iltis}). It is user-friendly, does not require extensive knowledge to understand how it works, and has also been tested by numerous students. 
 
 
-\textbf{Design: }
-\textbf{Feedback: }
+\textbf{Feedback: } The feedback of this exercise can be divided in two types: syntatic feedback (the given sentence is not well formed) and semantic feedback (the given sentence is not equivalent to the correct). Syntatic feedback can be detected at the parser level. We can provide precise informations about what's wrong, such as indicating the column where the error occured or specifying that a symbol is missing. Alternatively, we can take a more general approach by giving a subexpression and stating that something is incorrect without specifying teh exact issue. Finally, we can simply state that the the expression contains syntatic errors, leaving it up to the user to determine what might be wrong. Semantic feedback can be verified after checking for syntatic errors. This can also be devided into multiple levels of feedback. We can provide a translation of the input sentence into natural language and leave the user to interpret the difference between what the question is asking and the answer they provided. Another option involves using reversion rules (\ref{chap:iltis-feedback}) where, in some cases, we can provide the exact mistake made by the user and generate more accurate feedback based on that. Alternatively, we can display part of a truth table where the values don't match, stating that the literals under these values should have a specific truth value.
 
 \subsubsection{Deduction trees in propositional logic}
-Exercise description
-\textbf{Design: }
-\textbf{Feedback: }
+Proofs in tree-shaped representation are another type of exercises in logic, the goal of these exercises is to derive the conclusion logically from the premisses using a set of rules. For example, consider the following sequent:
+\[
+\vdash \neg (\varphi \lor \psi) \to \neg \varphi
+\]
+
+A possible solution could be the one presented in \ref{chap:prop-decution}. As in the transforming natural language into proposicional logic exercises, in this one there are also many possible solutions for the same exercise. For example, the order of the rules can be different, so as the number of rules applyied and this can create different tree-shapes for the same problem. We also need to create a parser to check the rules provided we also need to use the typechecker for propositional logic to check weather the expressions introduced in the rules/premisses are correct or not.
+
+\textbf{Design: } There design of this exercise will consist in building block proof, where each block represents a rule or an expression that then can be merged and unmerged into a rule, this way creating the final tree-shaped proof. By having draggable blocks we can start from any point of the tree, we are not fixed to solve it always the same way. This can help students to progress in their proofs, because sometimes some steps are not obvisous if, for example, we follow a bottom up solution we have to predict some further steps. For someone with experiance it will be fine but this project will be designed for students that are starting to learning how to create proofs. As in the previous exercise, in this one the user also have input boxes to write logical expressions. Each inputbox will be followed by a keyboard with propositional symbols to help the student.  
+
+\textbf{Feedback: } We have multiple ways to provide feedback for this kind of exercises. Syntatic feedback, will check if the inputed expressions are well formed as well as the applied rules. Semantic feedback, that will check if the proof really prove what the exercise wanted to be prove. We can add highlight places where you can merge expressions when dragging the blocks. The system can pre-fill some input boxes after selecting a rule, the system can also restrict the set of rules, listing only the possible ones based on the last rule applied. The system can guide the user based on a hidden solution, by giving hints for the folowing steps. In some cases (during evaluations),  we want to leave the user complete free to do whatever he wants, for example to create their own rules, to apply rules that doesnt make sence etc.. But in onther cases we want to help the student to understand what he is doing, and we can use some of the strategies prevously mention to, based on the level of experiance of the student, generate a good feedback.
+
 
 \subsection{First-Order Logic}
 

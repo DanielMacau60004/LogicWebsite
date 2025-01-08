@@ -8,5 +8,44 @@
 ∃ : existential quantifier (there exists)
 ⊥, ⊤, ≡
 */
-⊤ ≡ ¬⊥.
-(q ∨ ¬p) → r.
+
+//PRENEX
+//P/1. R/2. Q/3.
+//∀x ( P(x) ∧ ∃y ¬R(y,zz)) → ∃x ∀y Q(x,y,zz). ✔
+//P/1. R/1. Q/2.
+//(∀x P(x) → ∃y ¬R(y)) → ∃x ∀y Q(x,y). ✔
+
+//A/1. B/2. P/1. Q/1.
+//¬∀x(A(x)). ∃x(¬A(x)). //EQUIVALENT ✔
+//¬∃x(A(x)). ∀x(¬A(x)). //EQUIVALENT ✔
+//∀x(A(x)). ¬∃x(¬A(x)). //EQUIVALENT ✔
+//∃x(A(x)). ¬∀x(¬A(x)). //EQUIVALENT ✔
+//∃x(∃y(B(x,y))). ∃y(∃x(B(x,y))). //EQUIVALENT BUT REQUIRES RENAMING
+//∀x(∀y(B(x,y))). ∀y(∀x(B(x,y))). //EQUIVALENT BUT REQUIRES RENAMING
+
+//∀x(∃y(A(x,y))). ∃y(∀x(A(x,y))). //NOT EQUIVALENT ✔
+
+//∀x(P(x) ∧ Q(x)). ∀x(P(x)) ∧ ∀x(Q(x)). //EQUIVALENT BUT REQUIRES RENAMING
+//∀x(P(x) ∨ Q(x)). ∀x(P(x)) ∨ ∀x(Q(x)). //NOT EQUIVALENT ✖
+//∀x(P(x) → Q(x)). ∀x(P(x)) → ∀x(Q(x)). //NOT EQUIVALENT ✔
+//∃x(P(x) ∨ Q(x)). ∃x(P(x)) ∨ ∃x(Q(x)). //EQUIVALENT BUT REQUIRES RENAMING
+//∃x(P(x) ∧ Q(x)). ∃x P(x) ∧ ∃x Q(x). //NOT EQUIVALENT ✖
+
+//∃x(P(x) → Q(x)). ∃x(P(x)) → ∃x(Q(x)). //NOT EQUIVALENT ✔
+//¬∀x(P(x) → A(const)). ∃x(P(x) ∧ ¬A(const)). //EQUIVALENT ✔
+//¬∃x(P(x) ∧ A(const)). ∀x(P(x) → ¬A(const)). //EQUIVALENT ✔
+
+
+//ALL EQUIVALENT ✔
+//Car/1. Driver/1. Start/2. Stop/2.
+//¬∀x(Car(x) → ∃y(Driver(y) ∧ (Start(x, y) → Stop(x, y)))).
+//∃x(¬(Car(x) → ∃y(Driver(y) ∧ (Start(x, y) → Stop(x, y))))).
+//∃x(Car(x) ∧ ¬∃y(Driver(y) ∧ (Start(x, y) → Stop(x, y)))).
+//∃x(Car(x) ∧ ∀y(¬(Driver(y) ∧ (Start(x, y) → Stop(x, y))))).
+//∃x(Car(x) ∧ ∀y(¬Driver(y) ∨ ¬(Start(x, y) → Stop(x, y)))).
+//∃x(Car(x) ∧ ∀y(¬Driver(y) ∨ (Start(x, y) ∧ ¬Stop(x, y)))).
+//∃x(Car(x) ∧ ∀y(Driver(y) → (Start(x, y) ∧ ¬Stop(x, y)))).
+
+Q/2.
+∀x∃y Q(x,y). ∀x∀y (Q(x,y) → ∃z Q(y,z)).
+

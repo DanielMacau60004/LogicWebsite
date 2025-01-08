@@ -3,7 +3,7 @@ package main;
 import ast.Exp;
 import interpreter.PropInterpreter;
 import parser.ParseException;
-import parser.Parser;
+import parser.ExpressionsParser;
 import typechecker.PropTypeChecker;
 import typechecker.TypeCheckerError;
 
@@ -13,10 +13,10 @@ import java.util.Date;
 
 public class RunFile {
 
-    public static void runCode(Parser parser) throws TypeCheckerError, ParseException, FileNotFoundException {
+    public static void runCode(ExpressionsParser parser) throws TypeCheckerError, ParseException, FileNotFoundException {
         long startTime = System.currentTimeMillis();
 
-        Exp e = parser.Start();
+        Exp e = parser.parseProp();
         PropTypeChecker.checker(e);
 
         Date date = new Date();

@@ -19,6 +19,7 @@ public class PropTypeChecker implements PropVisitor<Type> {
 
         return new TypeBuilder(e, t1, t2)
                 .addFunction(new Header(TableType.singleton, TableType.singleton).ret(TableType.singleton))
+                .setErrorHandler(errorHandler)
                 .build();
     }
 
@@ -29,6 +30,7 @@ public class PropTypeChecker implements PropVisitor<Type> {
 
         return new TypeBuilder(e, t1, t2)
                 .addFunction(new Header(TableType.singleton, TableType.singleton).ret(TableType.singleton))
+                .setErrorHandler(errorHandler)
                 .build();
     }
 
@@ -38,6 +40,7 @@ public class PropTypeChecker implements PropVisitor<Type> {
 
         return new TypeBuilder(e, t)
                 .addFunction(new Header(TableType.singleton).ret(TableType.singleton))
+                .setErrorHandler(errorHandler)
                 .build();
     }
 
@@ -48,6 +51,7 @@ public class PropTypeChecker implements PropVisitor<Type> {
 
         return new TypeBuilder(e, t1, t2)
                 .addFunction(new Header(TableType.singleton, TableType.singleton).ret(TableType.singleton))
+                .setErrorHandler(errorHandler)
                 .build();
     }
 
@@ -68,6 +72,7 @@ public class PropTypeChecker implements PropVisitor<Type> {
 
         return new TypeBuilder(e, t1, t2)
                 .addFunction(new Header(TableType.singleton, TableType.singleton).ret(TableType.singleton))
+                .setErrorHandler(errorHandler)
                 .build();
     }
 
@@ -88,6 +93,7 @@ public class PropTypeChecker implements PropVisitor<Type> {
 
         return new TypeBuilder(e, t1, t2)
                 .addFunction(new Header(TableType.singleton, TableType.singleton).ret(BoolType.singleton))
+                .setErrorHandler(errorHandler)
                 .build();
     }
 
@@ -106,5 +112,7 @@ public class PropTypeChecker implements PropVisitor<Type> {
             throw new TypeCheckerError(errorHandler.getErrors());
         return type;
     }
+
+
 
 }

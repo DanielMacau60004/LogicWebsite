@@ -1,15 +1,16 @@
 package ast.logic;
 
 
-import ast.ASTAPairExp;
 import ast.Exp;
+import ast.FOLVisitor;
+import ast.types.ASTAPairExp;
 import ast.PropVisitor;
-import parser.Token;
+import parser.ExpressionsParser;
 
-public class ASTComp extends ASTAPairExp implements Exp {
+public class ASTComp extends ASTAPairExp {
 
-	public ASTComp(Token token, Exp e1, Exp e2) {
-		super(token, e1, e2);
+	public ASTComp(Exp e1, Exp e2) {
+		super(e1, e2);
 	}
 
 	@Override
@@ -17,4 +18,12 @@ public class ASTComp extends ASTAPairExp implements Exp {
 		return v.visit(this);
 	}
 
+	@Override
+	public <T, E> T accept(FOLVisitor<T, E> v, E env) { return v.visit(this, env); }
+
+	@Override
+	public String toString() {
+		return left.toString() + " " + getToken(ExpressionsParser.CMP) + " " + right.toString();
+	}
 }
+

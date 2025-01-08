@@ -5,7 +5,7 @@ import interpreter.PropInterpreter;
 import org.junit.Assert;
 import org.junit.Test;
 import parser.ParseException;
-import parser.Parser;
+import parser.ExpressionsParser;
 import values.BoolValue;
 import values.TableValue;
 import values.Value;
@@ -16,8 +16,8 @@ import java.util.List;
 public class PropTests {
 
     public static Exp testExpression(String expression) throws ParseException {
-        Parser parser = new Parser(new ByteArrayInputStream((expression + ".").getBytes()));
-        return parser.Start();
+        ExpressionsParser parser = new ExpressionsParser(new ByteArrayInputStream((expression + ".").getBytes()));
+        return parser.parseProp();
     }
 
     public static Value testValue(String expression) throws ParseException {

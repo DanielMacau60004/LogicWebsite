@@ -30,6 +30,7 @@ Proposition is a declarative statement that can either be true (denoted as T or 
 \end{itemize}
 
 \subsection{Syntax}
+\label{chap:prop-syntax}
 To define a formal language, one must choose the alphabet of the language and establish the set of words that make up the language. These words are usually called formulas when the formal language is associated with a logic, as is the case here. The alphabet of the language is a set of symbols, and each formula is a finite sequence of symbols from the alphabet.
 Symbols are used to represent propositions and the relationships between them. By convention, propositions are represented by a single lower case letters (example p,q,r). The tables below list all the logical constants, propositional variables, and logical connectives in propositional logic.  
 
@@ -92,6 +93,7 @@ A well-formed formule (WFF) in Propositional Logic is defined recursively accord
 \end{itemize}
 
 \subsection{Equivalences}
+\label{chap:prop-equivalences}
 A key task in propositional logic is to determine if two formulas are logically equivalente (denoted as \(\equiv\)), that happens when both formulas have always the same truth values. There are several methods to check whether two logical formulas are equivalent: 
 
 \begin{itemize}
@@ -132,7 +134,8 @@ F & F & T & T \\
 
 
 \subsection{Natural Deduction} 
-Another key task in propositional logic, is to determine whether a propositional expression is valid. An expression is considered valid if, for all possible interpretations, its truth value is always true. Regardless of the values assigned to the propositions, the final truth value must be always true. To determine if a sentence if valid, one can use a semantic or a sintatic approach. The semantic approach focuses on the meaning of the formulas in different interpretations, in contrast, the sintatic approach focuses on the manipulation of symbols using a deductive system.
+\label{chap:prop-decution}
+Another key task in propositional logic, is to determine whether a propositional expression is valid. An expression is considered valid if, for all possible interpretations, its truth value is always true. Regardless of the values assigned to the propositions, the final truth value must be always true. To determine if a sentence if valid, one can use a semantic or a syntatic approach. The semantic approach focuses on the meaning of the formulas in different interpretations, in contrast, the syntatic approach focuses on the manipulation of symbols using a deductive system.
 [PAPER LCGOUVEIADIONISIO] Natural deduction is a type of deduction system that uses rules of inference. By applying proof rules to the premises (\(\varphi_1\)), we hope to get some more formulas, and by applying more proof rules to those, to eventually reach the conclusion (\(\psi\)). [PAPER LOGICINCS] This can be denoted by:
 \[
 \begin{array}{lcl}
@@ -145,12 +148,18 @@ There are many styles to represent these proofs. For example, the Fitch-style us
 
 \[
 \frac{\frac{\frac{
-\displaystyle \neg (\varphi \lor \psi)^1 \quad \displaystyle \frac{\psi^2}{(\varphi \lor \psi) \strut} \quad (\lor I_l) }
-{\displaystyle \bot \strut} \quad (\displaystyle \neg E)} {\displaystyle \neg \psi \strut} \quad (\bot, 2) }
+\displaystyle \neg (\varphi \lor \psi)^1 \quad \displaystyle \frac{\psi^2}{(\varphi \lor \psi) \strut} \quad (\lor I_l) \strut}
+{\displaystyle \bot \strut} \quad (\displaystyle \neg E)\strut} {\displaystyle \neg \psi \strut} \quad (\neg I, 2) \strut}
 {\neg (\varphi \lor \psi) \to \neg \varphi \strut} \quad (\to I, 1)
 \]
 
-These tree-shaped structure proofs are made up of sequence of rules, idenfified on the right-hand side of the factions. There are many ways to build these proofs: you can go bottom-up by starting from the conclusion, top-down by starting from the presmisses or open clauses, or you can do both at the same time. For example, considering a bottom-up approach, the first rule introduced in the proof above is \((\to I, 1)\). Each rule has it own characteristic and can only be applied under certain circumstances. Here is the list of rules in propositional logic.
+These tree-shaped structures represent proofs and are composed of sequences of inference rules, identified on the right-hand side of the fractions. The trees are constructed from nodes, which are formulas. The formulas at the leaves are called hypotheses and are associated with marks (numbers). The formula at the root is the conclusion of the proof. We call closed hypothesis if its mark is used in a rule of the tree otherwise it is said to be open.
+
+There are many ways to build these proofs: you can go bottom-up by starting from the conclusion, top-down by starting from the presmisses or open clauses, or you can do both at the same time. 
+
+Considering a bottom-up solution the first step is to apply the Implication Introduction rule (\(\to I, 1\)) given the fact that the conclusion has an implication as an outter operation. By doing so we add the left part of the implication as a hypothesis. This premisse can be useful to help us solving the deduction. Then we applied Negation Introduction rule \((\neg I, 2\)), and we add \(\psi\) to our list of premisses. After that we applied the Negation Elimination rule (\(\neg E\)), on the left hand we've added the hypothesis derived from the instroduction of implication (\(\neg (\varphi \lor \psi)\)), and on the right hand we've added the same expression but without negation (\(\varphi \lor \psi)\). Finally we applied the Disjunction Introduction left (\(\lor I_l\)) using the premisse derived from the introduction of negation. 
+
+Each rule has it own characteristic and can only be applied under certain circumstances. Some add new hypotheses that must be closed and others not. We say that the proof is finished when all the hyphotehses that must be closed are closed and the root of the tree contains the desired conclusion. Here is the complete list of rules in propositional logic.
 
 [FAZ SENTIDO COLOCAR TODAS?? TENHO QUE EXPLICAR UMA A UMA?]
 
@@ -245,20 +254,20 @@ We can extend the definition of a well-formed formula (WFF) from Proposition Log
 \begin{array}{ll}
 c \text{ is a term} & \text{, if } c \text{ is a constant,} \\
 x \text{ is a term} & \text{, if } x \text{ is a variable,} \\
-f(t_1, t_2, \dots, t_n) \text{ is a term} & \text{, if } f \text{ is an \(n\)-ary function and } t_1, t_2, \dots, t_n \text{ are terms.}
+t_1 \mathbin{\{+, -, \times, /\}} t_2 \text{ is a term} & \text{, if } t_1 \text{ and } t_2 \text{ are terms.} \\
+f(t_1, t_2, \dots, t_n) \text{ is a term} & \text{, if } f \text{ is a function and } t_1, t_2, \dots, t_n \text{ are terms.}
 \end{array}
 \right.
 \]
 \[
 \left\{
 \begin{array}{ll}
-P(t_1, t_2, \dots, t_n) \text{ is a WFF} & \text{, if } P \text{ is an \(n\)-ary predicate and } t_1, t_2, \dots, t_n \text{ are terms,} \\
+P(t_1, t_2, \dots, t_n) \text{ is a WFF} & \text{, if } P \text{ is a predicate and } t_1, t_2, \dots, t_n \text{ are terms,} \\
 \neg \alpha \text{ is a WFF} & \text{, if } \alpha \text{ is a WFF,} \\
 (\alpha) \text{ is a WFF} & \text{, if } \alpha \text{ is a WFF,} \\
 \forall x \, \alpha \text{ is a WFF} & \text{, if } \alpha \text{ is a WFF and } x \text{ is a variable,} \\
 \exists x \, \alpha \text{ is a WFF} & \text{, if } \alpha \text{ is a WFF and } x \text{ is a variable,} \\
 t_1 \mathbin{\{=, \neq, <, \leq, >, \geq\}} t_2 \text{ is a WFF} & \text{, if } t_1 \text{ and } t_2 \text{ are terms,} \\
-t_1 \mathbin{\{+, -, \times, /\}} t_2 \text{ is a WFF} & \text{, if } t_1 \text{ and } t_2 \text{ are terms.} \\
 \alpha \mathbin{\{\land, \lor, \rightarrow, \leftrightarrow\}} \beta \text{ is a WFF} & \text{, if } \alpha \text{ and } \beta \text{ are WFFs,} 
 \end{array}
 \right.
