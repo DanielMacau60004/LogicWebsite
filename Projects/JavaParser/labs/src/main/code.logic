@@ -37,14 +37,14 @@
 
 
 //ALL EQUIVALENT ✔
-//Car/1. Driver/1. Start/2. Stop/2.
-//¬∀x(Car(x) → ∃y(Driver(y) ∧ (Start(x, y) → Stop(x, y)))).
-//∃x(¬(Car(x) → ∃y(Driver(y) ∧ (Start(x, y) → Stop(x, y))))).
-//∃x(Car(x) ∧ ¬∃y(Driver(y) ∧ (Start(x, y) → Stop(x, y)))).
-//∃x(Car(x) ∧ ∀y(¬(Driver(y) ∧ (Start(x, y) → Stop(x, y))))).
-//∃x(Car(x) ∧ ∀y(¬Driver(y) ∨ ¬(Start(x, y) → Stop(x, y)))).
-//∃x(Car(x) ∧ ∀y(¬Driver(y) ∨ (Start(x, y) ∧ ¬Stop(x, y)))).
-//∃x(Car(x) ∧ ∀y(Driver(y) → (Start(x, y) ∧ ¬Stop(x, y)))).
+Car/1. Driver/1. Start/2. Stop/2.
+¬∀x(Car(x) → ∃y(Driver(y) ∧ (Start(x, y) → Stop(x, y)))).
+∃x(¬(Car(x) → ∃y(Driver(y) ∧ (Start(x, y) → Stop(x, y))))).
+∃x(Car(x) ∧ ¬∃y(Driver(y) ∧ (Start(x, y) → Stop(x, y)))).
+∃x(Car(x) ∧ ∀y(¬(Driver(y) ∧ (Start(x, y) → Stop(x, y))))).
+∃x(Car(x) ∧ ∀y(¬Driver(y) ∨ ¬(Start(x, y) → Stop(x, y)))).
+∃x(Car(x) ∧ ∀y(¬Driver(y) ∨ (Start(x, y) ∧ ¬Stop(x, y)))).
+∃x(Car(x) ∧ ∀y(Driver(y) → (Start(x, y) ∧ ¬Stop(x, y)))).
 
 /*
 proof:

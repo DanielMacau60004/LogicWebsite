@@ -4,7 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="961377de-44c0-4ce8-9942-64e88caeedf7" name="Changes" comment="Quase feito" />
+    <list default="true" id="961377de-44c0-4ce8-9942-64e88caeedf7" name="Changes" comment="Quase feito">
+      <change beforePath="$PROJECT_DIR$/../../Papers/Automated_First_Order_Natural_Deduction.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/../../Papers/Automated_First_Order_Natural_Deduction.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Papers/Generation_and_Use_of_Hints_and_Feedback_in_a_Hilb.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/../../Papers/Generation_and_Use_of_Hints_and_Feedback_in_a_Hilb.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Papers/Iltis1.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/../../Papers/Iltis1.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Papers/Providing_Hints_Next_Steps_and_Feedback_in_a_Tutor.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Papers/pate07.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Plan/latex/Bibliography/bibliography.bib" beforeDir="false" afterPath="$PROJECT_DIR$/../../Plan/latex/Bibliography/bibliography.bib" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Plan/latex/Bibliography/bibliography_doi.bib" beforeDir="false" afterPath="$PROJECT_DIR$/../../Plan/latex/Bibliography/bibliography_doi.bib" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Plan/latex/Chapters/acronyms.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../../Plan/latex/Chapters/acronyms.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Plan/latex/Chapters/chapter1.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../../Plan/latex/Chapters/chapter1.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Plan/latex/Chapters/chapter2.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../../Plan/latex/Chapters/chapter2.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Plan/latex/Chapters/chapter3.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../../Plan/latex/Chapters/chapter3.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Plan/latex/Chapters/chapter4.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../../Plan/latex/Chapters/chapter4.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/main/code.logic" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/main/code.logic" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../notes.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../notes.md" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -248,7 +264,13 @@
       <workItem from="1735996624267" duration="26653000" />
       <workItem from="1736032071064" duration="159000" />
       <workItem from="1736080401450" duration="31599000" />
-      <workItem from="1736416911844" duration="936000" />
+      <workItem from="1736416911844" duration="2720000" />
+      <workItem from="1736794805513" duration="669000" />
+      <workItem from="1736935990220" duration="10000" />
+      <workItem from="1736936027898" duration="2666000" />
+      <workItem from="1737041678865" duration="1962000" />
+      <workItem from="1737105764975" duration="603000" />
+      <workItem from="1737114873010" duration="2635000" />
     </task>
     <servers />
   </component>
