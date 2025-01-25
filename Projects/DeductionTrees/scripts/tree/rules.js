@@ -1,8 +1,10 @@
 export const Rules = Object.freeze({
     IAND: '(∧<sub>I</sub>)',
-    ELAND: '(∨<sub>E<sub>l</sub></sub>)',
-    ERAND: '(∨<sub>E<sub>r</sub></sub>)',
-    EIMP: '(→<sub>E</sub>)'
+    ELAND: '(∧<sub>E<sub>l</sub></sub>)',
+    ERAND: '(∧<sub>E<sub>r</sub></sub>)',
+    EOR: '(∨<sub>E<sub>r</sub></sub>)',
+    EIMP: '(→<sub>E</sub>)',
+    IIMP: '(→<sub>I</sub>)'
 });
 
 export class Rule {

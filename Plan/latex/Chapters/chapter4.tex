@@ -9,6 +9,41 @@
 \typeout{NT FILE chapter4.tex}%
 
 \chapter{Proposed Work}
+
+Erros que podem ser reportados:
+- syntactic errors expressions
+    - Indicar que a expressão x está errada
+    - Indicar a posição do error
+    - Indicar a posição do erro e possiveis alternativas
+- syntactic errors deductions
+    - Indicar que a arvore nao esta a usar regras validas
+    - Indicar que a regra x nao pode ser colocada depois da regra y
+    - Indicar que o numero de ramificacoes nao é o correto, dizendo o valor esperado
+    - Mostrar uma possivel solucao para a regra errada
+    - Introdução de marcas invalidas (usar marca 100 quando so existem marcas ate 2)
+- semantic errors deductions
+    - Indicar que a expressao esta mal colocada na regra (colocar uma implicacao numa disjução lado esquerdo)
+    - Indicar que existem conclusoes que nao foram bem deduzidas (a conclusao nao corresponde ao que deduzimos)
+    - Dizer em concreto aquilo que está a ser deduzido
+    - Associação de marcas invalidas (chamar marca 1 quando se queria chamar marca 2)
+    - Numero de marcas associadas a uma regra é invalido
+    - Indicar marcas que deveriam estar fechadas e nao estão (de forma concreta enumerando ou dizendo genericamente)
+    - Indifcar marcas que deveriam estar na arvore (por exemplo na intro da neg, a hipotese tem que aparecer na arvore)
+
+Feedback:
+    - Indicar em concreto que parte da arvore está errdada (alterando a cor de fundo)
+    - Mostrar que expressões de arvores diferentes podem ser juntadas
+    - Automaticamente adicionar as regras já com o numero de ramificações corretas (nivel1)
+    - Automaticamente adicionar as regras já com o numero de ramificacoes corretas e os campos preenchidos (nivel2)
+    - Indicar a cada passo, as hipoteses que temos (nivel 1)
+    - Indicar a cada passo, as hipoteses que temos e as hipoteses que devem aparecer na arvore mas que ainda nao aparecem (nivel 2)
+
+Advanced Feedback:
+    - Mostrar os passos a seguir / Apresentar caminhos alternativos quando o utilizador está preso (feed forward)
+    - Indicar a quantos passos estamos de uma solução
+    - Apresentar melhorias da solucao encontrada pelo aluno, por exemplo uma arvore mais pequena mas que usa a mesma sequencia de regras
+    - Apresentar opcoes de subgoals a atingir antes de provar a conclusao, por exemplo prova primeiro X
+
 The aim of this thesis is to design and implement a variety of types of exercises [REF] commonly found in introductory logic courses, both in PL and FOL. To enhance the students' engagement, the exercises should be presented in an interactive way. This should be supported by a feedback system that will guide students through the resolution of the exercises and help prevent them from getting lost. Developing a successful feedback system is not an easy task. We need to find a balanced way to provide the right amount of feedback without leaving the student even more lost in the exercise. This can depend on many factors, for example, the level of expertise of the student, the type of exercise, the resolution path that the student is considering, etc. We described some excellent examples of feedback systems in [CHAPTER 3]. This tool must also provide teachers with an intuitive way to add new exercises as well as a way to grade them. The purpose of this is to enable automatic evaluation through integration with existing online e-learning platforms like Moodle.
 
 \section{Exercises}

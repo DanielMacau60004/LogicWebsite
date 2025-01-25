@@ -9,18 +9,32 @@
 \typeout{NT FILE chapter1.tex}%
 
 \chapter{Introduction}
-Citing something online~\cite{arxivIltisLearning,arxiv}.
-
-\textcolor{red}{
-    This thesis will focus on the implementation and design of various types of exercises commonly found in introductory logic courses, both in PL and FOL. The system should be interactive, allowing students to automatically check their solutions, and, most importantly, it has to provide advanced assistance by delivering detailed feedback and hints without disclosing the correct answers. It also must provide an interface for teachers to add new exercises and automatically grade them.
-}
-
 
 \section{Motivation}
+Logic is a fundamental topic in numerous fields, especially in mathematics and computer science. In computer science, it is essential across various areas, including architecture, software engineering, programming languages, databases, artificial intelligence, algorithms, and the theory of computation~\cite{bruce_panel}. As such, understanding computational logic is a key aspect of learning computer science. Nowadays, it is common for universities offering computer science degrees to include logic courses in their program.
+
+The constant evolution of technology has significantly inpacted teaching methodologies, transforming how knowledge is shared and acquired. Transitioning from traditional classrooms to technology-based learning environments, made education more accessible, engaging, and effective. The increasing popularity of digital platforms and new online teaching methods has accelerated this change, making education more accessible and widespread. Massive Open Online Courses (MOOCs) are a notable illustration of this technology evolution.
+
+MOOCs have had a significant impact on higher education, especially during the COVID-19 pandemic, which made remote learning a necessity~\cite{alhazzani_2020_moocs}. One of the most notable benefits of MOOCs is the flexibility to study at our own pace. Unlike in traditional classrooms, where the pace is set by the instructor, MOOCs allow learners to progress through the material at their own speed. This freedom is particularly important for students who may need additional time and practice to understand certain ideas or even for those who want to progress faster.
+
+Moreover, MOOCs can help with a common issue in classrooms, where students often hesitate to ask questions because they worry about looking unintelligent or asking something silly. This can effectively affect the way students progress in their learning, as they create gaps in their understanding that impede or slow down their progress. These tools provide materials, such as exercises with feedback, allowing learners to identify and address misconceptions in real time, without the pressure of interrupting a class or asking a teacher for help.
+
+At present, there are relatively few MOOCs dedicated to teaching logic. Most of the available courses are outdated, relying on interfaces built in older versions of HTML and CSS, which can make the user experience less intuitive and engaging. Additionally, these courses often lack diversity in types of exercises they offer. For instance, natural deduction exercises, the critical exercise where students struggle the most. Such exercises require extensive practice and exposure. Yet, many courses fail to provide an adequate automated feedback system in their exercises, which fails to guide students in understanding their mistakes.
+
+At FCT NOVA University, in previous editions of the Computational Logic course, classes were taught using Tarski's World, a logic application that students used during practical classes. As a desktop application, it required installation on students' devices. However, the main reason teachers discontinued its use was that some of its methodologies were not the most suitable for the course's objectives. 
+
+Recent efforts have started to address this problem, which could provide the basis for an online system. However, the range of specific types of logic exercises that have been implemented is very limited, both in number and depth, and they were created solely for testing purposes. This shows that there is still a need to develop a more complete and engaging platform, with a particular emphasis on feedback, to improve the way logic is taught.
 
 \section{Problem formulation}
-\section{Research}
+Considering the topics previously mentioned, we propose, in this dissertation, a plan to design and implement an online platform to practice solving logic, giving special attention to the feedback. We will divide this platform into two distinct perspectives: one for the students and the other for the teachers.
+
+From the students' perspective, we want to provide an online environment that presents different exercises in both propositional and first-order logic for users to practice. These exercises will be interactive and will be equipped with an advanced feedback and hint system that will guide the students through the exercises. There will be different levels of feedback and hints, some that will produce more generic assistance and others that will provide more precise help but in a balanced way. The system will automatically adjust its assistance level according to the students' proficiency, determined by their past mistakes. The students will be able to validate their solutions, get access to resolutions, and save their progress during the exercises.
+
+From the teachers' perspective, we also want to provide an online interface with an intuitive way to add new exercises, create quizzes and assignments, and a way to grade them.
+
+Finally, the project must be integrated with an online e-learning platform like Moodle.
 \section{Document Structure}
+
 
 
 

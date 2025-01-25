@@ -5,12 +5,9 @@ window.onload = function () {
 
     const premisse = new Premisse('ψ')
     const conclusion = new Conclusion('φ ∨ ψ');
-    const rule1 = new Rule(Rules.IAND, [new Expression('φ'), new Premisse('ψ')], new Expression('φ ∨ ψ'));
-    const rule2 = new Rule(Rules.ERAND, [new Expression('φ'), new Premisse('ψ')], new Expression('φ'));
-    const rule3 = new Rule(Rules.ELAND, [new Premisse('φ ∨ ψ')], new Expression('φ'));
-    const rule4 = new Rule(Rules.ELAND, [new Premisse('φ ∨ ψ')], new Expression('φ'));
-    const rule5 = new Rule(Rules.ERAND, [new Expression('φ1'), new Expression('ψ')], new Expression('φ2'));
-    const rule6 = new Rule(Rules.ELAND, [new Expression('φ3'), new Expression('ψ1')], new Expression('ψ'));
+    const rule1 = new Rule(Rules.IIMP, [new Expression('a')], new Expression('(a ∧ a) → a'));
+    const rule2 = new Rule(Rules.EOR, [new Expression('a ∨ a'),new Expression('a'), new Expression('b') ], new Expression('a'));
+    const rule3 = new Rule(Rules.ELAND, [new Expression('a ∧ b')], new Expression('b'));
 
     //document.body.appendChild(premisse.getElement())
     document.body.appendChild(rule1.getElement())

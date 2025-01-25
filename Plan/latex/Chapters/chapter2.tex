@@ -87,13 +87,15 @@ A well-formed formula (WFF) in \gls{PL} is defined recursively according to the 
 \end{itemize}
 
 \subsection{Semantic}
-To define a language, we also need to define its semantics. In \gls{PL}, this is not different, given a formula, we may want to determine its truth value. To do so, we must create an interpretation by assigning a truth value to each propositional symbol. An interpretation structure (\( V \)) over a set of propositional symbols \( P \) is a function \( V : P \to \{0, 1\} \). We say that a formula (\(\alpha\)) is satisfiable (SAT) over an interpretation (\( V \models \alpha \)) if the interpretation satisfies the formula (it evaluates true in that interpretation). Otherwise, the formula is not satisfiable (\( V \not\models \alpha \)). Table \ref{tab:sat_rules} presents the inductive definition of SAT in \gls{PL}.
+To define a language, we also need to define its semantics. In \gls{PL}, this is not different, given a formula, we may want to determine its truth value. To do so, we must create an interpretation by assigning a truth value to each propositional symbol.
+We say that a formula is satisfiable (SAT) over an interpretation if the interpretation satisfies the formula (it evaluates true in that interpretation). Otherwise, the formula is not satisfiable. Table \ref{tab:sat_rules} presents the inductive definition of SAT in \gls{PL}.
+
 
 \begin{table}[h]
 \[
 \left\{
 \begin{array}{ll}
-    \alpha \text{ is SAT}  & \text{,if } \alpha \text{ is a proposition and } V(\alpha) = 1, \\
+    \alpha \text{ is SAT}  & \text{,if } \alpha \text{ is a proposition and its interpretation is true}, \\
     \neg \alpha \text{ is SAT} & \text{,if } \alpha \text{ is not SAT,} \\
     (\alpha \lor \beta) \text{ is SAT} & \text{,if either } \alpha \text{ or } \beta \text{ is SAT,} \\
     (\alpha \land \beta) \text{ is SAT} & \text{,if both } \alpha \text{ and } \beta \text{ are SAT,} \\
@@ -230,21 +232,22 @@ We can extend the definition of a \gls{WFF} from \gls{PL} to represent a \gls{WF
 \end{table}
     
 \subsection{Semantic}
-As in \gls{PL}, we must understand how semantics work in \gls{FOL}. Unlike \gls{PL}, in \gls{FOL}, an interpretation structure is a pair (\( M = (U, I) \)). The first element is the domain (\(U\)), and the second is a function (\(I\)), that assigns an application to functions and predicates. Additionally, an assignment of variables \( X \) in \( M \) is a mapping \( \rho : X \to U \), which associates each variable in \( X \) with an element of the universe \( U \). Similarly to \gls{PL}, we say that a formula (\(\alpha\)) is SAT over an interpretation (\( M\)) and an assignment (\(\rho\)), denoted by \( M, \rho \models \alpha \), if the interpretation satisfies the formula (it evaluates true in that interpretation). Otherwise, the formula is not satisfiable, denoted by \( M, \rho \not\models \alpha \). Table \ref{tab:sat_rules} presents the inductive definition of SAT in \gls{FOL}.
+As in \gls{PL}, we must understand how semantics work in \gls{FOL}. Unlike \gls{PL}, in \gls{FOL}, an interpretation structure is a pair. The first element is the domain, and the second is a function, that assigns an application to functions and predicates. Additionally, an assignment of variables is a function that maps each variable to a specific element of the universe. Similarly to \gls{PL}, we say that a formula is SAT over an interpretation and an assignment, if the interpretation satisfies the formula (it evaluates true in that interpretation). Otherwise, the formula is not satisfiable. Table \ref{tab:sat_rules} presents the inductive definition of SAT in \gls{FOL}.
 
+As in Propositional Logic \gls{PL}, the concepts of possibility, validity, and tautology are also applied in \gls{FOL}.
 
 \begin{table}[h]
 \[
     \left\{
     \begin{array}{ll}
-        \alpha \text{ is SAT}  & \text{,if } \alpha \text{ is a predicate and } I(\alpha) = 1, \\
+        \alpha \text{ is SAT}  & \text{,if } \alpha \text{ is a predicate and its interpretation is true}, \\
         \neg \alpha \text{ is SAT} & \text{,if } \alpha \text{ is not SAT,} \\
         (\alpha \lor \beta) \text{ is SAT} & \text{,if either } \alpha \text{ or } \beta \text{ is SAT,} \\
         (\alpha \land \beta) \text{ is SAT} & \text{,if both } \alpha \text{ and } \beta \text{ are SAT,} \\
         (\alpha \rightarrow \beta) \text{ is SAT} & \text{,if whenever } \alpha \text{ is SAT, then } \beta \text{ is SAT,} \\
         (\alpha \leftrightarrow \beta) \text{ is SAT} & \text{,if both } \alpha \text{ and } \beta \text{ are either both SAT or both not SAT,} \\
-        \forall x \, \alpha \text{ is SAT} & \text{,if for every } u \in U\text{, } \alpha \text{ is SAT when assigning } u \text{ to } x, \\
-        \exists x \, \alpha \text{ is SAT} & \text{,if for some } u \in U\text{, } \alpha \text{ is SAT when assigning } u \text{ to } x. \\
+        \forall x \, \alpha \text{ is SAT} & \text{,if for every element } u \in \text{ Universe, } \alpha \text{ is SAT when assigning } u \text{ to } x. \\
+        \exists x \, \alpha \text{ is SAT} & \text{,if for some element } u \in \text{ Universe, } \alpha \text{ is SAT when assigning } u \text{ to } x. \\
     \end{array}
     \right.
 \]
@@ -255,7 +258,7 @@ As in \gls{PL}, we must understand how semantics work in \gls{FOL}. Unlike \gls{
     \end{table}
 
 \subsection{Equivalences}
-Checking the equivalence of two expressions can be considerably more complicated in \gls{FOL} compared to \gls{PL}. \gls{FOL} is way more expressive and is not easy to guaratee that for all interpretations in both expressions the truth value is the same. In fact, there is no algorithm that can prove the equivalence of all expressions. This problem is considered undecidable and was proven by Alan Turing~\cite{turing1936}. But there are some approaches that can be used to solve some kind of equivalences:
+Checking the equivalence of two expressions can be considerably more complicated in \gls{FOL} compared to \gls{PL}. \gls{FOL} is way more expressive and is not easy to guaratee that for all interpretations in both expressions the truth value is the same. In fact, there is no algorithm that can prove the equivalence of all expressions. This problem is considered undecidable and was proven by Alan Turing~\cite{turing_1936_on}. But there are some approaches that can be used to solve some kind of equivalences:
 
 \begin{itemize}
     \item \textbf{Contradiction:} To demonstrate by contradiction, we assume the negative of the expression and try to derive a contradiction from that assumption. If the assumption results in an absurdity, the original assertion must be valid.
@@ -276,8 +279,8 @@ Checking the equivalence of two expressions can be considerably more complicated
 
 \section{Natural Deduction} 
 
-\label{chap:prop-decution}
-A key task in Logic is to determine whether an expression is a semantic consequence of a set of formulas. Given a set of premises \(\Phi \) and a conclusion \(\psi\), it is said that \(\psi\) is a semantic consequence of \(\Phi \), denoted by \(\Phi  \models \psi \), if for every interpretation \( V \) over the set of propositions, if \( V \) satisfies all the formulas in \(\Phi \) (\( V \models \Phi  \)), then the interpretation \( V \) must satisfy \(\psi\) (\( V \models \psi \)). In other words, if the set of premises \(\Phi \) is true, then \(\psi\) must also be true. 
+\label{chap:prop-deduction}
+A key task in Logic is to determine whether an expression \(\phi\) is a semantic consequence of a set of formulas \(\Gamma\), denoted by \(\Gamma \vdash \phi\). Given a set of premises and a conclusion, the conclusion is considered a semantic consequence of the premises if, for every interpretation of the propositions, whenever the interpretation satisfies all the premises, it must also satisfy the conclusion. In other words, if the set of premises is true, then the conclusion must also be true. 
 
 To determine if an expression is a semantic consequence of a set of formulas, one can use a deduction system. There are two ways to approach a deduction system: the semantic approach looks at what the formulas mean in different ways, and the syntactic approach looks at how to use symbols in a deductive system~\cite{gouveia_lgica}. There are numerous deductive systems in logic, some of the most well-known being  resolution, tableau and natural deduction, but in this thesis we will concentrate on the natural deduction system.
 
@@ -308,7 +311,7 @@ These tree-shaped structures, also known as deduction trees, represent proofs an
 \end{table}
 Each rule has its own characteristic and can only be applied under certain circumstances. Some add new hypotheses that must be closed and others not. For instance, the Implication Introduction rule introduces a new hypothesis containing the antecedent of the implication, which can then be used to close the proof. Another example is the Conjunction Introduction rule that requires proving the left and right sides of the conjunction.
 
-Individual trees are constructed from nodes, which are formulas. The formulas at the leaves are called hypotheses and are associated with marks (numbers). The formula at the root is the conclusion of the proof. Marks are used to identify the hypotheses that are given or derived from the rules. We call a closed hypothesis if its mark is used in a rule of the tree otherwise, it is said to be open. The table below illustrates the procedure of a basic proof where we aim to prove: \{\(\psi\)\} \( \models \varphi \to (\psi \land \varphi) \).
+Individual trees are constructed from nodes, which are formulas. The formulas at the leaves are called hypotheses and are associated with marks (numbers). The formula at the root is the conclusion of the proof. Marks are used to identify the hypotheses that are given or derived from the rules. We call a closed hypothesis if its mark is used in a rule of the tree otherwise, it is said to be open. The table below illustrates the procedure of a basic proof where we aim to prove: \{\(\psi\)\} \( \vdash \varphi \to (\psi \land \varphi) \).
 
 \begin{table}[h!]
     \[
@@ -318,11 +321,11 @@ Individual trees are constructed from nodes, which are formulas. The formulas at
             \textbf{First step} & \textbf{Second step} \\
     \end{array}
       \]
-    \caption{Example of a deduction tree proving \{\(\psi\)\} \( \models \varphi \to (\psi \land \varphi) \).}
+    \caption{Example of a deduction tree proving \{\(\psi\)\} \( \vdash \varphi \to (\psi \land \varphi) \).}
     \label{tab:proof-tree-part2}
 \end{table}
 
-Building these proofs can be done in a variety of ways: bottom-up by starting from the conclusion and top-down by starting from the premises or open clauses. If we consider a bottom-up solution, the first step is to apply the Implication Introduction rule. From this rule, we derive a new hypothesis (\(\varphi\)), which we will mark with the number two, since we already have a premise marked with the number one. At this point in the proof, we have \(\displaystyle \psi \land \varphi\) open. The second step is to apply the Conjunction Introduction rule, subsequently, both expressions in the leaves can now be closed with marks one and two, respectively. With no leaves left containing open hypotheses, the proof is declared complete when all necessary hypotheses have been closed and the desired conclusion is present at the root of the tree. So we proved \{\(\psi\)\} \( \models \varphi \to (\psi \land \varphi) \).
+Building these proofs can be done in a variety of ways: bottom-up by starting from the conclusion and top-down by starting from the premises or open clauses. If we consider a bottom-up solution, the first step is to apply the Implication Introduction rule. From this rule, we derive a new hypothesis (\(\varphi\)), which we will mark with the number two, since we already have a premise marked with the number one. At this point in the proof, we have \(\displaystyle \psi \land \varphi\) open. The second step is to apply the Conjunction Introduction rule, subsequently, both expressions in the leaves can now be closed with marks one and two, respectively. With no leaves left containing open hypotheses, the proof is declared complete when all necessary hypotheses have been closed and the desired conclusion is present at the root of the tree. So we proved \{\(\psi\)\} \( \vdash \varphi \to (\psi \land \varphi) \).
 
 In logic courses, students often struggle the most with these types of exercises. Some steps in the proofs are not immediately obvious, and trees can become quite large with many branches. Becoming proficient requires significant exposure and practice. The following schema illustrates a more complex example of a proof.
 \begin{table}[h!]
@@ -345,25 +348,48 @@ Proof assistants are software tools designed to help their users formalize progr
 
 Proof assistants can have a big impact in education, particularly for teaching mathematical reasoning and formal semantics. This type of tool can be used in Logic, for example, to help in constructing proofs in deduction systems. Some tools have a user-friendly interface, so the user can navigate through the steps of the proof to see the state on the step, can display information about the current goals, and provide little hints/suggestions about the steps to follow.
 
-In the following sections, we present two examples of proof assistants that can be use in natural deduction.
+In the following sections, we present two examples of proof assistants that can be used in natural deduction.
 
-\subsection{Isabell/HOL}
-Isabell is a generic framework for interactive theorem proving. Isabelle/HOL is a large application within the generic framework that focuses on higher order logic (HOL). It includes a wide range of tools for logic-specific tasks and a large theory library~\cite{wenzel_the,blanchette_automatic}. Isabelle/HOL is based on tactic functions that manipulate the proof state. These tactics can either solve a proof goal directly or break it into smaller subgoals. For instance, Blast is a first-order tableau prover, and Metis is a resolution prover.
+\subsection{Isabelle/HOL}
+Isabelle is a generic framework for interactive theorem proving. Isabelle/HOL is a large application within the generic framework that focuses on higher order logic (HOL). It includes a wide range of tools for logic-specific tasks and a large theory library~\cite{wenzel_the,blanchette_automatic}. Isabelle/HOL is based on tactic functions that manipulate the proof state. These tactics can either solve a proof goal directly or break it into smaller subgoals. For instance, Blast is a first-order tableau prover, and Metis is a resolution prover.
 
-Sledgehammer is an extremely powerful tool in Isabell/HOL, which connects it with external provers by sending its problems to remote servers, increasing the efficiency of the prover. Additionally, it can automate proofs by utilizing various tactics that external provers have discovered. This automatization can be useful when combined with large proofs, as it can omit certain steps by using the tactics. However, it may also hide some of the underlying reasoning behind the proof, making it harder for users to understand the intermediate steps. Since this can't provide the full proof or a step-by-step resolution, it cannot be used to help us develop our feedback system for natural deduction exercises.
+Sledgehammer is an extremely powerful tool in Isabelle/HOL, which connects it with external provers by sending its problems to remote servers, increasing the efficiency of the prover. Additionally, it can automate proofs by utilizing various tactics that external provers have discovered. This automatization can be useful when combined with large proofs, as it can omit certain steps by using tactics. However, it may also hide some of the underlying reasoning behind the proof, making it harder for users to understand the intermediate steps. Since this tool cannot provide a full proof or a step-by-step resolution, it may not be suitable for developing our feedback system for natural deduction exercises.
 
-However, Isabelle/HOL has tools for making counterexamples. For example, Nitpick uses a solver to systematically look for edge cases, and QuickCheck creates tests at random to test the properties of the expressions. These tools can be used in our feedback system to provide counterexamples to students, assisting them in identifying errors in their reasoning and improving their comprehension of the exercises. Figure \ref{img:isabell-counter} shows an example of how these tools are used and the corresponding counterexample found.
+However, Isabelle/HOL has tools for making counterexamples. For example, Nitpick uses a solver to systematically look for edge cases, and QuickCheck creates tests at random to test the properties of the expressions. These tools can be used in our feedback system to provide counterexamples to students, assisting them in identifying errors in their reasoning and improving their comprehension of the exercises. Figure \ref{img:isabelle-counter} shows an example of how these tools are used and the corresponding counterexample found.
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.5\linewidth]{Isabell-counter}
+    \includegraphics[width=0.5\linewidth]{Isabelle-counter}
     \caption{Example of code in Isabelle testing Nitpick and Quickcheck.}
-    \label{img:isabell-counter}
+    \label{img:isabelle-counter}
 \end{figure}
 
 
     
-\subsection{Lean 4}
-da
+\subsection{Lean}
+Lean is a functional programming language that can be used as an interactive theorem prover~\cite{programming}. The structure of the proofs is very similar to the one presented in~\ref{chap:prop-deduction}, where it is possible to use rules defined in natural deduction, in contrast to Isabelle/HOL. Figure \ref{img:lean_example} shows an example of a natural deduction proof in Lean style, and \ref{tab:lean_example} demonstrates its representation in a tree style.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Lean_example}
+    \caption{Example of code in Lean proving \(\{p \lor q\} \models q \lor p \).}
+    \label{img:lean_example}
+\end{figure}
+\begin{table}[h!]
+    \centering
+        \[
+            \frac{ {\displaystyle {p \lor q}^1 
+            \quad \quad \displaystyle \frac{\displaystyle p^2}{q \lor p \strut} (\lor I_l) \strut}
+            \quad \quad \displaystyle \frac{\displaystyle q^3}{q \lor p \strut} (\lor I_r) \strut}
+            {\displaystyle q \lor p \strut} \quad (\vee E, 2, 3)
+          \]
+          \caption{Example of a deduction tree proving \(\{p \lor q\} \models q \lor p \).}
+          \label{tab:lean_example}
+      \end{table}
+
+Lean also has a tool to automate proofs called Aesop~\cite{leanprovercommunity_2021_github}. Unlike Isabelle/HOL, Aesop can provide a step-by-step proof, but not in the format presented above. The generated proof uses different tactics that are genereraly not easy to directly map to natural deduction rules. However, Aesop alows users to define their own rules/tactics to help with automation. It is possible to restrict the domain of the rules used in the automation process. Perhaps by defining the set of all natural deduction rules, we could achieve the desired output, enabling the generation of proofs using only valid rules. If we successfully accomplish this, we will have a reliable method for implementing our feedback.
+
+Another interesting feature of Aesop is that it allows the user to use part of their proof to generate the rest of it when possible.
+
 
 
 
