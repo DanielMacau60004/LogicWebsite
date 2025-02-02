@@ -1,0 +1,121 @@
+%!TEX root = ../template.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% chapter1.tex
+%% NOVA thesis document file
+%%
+%% Chapter with introduction
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\typeout{NT FILE chapter4.tex}%
+
+\chapter{Proposed Work}
+
+Erros que podem ser reportados:
+- syntactic errors expressions
+    - Indicar que a expressão x está errada
+    - Indicar a posição do error
+    - Indicar a posição do erro e possiveis alternativas
+- syntactic errors deductions
+    - Indicar que a arvore nao esta a usar regras validas
+    - Indicar que a regra x nao pode ser colocada depois da regra y
+    - Indicar que o numero de ramificacoes nao é o correto, dizendo o valor esperado
+    - Mostrar uma possivel solucao para a regra errada
+    - Introdução de marcas invalidas (usar marca 100 quando so existem marcas ate 2)
+- semantic errors deductions
+    - Indicar que a expressao esta mal colocada na regra (colocar uma implicacao numa disjução lado esquerdo)
+    - Indicar que existem conclusoes que nao foram bem deduzidas (a conclusao nao corresponde ao que deduzimos)
+    - Dizer em concreto aquilo que está a ser deduzido
+    - Associação de marcas invalidas (chamar marca 1 quando se queria chamar marca 2)
+    - Numero de marcas associadas a uma regra é invalido
+    - Indicar marcas que deveriam estar fechadas e nao estão (de forma concreta enumerando ou dizendo genericamente)
+    - Indifcar marcas que deveriam estar na arvore (por exemplo na intro da neg, a hipotese tem que aparecer na arvore)
+
+Feedback:
+    - Indicar em concreto que parte da arvore está errdada (alterando a cor de fundo)
+    - Mostrar que expressões de arvores diferentes podem ser juntadas
+    - Automaticamente adicionar as regras já com o numero de ramificações corretas (nivel1)
+    - Automaticamente adicionar as regras já com o numero de ramificacoes corretas e os campos preenchidos (nivel2)
+    - Indicar a cada passo, as hipoteses que temos (nivel 1)
+    - Indicar a cada passo, as hipoteses que temos e as hipoteses que devem aparecer na arvore mas que ainda nao aparecem (nivel 2)
+
+Advanced Feedback:
+    - Mostrar os passos a seguir / Apresentar caminhos alternativos quando o utilizador está preso (feed forward)
+    - Indicar a quantos passos estamos de uma solução
+    - Apresentar melhorias da solucao encontrada pelo aluno, por exemplo uma arvore mais pequena mas que usa a mesma sequencia de regras
+    - Apresentar opcoes de subgoals a atingir antes de provar a conclusao, por exemplo prova primeiro X
+
+The aim of this thesis is to design and implement a variety of types of exercises [REF] commonly found in introductory logic courses, both in PL and FOL. To enhance the students' engagement, the exercises should be presented in an interactive way. This should be supported by a feedback system that will guide students through the resolution of the exercises and help prevent them from getting lost. Developing a successful feedback system is not an easy task. We need to find a balanced way to provide the right amount of feedback without leaving the student even more lost in the exercise. This can depend on many factors, for example, the level of expertise of the student, the type of exercise, the resolution path that the student is considering, etc. We described some excellent examples of feedback systems in [CHAPTER 3]. This tool must also provide teachers with an intuitive way to add new exercises as well as a way to grade them. The purpose of this is to enable automatic evaluation through integration with existing online e-learning platforms like Moodle.
+
+\section{Exercises}
+
+There is a vast variety of exercises in logic. Below is a list of some exercises, each one followed with a brief description of how they work. %and, in some cases, how we can provide feedback, hints, and grade them.
+
+\begin{itemize}
+    \item \textbf{Transforming a sentence from natural language to PL/FOL:} This type of exercise essentially involves translating a declarative sentence in natural language into PL/FOL. For example, consider the following propositions:\[p: \text{It is raining}, \quad q: \text{It is cold}.\]
+    Now, imagine the exercise asks you to write "If it is cold then it is raining" in PL, using the propositions defined above. A correct answer would be: \(q \rightarrow p\) or \(\neg q \lor p\). While developing this exercise, it is essential to consider that a question may have multiple answers, so an equivalence checking system is needed. Implementing an equivalence checking system seems pretty straightforward in PL, but when dealing with FOL expressions, the problem turns out to be extremely hard, since there's no algorithm that can always prove the equivalence of two different expressions[REF].
+    \item \textbf{Build Truth Tables:} This exercise involves filling in the gaps of a truth table. The user is presented with an expression in PL, and the goal is to determine the final truth values by considering all possible combinations of truth values for the propositions. To simplify the exercise, the user can break the initial formula into smaller subformulas and, at the end, combine their values to compute the final truth value.
+    \item \textbf{Conversion to Conjunctive, Disjunctive, and Negation Normal Forms:} In this exercise, students receive an expression and must transform it into various forms. For example, consider this expression:\[ (\varphi \land \psi) \lor \neg \theta \]
+    The exercise asks you to convert this expression into CNF by distributing disjunctions over conjunctions, resulting in: \( (\varphi \lor \neg \theta) \land (\psi \lor \neg \theta) \). Alternatively, converting to DNF involves distributing conjunctions over disjunctions, resulting in: \( (\varphi \land \psi) \lor \neg \theta \).
+    %\item \textbf{Conversion to Horn clauses:} This exercise entails the sequential application of a series of transformations, such as the elimination of implications, conversion to negation normal form, and Skolemization, until the final list of clauses is obtained. This type of exercise is useful in preparing students for practical applications, such as in Prolog, where Horn clauses are frequently used for efficient inference, and in practicing logical manipulations.
+    \item \textbf{Natural deduction in tree shape:} In this exercise, students are required to prove the validity of an expression both in PL and FOL via natural deduction. As described in [REF], these proofs are based on established rules that can be used to infer new results that will help reach a conclusion. A detailed step-by-step resolution of these kinds of exercises is provided in [REF]. This is the type of exercise where students struggle the most, so it would be important to consider it when designing our system.
+\end{itemize}
+
+\subsection{Ambition Levels}
+\subsection{Evaluation Plan}
+
+
+\section{Work Plan}
+%...
+
+
+
+
+
+
+\chapter{Proposed Work}
+As referred to in \ref{tab:problem_formulation}, this thesis will comprise the design and implementation of an interactive tool for practice and evaluating logic. The idea is to provide an online environment that is accessible for everyone, where students can practice what they learned in classes and be evaluated, and teachers can provide exercises that can be evaluated. 
+
+There are numerous types of exercises in logic. The future goal of this tool is to provide a wide variety of exercises. However, for this project, we will focus exclusively on natural deduction proofs in both PL and FOL, giving special attention to the feedback. We want a balanced feedback system that, based on the user's proficiency, will provide the student with the most adequate assistance. 
+
+To implement this tool, we first need to determine its architecture. The three-tier architecture is the most suitable design for this type of project because it provides a clear separation of concerns, enhancing scalability, maintainability, and security [ref]. It divides the system into three parts: 
+
+\begin{itemize}
+    \item \textbf{Data (Database):} This tier stores data in a persistent format. Here we will store the information about the system's users and the exercises they have completed. For this, we will use a MySQL database since it is a relational database, and the data we intend to store is also relational.
+
+    \item \textbf{Application (Server):} This is the core tier of the architecture. Here we will implement the logic behind the natural deduction and the system that will manage the users, grade the exercises, and generate the feedback. In this tier, we will implement a REST API (explaining what this is for) to facilitate communication with the webpage. The technology that is the most suitable for this tier is the Spring Framework. We choose it due to its robustness, flexibility, and comprehensive feature set. The most relevant features are the ability to create REST APIs and seamlessly communicate with the database while abstracting implementation complexity from the developer.
+
+    \item \textbf{Presentation (Website):} This is the tier that will present the interfaces to the final users. Here, we will handle the user interfaces for students to interact with exercises and receive feedback. We will use React to build dynamic, responsive pages. React's component-based approach will help create a modular and efficient UI, especially for displaying proofs in a tree-like structure, while its fast rendering ensures smooth, real-time updates during student interactions.
+\end{itemize}
+
+\section{Work Plan}
+The development of this project will be divided in two main parts, REST API and the site. We will follow a Iterative Model apprach-. There will be 3 different iterations of development (ambition levels), in each one a functional version of the project will be deployed. Each iteration will be followed with a testing phase.
+
+\subsection{First Iteration}
+By the end of this first interation we want to have a fully functional system that supports natural deduction proofs but with a extremely simple feedback system, that only tells the user if their awnsers are correct or not. It will also allow students to manage exercises and see its grades.
+
+\subsection{Server}
+Our first step will be the implementtion of a parser for both PL and FOL expressions according to the definitions presented in \ref{chap:prop-syntax,chap:fol-syntax}. Then we will conduct a batery of tests, to guaratee the correctness of the parsers. Movehover we will also implenent a parser for the natural deduction expressions, the reason why we need that is the fact that we want  the user to be allowed to do mistakes at the struture level of the proof. By this, the user will be completly free to use any rule at any point of the proof or even create their own rules. Defining this parsers will help when implementing the feedback system, because it can be implemented in a way to provide a very detailed assistance about mistake, for example, where it occured and what are the possible solutions to fix it. Similarly, as in the previous step, we then need to test it extenssivly. 
+
+After the parsers, we will need to implement an interpreter, that will check if a given proof is correct or not. It will firstly check if the derivations from the rules are correct,making sure that the final conclusion is the one that exercises asks. Then, the interpreter will check the hypotheses and marks used. Finnaly it will check if theres leaves without marks, and if there are hypotheses that should appear in the tree but they don't. By the end of this iteration the interpreter will only output if the proof is valid or not. Once again, the interpreter will pass trhough a battery of tests to guaratee its correctness.
+
+Finnaly it will be implemented a system to manage the users and the systm's exercises. There will be two types of users, students that will have access to the exercises and their grades and teachers that will provide exercises and see the grades of those exercises. For that it will be necessary to create some database tables to store that information, as well as, define the REST API endpoints that will be used in the webpage.
+
+\subsection{Website}
+After developing the server part, we will develop the website. We will start by defining the different environments for the students and teachers. Focusing only on the natural deduction proofs environment, the idea is to provide an intuitive and, at the same time, interactive way for students to practice. For that we will implement this exercise based on building blocks, each building block represent an sub-tree, and the user can drag building blocks and merge them to form bigger blocks, consequently bigger proofs. As reffered in chatper \ref{chap:prop-deduction}, proofs can be made in different directions, by having the exercise implmeneted using this blocks that problem is solved. At this stage we will only allow the user to use well stablished formulas, so they dont need to recall how many arguments each rule requires to be applied, the system will contruct it for you. In terms of visual feedback, at this iteration, it will only show a message indicating if the proof is correct or not.
+
+\subsection{Second Iteration}
+By the end of this iteration we will have a tool with a simplified versions of tthe feeback system. In this phase we will consider sintax, sematic errors related to the submitted proof.
+
+\subsection{Server}
+In this iteration we will implment the feedback system. We will implement it in a balenced way, we dont want to provide a lot of assistance till the point the student only follows the corrections and dont thing by themselves but at the same time we dont want to leave the user without knowing how to proced. That last point will only be implemented on the third  iteration. To differenciate the different levels of the users we will associate a proeficiancy number to each student simillarly how Itils implement their own system.  By default, when a student first start using the system that proficiency level will be low, as the user progresses trhough the exercises that value can vary. A higher value means that the student is proeficiant, so every time that the student ask for assitance the type of feedback will be extremely vague. However if the value is low the student will be assistaed with a more precise feedback. Let's see an example, imagine that the student writes a non valid logic expression, if the value proefficiency level is high the user will be receive a feedback like: "Your proof contain expressions that aren't valid!" for an intermediate level the user will receive something like: "Expression \(a \lor b \to c\) is not valid!" and for a lower proefficiency level something like:
+"Expression \(a \lor b \to c\) is ambiguous, considering uncluding parenthesis, possible correction: \((a \lor b) \to c\)". To compute the proefficiency level of a student, we need to assign a weight to each type of mistake (more critic ones will have a higher weight) and a wieght based on the difficulty of the exercise completed. The folowing list present some of the types of the mistakes that we will cover at this iteration:
+
+\begin{itemize}
+    \item \textbf{Syntax feedback:} We will check if the inputed expressions and proofs  are valid.
+    \item \textbf{Semantic feedback:} We will track information about the hypothesis and their marks, as well as, the derivated conclusions.
+\end{itemize}
+
+\subsection{Website}
+On the website we will implement the mecanism that will show the feedback generated by the server. There will be different enviroments dependind on the proeficiancy level, for a starter student we will display information about the current state and the hypothesis on each branch, the say may some proof assistants do. The rules for the starter student will be filled automaticaly, so the they dont need to worry about memorizing the structure of each rule. As they progress, these features will fade, for instance at a higher level of proeficinecy the user will have to create manually rule by rule, specifing everything (allowing the user to be freely) and the information about the current state can be hidden.
+
+Some of the feedback is presented as a message, like the on presented on the previous section or can be visual. For instance, imagine that the user writes an invalid expression or uses rules in the correct order, we can highlight the expression or the part of the tree thats not correct. Another example can happen on branches of the tree that havent valid marks, or been closeed.

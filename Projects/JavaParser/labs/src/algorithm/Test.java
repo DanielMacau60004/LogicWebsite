@@ -29,6 +29,7 @@ public class Test {
 
     public static void main(String[] args) throws ParseException {
         // First set of exercises
+        //Exp e = createExpression("a → a"); //HAS SOLUTIONS
         //Exp e = createExpression("a → (a ∨ b)"); //HAS SOLUTIONS
         //Exp e = createExpression("(a ∨ a) → a");
         //Exp e = createExpression("(a ∧ b) → a"); //HAS SOLUTIONS
@@ -40,21 +41,21 @@ public class Test {
         //Exp e = createExpression("¬(a ∨ b) → ¬a");
         //Exp e = createExpression("(b → c) → ((a ∧ b) → (a ∧ c))");
 
-        //Exp e = createExpression("(a → (a ∨ b)) ∧ (a → (a ∨ b))");
+        //Exp e = createExpression("(a → (a ∨ b)) ∧ (a → (a ∨ b))");fff
 
         // Second set of exercises
         //Exp e = createExpression("¬a → (a → b)"); //HAS SOLUTIONS
         //Exp e = createExpression("((a → b) ∧ ¬b) → ¬a");
         //Exp e = createExpression("(a → ¬¬a) ∧ (¬¬a → a)");
-        //Exp e = createExpression("((a → b) → (¬b → ¬a)) ∧ ((¬b → ¬a) → (a → b))"); //Has errors
+        //Exp e = createExpression("((a → b) → (¬b → ¬a)) ∧ ((¬b → ¬a) → (a → b))");
         //Exp e = createExpression("a ∨ ¬a"); //HAS SOLUTIONS
         //Exp e = createExpression("((a → d) → a) → a");
-        //Exp e = createExpression("a ∨ (a → b)"); //HAS SOLUTIONS
+        Exp e = createExpression("a ∨ (a → b)"); //HAS SOLUTIONS
         //Exp e = createExpression("(a → b) ∨ (b → d)"); //HAS SOLUTIONS
 
         //TODO As premissas tem de ser usadas para regenerar o grafo!
         List<Exp> premisses = new ArrayList<>();
-        //premisses.add(createExpression("b"));
+        //premisses.add(createExpression("(a → b) ∨ (b → d)"));
 
         Graph<Exp, Exp> graph = new Graph<>();
         genBottomUp(graph, e);
@@ -65,7 +66,8 @@ public class Test {
 
         System.out.println(Utils.convertUnicodeEscapes(graph.toString()));
 
-        List<List<Exp>> solutions = graph.findSolutions(e, 12,premisses);
+        long currentTime = System.currentTimeMillis();
+        List<List<Exp>> solutions = graph.findSolutions(e, 10,400, premisses);
         System.out.println("Found " + solutions.size() + " solutions: ");
         //for(List<Exp> solution : solutions)
         //    System.out.println(Utils.convertUnicodeEscapes(solution.toString()));
@@ -80,6 +82,8 @@ public class Test {
             System.out.println(Utils.convertUnicodeEscapes(
                     "Solution " + (i + 1) + " has " + solution.size() + " steps: " + solution));
         }
+
+        System.out.println("Total time: " + (System.currentTimeMillis() - currentTime));
     }
 
     private static void genBottomUp(Graph<Exp, Exp> graph, Exp e) {
@@ -95,6 +99,7 @@ public class Test {
             graph.addEdge(e, removeParenthesis(or.left), null, null);
             graph.addEdge(e, removeParenthesis(or.right), null, null);
         } else if (e instanceof ASTImplication imp) {
+            System.out.println(Utils.convertUnicodeEscapes(imp.toString())+" aaa  ");
             genBottomUp(graph, imp.right);
             graph.addEdge(e, removeParenthesis(imp.right), null, removeParenthesis(imp.left));
             graph.addEdge(removeParenthesis(imp.right), e, removeParenthesis(imp.left), null);
@@ -104,6 +109,9 @@ public class Test {
 
     private static void genTopDown(Graph<Exp, Exp> graph, Exp e) {
         e = removeParenthesis(e);
+
+        //TODO acho que devo considerar o BOT tb, mesmo sendo uma hipotese, pode haver casos em que a certo pondo da
+        // arvore ainda nao o seja
 
         if (e instanceof ASTOr or) {
             genTopDown(graph, or.left);

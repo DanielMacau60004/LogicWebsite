@@ -1,3 +1,17 @@
+%!TEX root = ../template.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% annex1.tex
+%% NOVA thesis document file
+%%
+%% Chapter with example of appendix with a short dummy text
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\typeout{NT FILE annex1.tex}%
+
+
+\chapter{Natural Deduction Rules}
+\label{ann:nd_rules}
+
 \[
 \begin{array}{c c}
 
@@ -20,8 +34,8 @@
 \[
 \begin{array}{c c}
 \frac{\displaystyle \overset{\displaystyle\mathcal{D} \strut} {\varphi 
-\strut}}{\displaystyle \varphi \vee \psi \strut} \quad (\land I_r) 
-& \frac{\displaystyle \overset{\displaystyle\mathcal{D} \strut} {\psi \strut}}{\displaystyle \varphi \vee \psi \strut} \quad (\land I_l) \\[5pt]
+\strut}}{\displaystyle \varphi \vee \psi \strut} \quad (\vee I_r) 
+& \frac{\displaystyle \overset{\displaystyle\mathcal{D} \strut} {\psi \strut}}{\displaystyle \varphi \vee \psi \strut} \quad (\vee I_l) \\[5pt]
 \textbf{Disjunction Introduction, right} & \textbf{Disjunction Introduction, left} \\[10pt]
 
 \end{array}
@@ -66,21 +80,22 @@
 \end{array}
 \]
 
+\[
+\begin{array}{c c}
+\frac{{\overset{\displaystyle\mathcal{D} \strut} {\displaystyle\forall x \, \varphi 
+\strut}}}{\displaystyle\left[ \varphi \right]^x_{\substack{t}}\strut} \quad (\forall E)
+& \frac{{\overset{\displaystyle\mathcal{D} \strut} {\displaystyle\left[ \varphi\right]^x_{\substack{y}} 
+\strut}}}{\displaystyle\forall x \, \varphi\strut} \quad (\forall I) \\[5pt]
+\textbf{Universal Elimination} & \textbf{Universal Introduction}\\[10pt]
+\end{array}
+\]
 
-
-
-\begin{table}[h]
-    \[
-    \begin{array}{c c c}
-    \frac{\overset{\displaystyle \mathcal{D}_1\strut}{\displaystyle \varphi\strut} \quad \overset{\displaystyle \mathcal{D}_2\strut}{\displaystyle \psi\strut}}{\displaystyle \varphi \land \psi\strut} \quad (\land I) & 
-    \frac{\displaystyle \overset{\displaystyle \mathcal{D}\strut}{\varphi \land \psi\strut}\strut}{\displaystyle \varphi\strut} \quad (\land E_r) & 
-    \frac{\overset{\displaystyle[\neg\varphi]^m\strut}{\overset{\displaystyle\mathcal{D} \strut} {\displaystyle\bot 
-    \strut}}}{\displaystyle \varphi\strut} \quad (\bot, m) \\[10pt]
-    \textbf{Conjunction Introduction} & \textbf{Conjunction Elimination, right} & \textbf{Absurdity} \\[10pt]
-    
-    \frac{\overset{\displaystyle [\varphi]^m\strut}{\overset{\displaystyle \mathcal{D}\strut}{\displaystyle\varphi\strut}\strut}\strut}{\displaystyle \varphi \to \psi\strut} \quad (\to I, m) & 
-    \frac{\overset{\displaystyle \mathcal{D}_1\strut}{\displaystyle \varphi\strut} \quad \overset{\displaystyle \mathcal{D}_2\strut}{\displaystyle \neg \varphi\strut}}{\displaystyle \bot\strut} \quad (\neg E) & 
-    \frac{\overset{\displaystyle [\varphi]^m\strut}{\overset{\displaystyle \mathcal{D}\strut}{\displaystyle\bot \strut}\strut}\strut}{\displaystyle \neg \varphi\strut} \quad (\neg I, m) \\[10pt]
-    \textbf{Implication Introduction} & \textbf{Negation Elimination} & \textbf{Negation Introduction} \\[10pt]
-    \end{array}
-    \]
+\[
+\begin{array}{c c}
+\frac{\overset{\displaystyle\mathcal{D}_1 \strut} {\displaystyle\exists x \, \varphi \strut} \quad \quad \overset{\displaystyle(\left[ \varphi \right]^x_{\substack{y}})^m\strut}{\overset{\displaystyle\mathcal{D}_2 \strut} {\displaystyle\psi 
+\strut}}}{\displaystyle\psi\strut} \quad (\exists E, m)
+& \frac{{\overset{\displaystyle\mathcal{D} \strut} {\displaystyle\left[ \varphi \right]^x_{\substack{t}} 
+\strut}}}{\displaystyle\exists x \, \varphi\strut} \quad (\exists I) \\[5pt]
+\textbf{Existential Elimination} & \textbf{Existential Introduction}\\[10pt]
+\end{array}
+\]

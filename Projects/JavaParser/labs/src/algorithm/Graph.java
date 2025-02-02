@@ -5,8 +5,6 @@ import ast.logic.ASTAnd;
 import ast.logic.ASTLiteral;
 import ast.logic.ASTNot;
 import ast.symbols.ASTParenthesis;
-import jdk.jshell.execution.Util;
-import utils.Utils;
 
 import java.util.*;
 
@@ -53,24 +51,26 @@ public class Graph<T, C> {
         graph.get(a).add(new Edge<>(b, constraint, produces));
     }
 
-    public List<List<T>> findSolutions(T start, int maxDepth, List<C> premisses) {
+    public List<List<T>> findSolutions(T start, int maxDepth, int botLimit, List<C> premisses) {
         List<List<T>> solutions = new ArrayList<>();
         List<T> currentPath = new ArrayList<>();
         List<C> constraints = new LinkedList<>(premisses);
 
-        find(start, maxDepth, currentPath, solutions, constraints);
+        find(start, maxDepth, botLimit, currentPath, solutions, constraints);
 
         return solutions;
     }
 
-    private void find(T node, int maxDepth, List<T> currentPath, List<List<T>> solutions,
+    //TODO alterar para procura em largura (assim sabemos quais sao as solucoes mais curtas)
+    private void find(T node, int maxDepth, int botLimit, List<T> currentPath, List<List<T>> solutions,
                       List<C> constraints) {
         // Add the current node to the path
         constraints.add(null);
         currentPath.add(node);
 
         // Stop further recursion if the depth limit is reached
-        if (currentPath.size() >= maxDepth) {
+        if (currentPath.size() >= maxDepth || currentPath.stream()
+                .filter(t -> Test.BOT.equals(t)).count() > botLimit) {
             currentPath.remove(currentPath.size() - 1); // Backtrack
             constraints.remove(constraints.size() - 1);
             return;
@@ -98,22 +98,25 @@ public class Graph<T, C> {
                 solution.add((T) Test.BOT);
                 solutions.add(solution);
             } else {
-                find(neighbor.to, maxDepth, currentPath, solutions, constraints);
+                find(neighbor.to, maxDepth, botLimit, currentPath, solutions, constraints);
             }
             constraints.remove(constraints.size() - 1);
         }
 
         //TODO it will generate a lot of combinations!
-        if(node instanceof ASTAnd and) {
-            List<List<T>> solutionsLeft = findSolutions((T) Test.removeParenthesis(and.left), 12, new ArrayList<>());
-            if(!solutionsLeft.isEmpty()) {
-                List<List<T>> solutionsRight = findSolutions((T) Test.removeParenthesis(and.right), maxDepth-currentPath.size(), constraints);
-                if(!solutionsRight.isEmpty()) {
+        if (node instanceof ASTAnd and) {
+            List<List<T>> solutionsLeft = findSolutions((T) Test.removeParenthesis(and.left),
+                    maxDepth - currentPath.size(), botLimit, new ArrayList<>());
+            if (!solutionsLeft.isEmpty()) {
+                List<List<T>> solutionsRight = findSolutions((T) Test.removeParenthesis(and.right),
+                        maxDepth - currentPath.size(), botLimit, constraints);
+                if (!solutionsRight.isEmpty()) {
                     List<T> solution = new ArrayList<>(currentPath);
                     solution.add((T) new ASTLiteral("∧"));
                 }
             }
         }
+
 
         // Backtrack: Remove the current node from the path
         currentPath.remove(currentPath.size() - 1);

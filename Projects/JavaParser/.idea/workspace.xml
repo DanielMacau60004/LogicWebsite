@@ -5,33 +5,40 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="961377de-44c0-4ce8-9942-64e88caeedf7" name="Changes" comment="Quase feito">
-      <change afterPath="$PROJECT_DIR$/labs/src/algorithm/Graph.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/labs/src/algorithm/Test.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/labs/src/algorithm/Tree.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/labs/src/algorithm/TreeBackup.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/labs/src/algorithm/rules/AbsurdityRule.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/labs/src/algorithm/rules/ElimImpRule.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/labs/src/algorithm/rules/ElimNegRule.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/labs/src/algorithm/rules/Hypothesis.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/labs/src/algorithm/rules/IntrDisLeftRule.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/labs/src/algorithm/rules/IntrDisRightRule.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/labs/src/algorithm/rules/IntrImpRule.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/labs/src/algorithm/rules/NDInterpreter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/labs/src/algorithm/rules/NDVisitor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/labs/src/algorithm/rules/Rule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/algorithm/backup/implementation/Edge.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/algorithm/backup/implementation/Solution.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/algorithm/backup/implementation/StateMachine.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/algorithm/backup/implementation/TestStateMachine.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/algorithm/backup1/implementation/Edge.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/algorithm/backup1/implementation/Proof.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/algorithm/backup1/implementation/Solution.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/algorithm/backup1/implementation/StateMachine.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/algorithm/backup1/implementation/TestStateMachine.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/algorithm/backup2/implementation/Edge.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/algorithm/backup2/implementation/Solution.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/algorithm/backup2/implementation/State.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/algorithm/backup2/implementation/StateMachine.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/algorithm/backup2/implementation/TestStateMachine.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/algorithm/implementation/Edge.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/algorithm/implementation/Solution.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/algorithm/implementation/State.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/algorithm/implementation/StateMachine.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/labs/src/algorithm/implementation/TestStateMachine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Plan/backups/formulas.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../../Plan/backups/formulas.tex" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Plan/latex/Bibliography/bibliography.bib" beforeDir="false" afterPath="$PROJECT_DIR$/../../Plan/latex/Bibliography/bibliography.bib" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Plan/latex/Bibliography/bibliography_doi.bib" beforeDir="false" afterPath="$PROJECT_DIR$/../../Plan/latex/Bibliography/bibliography_doi.bib" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Plan/latex/Chapters/Figures/Isabell-counter.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Plan/latex/Chapters/acronyms.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../../Plan/latex/Chapters/acronyms.tex" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Plan/latex/Chapters/chapter1.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../../Plan/latex/Chapters/chapter1.tex" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Plan/latex/Chapters/chapter2.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../../Plan/latex/Chapters/chapter2.tex" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Plan/latex/Chapters/chapter3.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../../Plan/latex/Chapters/chapter3.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Plan/latex/Chapters/chapter4.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../../Plan/latex/Chapters/chapter4.tex" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Plan/latex/Config/4_files.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../../Plan/latex/Config/4_files.tex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Plan/latex/Config/6_list_of.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../../Plan/latex/Config/6_list_of.tex" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/ASTAExp.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/ASTAExp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/Exp.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/Exp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/ASTAExp.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/ast/ASTAExp.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ICL/ast/Exp.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/ast/Exp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/Graph.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/Graph.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/algorithm/Graph$Edge.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/algorithm/Graph$Edge.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/algorithm/Graph.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/algorithm/Graph.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/algorithm/Test.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ICL/algorithm/Test.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +96,9 @@
   "keyToString": {
     "Application.Console.executor": "Run",
     "Application.Main.executor": "Run",
+    "Application.TestStateMachine.executor": "Run",
     "Application.algorithm.Test.executor": "Run",
+    "Application.algorithm.backup.implementation.TestStateMachine.executor": "Run",
     "Downloaded.Files.Path.Enabled": "false",
     "JUnit.PropTests.executor": "Run",
     "JUnit.PropTests.negation.executor": "Run",
@@ -102,7 +111,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/mcmac/Desktop/Thesis/Projects/JavaParser/labs/src/parser",
+    "last_opened_file_path": "C:/Users/mcmac/Desktop/Thesis/Projects/JavaParser/labs/src/algorithm/backup2.implementation",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -117,11 +126,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\mcmac\Desktop\Thesis\Projects\JavaParser\labs\src\algorithm\backup2.implementation" />
+      <recent name="C:\Users\mcmac\Desktop\Thesis\Projects\JavaParser\labs\src\algorithm\back1.implementation" />
+      <recent name="C:\Users\mcmac\Desktop\Thesis\Projects\JavaParser\labs\src\algorithm\backup" />
       <recent name="C:\Users\mcmac\Desktop\Thesis\Projects\JavaParser\labs\src\parser" />
       <recent name="C:\Users\mcmac\Desktop\Thesis\Projects\JavaParser\labs\src\typechecker\errors" />
-      <recent name="C:\Users\mcmac\Desktop\Thesis\Projects\JavaParser\labs\src\main" />
-      <recent name="C:\Users\mcmac\Desktop\Universidade\4º ano\8º semestre\Interpretação e Compilação de Linguagens\ICL-Project\ICL\labs\src\main\scripts" />
-      <recent name="C:\Users\mcmac\Desktop\Universidade\4º ano\8º semestre\Interpretação e Compilação de Linguagens\ICL-Project\ICL\labs\src\main" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\mcmac\Desktop\Thesis\Projects\JavaParser\resources\Logic" />
@@ -129,14 +138,14 @@
       <recent name="C:\Users\mcmac\Desktop\Universidade\4º ano\8º semestre\Interpretação e Compilação de Linguagens\ICL-Project\ICL\labs\src\tests" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="algorithm.implementation" />
       <recent name="algorithm.rules" />
       <recent name="algorithm" />
       <recent name="types" />
       <recent name="ast.symbols" />
-      <recent name="ast.types" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.algorithm.Test">
+  <component name="RunManager" selected="Application.TestStateMachine">
     <configuration name="Console" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="main.Console" />
       <module name="ICL" />
@@ -165,6 +174,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TestStateMachine" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="algorithm.implementation.TestStateMachine" />
+      <module name="ICL" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="algorithm.implementation.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="algorithm.Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="algorithm.Test" />
       <module name="ICL" />
@@ -178,31 +200,24 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="algorithm.backup.implementation.TestStateMachine" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="algorithm.backup.implementation.TestStateMachine" />
+      <module name="ICL" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="algorithm.backup.implementation.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ParserTester" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ICL" />
       <option name="PACKAGE_NAME" value="tests" />
       <option name="MAIN_CLASS_NAME" value="tests.ParserTester" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ParserTester.testNumbersLogic" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ICL" />
-      <option name="PACKAGE_NAME" value="tests" />
-      <option name="MAIN_CLASS_NAME" value="tests.ParserTester" />
-      <option name="METHOD_NAME" value="testNumbersLogic" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ParserTester.testsLogic" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ICL" />
-      <option name="PACKAGE_NAME" value="tests" />
-      <option name="MAIN_CLASS_NAME" value="tests.ParserTester" />
-      <option name="METHOD_NAME" value="testsLogic" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -256,6 +271,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.TestStateMachine" />
+        <item itemvalue="Application.algorithm.backup.implementation.TestStateMachine" />
         <item itemvalue="Application.algorithm.Test" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.Console" />
@@ -264,8 +281,6 @@
         <item itemvalue="JUnit.PropTests.syntaxErrors" />
         <item itemvalue="Application.Test" />
         <item itemvalue="JUnit.ParserTester" />
-        <item itemvalue="JUnit.ParserTester.testNumbersLogic" />
-        <item itemvalue="JUnit.ParserTester.testsLogic" />
       </list>
     </recent_temporary>
   </component>
@@ -314,6 +329,13 @@
       <workItem from="1737105764975" duration="603000" />
       <workItem from="1737114873010" duration="2635000" />
       <workItem from="1737564853472" duration="72634000" />
+      <workItem from="1737808793659" duration="3667000" />
+      <workItem from="1737980638705" duration="1640000" />
+      <workItem from="1738068764404" duration="116000" />
+      <workItem from="1738104132658" duration="11118000" />
+      <workItem from="1738142523333" duration="7983000" />
+      <workItem from="1738342912253" duration="8143000" />
+      <workItem from="1738418871421" duration="35319000" />
     </task>
     <servers />
   </component>

@@ -5,64 +5,58 @@
 %%
 %% Chapter with introduction
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \typeout{NT FILE chapter4.tex}%
 
-\chapter{Proposed Work}
+\chapter{Advanced Feedback}
+\label{tab:ad_algo}
 
-Erros que podem ser reportados:
-- syntactic errors expressions
-    - Indicar que a expressão x está errada
-    - Indicar a posição do error
-    - Indicar a posição do erro e possiveis alternativas
-- syntactic errors deductions
-    - Indicar que a arvore nao esta a usar regras validas
-    - Indicar que a regra x nao pode ser colocada depois da regra y
-    - Indicar que o numero de ramificacoes nao é o correto, dizendo o valor esperado
-    - Mostrar uma possivel solucao para a regra errada
-    - Introdução de marcas invalidas (usar marca 100 quando so existem marcas ate 2)
-- semantic errors deductions
-    - Indicar que a expressao esta mal colocada na regra (colocar uma implicacao numa disjução lado esquerdo)
-    - Indicar que existem conclusoes que nao foram bem deduzidas (a conclusao nao corresponde ao que deduzimos)
-    - Dizer em concreto aquilo que está a ser deduzido
-    - Associação de marcas invalidas (chamar marca 1 quando se queria chamar marca 2)
-    - Numero de marcas associadas a uma regra é invalido
-    - Indicar marcas que deveriam estar fechadas e nao estão (de forma concreta enumerando ou dizendo genericamente)
-    - Indifcar marcas que deveriam estar na arvore (por exemplo na intro da neg, a hipotese tem que aparecer na arvore)
+Providing meaningful feedback is a complex challenge. In this section, we present the key elements that would contribute to producing meaningful feedback, along with a potential solution using an algorithm that is currently under development. This concept is still in the research phase, and some aspects remain abstract. However, initial scripts have been developed to explore its feasibility and support some of the claims made in this text. 
 
-Feedback:
-    - Indicar em concreto que parte da arvore está errdada (alterando a cor de fundo)
-    - Mostrar que expressões de arvores diferentes podem ser juntadas
-    - Automaticamente adicionar as regras já com o numero de ramificações corretas (nivel1)
-    - Automaticamente adicionar as regras já com o numero de ramificacoes corretas e os campos preenchidos (nivel2)
-    - Indicar a cada passo, as hipoteses que temos (nivel 1)
-    - Indicar a cada passo, as hipoteses que temos e as hipoteses que devem aparecer na arvore mas que ainda nao aparecem (nivel 2)
-
-Advanced Feedback:
-    - Mostrar os passos a seguir / Apresentar caminhos alternativos quando o utilizador está preso (feed forward)
-    - Indicar a quantos passos estamos de uma solução
-    - Apresentar melhorias da solucao encontrada pelo aluno, por exemplo uma arvore mais pequena mas que usa a mesma sequencia de regras
-    - Apresentar opcoes de subgoals a atingir antes de provar a conclusao, por exemplo prova primeiro X
-
-The aim of this thesis is to design and implement a variety of types of exercises [REF] commonly found in introductory logic courses, both in PL and FOL. To enhance the students' engagement, the exercises should be presented in an interactive way. This should be supported by a feedback system that will guide students through the resolution of the exercises and help prevent them from getting lost. Developing a successful feedback system is not an easy task. We need to find a balanced way to provide the right amount of feedback without leaving the student even more lost in the exercise. This can depend on many factors, for example, the level of expertise of the student, the type of exercise, the resolution path that the student is considering, etc. We described some excellent examples of feedback systems in [CHAPTER 3]. This tool must also provide teachers with an intuitive way to add new exercises as well as a way to grade them. The purpose of this is to enable automatic evaluation through integration with existing online e-learning platforms like Moodle.
-
-\section{Exercises}
-
-There is a vast variety of exercises in logic. Below is a list of some exercises, each one followed with a brief description of how they work. %and, in some cases, how we can provide feedback, hints, and grade them.
+\section{Feedback Components}
+To develop an advanced feedback system for \gls{ND} exercises, we first need to define its key components. An effective system should provide relevant information to assist students in solving proofs, making the process more teaching-like. With this in mind, we identify three fundamental aspects of a well-designed feedback system:
 
 \begin{itemize}
-    \item \textbf{Transforming a sentence from natural language to PL/FOL:} This type of exercise essentially involves translating a declarative sentence in natural language into PL/FOL. For example, consider the following propositions:\[p: \text{It is raining}, \quad q: \text{It is cold}.\]
-    Now, imagine the exercise asks you to write "If it is cold then it is raining" in PL, using the propositions defined above. A correct answer would be: \(q \rightarrow p\) or \(\neg q \lor p\). While developing this exercise, it is essential to consider that a question may have multiple answers, so an equivalence checking system is needed. Implementing an equivalence checking system seems pretty straightforward in PL, but when dealing with FOL expressions, the problem turns out to be extremely hard, since there's no algorithm that can always prove the equivalence of two different expressions[REF].
-    \item \textbf{Build Truth Tables:} This exercise involves filling in the gaps of a truth table. The user is presented with an expression in PL, and the goal is to determine the final truth values by considering all possible combinations of truth values for the propositions. To simplify the exercise, the user can break the initial formula into smaller subformulas and, at the end, combine their values to compute the final truth value.
-    \item \textbf{Conversion to Conjunctive, Disjunctive, and Negation Normal Forms:} In this exercise, students receive an expression and must transform it into various forms. For example, consider this expression:\[ (\varphi \land \psi) \lor \neg \theta \]
-    The exercise asks you to convert this expression into CNF by distributing disjunctions over conjunctions, resulting in: \( (\varphi \lor \neg \theta) \land (\psi \lor \neg \theta) \). Alternatively, converting to DNF involves distributing conjunctions over disjunctions, resulting in: \( (\varphi \land \psi) \lor \neg \theta \).
-    %\item \textbf{Conversion to Horn clauses:} This exercise entails the sequential application of a series of transformations, such as the elimination of implications, conversion to negation normal form, and Skolemization, until the final list of clauses is obtained. This type of exercise is useful in preparing students for practical applications, such as in Prolog, where Horn clauses are frequently used for efficient inference, and in practicing logical manipulations.
-    \item \textbf{Natural deduction in tree shape:} In this exercise, students are required to prove the validity of an expression both in PL and FOL via natural deduction. As described in [REF], these proofs are based on established rules that can be used to infer new results that will help reach a conclusion. A detailed step-by-step resolution of these kinds of exercises is provided in [REF]. This is the type of exercise where students struggle the most, so it would be important to consider it when designing our system.
+    \item \textbf{Providing guidance on rule applications:} Some rule applications in \gls{ND} are not obvious, making it difficult for students to progress. The system should identify such situations and suggest applicable rules. When students are unsure how to proceed, it can also provide step-by-step guidance or even a complete resolution, depending on the proficiency level.
+    
+    \item \textbf{Breaking proofs into smaller sub-proofs:} To simplify reasoning, the feedback should allow students to focus on smaller proofs. By dividing proofs into smaller steps, it will reduce the cognitive load and encourage incremental learning.
+    
+    \item \textbf{Indicating the distance to a solution:} Showing how many steps (rule applications) are needed to complete the proof helps students maintain focus and gain a clear sense of progress.
 \end{itemize}
 
-\subsection{Ambition Levels}
-\subsection{Evaluation Plan}
+These components offer several advantages in the learning process. By providing structured and clear information, the system becomes more robust, helping students overcome challenges throughout the proof.
 
+In the next section, we present an algorithm that is still under development and addresses the previously mentioned points.
 
-\section{Work Plan}
-%...
+\section{Algorithm}
+Research has already begun on an algorithm that could provide the components mentioned earlier. The complexity of \gls{ND} proofs, with their multiple rules (as outlined in Annex \ref{ann:nd_rules}), presents a challenge. Some rules generate multiple branches, while others introduce new elements into the proof. Developing an algorithm to handle this complexity is no simple task.
+
+The algorithm consists of a graph that operates like a state machine. Each node in the graph represents a distinct state within the proof. By state, we refer to the logical expressions in the \gls{ND} proof, which, at different stages, can have different sets of hypotheses. Below is an example where, in expression \textbf{A} (at the beginning of the proof), the state has an empty set of hypotheses. In contrast, in expression \textbf{B} (later in the proof), the same expression has \(\neg(a \to (a \lor b))\) as a hypothesis.
+
+\[
+\begin{array}{c c}
+   \quad \frac{\displaystyle \frac{\displaystyle 
+    {\displaystyle \textbf{B.} \quad a \to (a \lor b) \strut} \quad \neg(a \to (a \lor b))^1 \quad \strut} {\displaystyle \bot \strut} \quad (\neg E) \strut}
+    {\displaystyle \textbf{A.} \quad a \to (a \lor b)\strut} \quad (\bot, 1) 
+\end{array}
+\]
+
+Each edge represents the application of a rule, transitioning from one state to another. Some edges have constraint expressions, which means the algorithm can only move to the next stage if the current state contains the corresponding constraint in its set of hypotheses (represented in red). Other edges can generate new hypotheses that are added to the set of hypotheses (represented in blue). Figure \ref{img:algorithm} illustrates an example of a graph that can be used to prove \(a \to (a \lor b)\).
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\linewidth]{algorithm}
+    \caption{Graph to prove \(a \to (a \lor b)\).}
+    \label{img:algorithm}
+\end{figure}
+
+There are potential questions that may arise. The first one might be: How do we build the graph? To build the graph, we first need to compute the different states. For that, we will need to apply rules successively to the expression we want to prove, generating hypotheses at each step. Then, starting with the hypotheses previously generated and using the provided premises, we will attempt to decompose them further by applying the rules again and breaking them down into smaller components until we find a point of connection between the derived expressions. As we proceed with this process, we can begin constructing the state machine, using the rules applied to generate the new states.
+
+This could lead to the question, "How will we extract a solution from the graph?" To find a solution, we need to traverse the entire graph by testing all combinations of paths starting from the conclusion and verifying if, using the list of hypotheses in each state, we can close the current node. This can be a computationally intensive operation since we have loops and may pass through the same operations multiple times. To address this, we will define a depth limit for the proofs, selecting an appropriate value based on the typical size of proofs. Increasing this limit unnecessarily would lead to an exponential growth in the number of possible combinations. There are also ways to avoid looping through unnecessary paths, which can significantly increase the efficiency of the algorithm.
+
+Another question could be, "How will this algorithm adapt to the user's solution?". We first need to check if the set of the student's derived expressions aligns with those generated by the algorithm. If there is a mismatch, we will expand the graph by adding the new expressions and derivations from those expressions, in the same way the graph was initially constructed. Once the graph is updated, we can select one of the open leaves in the student's proof and query the algorithm, providing the node and the same state as in the student's solution.
+
+However, there are certain challenges that we have not yet fully addressed, such as how to handle rules that generate multiple branches, like the Disjunction Elimination rule. Despite these challenges, we believe this is a solid starting point for developing an effective algorithm. The algorithm is sound, meaning it will only generate valid proofs, but it is not complete due to the imposed restrictions on proof size and the set of derived expressions.
+
+If we can efficiently implement this algorithm and incorporate rules that generate multiple branches, we will be able to create a highly effective feedback and hint system. This algorithm will address all the key components previously mentioned. Since it can adapt to the user's solution and find solutions, it can be used to provide guidance on rule applications, assist in breaking down the proof into sub-goals, and indicate the distance to a solution, as the algorithm is aware of the steps required to complete the proof.
+
+As mentioned earlier, this is still a concept under study, and some of the topics discussed remain somewhat abstract.
