@@ -10,13 +10,13 @@ public class Solution {
     private State currentState;
     private final LinkedList<State> nextStates;
 
-    Set<State> listOfStates;
+    List<State> listOfStates;
 
     Solution(Exp exp) {
-        this(List.of(exp), new State(exp), new LinkedList<>(), new HashSet<>());
+        this(List.of(exp), new State(exp), new LinkedList<>(), new LinkedList<>());
     }
 
-    Solution(List<Exp> path, State currentState, LinkedList<State> nextStates, Set<State> listOfStates) {
+    Solution(List<Exp> path, State currentState, LinkedList<State> nextStates, List<State> listOfStates) {
         this.path = path;
         this.currentState = currentState;
         this.nextStates = nextStates;
@@ -26,10 +26,6 @@ public class Solution {
 
     public State getCurrentState() {
         return currentState;
-    }
-
-    public boolean hasState(Solution nextProof) {
-        return nextStates.contains(nextProof.getCurrentState());
     }
 
     public void addNextProof(Solution nextProof) {
@@ -66,7 +62,7 @@ public class Solution {
         List<Exp> path = new ArrayList<>(this.path);
         path.add(exp);
         return new Solution(new ArrayList<>(path), currentState.clone(exp), new LinkedList<>(nextStates),
-                new HashSet<>(this.listOfStates));
+                new ArrayList<>(this.listOfStates));
     }
 
     @Override
