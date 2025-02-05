@@ -4,12 +4,12 @@ import ast.Exp;
 
 import java.util.Objects;
 
-public class Transition {
+public class Branch {
     Exp to;
     Exp constraint;
     Exp produces;
 
-    public Transition(Exp to, Exp constraint, Exp produces) {
+    public Branch(Exp to, Exp constraint, Exp produces) {
         this.to = to;
         this.constraint = constraint;
         this.produces = produces;
@@ -19,7 +19,7 @@ public class Transition {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Transition head = (Transition) o;
+        Branch head = (Branch) o;
         return Objects.equals(to, head.to) && Objects.equals(constraint, head.constraint) && Objects.equals(produces, head.produces);
     }
 

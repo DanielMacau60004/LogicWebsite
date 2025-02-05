@@ -4,19 +4,22 @@ package algorithm.implementation;
 import ast.Exp;
 import ast.logic.*;
 import ast.symbols.ASTParenthesis;
+import utils.Utils;
 
 import java.util.*;
 
 public class StateMachine {
 
-    static final Exp BOT = new ASTLiteral("⊥");
+    static final Exp BOT = new ASTLiteral("\\u22a5");
 
-    Exp exp;
-    Map<Exp, Set<Edge>> graph;
+    private final Exp exp;
+    private final Map<Exp, Set<Edge>> graph;
+    private final Set<ASTOr> disjunctions;
 
     public StateMachine(Exp exp) {
-        graph = new HashMap<>();
         this.exp = exp;
+        graph = new HashMap<>();
+        disjunctions = new HashSet<>();
 
         addNode(exp);
     }
@@ -31,27 +34,28 @@ public class StateMachine {
         if (graph.containsKey(exp))
             return;
 
-        graph.put(removeParenthesis(exp), new HashSet<>());
+        exp = removeParenthesis(exp);
+        if (this.exp != exp && exp instanceof ASTOr or)
+            disjunctions.add(or);
+
+        graph.put(exp, new HashSet<>());
         genBottomUp(exp);
         genTopDown(exp);
     }
 
-    private void addEdge(Exp a, Exp b, Exp constraint, Exp produces) {
-        a = removeParenthesis(a);
-        b = removeParenthesis(b);
+    private void addEdge(String rule, Exp a, Branch branch) {
         addNode(a);
-        addNode(b);
-        graph.get(a).add(new Edge(b, removeParenthesis(constraint), removeParenthesis(produces)));
+        addNode(branch.to);
+        graph.get(a).add(new Edge(rule,branch));
     }
 
-    private void addEdge(Exp a, List<Exp> to, Exp constraint, Exp produces) {
-        a = removeParenthesis(a);
+    private void addEdge(String rule, Exp a, List<Branch> branches) {
         addNode(a);
-
-        to = to.stream().map(this::removeParenthesis).toList();
-        to.forEach(this::addNode);
-
-        graph.get(a).add(new Edge(to, removeParenthesis(constraint), removeParenthesis(produces)));
+        branches.forEach(b -> {
+            b.to = removeParenthesis(b.to);
+            addNode(b.to);
+        });
+        graph.get(a).add(new Edge(rule, branches));
     }
 
     private void absurdityRule(Exp exp) {
@@ -59,38 +63,52 @@ public class StateMachine {
             return;
 
         Exp neg = new ASTNot(exp instanceof ASTLiteral ? exp : new ASTParenthesis(exp));
-        addEdge(exp, BOT, null, neg);
-        addEdge(BOT, exp, neg, null);
+        addEdge("¬E", exp, new Branch(BOT, null, neg));
+        addEdge(BOT.toString(), BOT, new Branch(exp, neg, null));
     }
 
     private void implicationIRule(Exp exp, ASTImplication imp) {
         addNode(imp.left);
-        addEdge(exp, imp.right, null, imp.left);
+        addEdge("→I", exp, new Branch(removeParenthesis(imp.right), null, removeParenthesis(imp.left)));
     }
 
     private void negationIRule(Exp exp, ASTNot imp) {
         Exp notNeg = removeParenthesis(imp.exp);
         addNode(notNeg);
-        addEdge(exp, BOT, null, notNeg);
-        addEdge(BOT, exp, notNeg, null);
+        addEdge("¬E", exp, new Branch(BOT, null, notNeg));
+        addEdge("¬I", BOT, new Branch(exp, notNeg, null));
     }
 
     private void disjunctionIRule(Exp exp, ASTOr or) {
-        addEdge(exp, or.left, null, null);
-        addEdge(exp, or.right, null, null);
+        addEdge("∨Ir", exp, new Branch(removeParenthesis(or.left), null, null));
+        addEdge("∨Il", exp, new Branch(removeParenthesis(or.right), null, null));
+    }
+
+    private Edge disjunctionERule(Exp exp, ASTOr or) {
+        return new Edge("∨E (" +or+","+exp+","+exp+")" , List.of(
+                new Branch(or, null, null),
+                new Branch(exp, null, removeParenthesis(or.left)),
+                new Branch(exp, null, removeParenthesis(or.right))
+        ));
     }
 
     private void implicationERule(Exp exp, ASTImplication imp) {
-        addEdge(imp.right, List.of(imp.left, exp), null, null);
+        addEdge("→E",removeParenthesis(imp.right), List.of(
+                new Branch(removeParenthesis(imp.left), null, null),
+                new Branch(exp, null, null)
+        ));
     }
 
     private void conjunctionERule(Exp exp, ASTAnd and) {
-        addEdge(and.left, exp, null, null);
-        addEdge(and.right, exp, null, null);
+        addEdge("∧Er",removeParenthesis(and.left), new Branch(exp, null, null));
+        addEdge("∧El",removeParenthesis(and.right), new Branch(exp, null, null));
     }
 
     private void conjunctionIRule(Exp exp, ASTAnd and) {
-        addEdge(exp, List.of(and.left, and.right), null, null);
+        addEdge("∧I", exp, List.of(
+                new Branch(removeParenthesis(and.left), null, null),
+                new Branch(removeParenthesis(and.right), null, null)
+        ));
     }
 
     private void genBottomUp(Exp exp) {
@@ -118,11 +136,16 @@ public class StateMachine {
     public List<Solution> solve(Exp exp, int solutionSize, int solutionsLimit) {
         List<Solution> solutions = new ArrayList<>();
         Queue<Solution> queue = new LinkedList<>();
+        Set<State> states = new HashSet<>();
 
         queue.add(new Solution(exp));
 
         while (!queue.isEmpty()) {
             Solution solution = queue.poll();
+
+            if (states.contains(solution.getCurrentState()))
+                continue;
+            states.add(solution.getCurrentState());
 
             if (solution.swapState())
                 queue.add(solution);
@@ -135,38 +158,58 @@ public class StateMachine {
                 solutions.add(solution);
 
                 if (solutions.size() == solutionsLimit)
-                    return solutions;
+                    break;
                 continue;
             }
 
-            for (Edge edge : graph.get(current)) {
-                Exp first = edge.to.get(0);
-                State currentState = solution.getCurrentState();
+            State currentState = solution.getCurrentState();
+            for (Edge edge : getAdjacentNodes(current, currentState))
+                processNode(edge, solution, queue, states);
 
-                if (edge.constraint != null && !currentState.hasHypothesis(edge.constraint))
-                    continue;
-
-                if (first == BOT && currentState.hasEdge(edge))
-                    continue;
-
-                Solution newSolution = solution.clone(first);
-
-                for (int i = 1; i < edge.to.size(); i++) {
-                    Solution nextSolution = solution.clone(edge.to.get(i));
-                    newSolution.addNextProof(nextSolution);
-                }
-
-                if (edge.produces != null)
-                    newSolution.getCurrentState().addHypothesis(edge.produces);
-                if (first == BOT)
-                    newSolution.getCurrentState().addEdge(edge);
-
-                queue.add(newSolution);
-
-            }
         }
 
+        System.out.println(states.size());
+        states.forEach(s->System.out.println(Utils.convertUnicodeEscapes(s.toString())));
         return solutions;
+    }
+
+    private List<Edge> getAdjacentNodes(Exp exp, State state) {
+        List<Edge> edges = new ArrayList<>(graph.get(exp).stream().filter(e -> {
+            for (Branch b : e.heads) {
+                if (b.constraint != null && !state.hasHypothesis(b.constraint))
+                    return false;
+            }
+            return true;
+        }).toList());
+
+        disjunctions.forEach(or -> edges.add(disjunctionERule(exp, or)));
+
+        return edges;
+    }
+
+    private void processNode(Edge edge, Solution solution, Queue<Solution> queue, Set<State> states) {
+        Branch first = edge.heads.get(0);
+        Solution newSolution = solution.transit(first.to, edge);
+
+        for (int i = 1; i < edge.heads.size(); i++) {
+            Branch b = edge.heads.get(i);
+            Solution nextSolution = solution.transit(b.to, edge);
+
+            if (b.produces != null)
+                nextSolution.getCurrentState().addHypothesis(b.produces);
+            newSolution.addNextProof(nextSolution);
+
+            //if (states.contains(nextSolution.getCurrentState()))
+            //    return;
+        }
+
+        if (first.produces != null)
+            newSolution.getCurrentState().addHypothesis(first.produces);
+
+        //if (states.contains(newSolution.getCurrentState()))
+        //    return;
+
+        queue.add(newSolution);
     }
 
 
@@ -175,6 +218,7 @@ public class StateMachine {
         String str = "";
         str += "Total nodes: " + graph.size() + "\n";
         str += "Total edges: " + graph.values().stream().mapToInt(Set::size).sum() + "\n";
+        str += "Disjunctions: " + disjunctions + "\n";
         for (Map.Entry<Exp, Set<Edge>> entry : graph.entrySet()) {
             str += entry.getKey() + ": \n";
             for (Edge edge : entry.getValue())

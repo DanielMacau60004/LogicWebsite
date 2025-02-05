@@ -1,4 +1,4 @@
-package algorithm.implementation;
+package algorithm.backup4.implementation;
 
 
 import ast.Exp;
@@ -208,7 +208,7 @@ public class StateMachine {
             newSolution.getCurrentState().addOr((ASTOr) first.to);
 
         if(solution.hasState(newSolution)) {
-            System.out.println("menos 1 com size " + solution.size());
+            //System.out.println("menos 1 com size " + solution.size());
             return;
         }
 

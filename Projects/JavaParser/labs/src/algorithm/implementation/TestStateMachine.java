@@ -19,30 +19,42 @@ public class TestStateMachine {
 
     public static void main(String[] args) throws ParseException {
         String[] expressions = {
-                "a → a", // WORKING
-                "a → (a ∨ b)", // WORKING
-                "(a ∨ a) → a", // NOT WORKING OR RULE
-                "(a ∧ b) → a", // WORKING
-                "a → (b → a)", // WORKING
-                "¬a → (a → b)", // WORKING
-                "¬(a ∨ b) → ¬a", // WORKING
-                "(b → c) → ((a ∧ b) → (a ∧ c))", // WORKING
-                "((a → b) ∧ ¬b) → ¬a", // NOT WORKING MULTI-BRANCHING NO BOT
-                "a ∨ (a → b)", // WORKING
-                "(a → b) ∨ (b → d)", // WORKING
-                "(a → ¬(¬a)) ∧ (¬(¬a) → a)", // WORKING IF WE FIX ¬¬a TO ¬(¬a)
-                "((a → b) ∧ (b → c)) → (a → c)", // WORKING
-                "(b → c) → ((a ∧ b) → c)", // WORKING
-                "(a → (b → c)) → ((a → b) → (a → c))", // WORKING
-                "((a → b) → (¬b → ¬a)) ∧ ((¬b → ¬a) → (a → b))", // WORKING
-                "a ∨ ¬a", // WORKING
-                "((a → d) → a) → a" // WORKING
+                //"a → a", // WORKING
+                //"a → (a ∨ b)", // WORKING
+                "(a ∨ a) → a", // WORKING
+                //"(a ∧ b) → a", // WORKING
+                //"a → (b → a)", // WORKING
+                //"¬a → (a → b)", // WORKING
+                //"¬(a ∨ b) → ¬a", // WORKING
+                //"(b → c) → ((a ∧ b) → (a ∧ c))", // WORKING
+                //"((a → b) ∧ ¬b) → ¬a", // NOT WORKING MULTI-BRANCHING NO BOT
+                //"a ∨ (a → b)", // WORKING
+                //"(a → b) ∨ (b → d)", // WORKING
+                //"(a → ¬(¬a)) ∧ (¬(¬a) → a)", // WORKING IF WE FIX ¬¬a TO ¬(¬a)
+                //"((a → b) ∧ (b → c)) → (a → c)", // WORKING
+                //"(b → c) → ((a ∧ b) → c)", // WORKING
+                //"(a → (b → c)) → ((a → b) → (a → c))", // WORKING
+                //"((a → b) → (¬b → ¬a)) ∧ ((¬b → ¬a) → (a → b))", // WORKING
+                //"a ∨ ¬a", // WORKING
+                //"((a → d) → a) → a", // WORKING
+                //"¬(¬(¬p)) → ¬p", // WORKING
+                //"⊥ → a", // WORKING
+
+                //"(¬(¬a ∨ ¬b)) → (a ∧ b)", // WORKING
+
+                //"((a → b) ∧ (b → a)) → (((a ∧ c) → (b ∧ c)) ∧ ((b ∧ c) → (a ∧ c)))"
+
+                //"(p ∨ q) → (q ∨ p)", // WORKING
+                //"(p ∨ q) → (p ∨ (q ∨ p))", // WORKING
+                //"((p ∨ q) ∨ r) → (p ∨ (q ∨ r))" , // WORKING BUT NOW NOT WOKING
+                //"(¬p ∨ ¬q) → ¬(p ∧ q)", // WORKING
+                //"((p ∨ q) ∨ (r ∨ s)) → ((p ∨ s) ∨ (r ∨ q))" //O BIXO
         };
 
         List<String> succeeded  = new ArrayList<>();
         List<String> failed = new ArrayList<>();
         for (String expression : expressions) {
-            boolean result = testSolution(expression, 20, 10, true, true);
+            boolean result = testSolution(expression, 60, 10, true, true);
             if (result) succeeded.add(expression);
             else failed.add(expression);
             System.out.println();

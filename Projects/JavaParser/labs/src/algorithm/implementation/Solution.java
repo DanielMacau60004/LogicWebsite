@@ -6,30 +6,23 @@ import java.util.*;
 
 public class Solution {
 
-    private final List<Exp> path;
     private State currentState;
     private final LinkedList<State> nextStates;
-
-    Set<State> listOfStates;
+    private int size;
 
     Solution(Exp exp) {
-        this(List.of(exp), new State(exp), new LinkedList<>(), new HashSet<>());
+        this(0, new State(exp, null, null), new LinkedList<>());
     }
 
-    Solution(List<Exp> path, State currentState, LinkedList<State> nextStates, Set<State> listOfStates) {
-        this.path = path;
+    Solution(int size, State currentState, LinkedList<State> nextStates) {
+        this.size = size;
         this.currentState = currentState;
         this.nextStates = nextStates;
-        this.listOfStates = listOfStates;
-        listOfStates.add(currentState);
+
     }
 
     public State getCurrentState() {
         return currentState;
-    }
-
-    public boolean hasState(Solution nextProof) {
-        return nextStates.contains(nextProof.getCurrentState());
     }
 
     public void addNextProof(Solution nextProof) {
@@ -37,7 +30,7 @@ public class Solution {
     }
 
     public int size() {
-        return path.size();
+        return size;
     }
 
     public Exp last() {
@@ -53,24 +46,26 @@ public class Solution {
 
         while(currentState.isClosed() && !nextStates.isEmpty()) { //is closed
             currentState = nextStates.removeFirst();
-            path.add(new ASTLiteral("-"));
-            path.add(currentState.getExp());
             swap = true;
-            listOfStates.add(currentState);
         }
 
         return swap;
     }
 
-    public Solution clone(Exp exp) {
-        List<Exp> path = new ArrayList<>(this.path);
-        path.add(exp);
-        return new Solution(new ArrayList<>(path), currentState.clone(exp), new LinkedList<>(nextStates),
-                new HashSet<>(this.listOfStates));
+    public Solution transit(Exp exp, Edge edge) {
+        return new Solution(size++, currentState.transit(exp, edge), new LinkedList<>(nextStates));
     }
 
     @Override
     public String toString() {
-        return "Path: " + path;
+        String solution = "";
+
+        State s = currentState;
+        while(s != null) {
+            solution = s.exp + (s.edge == null ? "" : " ["+s.edge.rule+"]") +", "+ solution;
+            s = s.previous;
+        }
+
+        return solution;
     }
 }

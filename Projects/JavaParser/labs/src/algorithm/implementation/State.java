@@ -3,29 +3,33 @@ package algorithm.implementation;
 import ast.Exp;
 import ast.logic.ASTLiteral;
 import ast.logic.ASTNot;
+import ast.logic.ASTOr;
 import ast.symbols.ASTParenthesis;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class State {
 
-    private final Exp exp;
-    private final Set<Exp> hypotheses;
-    private final Set<Edge> edges;
+    final Edge edge;
+    final Exp exp;
+    final Set<Exp> hypotheses;
+    private final Set<ASTOr> ors;
     private boolean hasNeg;
 
+    final List<State> children;
+    final State previous;
 
-    public State(Exp exp) {
-        this(exp, new HashSet<>(), new HashSet<>());
+    public State(Exp exp, State previous, Edge edge) {
+        this(exp, new HashSet<>(), new HashSet<>(), previous, new ArrayList<>(), edge);
     }
 
-    public State(Exp exp, Set<Exp> hypotheses, Set<Edge> edges) {
+    public State(Exp exp, Set<Exp> hypotheses, Set<ASTOr> ors, State previous, List<State> children, Edge edge) {
         this.exp = exp;
         this.hypotheses = hypotheses;
-        this.edges = edges;
+        this.ors = ors;
+        this.previous = previous;
+        this.children = children;
+        this.edge = edge;
     }
 
     public Exp getExp() {
@@ -37,16 +41,19 @@ public class State {
         return hypotheses.contains(neg);
     }
 
-    public boolean hasEdge(Edge edge) {
-        return edges.contains(edge);
-    }
-
-    public void addEdge(Edge edge) {
-        edges.add(edge);
-    }
-
     public boolean hasHypothesis(Exp exp) {
         return hypotheses.contains(exp);
+    }
+
+    public boolean hasOr(ASTOr or) {
+        return ors.contains(or);
+    }
+    public int orSize() {
+        return ors.size();
+    }
+
+    public void addOr(ASTOr or) {
+        ors.add(or);
     }
 
     public void addHypothesis(Exp exp) {
@@ -58,12 +65,28 @@ public class State {
         return hypotheses.contains(exp) || hasNeg;
     }
 
-    protected State clone(Exp exp) {
-        return new State(exp, new HashSet<>(hypotheses), new HashSet<>(edges));
+    protected State transit(Exp exp, Edge edge) {
+        State state = new State(exp, new HashSet<>(hypotheses), new HashSet<>(ors), this,
+                new ArrayList<>(), edge);
+        children.add(state);
+        return state;
     }
 
     @Override
     public String toString() {
-        return "\n\tExp: " + exp + " Hypotheses:" + hypotheses+" " + isClosed();
+        return "Exp: " + exp + " Hypotheses:" + hypotheses;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        State state = (State) o;
+        return hasNeg == state.hasNeg && Objects.equals(exp, state.exp) && Objects.equals(hypotheses, state.hypotheses);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(exp, hypotheses, hasNeg);
     }
 }

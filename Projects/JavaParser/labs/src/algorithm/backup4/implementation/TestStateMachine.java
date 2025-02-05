@@ -1,4 +1,4 @@
-package algorithm.implementation;
+package algorithm.backup4.implementation;
 
 import ast.Exp;
 import ast.symbols.ASTSequence;
@@ -40,7 +40,7 @@ public class TestStateMachine {
                 //"¬(¬(¬p)) → ¬p", // WORKING
                 //"⊥ → a", // WORKING
 
-                //"(¬(¬a ∨ ¬b)) → (a ∧ b)", // WORKING
+                "(¬(¬a ∨ ¬b)) → (a ∧ b)", // WORKING
 
                 //"((a → b) ∧ (b → a)) → (((a ∧ c) → (b ∧ c)) ∧ ((b ∧ c) → (a ∧ c)))"
 
@@ -48,7 +48,7 @@ public class TestStateMachine {
                 //"(p ∨ q) → (p ∨ (q ∨ p))", // WORKING
                 //"((p ∨ q) ∨ r) → (p ∨ (q ∨ r))" , // WORKING
                 //"(¬p ∨ ¬q) → ¬(p ∧ q)", // WORKING
-                "((p ∨ q) ∨ (r ∨ s)) → ((p ∨ s) ∨ (r ∨ q))" //O BIXO
+                //"((p ∨ q) ∨ (r ∨ s)) → ((p ∨ s) ∨ (r ∨ q))" //O BIXO
         };
 
         List<String> succeeded  = new ArrayList<>();

@@ -1,29 +1,30 @@
 package algorithm.implementation;
 
-import ast.Exp;
-
 import java.util.List;
 import java.util.Objects;
 
 public class Edge {
 
-    List<Exp> to;
-    Exp constraint;
-    Exp produces;
+    final String rule;
+    final List<Branch> heads;
 
-    Edge(Exp to, Exp constraint, Exp produces) {
-        this(List.of(to),constraint,produces);
+    Edge(String rule, Branch head) {
+        this.rule = rule;
+        heads = List.of(head);
     }
 
-    Edge(List<Exp> to, Exp constraint, Exp produces) {
-        this.to = to;
-        this.constraint = constraint;
-        this.produces = produces;
+    Edge(String rule, List<Branch> heads) {
+        this.rule = rule;
+        this.heads = heads;
+    }
+
+    public String getRule() {
+        return rule;
     }
 
     @Override
     public String toString() {
-        return to + " requires[" + constraint + "], produces[" + produces + "]";
+        return heads.toString();
     }
 
     @Override
@@ -31,11 +32,11 @@ public class Edge {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Edge edge = (Edge) o;
-        return Objects.equals(to, edge.to) && Objects.equals(constraint, edge.constraint) && Objects.equals(produces, edge.produces);
+        return Objects.equals(heads, edge.heads);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(to, constraint, produces);
+        return Objects.hashCode(heads);
     }
 }
