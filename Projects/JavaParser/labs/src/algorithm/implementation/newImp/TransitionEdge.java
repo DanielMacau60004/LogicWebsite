@@ -1,4 +1,6 @@
-package algorithm.implementation;
+package algorithm.implementation.newImp;
+
+import ast.Exp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,32 +11,7 @@ public class TransitionEdge {
     private final ERule rule;
     private final List<Transition> transitions;
 
-    static class Transition {
-        Integer to;
-        Integer constraint;
-        Integer produces;
-
-        Transition(Integer to, Integer constraint, Integer produces) {
-            this.to = to;
-            this.constraint = constraint;
-            this.produces = produces;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            Transition that = (Transition) o;
-            return Objects.equals(to, that.to) && Objects.equals(constraint, that.constraint) && Objects.equals(produces, that.produces);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(to, constraint, produces);
-        }
-    }
-
-    TransitionEdge(ERule rule, Integer to, Integer constraint, Integer produces) {
+    TransitionEdge(ERule rule, Exp to, Exp constraint, Exp produces) {
         this(rule);
         addTransition(to, constraint, produces);
     }
@@ -44,9 +21,17 @@ public class TransitionEdge {
         this.transitions = new ArrayList<>();
     }
 
-    public TransitionEdge addTransition(Integer to, Integer constraint, Integer produces) {
+    public TransitionEdge addTransition(Exp to, Exp constraint, Exp produces) {
         transitions.add(new Transition(to, constraint, produces));
         return this;
+    }
+
+    public boolean canTransit(StateNode node) {
+        return transitions.stream().allMatch(it -> it.constraint == null || node.hasHypothesis(it.constraint));
+    }
+
+    public List<Transition> getTransitions() {
+        return transitions;
     }
 
     public ERule getRule() {
@@ -74,8 +59,7 @@ public class TransitionEdge {
     public String toFormatString(TransitionGraph graph) {
         String str = rule.name() + " ";
         for (Transition transition : transitions)
-            str += "[" + graph.getExp(transition.to) + "," + graph.getExp(transition.constraint) + "," +
-                    graph.getExp(transition.produces) + "] ";
+            str += "[" + transition.to + "," + transition.constraint + "," + transition.produces + "] ";
         return str;
     }
 

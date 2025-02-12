@@ -1,5 +1,7 @@
 export const Rules = Object.freeze({
     IAND: '(∧<sub>I</sub>)',
+    ILOR: '(∨<sub>E<sub>l</sub></sub>)',
+    IROR: '(∨<sub>E<sub>r</sub></sub>)',
     ELAND: '(∧<sub>E<sub>l</sub></sub>)',
     ERAND: '(∧<sub>E<sub>r</sub></sub>)',
     EOR: '(∨<sub>E<sub>r</sub></sub>)',

@@ -1,71 +1,51 @@
-package algorithm.implementation;
+package algorithm.implementation.newImp;
 
-import ast.Exp;
-import ast.logic.ASTLiteral;
 import java.util.*;
 
 public class Solution {
 
-    private State currentState;
-    private final LinkedList<State> nextStates;
-    private int size;
+    Map.Entry<Integer, StateNode> node;
+    private final List<Map.Entry<Integer, StateNode>> path;
+    final Stack<Map.Entry<Integer, StateNode>> open;
 
-    Solution(Exp exp) {
-        this(0, new State(exp, null, null), new LinkedList<>());
+    public Solution(StateNode node) {
+        this(new LinkedList<>(), new Stack<>());
+        open.push(Map.entry(0, node));
     }
 
-    Solution(int size, State currentState, LinkedList<State> nextStates) {
-        this.size = size;
-        this.currentState = currentState;
-        this.nextStates = nextStates;
-
+    Solution(LinkedList<Map.Entry<Integer, StateNode>> path,
+             Stack<Map.Entry<Integer, StateNode>> open) {
+        this.path = path;
+        this.open = open;
     }
 
-    public State getCurrentState() {
-        return currentState;
+    public void subSolution(StateNode newNode) {
+        open.add(Map.entry(node.getKey() + 1, newNode));
     }
 
-    public void addNextProof(Solution nextProof) {
-        nextStates.add(nextProof.currentState);
+    public StateNode popHead() {
+        if (open.isEmpty())
+            return null;
+        node = open.pop();
+
+        path.add(node);
+
+        if (node.getValue().isClosed())
+            return popHead();
+        return node.getValue();
     }
 
-    public int size() {
-        return size;
-    }
-
-    public Exp last() {
-        return currentState.getExp();
-    }
-
-    public boolean isClosed() {
-        return currentState.isClosed() && nextStates.isEmpty();
-    }
-
-    public boolean swapState() {
-        boolean swap = false;
-
-        while(currentState.isClosed() && !nextStates.isEmpty()) { //is closed
-            currentState = nextStates.removeFirst();
-            swap = true;
-        }
-
-        return swap;
-    }
-
-    public Solution transit(Exp exp, Edge edge) {
-        return new Solution(size++, currentState.transit(exp, edge), new LinkedList<>(nextStates));
+    public Solution clone() {
+        Solution sol = new Solution(new LinkedList<>(path), (Stack<Map.Entry<Integer, StateNode>>) open.clone());
+        sol.node = node;
+        return sol;
     }
 
     @Override
     public String toString() {
-        String solution = "";
-
-        State s = currentState;
-        while(s != null) {
-            solution = s.exp + (s.edge == null ? "" : " ["+s.edge.rule+"]") +", "+ solution;
-            s = s.previous;
-        }
-
-        return solution;
+        String str = "";
+        for (Map.Entry<Integer, StateNode> p : path)
+            str += "\t".repeat(p.getKey()) + p.getValue() + "\n";
+        return str;
     }
 }

@@ -1,6 +1,4 @@
-package algorithm.implementation;
-
-import typechecker.Function;
+package algorithm.implementation.newImp;
 
 public enum ERule {
 

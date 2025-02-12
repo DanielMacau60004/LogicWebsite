@@ -212,7 +212,6 @@ public class StateMachine {
         queue.add(newSolution);
     }
 
-
     @Override
     public String toString() {
         String str = "";

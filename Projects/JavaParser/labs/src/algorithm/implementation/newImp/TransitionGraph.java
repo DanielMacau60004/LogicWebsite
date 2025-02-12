@@ -1,149 +1,114 @@
-package algorithm.implementation;
+package algorithm.implementation.newImp;
 
 import ast.Exp;
 import ast.logic.*;
 import ast.symbols.ASTParenthesis;
-import utils.Utils;
 
 import java.util.*;
 
 public class TransitionGraph {
 
-    private final Map<Integer, Exp> exps;
-    private final Map<Exp, Integer> ids;
-    private final Map<Integer, Set<TransitionEdge>> transitions;
+    private final Exp conclusion;
+    private final Map<Exp, Set<TransitionEdge>> transitions;
     private final Set<ASTOr> disjunctions;
 
-    public TransitionGraph(Exp exp) {
-        exps = new HashMap<>();
-        ids = new HashMap<>();
+    public TransitionGraph(Exp conclusion) {
+        this.conclusion = conclusion;
         transitions = new HashMap<>();
         disjunctions = new HashSet<>();
 
-        addNode(ExpUtils.BOT, false);
-        addNode(exp, true);
+        addNode(ExpUtils.BOT);
+        addNode(conclusion);
     }
 
-    private int computeNodeId(Exp exp) {
-        Integer id = ids.get(ExpUtils.invert(exp));
-
-        if (id != null)
-            return -id;
-
-        return (ExpUtils.isNegated(exp) ? -exps.size() : exps.size()) + 1;
+    public Exp getConclusion() {
+        return conclusion;
     }
 
-    protected Exp getExp(Integer id) {
-        return exps.get(id);
-    }
+    private void addNode(Exp node) {
+        if(transitions.containsKey(node))
+            return;
 
-    protected Integer getNode(Exp node) {
-        return ids.get(node);
-    }
-
-    private int addNode(Exp node, boolean propagate) {
-        node = ExpUtils.removeParenthesis(node);
-        Integer id = getNode(node);
-
-        if (id != null)
-            return id;
-
-        id = computeNodeId(node);
-        exps.put(id, node);
-        ids.put(node, id);
-        transitions.put(id, new HashSet<>());
-
-        if (node instanceof ASTOr or)
+        transitions.put(node, new HashSet<>());
+        if (!node.equals(conclusion) &&  node instanceof ASTOr or)
             disjunctions.add(or);
 
-        if(propagate) {
-            genBottomUp(node);
-            genTopDown(node);
-        }
-
-        return id;
+        genBottomUp(node);
+        genTopDown(node);
     }
 
-    private void addEdge(int idLeft, TransitionEdge edge) {
-        transitions.get(idLeft).add(edge);
+    private void addEdge(Exp from, TransitionEdge edge) {
+        addNode(from);
+        edge.getTransitions().forEach(t->addNode(t.to));
+        transitions.get(from).add(edge);
     }
 
     private void absurdityRule(Exp exp) {
-        System.out.println(Utils.convertUnicodeEscapes(exp+""));
         if (exp.equals(ExpUtils.BOT))
             return;
 
         Exp neg = new ASTNot(exp instanceof ASTLiteral ? exp : new ASTParenthesis(exp));
-        int expId = addNode(exp, true);
-        int idNeg = addNode(neg, false);
-        int idBot = getNode(ExpUtils.BOT);
-
-        addEdge(expId, new TransitionEdge(ERule.ELIM_NEGATION, idBot, null, idNeg));
-        addEdge(idBot, new TransitionEdge(ERule.ABSURDITY, expId, idNeg, null));
+        addEdge(exp, new TransitionEdge(ERule.ELIM_NEGATION, ExpUtils.BOT, null, neg));
+        addEdge(ExpUtils.BOT, new TransitionEdge(ERule.ABSURDITY, exp, neg, null));
     }
 
     private void implicationIRule(Exp exp, ASTImplication imp) {
-        int expId = addNode(exp, true);
-        int leftId = addNode(imp.left, true);
-        int rightId = addNode(imp.right, true);
-        addEdge(expId, new TransitionEdge(ERule.INTRO_IMPLICATION, rightId, null, leftId));
+        Exp right = ExpUtils.removeParenthesis(imp.right);
+        Exp left = ExpUtils.removeParenthesis(imp.left);
+        addEdge(exp, new TransitionEdge(ERule.INTRO_IMPLICATION, right, null, left));
     }
 
     private void negationIRule(Exp exp, ASTNot not) {
-        int expId = addNode(exp, true);
-        int notNegId = addNode(not.exp, true);
-        int idBot = getNode(ExpUtils.BOT);
-        addEdge(expId, new TransitionEdge(ERule.ELIM_NEGATION, idBot, null, notNegId));
-        addEdge(idBot, new TransitionEdge(ERule.INTRO_NEGATION, expId, notNegId, null));
+        Exp notNeg = ExpUtils.removeParenthesis(not.exp);
+        addNode(notNeg);
+
+        addEdge(exp, new TransitionEdge(ERule.ELIM_NEGATION, ExpUtils.BOT, null, notNeg));
+        addEdge(ExpUtils.BOT, new TransitionEdge(ERule.INTRO_NEGATION, exp, notNeg, null));
     }
 
     private void disjunctionIRule(Exp exp, ASTOr or) {
-        int expId = addNode(exp, true);
-        int leftId = addNode(or.left, true);
-        int rightId = addNode(or.right, true);
+        Exp right = ExpUtils.removeParenthesis(or.right);
+        Exp left = ExpUtils.removeParenthesis(or.left);
 
-        addEdge(expId, new TransitionEdge(ERule.INTRO_DISJUNCTION_RIGHT, leftId, null, null));
-        addEdge(expId, new TransitionEdge(ERule.INTRO_DISJUNCTION_LEFT, rightId, null, null));
+        addEdge(exp, new TransitionEdge(ERule.INTRO_DISJUNCTION_RIGHT, left, null, null));
+        addEdge(exp, new TransitionEdge(ERule.INTRO_DISJUNCTION_LEFT, right, null, null));
     }
 
     private TransitionEdge disjunctionERule(Exp exp, ASTOr or) {
-        int expId = addNode(exp, true);
-        int orId = addNode(or, true);
-        int leftId = addNode(or.left, true);
-        int rightId = addNode(or.right, true);
+        Exp orExp = ExpUtils.removeParenthesis(or);
+        Exp right = ExpUtils.removeParenthesis(or.right);
+        Exp left = ExpUtils.removeParenthesis(or.left);
 
         return new TransitionEdge(ERule.ELIM_DISJUNCTION)
-                .addTransition(orId, null, null)
-                .addTransition(expId, null, leftId)
-                .addTransition(expId, null, rightId);
+                .addTransition(exp, null, left)
+                .addTransition(exp, null, right)
+                .addTransition(orExp, null, null);
     }
 
     private void implicationERule(Exp exp, ASTImplication imp) {
-        int expId = addNode(exp, true);
-        int leftId = addNode(imp.left, true);
-        int rightId = addNode(imp.right, true);
+        Exp right = ExpUtils.removeParenthesis(imp.right);
+        Exp left = ExpUtils.removeParenthesis(imp.left);
 
-        addEdge(rightId, new TransitionEdge(ERule.ELIM_IMPLICATION)
-                .addTransition(leftId, null, null)
-                .addTransition(expId, null, null));
+        addEdge(right, new TransitionEdge(ERule.ELIM_IMPLICATION)
+                .addTransition(left, null, null)
+                .addTransition(exp, null, null));
     }
 
     private void conjunctionERule(Exp exp, ASTAnd and) {
-        int expId = addNode(exp, true);
-        int leftId = addNode(and.left, true);
-        int rightId = addNode(and.right, true);
+        Exp right = ExpUtils.removeParenthesis(and.right);
+        Exp left = ExpUtils.removeParenthesis(and.left);
 
-        addEdge(leftId, new TransitionEdge(ERule.ELIM_CONJUNCTION_LEFT, expId, null, null));
-        addEdge(rightId, new TransitionEdge(ERule.ELIM_CONJUNCTION_RIGHT, expId, null, null));
+        addEdge(left, new TransitionEdge(ERule.ELIM_CONJUNCTION_LEFT, exp, null, null));
+        addEdge(right, new TransitionEdge(ERule.ELIM_CONJUNCTION_RIGHT, exp, null, null));
     }
 
     private void conjunctionIRule(Exp exp, ASTAnd and) {
-        int expId = addNode(exp, true);
-        int leftId = addNode(and.left, true);
-        int rightId = addNode(and.right, true);
-        addEdge(expId, new TransitionEdge(ERule.INTRO_CONJUNCTION)
-                .addTransition(leftId, null, null)
-                .addTransition(rightId, null, null)
+        Exp right = ExpUtils.removeParenthesis(and.right);
+        Exp left = ExpUtils.removeParenthesis(and.left);
+
+        addEdge(exp, new TransitionEdge(ERule.INTRO_CONJUNCTION)
+                .addTransition(left, null, null)
+                .addTransition(right, null, null)
         );
     }
 
@@ -169,14 +134,24 @@ public class TransitionGraph {
             disjunctionIRule(exp, or);
     }
 
+    public List<TransitionEdge> getEdges(StateNode state) {
+        List<TransitionEdge> edges = new ArrayList<>(transitions.get(state.getExp()).stream()
+                .filter(e -> e.canTransit(state)).toList());
+        disjunctions.forEach(or -> {
+            //if(state.hasHypothesis(getNode(or)))
+                edges.add(disjunctionERule(state.getExp(), or));
+        });
+        return edges;
+    }
+
     @Override
     public String toString() {
         String str = "";
-        str += "Total nodes: " + exps.size() + "\n";
+        str += "Total nodes: " + transitions.size() + "\n";
         str += "Total edges: " + transitions.values().stream().mapToInt(Set::size).sum() + "\n";
         str += "Disjunctions: " + disjunctions + "\n";
-        for (Map.Entry<Integer, Set<TransitionEdge>> entry : transitions.entrySet()) {
-            str += String.format("%-4s|%s: \n", entry.getKey(), getExp(entry.getKey()));
+        for (Map.Entry<Exp, Set<TransitionEdge>> entry : transitions.entrySet()) {
+            str += entry.getKey()+":  \n";
             for (TransitionEdge transition : entry.getValue())
                 str += "\t" + transition.toFormatString(this) + "\n";
         }

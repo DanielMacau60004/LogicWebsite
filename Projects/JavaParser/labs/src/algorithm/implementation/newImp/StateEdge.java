@@ -4,49 +4,39 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class TransitionEdge {
+public class StateEdge {
 
     private final ERule rule;
-    private final List<Transition> transitions;
+    private final StateNode from;
+    private final List<StateNode> transitions;
 
-    static class Transition {
-        Integer to;
-        Integer constraint;
-        Integer produces;
-
-        Transition(Integer to, Integer constraint, Integer produces) {
-            this.to = to;
-            this.constraint = constraint;
-            this.produces = produces;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            Transition that = (Transition) o;
-            return Objects.equals(to, that.to) && Objects.equals(constraint, that.constraint) && Objects.equals(produces, that.produces);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(to, constraint, produces);
-        }
-    }
-
-    TransitionEdge(ERule rule, Integer to, Integer constraint, Integer produces) {
-        this(rule);
-        addTransition(to, constraint, produces);
-    }
-
-    TransitionEdge(ERule rule) {
+    StateEdge(ERule rule, StateNode from, StateNode transitions) {
         this.rule = rule;
+        this.from = from;
+        this.transitions = List.of(transitions);
+    }
+
+    StateEdge(ERule rule, StateNode from) {
+        this.rule = rule;
+        this.from = from;
         this.transitions = new ArrayList<>();
     }
 
-    public TransitionEdge addTransition(Integer to, Integer constraint, Integer produces) {
-        transitions.add(new Transition(to, constraint, produces));
+    public StateEdge addTransition(StateNode to) {
+        transitions.add(to);
         return this;
+    }
+
+    public List<StateNode> getTransitions() {
+        return transitions;
+    }
+
+    public boolean isClosed() {
+        return transitions.stream().allMatch(StateNode::isClosed);
+    }
+
+    public StateNode getFrom() {
+        return from;
     }
 
     public ERule getRule() {
@@ -55,28 +45,19 @@ public class TransitionEdge {
 
     @Override
     public String toString() {
-        return transitions.toString();
+        return transitions.toString()+" closed: " + isClosed();
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TransitionEdge that = (TransitionEdge) o;
-        return rule == that.rule && Objects.equals(transitions, that.transitions);
+        StateEdge edge = (StateEdge) o;
+        return rule == edge.rule && Objects.equals(from, edge.from) && Objects.equals(transitions, edge.transitions);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(rule, transitions);
+        return Objects.hash(rule, from, transitions);
     }
-
-    public String toFormatString(TransitionGraph graph) {
-        String str = rule.name() + " ";
-        for (Transition transition : transitions)
-            str += "[" + graph.getExp(transition.to) + "," + graph.getExp(transition.constraint) + "," +
-                    graph.getExp(transition.produces) + "] ";
-        return str;
-    }
-
 }
