@@ -6,11 +6,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deduction Trees</title>
     <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    
+    <script type="module" src="/scripts/scripts.js"></script>
 </head>
 
 <body>
-    <!-- Deduction Tree -->
-    <script type="module" src="/scripts/scripts.js"></script>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2 sidebar">
+                <h2>Rules</h2>
+                <hr>
+                <ul>
+                    <li><button id="btnAdd1" class="rule1">
+                        <img src="../resources/1.png" alt="Add rule" style="width: 90px; height: auto;"">
+                    </button><br/>
+                    </li>
+                    <li><button id="btnAdd2" class="rule1">
+                        <img src="../resources/2.png" alt="Add rule" style="width: 120px; height: auto;">
+                    </button><br/>
+                    </li>
+                    <li><button id="btnAdd3" class="rule1">
+                        <img src="../resources/3.png" alt="Add rule" style="width: 150px; height: auto;">
+                    </button><br/>
+                    </li>
+                 </ul>
+                <hr>
+            </div>
+        
+            <div class="col-7 content" id="content">
+            </div>
+        
+            <div class="col-3 sidebar">
+                <h2>Current State</h2>
+                <hr>
+                <div class="px-3">
+                <table class="w-100" style="text-align:left!important;">
+                    <tbody>
+                        <tr>
+                            <td class="align-top"><h6 class="m-0">Premises:</h6></td>
+                            <td><button id="expression" class="attachable">ψ</button></td>
+                        </tr>
+                        <tr><td><hr></td><td><hr></td></tr>
+                        <tr>
+                            <td class="align-top"><h6 class="m-0">Goal:</h6></td>
+                            <td><button id="expression" class="attachable">ψ ∧ 𝛾</button></td>
+                        </tr>
+                        <tr><td><hr></td><td><hr></td></tr>
+                        <tr>
+                            <td class="align-top"><h6 class="m-0">Hypotheses:</h6></td>
+                            <td><button id="expression" class="attachable">ψ ∧ (φ ∨ 𝛾)</button></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><button id="expression" class="attachable mt-1">φ</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+                <hr>
+            </div>
+        </div>
+
+    </div>
+
 </body>
 
 </html>

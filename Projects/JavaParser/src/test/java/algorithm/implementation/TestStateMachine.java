@@ -19,6 +19,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestStateMachine {
@@ -50,57 +51,61 @@ public class TestStateMachine {
             "((a → d) → a) → a",
             "¬(¬(¬p)) → ¬p",
             "⊥ → a",
-            "(¬(¬a ∨ ¬b)) → (a ∧ b)", // WORKING
+            "(¬(¬a ∨ ¬b)) → (a ∧ b)",
             "((a → b) ∧ (b → a)) → (((a ∧ c) → (b ∧ c)) ∧ ((b ∧ c) → (a ∧ c)))",
             "(p ∨ q) → (q ∨ p)",
             "(p ∨ q) → (p ∨ (q ∨ p))",
             "((p ∨ q) ∨ r) → (p ∨ (q ∨ r))",
             "(¬p ∨ ¬q) → ¬(p ∧ q)",
-            "((p ∨ q) ∨ (r ∨ s)) → ((p ∨ s) ∨ (r ∨ q))", // O BIXO
+            "((p ∨ q) ∨ (r ∨ s)) → ((p ∨ s) ∨ (r ∨ q))",
             "(¬(p ∧ q) → (¬p ∨ ¬q)) ∧ ((¬p ∨ ¬q) → ¬(p ∧ q))",
-            "((¬p → q) ∧ (r ∨ ¬q) ∧ (p → (a ∨ b)) ∧ (¬r ∧ ¬b)) → a"
+            "((¬p → q) ∧ (r ∨ ¬q) ∧ (p → (a ∨ b)) ∧ (¬r ∧ ¬b)) → a",
+            "((a ∨ b) ∧ (a ∨ c)) → (a ∨(b ∧ c))",
+            "(¬(¬a ∨ ¬b)) → (a ∧ b)"
     })
     void testSolutionValidExpressions(String expression) throws ParseException {
-        boolean result = testSolution(expression);
-        assertTrue(result, "Expression failed: " + expression);
+        List<Solution> solutions = testSolution(expression);
+        assertFalse(solutions.isEmpty(), "No solutions found!");
     }
 
     @ParameterizedTest
     @ValueSource(strings = {
-            "((¬p → q) ∧ (r ∨ ¬q) ∧ (p → (a ∨ b)) ∧ (¬r ∧ ¬b)) → a",
+            "(¬(¬a ∨ ¬b)) → (a ∧ b)",
     })
     void testSolutionValidExpressionsSolo(String expression) throws ParseException {
-        boolean result = testSolution(expression);
-        assertTrue(result, "Expression failed: " + expression);
+        List<Solution> solutions = testSolution(expression);
+        assertFalse(solutions.isEmpty(), "No solutions found!");
     }
 
-    private static boolean testSolution(String expression) throws ParseException {
+    private static List<Solution> testSolution(String expression) throws ParseException {
         Exp e = createExpression(expression);
 
         long currentTime = System.currentTimeMillis();
 
         TransitionGraph tg = new TransitionGraph(e);
-        StateGraph sg = new StateGraph(tg, 20, 5000);
+        StateGraph sg = new StateGraph(tg, 20, 4000);
 
         System.out.printf("Time creating: %.3f seconds%n", (System.currentTimeMillis() - currentTime) / 1000.0);
 
         currentTime = System.currentTimeMillis();
 
-        if(sg.isSolvable()) {
-            List<Solution> solutions = sg.findSolutions(1, new HashSet<>());
-
-            int i = 1;
-            for(Solution solution : solutions) {
-                System.out.println("#"+i++);
-                System.out.println(Utils.convertUnicodeEscapes(solution.toString()));
-            }
+        List<Solution> solutions = sg.findSolutions(200, new HashSet<>());
+        System.out.println("Solutions: " + solutions.size());
+        System.out.println("\n\n");
+        System.out.println(Utils.convertUnicodeEscapes(sg.transitionGraph.toString()));
+        System.out.println("\n\n");
+        int i = 1;
+        for (Solution solution : solutions) {
+            System.out.println("#" + i++);
+            System.out.println(Utils.convertUnicodeEscapes(solution.toString()));
         }
+
 
         System.out.println(Utils.convertUnicodeEscapes(expression));
         System.out.printf("Total finding solutions: %.3f seconds%n", (System.currentTimeMillis() - currentTime) / 1000.0);
 
 
-        return sg.isSolvable();
+        return solutions;
     }
 
 }

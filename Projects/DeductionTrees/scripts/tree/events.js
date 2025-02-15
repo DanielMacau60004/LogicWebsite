@@ -46,8 +46,12 @@ export function movableExpression(child) {
         e = e || window.event;
         e.preventDefault();
     
-        const screenWidth = window.innerWidth;
-        const screenHeight = window.innerHeight;
+        const contentElement = document.getElementById("content");
+        const screenWidth = contentElement.offsetWidth;
+        const screenHeight = contentElement.offsetHeight;
+        
+
+        //alert(screenWidth+" " + screenHeight);
     
         pos1 = pos3 - e.clientX;
         pos2 = pos4 - e.clientY;

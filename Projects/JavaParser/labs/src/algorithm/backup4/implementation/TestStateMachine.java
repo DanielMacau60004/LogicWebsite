@@ -40,13 +40,13 @@ public class TestStateMachine {
                 //"¬(¬(¬p)) → ¬p", // WORKING
                 //"⊥ → a", // WORKING
 
-                "(¬(¬a ∨ ¬b)) → (a ∧ b)", // WORKING
+                //"(¬(¬a ∨ ¬b)) → (a ∧ b)", // WORKING
 
                 //"((a → b) ∧ (b → a)) → (((a ∧ c) → (b ∧ c)) ∧ ((b ∧ c) → (a ∧ c)))"
 
                 //"(p ∨ q) → (q ∨ p)", // WORKING
                 //"(p ∨ q) → (p ∨ (q ∨ p))", // WORKING
-                //"((p ∨ q) ∨ r) → (p ∨ (q ∨ r))" , // WORKING
+                "((p ∨ q) ∨ r) → (p ∨ (q ∨ r))" , // WORKING
                 //"(¬p ∨ ¬q) → ¬(p ∧ q)", // WORKING
                 //"((p ∨ q) ∨ (r ∨ s)) → ((p ∨ s) ∨ (r ∨ q))" //O BIXO
         };

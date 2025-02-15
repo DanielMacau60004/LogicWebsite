@@ -172,7 +172,7 @@ P(t_1, \dots, t_n) \text{ is a WFF} & \text{if } P \text{ is a predicate with ar
 \forall x \, \alpha \text{ is a WFF} & \text{if } \alpha \text{ is a WFF and } x \text{ is a variable,} \\
 \exists x \, \alpha \text{ is a WFF} & \text{if } \alpha \text{ is a WFF and } x \text{ is a variable,} \\
 (\alpha * \beta) \text{ is a WFF} & \text{if } \alpha \text{ and } \beta \text{ are WFFs and } * \in \{\land, \lor, \rightarrow, \leftrightarrow\}, \\
-(\alpha = \beta) \text{ is a WFF} & \text{if } \alpha \text{ and } \beta \text{ are WFFs.}
+(\alpha = \beta) \text{ is a WFF} & \text{if } \alpha \text{ and } \beta \text{ are terms.}
 \end{array}
 \right.
 \]
@@ -207,7 +207,7 @@ An example of a rule that can close a hypothesis is the Introduction rule for Im
 \begin{array}{c c}
 
 \frac{\displaystyle \overset{\displaystyle\mathcal{D} \strut} {\varphi \land \psi \strut}}{\displaystyle \varphi \strut} \quad (\land_{E_r}) 
-& \frac{\displaystyle \overset{\displaystyle\mathcal{D} \strut} {\varphi \land \psi \strut}}{\displaystyle \psi \strut} \quad (\land_{E_k}) \\[5pt]
+& \frac{\displaystyle \overset{\displaystyle\mathcal{D} \strut} {\varphi \land \psi \strut}}{\displaystyle \psi \strut} \quad (\land_{E_l}) \\[5pt]
 \textbf{Conjunction Elimination, right} & \textbf{Conjunction Elimination, left} \\[10pt]
 \end{array}
 \]

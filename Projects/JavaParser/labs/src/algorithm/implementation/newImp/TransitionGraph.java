@@ -3,6 +3,7 @@ package algorithm.implementation.newImp;
 import ast.Exp;
 import ast.logic.*;
 import ast.symbols.ASTParenthesis;
+import utils.Utils;
 
 import java.util.*;
 
@@ -19,6 +20,7 @@ public class TransitionGraph {
 
         addNode(ExpUtils.BOT);
         addNode(conclusion);
+
     }
 
     public Exp getConclusion() {

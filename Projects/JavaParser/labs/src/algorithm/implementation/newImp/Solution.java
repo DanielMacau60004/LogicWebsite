@@ -23,7 +23,7 @@ public class Solution {
         open.add(Map.entry(node.getKey() + 1, newNode));
     }
 
-    public StateNode popHead() {
+    public Map.Entry<Integer, StateNode> popHead() {
         if (open.isEmpty())
             return null;
         node = open.pop();
@@ -32,7 +32,7 @@ public class Solution {
 
         if (node.getValue().isClosed())
             return popHead();
-        return node.getValue();
+        return node;
     }
 
     public Solution clone() {

@@ -11,7 +11,7 @@ public class StateGraph {
     private final Map<StateNode, Set<StateEdge>> inverted;
 
     private final Set<StateNode> closed = new HashSet<>();
-    private final TransitionGraph transitionGraph;
+    public final TransitionGraph transitionGraph;
 
     public StateGraph(TransitionGraph transitionGraph, int heightLimit, int nodesLimit) {
         this.nodes = new HashMap<>();
@@ -57,7 +57,7 @@ public class StateGraph {
             }
         }
 
-        //System.out.println("[Before]:\n" + this);
+        System.out.println("[Before]:\n" + this);
     }
 
     public boolean isSolvable() {
@@ -104,7 +104,6 @@ public class StateGraph {
         });
 
         System.out.println("[After]\n" + this);
-        System.out.println("Solvable: " + isSolvable());
     }
 
     public List<Solution> findSolutions(int limit, Set<ERule> forbiddenRules) {
@@ -115,7 +114,8 @@ public class StateGraph {
         List<Solution> solutions = new ArrayList<>();
         if (!isSolvable()) return solutions;
 
-        Queue<StateEdge> explored = new LinkedList<>();
+        Map<StateNode, Integer> explored = new HashMap<>();
+        //Set<StateEdge> explored = new HashSet<>();
         Queue<Solution> explore = new LinkedList<>();
 
         explore.add(new Solution(initState));
@@ -125,21 +125,25 @@ public class StateGraph {
 
         while (!explore.isEmpty()) {size++;
             Solution solution = explore.poll();
-            StateNode node = solution.popHead();
+            Map.Entry<Integer, StateNode> noden = solution.popHead();
 
-            if (node == null) {
+            if (noden == null) {
                 solutions.add(solution);
 
                 if (solutions.size() >= limit) break;
                 continue;
             }
 
+            StateNode node = noden.getValue();
+            Integer i = explored.get(node);
+            if(i == null || node.getHeight()<i) explored.put(node, node.getHeight());
+            else continue;
+
             Set<StateEdge> edges = graph.get(node);
             for (StateEdge edge : edges) {
                 if (forbiddenRules.contains(edge.getRule())) continue;
-                if (explored.contains(edge)) continue;
-                explored.add(edge);
-
+                //if (explored.contains(edge)) continue;
+                //explored.add(edge);
                 Solution sol = edges.size() == 1 ? solution : solution.clone();
                 if(edges.size() > 1)clones++;
 
