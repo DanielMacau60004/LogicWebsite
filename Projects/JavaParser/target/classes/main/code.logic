@@ -47,28 +47,25 @@ Car/1. Driver/1. Start/2. Stop/2.
 ∃x(Car(x) ∧ ∀y(Driver(y) → (Start(x, y) ∧ ¬Stop(x, y)))).
 
 /*
-proof:
-    premises:
-        P → Q
-        Q → R
-        R → S
-        P ∨ T
-        T → U
-        U → V
-    steps:
-        ∨-Elim: P ∨ T
-            P:
-                →-Elim: P → Q
-                steps:
-                    →-Elim: Q → R
-                    steps:
-                        →-Elim: R → S
-                        result: S
-            T:
-                →-Elim: T → U
-                steps:
-                    →-Elim: U → V
-                    result: V
-    result: V ∨ S
+proof[]:
+((p ∨ q) ∨ (r ∨ s)) → ((p ∨ s) ∨ (r ∨ q))
+	(p ∨ s) ∨ (r ∨ q)   [INTRO_IMPLICATION]
+		(p ∨ q) ∨ (r ∨ s)   [ELIM_DISJUNCTION]
+		(p ∨ s) ∨ (r ∨ q)   [ELIM_DISJUNCTION]
+			(p ∨ s) ∨ (r ∨ q)   [ELIM_DISJUNCTION]
+				p ∨ s   [INTRO_DISJUNCTION_RIGHT]
+					p   [INTRO_DISJUNCTION_RIGHT]
+			(p ∨ s) ∨ (r ∨ q)   [ELIM_DISJUNCTION]
+				r ∨ q   [INTRO_DISJUNCTION_LEFT]
+					q   [INTRO_DISJUNCTION_LEFT]
+			p ∨ q   [ELIM_DISJUNCTION]
+		(p ∨ s) ∨ (r ∨ q)   [ELIM_DISJUNCTION]
+			(p ∨ s) ∨ (r ∨ q)   [ELIM_DISJUNCTION]
+				r ∨ q   [INTRO_DISJUNCTION_LEFT]
+					r   [INTRO_DISJUNCTION_RIGHT]
+			(p ∨ s) ∨ (r ∨ q)   [ELIM_DISJUNCTION]
+				p ∨ s   [INTRO_DISJUNCTION_RIGHT]
+					s   [INTRO_DISJUNCTION_LEFT]
+			r ∨ s   [ELIM_DISJUNCTION]
 */
 

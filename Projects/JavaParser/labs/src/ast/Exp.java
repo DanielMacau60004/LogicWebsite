@@ -1,13 +1,8 @@
 package ast;
 
-import algorithm.rules.NDInterpreter;
-import algorithm.rules.NDVisitor;
-import algorithm.rules.Rule;
-import parser.Token;
-import symbols.Env;
 import types.Type;
 
-public interface Exp extends Rule {
+public interface Exp {
 
     void setType(Type type);
 

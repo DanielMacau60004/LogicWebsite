@@ -5,9 +5,9 @@ import java.util.regex.Pattern;
 
 public class Utils {
 
-    public static String convertUnicodeEscapes(String input) {
+    public static String convertUnicodeEscapes(Object input) {
         Pattern pattern = Pattern.compile("\\\\u([0-9A-Fa-f]{4})");
-        Matcher matcher = pattern.matcher(input);
+        Matcher matcher = pattern.matcher(input.toString());
 
         StringBuffer result = new StringBuffer();
 
