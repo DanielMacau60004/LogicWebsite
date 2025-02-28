@@ -38,7 +38,7 @@ TOKEN : {
   | < AND: "∧" >
   | < OR: "∨" >
   | < IMPLICATION: "→" >
-  | < EQUIVALENT: "↔" >
+  | < BICONDITIONAL: "↔" >
   | < PREDICATE: ["A"-"Z"] (["a"-"z", "A"-"Z"])* >
   | < DEL_PREDICATE: ["A"-"Z"] (["a"-"z", "A"-"Z"])* ["/"] ["1"-"9"](["0"-"9"])*>
   | < VARIABLE: ["a"-"z"] >
@@ -83,7 +83,7 @@ private Exp propLogicBinary() : {
         <AND> e2 = propLogicUnary() { e1 = new ASTAnd(e1, e2); }
       | <OR> e2 = propLogicUnary() { e1 = new ASTOr(e1, e2); }
       | <IMPLICATION> e2 = propLogicUnary() { e1 = new ASTImplication(e1, e2); }
-      | <EQUIVALENT> e2 = propLogicUnary() { e1 = new ASTEquivalence(e1, e2); }
+      | <BICONDITIONAL> e2 = propLogicUnary() { e1 = new ASTBiconditional(e1, e2); }
     )*
     { return e1; }
 }
@@ -135,7 +135,7 @@ private Exp folLogicBinary() : {
         <AND> e2 = folLogicUnary() { e1 = new ASTAnd(e1, e2); }
       | <OR> e2 = folLogicUnary() { e1 = new ASTOr(e1, e2); }
       | <IMPLICATION> e2 = folLogicUnary() { e1 = new ASTImplication(e1, e2); }
-      | <EQUIVALENT> e2 = folLogicUnary() { e1 = new ASTEquivalence(e1, e2); }
+      | <BICONDITIONAL> e2 = folLogicUnary() { e1 = new ASTBiconditional(e1, e2); }
     )*
     { return e1; }
 }

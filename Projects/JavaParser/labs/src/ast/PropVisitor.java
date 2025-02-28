@@ -19,7 +19,7 @@ public interface PropVisitor<T> {
 
     T visit(ASTImplication e);
 
-    T visit(ASTEquivalence e);
+    T visit(ASTBiconditional e);
 
     T visit(ASTComp e);
 

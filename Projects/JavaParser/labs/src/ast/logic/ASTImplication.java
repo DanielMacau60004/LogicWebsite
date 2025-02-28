@@ -6,7 +6,6 @@ import ast.FOLVisitor;
 import ast.types.ASTAPairExp;
 import ast.PropVisitor;
 import parser.ExpressionsParser;
-import symbols.Env;
 
 public class ASTImplication extends ASTAPairExp{
 

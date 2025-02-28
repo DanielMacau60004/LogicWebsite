@@ -27,7 +27,7 @@ public interface FOLVisitor<T, E> {
 
     T visit(ASTImplication e, E env);
 
-    T visit(ASTEquivalence e, E env);
+    T visit(ASTBiconditional e, E env);
 
     T visit(ASTComp e, E env);
 

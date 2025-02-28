@@ -78,7 +78,7 @@ public class ExpressionsParser implements ExpressionsParserConstants {
       case AND:
       case OR:
       case IMPLICATION:
-      case EQUIVALENT:
+      case BICONDITIONAL:
         ;
         break;
       default:
@@ -101,10 +101,10 @@ public class ExpressionsParser implements ExpressionsParserConstants {
         e2 = propLogicUnary();
                                               e1 = new ASTImplication(e1, e2);
         break;
-      case EQUIVALENT:
-        jj_consume_token(EQUIVALENT);
+      case BICONDITIONAL:
+        jj_consume_token(BICONDITIONAL);
         e2 = propLogicUnary();
-                                             e1 = new ASTEquivalence(e1, e2);
+                                                e1 = new ASTBiconditional(e1, e2);
         break;
       default:
         jj_la1[3] = jj_gen;
@@ -238,7 +238,7 @@ public class ExpressionsParser implements ExpressionsParserConstants {
       case AND:
       case OR:
       case IMPLICATION:
-      case EQUIVALENT:
+      case BICONDITIONAL:
         ;
         break;
       default:
@@ -261,10 +261,10 @@ public class ExpressionsParser implements ExpressionsParserConstants {
         e2 = folLogicUnary();
                                              e1 = new ASTImplication(e1, e2);
         break;
-      case EQUIVALENT:
-        jj_consume_token(EQUIVALENT);
+      case BICONDITIONAL:
+        jj_consume_token(BICONDITIONAL);
         e2 = folLogicUnary();
-                                            e1 = new ASTEquivalence(e1, e2);
+                                               e1 = new ASTBiconditional(e1, e2);
         break;
       default:
         jj_la1[9] = jj_gen;

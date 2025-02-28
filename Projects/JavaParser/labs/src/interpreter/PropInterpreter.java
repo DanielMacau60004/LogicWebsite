@@ -20,7 +20,7 @@ public class PropInterpreter implements PropVisitor<Value> {
     }
 
     @Override
-    public Value visit(ASTEquivalence ast) {
+    public Value visit(ASTBiconditional ast) {
         TableValue v1 = (TableValue) ast.left.accept(this);
         TableValue v2 = (TableValue) ast.right.accept(this);
 

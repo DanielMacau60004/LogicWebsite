@@ -35,7 +35,7 @@ public interface ExpressionsParserConstants {
   /** RegularExpression Id. */
   int IMPLICATION = 15;
   /** RegularExpression Id. */
-  int EQUIVALENT = 16;
+  int BICONDITIONAL = 16;
   /** RegularExpression Id. */
   int PREDICATE = 17;
   /** RegularExpression Id. */

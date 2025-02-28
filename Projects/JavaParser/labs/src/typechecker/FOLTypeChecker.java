@@ -101,7 +101,7 @@ public class FOLTypeChecker implements FOLVisitor<Type, Env<Type>> {
     }
 
     @Override
-    public Type visit(ASTEquivalence e, Env<Type> env) {
+    public Type visit(ASTBiconditional e, Env<Type> env) {
         Type t1 = e.left.accept(this, env);
         Type t2 = e.right.accept(this, env);
 

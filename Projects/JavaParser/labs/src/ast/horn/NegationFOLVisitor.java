@@ -10,7 +10,6 @@ import ast.types.ASTBool;
 import ast.types.ASTConstant;
 import ast.types.ASTPred;
 import ast.types.ASTVariable;
-import symbols.Env;
 
 public class NegationFOLVisitor implements FOLVisitor<Exp, Boolean> {
 
@@ -61,7 +60,7 @@ public class NegationFOLVisitor implements FOLVisitor<Exp, Boolean> {
     }
 
     @Override
-    public Exp visit(ASTEquivalence e, Boolean env) {
+    public Exp visit(ASTBiconditional e, Boolean env) {
         throw new RuntimeException("It only works with single with no equivalences!");
     }
 

@@ -10,7 +10,6 @@ import ast.types.ASTBool;
 import ast.types.ASTConstant;
 import ast.types.ASTPred;
 import ast.types.ASTVariable;
-import symbols.Env;
 
 public class ImplicationFOLVisitor implements FOLVisitor<Exp, Void> {
 
@@ -64,7 +63,7 @@ public class ImplicationFOLVisitor implements FOLVisitor<Exp, Void> {
     }
 
     @Override
-    public Exp visit(ASTEquivalence e, Void env) {
+    public Exp visit(ASTBiconditional e, Void env) {
         Exp left = e.left.accept(this, env);
         Exp right = e.right.accept(this, env);
 

@@ -61,7 +61,7 @@ public class SkolemFOLVisitor implements FOLVisitor<Exp, Env<Exp>> {
     }
 
     @Override
-    public Exp visit(ASTEquivalence e, Env<Exp> env) {
+    public Exp visit(ASTBiconditional e, Env<Exp> env) {
         throw new RuntimeException("It only works with expressions with no equivalences!");
     }
 

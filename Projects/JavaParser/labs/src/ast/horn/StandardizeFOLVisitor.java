@@ -63,7 +63,7 @@ public class StandardizeFOLVisitor implements FOLVisitor<Exp, Env<ASTVariable>> 
     }
 
     @Override
-    public Exp visit(ASTEquivalence e, Env<ASTVariable> env) {
+    public Exp visit(ASTBiconditional e, Env<ASTVariable> env) {
         throw new RuntimeException("It only works with expressions with no equivalences!");
     }
 

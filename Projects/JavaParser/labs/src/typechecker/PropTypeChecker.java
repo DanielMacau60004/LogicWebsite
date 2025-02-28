@@ -24,7 +24,7 @@ public class PropTypeChecker implements PropVisitor<Type> {
     }
 
     @Override
-    public Type visit(ASTEquivalence e) {
+    public Type visit(ASTBiconditional e) {
         Type t1 = e.left.accept(this);
         Type t2 = e.right.accept(this);
 

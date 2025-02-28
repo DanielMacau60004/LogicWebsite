@@ -10,7 +10,6 @@ import ast.types.ASTBool;
 import ast.types.ASTConstant;
 import ast.types.ASTPred;
 import ast.types.ASTVariable;
-import symbols.Env;
 
 import java.util.Stack;
 
@@ -63,7 +62,7 @@ public class ReorderFOLVisitor implements FOLVisitor<Exp, Stack<Exp>> {
     }
 
     @Override
-    public Exp visit(ASTEquivalence e, Stack<Exp> env) {
+    public Exp visit(ASTBiconditional e, Stack<Exp> env) {
         throw new RuntimeException("It only works with expressions with no equivalences!");
     }
 

@@ -56,7 +56,7 @@ public class FOLInterpreter implements FOLVisitor<Value, Env<Value>> {
     }
 
     @Override
-    public Value visit(ASTEquivalence e, Env<Value> env) {
+    public Value visit(ASTBiconditional e, Env<Value> env) {
         return null;
     }
 
