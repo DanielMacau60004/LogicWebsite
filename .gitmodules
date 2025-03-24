@@ -1,6 +1,0 @@
-[submodule "Projects/LogicAPI"]
-	path = Projects/LogicAPI
-	url = https://github.com/DanielMacau60004/LogicAPI
-[submodule "Projects/Server"]
-	path = Projects/Server
-	url = https://github.com/DanielMacau60004/Server
