@@ -4,156 +4,258 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="961377de-44c0-4ce8-9942-64e88caeedf7" name="Changes" comment="Single Solution Algorithm for Natural Deduction Propositional Logic implemented">
-      <change afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/multiple/state/StateEdge.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/multiple/state/StateGraph.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/multiple/state/StateNode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/multiple/transition/TransitionNode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/implementation/TestPLSolution.java" afterDir="false" />
+    <list default="true" id="961377de-44c0-4ce8-9942-64e88caeedf7" name="Changes" comment="Implication rules for ND added">
+      <change afterPath="$PROJECT_DIR$/main/java/logic/algorithm/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup8/implementation/state/ParallelStateGraph.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup8/implementation/state/StateGraph.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup8/implementation/state/StateNode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup8/implementation/transition/TransitionGraph.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup9/implementation/Solution.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup9/implementation/state/ParallelStateGraph.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup9/implementation/state/StateEdge.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup9/implementation/state/StateGraph.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup9/implementation/state/StateNode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup9/implementation/transition/TransitionEdge.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup9/implementation/transition/TransitionGraph.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/multiple/state/StateEdge.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/multiple/transition/TransitionNode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/java/logic/algorithm/implementation/Solution.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/java/logic/algorithm/implementation/transition/TransitionEdge.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/java/logic/algorithm/implementation/transition/TransitionNode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/java/logic/interpreter/FOLFreeInterpreter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/java/logic/interpreter/FOLReplaceVariables.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/java/logic/interpreter/FOLTermsInterpreter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/tests/logic/algorithm/implementation/AlgoFOLTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../LC/Aulas/T15.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/../../LC/Aulas/T15.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../LC/Exercícios/P8.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/../../LC/Exercícios/P8.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/Graph.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/Test.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/Tree.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/TreeBackup.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup0/implementation/Edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup0/implementation/Edge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup0/implementation/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup0/implementation/Solution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup0/implementation/StateMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup0/implementation/StateMachine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup0/implementation/TestStateMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup0/implementation/TestStateMachine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup1/implementation/Edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup1/implementation/Edge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup1/implementation/Proof.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup1/implementation/Proof.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup1/implementation/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup1/implementation/Solution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup1/implementation/StateMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup1/implementation/StateMachine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup1/implementation/TestStateMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup1/implementation/TestStateMachine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup2/implementation/Edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup2/implementation/Edge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup2/implementation/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup2/implementation/Solution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup2/implementation/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup2/implementation/State.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup2/implementation/StateMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup2/implementation/StateMachine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup2/implementation/TestStateMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup2/implementation/TestStateMachine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup3/implementation/Edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup3/implementation/Edge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup3/implementation/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup3/implementation/Solution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup3/implementation/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup3/implementation/State.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup3/implementation/StateMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup3/implementation/StateMachine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup3/implementation/TestStateMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup3/implementation/TestStateMachine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup3/implementation/Transition.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup3/implementation/Transition.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup4/implementation/Branch.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup4/implementation/Branch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup4/implementation/Edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup4/implementation/Edge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup4/implementation/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup4/implementation/Solution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup4/implementation/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup4/implementation/State.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup4/implementation/StateMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup4/implementation/StateMachine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup4/implementation/TestStateMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup4/implementation/TestStateMachine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup5/implementation/Branch.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup5/implementation/Branch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup5/implementation/Edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup5/implementation/Edge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup5/implementation/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup5/implementation/Solution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup5/implementation/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup5/implementation/State.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup5/implementation/StateMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup5/implementation/StateMachine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup5/implementation/TestStateMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup5/implementation/TestStateMachine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup6/implementation/Branch.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup6/implementation/Branch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup6/implementation/Edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup6/implementation/Edge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup6/implementation/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup6/implementation/Solution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup6/implementation/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup6/implementation/State.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup6/implementation/StateMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup6/implementation/StateMachine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup6/implementation/newImp/ERule.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup6/implementation/newImp/ERule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup6/implementation/newImp/ExpUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup6/implementation/newImp/ExpUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup6/implementation/newImp/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup6/implementation/newImp/Solution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup6/implementation/newImp/StateEdge.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup6/implementation/newImp/StateEdge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup6/implementation/newImp/StateGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup6/implementation/newImp/StateGraph.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup6/implementation/newImp/StateNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup6/implementation/newImp/StateNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup6/implementation/newImp/Transition.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup6/implementation/newImp/Transition.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup6/implementation/newImp/TransitionEdge.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup6/implementation/newImp/TransitionEdge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup6/implementation/newImp/TransitionGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup6/implementation/newImp/TransitionGraph.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup7/implementation/ERule.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup7/implementation/ERule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup7/implementation/ExpUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup7/implementation/ExpUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup7/implementation/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup7/implementation/Solution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup7/implementation/StateEdge.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup7/implementation/StateEdge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup7/implementation/StateGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup7/implementation/StateGraph.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup7/implementation/StateNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup7/implementation/StateNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup7/implementation/Transition.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup7/implementation/Transition.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup7/implementation/TransitionEdge.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup7/implementation/TransitionEdge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backup7/implementation/TransitionGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/backup7/implementation/TransitionGraph.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/multiple1/implementation/ERule.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/multiple1/implementation/ExpUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/multiple1/implementation/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/multiple/Solution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/multiple1/implementation/StateEdge.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/multiple1/implementation/StateGraph.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/multiple1/implementation/StateNode.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/multiple1/implementation/Transition.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/multiple1/implementation/TransitionEdge.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/multiple/transition/TransitionEdge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/multiple1/implementation/TransitionGraph.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/multiple2/implementation/ERule.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/multiple2/implementation/ExpUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/multiple2/implementation/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/multiple/SolutionBackup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/multiple2/implementation/StateEdge.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/multiple2/implementation/StateGraph.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/multiple2/implementation/StateNode.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/multiple2/implementation/Transition.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/multiple2/implementation/TransitionEdge.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/multiple2/implementation/TransitionGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/backups/multiple/transition/TransitionGraph.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/single/ERule.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/ERule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/single/ExpUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/ExpUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/single/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/implementation/Solution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/single/state/ParallelStateGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/implementation/state/ParallelStateGraph.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/single/state/StateEdge.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/implementation/state/StateEdge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/single/state/StateGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/implementation/state/StateGraph.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/single/state/StateNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/implementation/state/StateNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/single/transition/TransitionEdge.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/implementation/transition/TransitionEdge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/single/transition/TransitionGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/implementation/transition/TransitionGraph.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/single/transition/TransitionNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/algorithm/implementation/transition/TransitionNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/FOLVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/FOLVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/PropVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/PropVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/horn/CNFClausesVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/horn/CNFClausesVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/horn/ImplicationFOLVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/horn/ImplicationFOLVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/horn/NegationFOLVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/horn/NegationFOLVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/horn/ReorderFOLVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/horn/ReorderFOLVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/horn/SkolemFOLVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/horn/SkolemFOLVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/horn/StandardizeFOLVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/horn/StandardizeFOLVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/logic/ASTEquivalence.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/logic/ASTBiconditional.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/ast/logic/ASTImplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/ast/logic/ASTImplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/interpreter/FOLInterpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/interpreter/FOLInterpreter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/interpreter/PropInterpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/interpreter/PropInterpreter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/parser/ExpressionsParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/parser/ExpressionsParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/parser/ExpressionsParser.jj" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/parser/ExpressionsParser.jj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/parser/ExpressionsParserConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/parser/ExpressionsParserConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/typechecker/FOLTypeChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/typechecker/FOLTypeChecker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labs/src/typechecker/PropTypeChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/src/typechecker/PropTypeChecker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/single/TestSingleSolution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/multiple/TestMultipleSolution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/algorithm/Graph$Edge.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/algorithm/Graph.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/algorithm/Test.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/algorithm/Tree.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/algorithm/TreeBackup.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/algorithm/backup0/implementation/Edge.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/algorithm/backup0/implementation/Solution.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/algorithm/backup0/implementation/StateMachine.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/algorithm/backup0/implementation/TestStateMachine.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/algorithm/backup1/implementation/Edge.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/algorithm/backup1/implementation/Proof.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/algorithm/backup1/implementation/Solution.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/algorithm/backup1/implementation/StateMachine.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/algorithm/backup1/implementation/TestStateMachine.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/algorithm/backup2/implementation/Edge.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/algorithm/backup2/implementation/Solution.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/algorithm/backup2/implementation/State.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/algorithm/backup2/implementation/StateMachine.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/algorithm/backup2/implementation/TestStateMachine.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/algorithm/backup3/implementation/Edge.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/algorithm/backup3/implementation/Solution.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/algorithm/backup3/implementation/State.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/algorithm/backup3/implementation/StateMachine.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/algorithm/backup3/implementation/TestStateMachine.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/algorithm/backup3/implementation/Transition.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/algorithm/backup4/implementation/Branch.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/algorithm/backup4/implementation/Edge.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/algorithm/backup4/implementation/Solution.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/algorithm/backup4/implementation/State.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/algorithm/backup4/implementation/StateMachine.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/algorithm/backup4/implementation/TestStateMachine.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/algorithm/backup5/implementation/Branch.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/algorithm/backup5/implementation/Edge.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/algorithm/backup5/implementation/Solution.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/algorithm/backup5/implementation/State.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/algorithm/backup5/implementation/StateMachine.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/algorithm/backup5/implementation/TestStateMachine.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interpreter/PropInterpreter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/interpreter/PropInterpreter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaParser.iml" beforeDir="false" afterPath="$PROJECT_DIR$/JavaParser.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/ERule.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/ERule.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/ExpUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/ExpUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup0/implementation/Edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup1/implementation/Edge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup0/implementation/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup0/implementation/Solution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup0/implementation/StateMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup0/implementation/StateMachine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup0/implementation/TestStateMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup0/implementation/TestStateMachine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup1/implementation/Edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup0/implementation/Edge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup1/implementation/Proof.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup1/implementation/Proof.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup1/implementation/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup1/implementation/Solution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup1/implementation/StateMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup1/implementation/StateMachine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup1/implementation/TestStateMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup1/implementation/TestStateMachine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup2/implementation/Edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup2/implementation/Edge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup2/implementation/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup2/implementation/Solution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup2/implementation/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup2/implementation/State.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup2/implementation/StateMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup2/implementation/StateMachine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup2/implementation/TestStateMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup2/implementation/TestStateMachine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup3/implementation/Edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup3/implementation/Edge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup3/implementation/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup3/implementation/Solution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup3/implementation/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup3/implementation/State.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup3/implementation/StateMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup3/implementation/StateMachine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup3/implementation/TestStateMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup3/implementation/TestStateMachine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup3/implementation/Transition.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup3/implementation/Transition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup4/implementation/Branch.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup5/implementation/Branch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup4/implementation/Edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup4/implementation/Edge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup4/implementation/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup5/implementation/Solution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup4/implementation/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup4/implementation/State.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup4/implementation/StateMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup4/implementation/StateMachine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup4/implementation/TestStateMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup4/implementation/TestStateMachine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup5/implementation/Branch.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup4/implementation/Branch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup5/implementation/Edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup5/implementation/Edge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup5/implementation/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup4/implementation/Solution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup5/implementation/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup5/implementation/State.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup5/implementation/StateMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup5/implementation/StateMachine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup5/implementation/TestStateMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup5/implementation/TestStateMachine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup6/implementation/Branch.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup6/implementation/Branch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup6/implementation/Edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup6/implementation/Edge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup6/implementation/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup6/implementation/Solution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup6/implementation/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup6/implementation/State.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup6/implementation/StateMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup6/implementation/StateMachine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup6/implementation/newImp/ERule.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup6/implementation/newImp/ERule.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup6/implementation/newImp/ExpUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup6/implementation/newImp/ExpUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup6/implementation/newImp/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup6/implementation/newImp/Solution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup6/implementation/newImp/StateEdge.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup6/implementation/newImp/StateEdge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup6/implementation/newImp/StateGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup6/implementation/newImp/StateGraph.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup6/implementation/newImp/StateNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup6/implementation/newImp/StateNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup6/implementation/newImp/Transition.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup6/implementation/newImp/Transition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup6/implementation/newImp/TransitionEdge.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup6/implementation/newImp/TransitionEdge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup6/implementation/newImp/TransitionGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup6/implementation/newImp/TransitionGraph.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup7/implementation/ERule.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup7/implementation/ERule.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup7/implementation/ExpUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup7/implementation/ExpUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup7/implementation/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup7/implementation/Solution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup7/implementation/StateEdge.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup7/implementation/StateEdge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup7/implementation/StateGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup7/implementation/StateGraph.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup7/implementation/StateNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup7/implementation/StateNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup7/implementation/Transition.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup7/implementation/Transition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup7/implementation/TransitionEdge.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup7/implementation/TransitionEdge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/backup7/implementation/TransitionGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup7/implementation/TransitionGraph.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/multiple/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/multiple/Solution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/multiple/SolutionBackup.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/multiple/SolutionBackup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/multiple/state/StateEdge.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/implementation/state/StateEdge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/multiple/state/StateGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/multiple/state/StateGraph.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/multiple/state/StateNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/implementation/state/StateNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/multiple/transition/TransitionEdge.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/multiple/transition/TransitionEdge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/multiple/transition/TransitionGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/multiple/transition/TransitionGraph.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/backups/multiple/transition/TransitionNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup9/implementation/transition/TransitionNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/implementation/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup8/implementation/Solution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/implementation/state/ParallelStateGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/implementation/state/ParallelStateGraph.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/implementation/state/StateEdge.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup8/implementation/state/StateEdge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/implementation/state/StateGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/implementation/state/StateGraph.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/implementation/state/StateNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/multiple/state/StateNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/implementation/transition/TransitionEdge.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup8/implementation/transition/TransitionEdge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/implementation/transition/TransitionGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/implementation/transition/TransitionGraph.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/algorithm/implementation/transition/TransitionNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/algorithm/backups/backup8/implementation/transition/TransitionNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/ASTAExp.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/ast/ASTAExp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/Exp.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/ast/Exp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/FOLVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/ast/FOLVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/PropVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/ast/PropVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/horn/CNFClausesVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/ast/horn/CNFClausesVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/horn/HornClauses.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/ast/horn/HornClauses.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/horn/ImplicationFOLVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/ast/horn/ImplicationFOLVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/horn/NegationFOLVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/ast/horn/NegationFOLVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/horn/ReorderFOLVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/ast/horn/ReorderFOLVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/horn/SkolemFOLVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/ast/horn/SkolemFOLVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/horn/StandardizeFOLVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/ast/horn/StandardizeFOLVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/logic/ASTAnd.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/ast/logic/ASTAnd.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/logic/ASTBiconditional.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/ast/logic/ASTBiconditional.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/logic/ASTComp.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/ast/logic/ASTComp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/logic/ASTExistential.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/ast/logic/ASTExistential.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/logic/ASTFun.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/ast/logic/ASTFun.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/logic/ASTImplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/ast/logic/ASTImplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/logic/ASTLiteral.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/ast/logic/ASTLiteral.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/logic/ASTNot.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/ast/logic/ASTNot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/logic/ASTOr.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/ast/logic/ASTOr.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/logic/ASTUniversal.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/ast/logic/ASTUniversal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/symbols/ASTDelPred.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/ast/symbols/ASTDelPred.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/symbols/ASTParenthesis.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/ast/symbols/ASTParenthesis.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/symbols/ASTSequence.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/ast/symbols/ASTSequence.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/types/ASTAPairExp.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/ast/types/ASTAPairExp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/types/ASTASingleExp.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/ast/types/ASTASingleExp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/types/ASTBool.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/ast/types/ASTBool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/types/ASTConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/ast/types/ASTConstant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/types/ASTHornClause.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/ast/types/ASTHornClause.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/types/ASTHornClauses.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/ast/types/ASTHornClauses.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/types/ASTPred.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/ast/types/ASTPred.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/types/ASTTerm.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/ast/types/ASTTerm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/ast/types/ASTVariable.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/ast/types/ASTVariable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/interpreter/FOLInterpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/interpreter/FOLInterpreter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/interpreter/PropInterpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/interpreter/PropInterpreter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/main/Console.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/main/Console.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/main/RunFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/main/RunFile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/main/code.logic" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/main/code.logic" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/parser/ExpressionsParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/parser/ExpressionsParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/parser/ExpressionsParser.jj" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/parser/ExpressionsParser.jj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/parser/ExpressionsParserConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/parser/ExpressionsParserConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/parser/ExpressionsParserTokenManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/parser/ExpressionsParserTokenManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/parser/JavaCharStream.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/parser/JavaCharStream.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/parser/ParseException.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/parser/ParseException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/parser/SimpleCharStream.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/parser/SimpleCharStream.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/parser/Token.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/parser/Token.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/parser/TokenMgrError.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/parser/TokenMgrError.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/symbols/Env.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/symbols/Env.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/tests/PropTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/tests/PropTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/typechecker/ErrorHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/typechecker/ErrorHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/typechecker/FOLTypeChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/typechecker/FOLTypeChecker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/typechecker/Function.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/typechecker/Function.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/typechecker/Header.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/typechecker/Header.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/typechecker/PropTypeChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/typechecker/PropTypeChecker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/typechecker/TypeBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/typechecker/TypeBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/typechecker/TypeCheckerError.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/typechecker/TypeCheckerError.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/typechecker/TypeError.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/typechecker/TypeError.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/typechecker/errors/TypeErrorDuplicatedDeclaration.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/typechecker/errors/TypeErrorDuplicatedDeclaration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/typechecker/errors/TypeErrorExpression.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/typechecker/errors/TypeErrorExpression.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/typechecker/errors/TypeErrorParams.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/typechecker/errors/TypeErrorParams.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/types/BoolType.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/types/BoolType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/types/ConstantType.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/types/ConstantType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/types/DelPredType.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/types/DelPredType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/types/ErrorType.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/types/ErrorType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/types/TableType.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/types/TableType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/types/TermType.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/types/TermType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/types/Type.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/types/Type.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/types/UnitType.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/types/UnitType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/types/VariableType.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/types/VariableType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/utils/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/utils/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/values/BoolValue.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/values/BoolValue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/values/TableValue.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/values/TableValue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/src/values/Value.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/logic/values/Value.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/main/code.logic" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ICL/parser/ExpressionsParser.jj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/implementation/TestPLSolution.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/tests/logic/algorithm/implementation/AlgoPLTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/multiple/TestMultipleSolution.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ast/ASTAExp.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ast/Exp.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ast/FOLVisitor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ast/PropVisitor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ast/horn/CNFClausesVisitor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ast/horn/HornClauses.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ast/horn/ImplicationFOLVisitor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ast/horn/NegationFOLVisitor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ast/horn/ReorderFOLVisitor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ast/horn/SkolemFOLVisitor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ast/horn/StandardizeFOLVisitor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ast/logic/ASTAnd.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ast/logic/ASTComp.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ast/logic/ASTEquivalence.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ast/logic/ASTExistential.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ast/logic/ASTFun.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ast/logic/ASTImplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ast/logic/ASTLiteral.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ast/logic/ASTNot.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ast/logic/ASTOr.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ast/logic/ASTUniversal.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ast/symbols/ASTDelPred.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ast/symbols/ASTParenthesis.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ast/symbols/ASTSequence.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ast/types/ASTAPairExp.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ast/types/ASTASingleExp.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ast/types/ASTBool.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ast/types/ASTConstant.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ast/types/ASTHornClause.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ast/types/ASTHornClauses.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ast/types/ASTPred.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ast/types/ASTTerm.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ast/types/ASTVariable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/interpreter/FOLInterpreter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/interpreter/PropInterpreter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/main/Console.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/main/RunFile.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/main/code.logic" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/parser/ExpressionsParser.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/parser/ExpressionsParser.jj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/parser/ExpressionsParserConstants.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/parser/ExpressionsParserTokenManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/parser/JavaCharStream.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/parser/ParseException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/parser/SimpleCharStream.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/parser/Token.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/parser/TokenMgrError.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/symbols/Env.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/tests/PropTests.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/typechecker/ErrorHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/typechecker/FOLTypeChecker.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/typechecker/Function.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/typechecker/Header.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/typechecker/PropTypeChecker.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/typechecker/TypeBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/typechecker/TypeCheckerError.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/typechecker/TypeError.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/typechecker/errors/TypeErrorDuplicatedDeclaration.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/typechecker/errors/TypeErrorExpression.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/typechecker/errors/TypeErrorParams.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/types/BoolType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/types/ConstantType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/types/DelPredType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/types/ErrorType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/types/TableType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/types/TermType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/types/Type.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/types/UnitType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/types/VariableType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/utils/Utils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/values/BoolValue.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/values/TableValue$Pair.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/values/TableValue.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/values/Value.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,8 +266,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -208,71 +310,91 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Console.executor": "Run",
-    "Application.Main.executor": "Run",
-    "Application.TestStateMachine.executor": "Run",
-    "Application.Tests.executor": "Run",
-    "Application.algorithm.Test.executor": "Run",
-    "Application.algorithm.backup.implementation.TestStateMachine.executor": "Run",
-    "Application.algorithm.backup3.implementation.TestStateMachine.executor": "Run",
-    "Application.algorithm.backup4.implementation.TestStateMachine.executor": "Run",
-    "Application.algorithm.backup5.implementation.TestStateMachine.executor": "Run",
-    "Downloaded.Files.Path.Enabled": "false",
-    "JUnit.PropTests.executor": "Run",
-    "JUnit.PropTests.negation.executor": "Run",
-    "JUnit.PropTests.syntaxErrors.executor": "Run",
-    "JUnit.TestMultipleSolution.testLogicalExercises.executor": "Run",
-    "JUnit.TestMultipleSolution.testPracticalExercises.executor": "Run",
-    "JUnit.TestMultipleSolution.testRandomExercises.executor": "Run",
-    "JUnit.TestPLSolution.executor": "Run",
-    "JUnit.TestPLSolution.testLogicalExercises.executor": "Run",
-    "JUnit.TestPLSolution.testPracticalExercises.executor": "Run",
-    "JUnit.TestSingleSolution (1).executor": "Run",
-    "JUnit.TestSingleSolution.executor": "Run",
-    "JUnit.TestSingleSolution.testLogicalExercises.executor": "Run",
-    "JUnit.TestStateMachine.executor": "Run",
-    "JUnit.TestStateMachine.test.executor": "Run",
-    "JUnit.TestStateMachine.testLogicalProblems.executor": "Run",
-    "JUnit.TestStateMachine.testPracticalExercises.executor": "Run",
-    "JUnit.TestStateMachine.testSolutionValidExpressions.[21] ((a → b) ∧ (b → a)) → (((a ∧ c) → (b ∧ c)) ∧ ((b ∧ c) → (a ∧ c))).executor": "Run",
-    "JUnit.TestStateMachine.testSolutionValidExpressions.[26] ((p ∨ q) ∨ (r ∨ s)) → ((p ∨ s) ∨ (r ∨ q)).executor": "Run",
-    "JUnit.TestStateMachine.testSolutionValidExpressions.[27] (¬(p ∧ q) → (¬p ∨ ¬q)) ∧ ((¬p ∨ ¬q) → ¬(p ∧ q)).executor": "Run",
-    "JUnit.TestStateMachine.testSolutionValidExpressions.executor": "Run",
-    "JUnit.TestStateMachine.testSolutionValidExpressionsSolo.[1] ((¬p → q) ∧ (r ∨ ¬q) ∧ (p → (a ∨ b)) ∧ (¬r ∧ ¬b)) → a.executor": "Run",
-    "JUnit.TestStateMachine.testSolutionValidExpressionsSolo.executor": "Run",
-    "JUnit.TestStateMachine.testSolutionValidExpressionsSoloSimple.executor": "Run",
-    "JUnit.TestStateMachine.testa.executor": "Run",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_directory_selection": "C:/Users/mcmac/Desktop/Thesis/Projects/JavaParser/src/test/java",
-    "last_opened_file_path": "C:/Users/mcmac/Desktop/Thesis/Projects/JavaParser/labs/src/algorithm/multiple",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.345977",
-    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.Console Colors",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Console.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TestStateMachine.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tests.executor&quot;: &quot;Run&quot;,
+    &quot;Application.algorithm.Test.executor&quot;: &quot;Run&quot;,
+    &quot;Application.algorithm.backup.implementation.TestStateMachine.executor&quot;: &quot;Run&quot;,
+    &quot;Application.algorithm.backup3.implementation.TestStateMachine.executor&quot;: &quot;Run&quot;,
+    &quot;Application.algorithm.backup4.implementation.TestStateMachine.executor&quot;: &quot;Run&quot;,
+    &quot;Application.algorithm.backup5.implementation.TestStateMachine.executor&quot;: &quot;Run&quot;,
+    &quot;Application.logic.algorithm.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;JUnit.AlgoFOLTests.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AlgoFOLTests.test.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AlgoFOLTests.testFOL.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AlgoFOLTests.testOthers.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AlgoFOLTests.testSingleFOL.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AlgoPLTests.test.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AlgoTests.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AlgoTests.testBig.executor&quot;: &quot;Profiler#1&quot;,
+    &quot;JUnit.AlgoTests.testLogicalExercises.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AlgoTests.testRandomExercises.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PropTests.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PropTests.negation.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PropTests.syntaxErrors.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TestMultipleSolution.test.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TestMultipleSolution.testLogicalExercises.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TestMultipleSolution.testPracticalExercises.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TestMultipleSolution.testRandomExercises.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TestPLSolution.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TestPLSolution.test.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TestPLSolution.testLogicalExercises.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TestPLSolution.testPracticalExercises.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TestSingleSolution (1).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TestSingleSolution.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TestSingleSolution.testLogicalExercises.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TestStateMachine.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TestStateMachine.test.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TestStateMachine.testLogicalProblems.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TestStateMachine.testPracticalExercises.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TestStateMachine.testSolutionValidExpressions.[21] ((a → b) ∧ (b → a)) → (((a ∧ c) → (b ∧ c)) ∧ ((b ∧ c) → (a ∧ c))).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TestStateMachine.testSolutionValidExpressions.[26] ((p ∨ q) ∨ (r ∨ s)) → ((p ∨ s) ∨ (r ∨ q)).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TestStateMachine.testSolutionValidExpressions.[27] (¬(p ∧ q) → (¬p ∨ ¬q)) ∧ ((¬p ∨ ¬q) → ¬(p ∧ q)).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TestStateMachine.testSolutionValidExpressions.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TestStateMachine.testSolutionValidExpressionsSolo.[1] ((¬p → q) ∧ (r ∨ ¬q) ∧ (p → (a ∨ b)) ∧ (¬r ∧ ¬b)) → a.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TestStateMachine.testSolutionValidExpressionsSolo.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TestStateMachine.testSolutionValidExpressionsSoloSimple.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TestStateMachine.testa.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.initializationError.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.ICL [clean,package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.ICL [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.ICL [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.dn_algo [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.dn_algo [clean,package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.logic [clean,package].executor&quot;: &quot;Run&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_directory_selection&quot;: &quot;C:/Users/mcmac/Desktop/Thesis/Projects/JavaParser/main/tests&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/mcmac/Desktop/Thesis/Projects/JavaParser/main/java/logic/algorithm/backups/backup9&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.345977&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.fileTypes&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\mcmac\Desktop\Thesis\Projects\JavaParser\main\java\logic\algorithm\backups\backup9" />
+      <recent name="C:\Users\mcmac\Desktop\Thesis\Projects\JavaParser\main\java\logic\ast\logic" />
+      <recent name="C:\Users\mcmac\Desktop\Thesis\Projects\JavaParser\main\java\logic\algorithm\backups\backup8" />
       <recent name="C:\Users\mcmac\Desktop\Thesis\Projects\JavaParser\labs\src\algorithm\multiple" />
       <recent name="C:\Users\mcmac\Desktop\Thesis\Projects\JavaParser\labs\src\algorithm\multiple2\implementation" />
-      <recent name="C:\Users\mcmac\Desktop\Thesis\Projects\JavaParser\labs\src\algorithm\single" />
-      <recent name="C:\Users\mcmac\Desktop\Thesis\Projects\JavaParser\labs\src\algorithm\backup8" />
-      <recent name="C:\Users\mcmac\Desktop\Thesis\Projects\JavaParser\labs\src\algorithm\backup7.implementation" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\mcmac\Desktop\Thesis\Projects\JavaParser\resources\Logic" />
@@ -283,20 +405,28 @@
       <recent name="algorithm" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="logic.interpreter" />
       <recent name="algorithm.multiple" />
       <recent name="multiple" />
       <recent name="algorithm.implementation.state" />
       <recent name="algorithm.implementation.newImp" />
-      <recent name="algorithm.implementation" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.TestPLSolution">
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn clean" />
+      <command value="mvn install" />
+      <command value="mvn clean install" />
+      <command value="mvn clean package" />
+    </option>
+  </component>
+  <component name="RunManager" selected="JUnit.AlgoFOLTests.testFOL">
     <configuration name="TestStateMachine" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="algorithm.implementation.TestStateMachine" />
+      <option name="MAIN_CLASS_NAME" value="logic.algorithm.backups.backup0.implementation.TestStateMachine" />
       <module name="JavaParser" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="algorithm.implementation.newImp.*" />
+          <option name="PATTERN" value="logic.algorithm.backups.backup0.implementation.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -304,335 +434,173 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Tests" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="algorithm.implementation.Tests" />
+    <configuration name="AlgoFOLTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JavaParser" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="algorithm.implementation.*" />
+          <option name="PATTERN" value="logic.algorithm.implementation.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="logic.algorithm.implementation" />
+      <option name="MAIN_CLASS_NAME" value="logic.algorithm.implementation.AlgoFOLTests" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="algorithm.backup3.implementation.TestStateMachine" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="algorithm.backup3.implementation.TestStateMachine" />
-      <module name="ICL" />
+    <configuration name="AlgoFOLTests.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="JavaParser" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="algorithm.backup3.implementation.*" />
+          <option name="PATTERN" value="logic.algorithm.implementation.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="logic.algorithm.implementation" />
+      <option name="MAIN_CLASS_NAME" value="logic.algorithm.implementation.AlgoFOLTests" />
+      <option name="METHOD_NAME" value="test" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="algorithm.backup4.implementation.TestStateMachine" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="algorithm.backup4.implementation.TestStateMachine" />
+    <configuration name="AlgoFOLTests.testFOL" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JavaParser" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="algorithm.backup4.implementation.*" />
+          <option name="PATTERN" value="logic.algorithm.implementation.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="logic.algorithm.implementation" />
+      <option name="MAIN_CLASS_NAME" value="logic.algorithm.implementation.AlgoFOLTests" />
+      <option name="METHOD_NAME" value="testFOL(java.lang.String)" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestMultipleSolution.testLogicalExercises" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="AlgoFOLTests.testOthers" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JavaParser" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="multiple.*" />
+          <option name="PATTERN" value="logic.algorithm.implementation.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="multiple" />
-      <option name="MAIN_CLASS_NAME" value="multiple.TestMultipleSolution" />
+      <option name="PACKAGE_NAME" value="logic.algorithm.implementation" />
+      <option name="MAIN_CLASS_NAME" value="logic.algorithm.implementation.AlgoFOLTests" />
+      <option name="METHOD_NAME" value="testOthers(java.lang.String)" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AlgoFOLTests.testSingleFOL" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="JavaParser" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="logic.algorithm.implementation.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="logic.algorithm.implementation" />
+      <option name="MAIN_CLASS_NAME" value="logic.algorithm.implementation.AlgoFOLTests" />
+      <option name="METHOD_NAME" value="testSingleFOL(java.lang.String)" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AlgoPLTests.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="JavaParser" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="logic.algorithm.implementation.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="logic.algorithm.implementation" />
+      <option name="MAIN_CLASS_NAME" value="logic.algorithm.implementation.AlgoPLTests" />
+      <option name="METHOD_NAME" value="test(java.lang.String)" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AlgoPLTests.testBig" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="JavaParser" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="logic.algorithm.implementation.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="logic.algorithm.implementation" />
+      <option name="MAIN_CLASS_NAME" value="logic.algorithm.implementation.AlgoPLTests" />
+      <option name="METHOD_NAME" value="testBig(java.lang.String)" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AlgoPLTests.testLogicalExercises" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="JavaParser" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="logic.algorithm.implementation.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="logic.algorithm.implementation" />
+      <option name="MAIN_CLASS_NAME" value="logic.algorithm.implementation.AlgoPLTests" />
       <option name="METHOD_NAME" value="testLogicalExercises(java.lang.String)" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestMultipleSolution.testPracticalExercises" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="AlgoPLTests.testRandomExercises" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JavaParser" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="multiple.*" />
+          <option name="PATTERN" value="logic.algorithm.implementation.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="multiple" />
-      <option name="MAIN_CLASS_NAME" value="multiple.TestMultipleSolution" />
-      <option name="METHOD_NAME" value="testPracticalExercises(java.lang.String)" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TestMultipleSolution.testRandomExercises" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="JavaParser" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="multiple.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="multiple" />
-      <option name="MAIN_CLASS_NAME" value="multiple.TestMultipleSolution" />
+      <option name="PACKAGE_NAME" value="logic.algorithm.implementation" />
+      <option name="MAIN_CLASS_NAME" value="logic.algorithm.implementation.AlgoPLTests" />
       <option name="METHOD_NAME" value="testRandomExercises(java.lang.String)" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestPLSolution" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="JavaParser" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="implementation.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="implementation" />
-      <option name="MAIN_CLASS_NAME" value="implementation.TestPLSolution" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TestPLSolution.testLogicalExercises" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="JavaParser" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="implementation.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="implementation" />
-      <option name="MAIN_CLASS_NAME" value="implementation.TestPLSolution" />
-      <option name="METHOD_NAME" value="testLogicalExercises(java.lang.String)" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TestPLSolution.testPracticalExercises" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="JavaParser" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="implementation.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="implementation" />
-      <option name="MAIN_CLASS_NAME" value="implementation.TestPLSolution" />
-      <option name="METHOD_NAME" value="testPracticalExercises(java.lang.String)" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TestSingleSolution" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="JavaParser" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="algorithm.implementation.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="algorithm.implementation" />
-      <option name="MAIN_CLASS_NAME" value="algorithm.implementation.TestSingleSolution" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TestSingleSolution.testLogicalProblems" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="JavaParser" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="algorithm.implementation.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="algorithm.implementation" />
-      <option name="MAIN_CLASS_NAME" value="algorithm.implementation.TestSingleSolution" />
-      <option name="METHOD_NAME" value="testLogicalProblems(java.lang.String)" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TestSingleSolution.testPracticalExercises" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="JavaParser" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="algorithm.implementation.transition.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="algorithm.implementation" />
-      <option name="MAIN_CLASS_NAME" value="algorithm.implementation.TestSingleSolution" />
-      <option name="METHOD_NAME" value="testPracticalExercises(java.lang.String)" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TestSingleSolution.testSolutionValidExpressions" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="JavaParser" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="algorithm.implementation.transition.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="algorithm.implementation" />
-      <option name="MAIN_CLASS_NAME" value="algorithm.implementation.TestSingleSolution" />
-      <option name="METHOD_NAME" value="testSolutionValidExpressions(java.lang.String)" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TestStateMachine.testSolutionValidExpressionsSolo.[1] ((¬p → q) ∧ (r ∨ ¬q) ∧ (p → (a ∨ b)) ∧ (¬r ∧ ¬b)) → a" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="JavaParser" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="algorithm.implementation.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="algorithm.implementation" />
-      <option name="MAIN_CLASS_NAME" value="algorithm.implementation.TestStateMachine" />
-      <option name="METHOD_NAME" value="testSolutionValidExpressionsSolo(java.lang.String)" />
-      <option name="TEST_OBJECT" value="uniqueId" />
-      <uniqueIds>
-        <uniqueId value="[engine:junit-jupiter]/[class:algorithm.implementation.TestStateMachine]/[test-template:testSolutionValidExpressionsSolo(java.lang.String)]/[test-template-invocation:#1]" />
-      </uniqueIds>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TestStateMachine.testSolutionValidExpressionsSolo" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="JavaParser" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="algorithm.implementation.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="algorithm.implementation" />
-      <option name="MAIN_CLASS_NAME" value="algorithm.implementation.TestStateMachine" />
-      <option name="METHOD_NAME" value="testSolutionValidExpressionsSolo(java.lang.String)" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TestStateMachine.testSolutionValidExpressions.[21] ((a → b) ∧ (b → a)) → (((a ∧ c) → (b ∧ c)) ∧ ((b ∧ c) → (a ∧ c)))" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="JavaParser" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="algorithm.implementation.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="algorithm.implementation" />
-      <option name="MAIN_CLASS_NAME" value="algorithm.implementation.TestStateMachine" />
-      <option name="METHOD_NAME" value="testSolutionValidExpressions(java.lang.String)" />
-      <option name="TEST_OBJECT" value="uniqueId" />
-      <uniqueIds>
-        <uniqueId value="[engine:junit-jupiter]/[class:algorithm.implementation.TestStateMachine]/[test-template:testSolutionValidExpressions(java.lang.String)]/[test-template-invocation:#21]" />
-      </uniqueIds>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TestStateMachine.testSolutionValidExpressions.[26] ((p ∨ q) ∨ (r ∨ s)) → ((p ∨ s) ∨ (r ∨ q))" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="JavaParser" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="algorithm.implementation.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="algorithm.implementation" />
-      <option name="MAIN_CLASS_NAME" value="algorithm.implementation.TestStateMachine" />
-      <option name="METHOD_NAME" value="testSolutionValidExpressions(java.lang.String)" />
-      <option name="TEST_OBJECT" value="uniqueId" />
-      <uniqueIds>
-        <uniqueId value="[engine:junit-jupiter]/[class:algorithm.implementation.TestStateMachine]/[test-template:testSolutionValidExpressions(java.lang.String)]/[test-template-invocation:#26]" />
-      </uniqueIds>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TestStateMachine.testSolutionValidExpressions.[27] (¬(p ∧ q) → (¬p ∨ ¬q)) ∧ ((¬p ∨ ¬q) → ¬(p ∧ q))" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="JavaParser" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="algorithm.implementation.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="algorithm.implementation" />
-      <option name="MAIN_CLASS_NAME" value="algorithm.implementation.TestStateMachine" />
-      <option name="METHOD_NAME" value="testSolutionValidExpressions(java.lang.String)" />
-      <option name="TEST_OBJECT" value="uniqueId" />
-      <uniqueIds>
-        <uniqueId value="[engine:junit-jupiter]/[class:algorithm.implementation.TestStateMachine]/[test-template:testSolutionValidExpressions(java.lang.String)]/[test-template-invocation:#27]" />
-      </uniqueIds>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TestStateMachine.testSolutionValidExpressions" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="JavaParser" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="algorithm.implementation.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="algorithm.implementation" />
-      <option name="MAIN_CLASS_NAME" value="algorithm.implementation.TestStateMachine" />
-      <option name="METHOD_NAME" value="testSolutionValidExpressions(java.lang.String)" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
-      <item itemvalue="JUnit.TestMultipleSolution.testLogicalExercises" />
-      <item itemvalue="JUnit.TestMultipleSolution.testPracticalExercises" />
-      <item itemvalue="JUnit.TestMultipleSolution.testRandomExercises" />
-      <item itemvalue="JUnit.TestPLSolution" />
-      <item itemvalue="JUnit.TestPLSolution.testLogicalExercises" />
-      <item itemvalue="JUnit.TestPLSolution.testPracticalExercises" />
-      <item itemvalue="JUnit.TestSingleSolution" />
-      <item itemvalue="JUnit.TestSingleSolution.testLogicalProblems" />
-      <item itemvalue="JUnit.TestSingleSolution.testPracticalExercises" />
-      <item itemvalue="JUnit.TestSingleSolution.testSolutionValidExpressions" />
+      <item itemvalue="Application.TestStateMachine" />
+      <item itemvalue="JUnit.AlgoFOLTests.testOthers" />
+      <item itemvalue="JUnit.AlgoPLTests.test" />
+      <item itemvalue="JUnit.AlgoFOLTests" />
+      <item itemvalue="JUnit.AlgoFOLTests.test" />
+      <item itemvalue="JUnit.AlgoFOLTests.testFOL" />
+      <item itemvalue="JUnit.AlgoFOLTests.testSingleFOL" />
+      <item itemvalue="JUnit.AlgoPLTests.testBig" />
+      <item itemvalue="JUnit.AlgoPLTests.testLogicalExercises" />
+      <item itemvalue="JUnit.AlgoPLTests.testRandomExercises" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.TestPLSolution" />
-        <item itemvalue="JUnit.TestPLSolution.testLogicalExercises" />
-        <item itemvalue="JUnit.TestPLSolution.testPracticalExercises" />
-        <item itemvalue="JUnit.TestMultipleSolution.testLogicalExercises" />
-        <item itemvalue="JUnit.TestMultipleSolution.testPracticalExercises" />
-        <item itemvalue="JUnit.TestMultipleSolution.testRandomExercises" />
-        <item itemvalue="JUnit.TestSingleSolution" />
-        <item itemvalue="JUnit.TestSingleSolution.testLogicalProblems" />
-        <item itemvalue="JUnit.TestSingleSolution.testSolutionValidExpressions" />
-        <item itemvalue="JUnit.TestSingleSolution.testPracticalExercises" />
+        <item itemvalue="JUnit.AlgoFOLTests.testFOL" />
+        <item itemvalue="JUnit.AlgoFOLTests.testOthers" />
+        <item itemvalue="JUnit.AlgoFOLTests.testSingleFOL" />
+        <item itemvalue="JUnit.AlgoFOLTests" />
+        <item itemvalue="Application.TestStateMachine" />
+        <item itemvalue="JUnit.AlgoPLTests.test" />
+        <item itemvalue="JUnit.AlgoFOLTests.test" />
+        <item itemvalue="JUnit.AlgoPLTests.testRandomExercises" />
+        <item itemvalue="JUnit.AlgoPLTests.testLogicalExercises" />
+        <item itemvalue="JUnit.AlgoPLTests.testBig" />
       </list>
     </recent_temporary>
   </component>
@@ -696,7 +664,11 @@
       <workItem from="1739355674082" duration="19911000" />
       <workItem from="1739538506979" duration="29000" />
       <workItem from="1739562604976" duration="8049000" />
-      <workItem from="1740129275388" duration="111208000" />
+      <workItem from="1740129275388" duration="131087000" />
+      <workItem from="1741252953860" duration="21141000" />
+      <workItem from="1741458593537" duration="18976000" />
+      <workItem from="1741597393424" duration="113069000" />
+      <workItem from="1742375148342" duration="14454000" />
     </task>
     <task id="LOCAL-00001" summary="Starting implementing the advanced algorithm">
       <option name="closed" value="true" />
@@ -722,7 +694,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740571737082</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Implication rules for ND added">
+      <option name="closed" value="true" />
+      <created>1740744565569</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1740744565569</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -752,7 +732,8 @@
     <MESSAGE value="Quase feito" />
     <MESSAGE value="Starting implementing the advanced algorithm" />
     <MESSAGE value="Single Solution Algorithm for Natural Deduction Propositional Logic implemented" />
-    <option name="LAST_COMMIT_MESSAGE" value="Single Solution Algorithm for Natural Deduction Propositional Logic implemented" />
+    <MESSAGE value="Implication rules for ND added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implication rules for ND added" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -767,5 +748,10 @@
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
     <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/JavaParser$AlgoFOLTests_testFOL.ic" NAME="AlgoFOLTests.testFOL Coverage Results" MODIFIED="1742207739537" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>logic.algorithm.implementation.*</FILTER>
+    </SUITE>
   </component>
 </project>

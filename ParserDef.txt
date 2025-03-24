@@ -1,0 +1,9 @@
+Propositional Logic:
+	literals = lowercase chars a-z
+	generics = φ, δ, ψ, α, β, γ
+
+First-Order Logic:
+	variables = lowercase chars w-z followed or not by a number (x1, x2...)
+	generics = φ, δ, ψ, α, β, γ followed or not by a number (φ1, φ2...)
+	predicates = uppercase words: Father(...), Adult(...), L(...), L
+	functions = lowercase words: height(...), weight(...), f(...), f, daniel 
