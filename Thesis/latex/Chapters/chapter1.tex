@@ -1,0 +1,60 @@
+%!TEX root = ../template.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% chapter1.tex
+%% NOVA thesis document file
+%%
+%% Chapter with introduction
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\typeout{NT FILE chapter1.tex}%
+
+\chapter{Introduction}
+
+\section{Motivation}
+%Logic is a fundamental topic in numerous fields, especially in mathematics and computer science. In computer science, it is essential across various areas, including architecture, software engineering, programming languages, databases, artificial intelligence, algorithms, and the theory of computation~\cite{bruce_panel}. As such, understanding computational logic is a key aspect of learning computer science. Nowadays, it is common for universities offering computer science degrees to include logic courses in their program.
+
+%The constant evolution of technology has significantly inpacted teaching methodologies, transforming how knowledge is shared and acquired. Transitioning from traditional classrooms to technology-based learning environments, made education more accessible, engaging, and effective. The increasing popularity of digital platforms and new online teaching methods has accelerated this change, making education more accessible and widespread. Massive Open Online Courses (MOOCs) are a notable illustration of this technology evolution.
+
+%MOOCs have had a significant impact on higher education, especially during the COVID-19 pandemic, which made remote learning a necessity~\cite{alhazzani_2020_moocs}. One of the most notable benefits of MOOCs is the flexibility to study at our own pace. Unlike in traditional classrooms, where the pace is set by the instructor, MOOCs allow learners to progress through the material at their own speed. This freedom is particularly important for students who may need additional time and practice to understand certain ideas or even for those who want to progress faster.
+
+%Moreover, MOOCs can help with a common issue in classrooms, where students often hesitate to ask questions because they worry about looking unintelligent or asking something silly. This can effectively affect the way students progress in their learning, as they create gaps in their understanding that impede or slow down their progress. These tools provide materials, such as exercises with feedback, allowing learners to identify and address misconceptions in real time, without the pressure of interrupting a class or asking a teacher for help.
+
+%At present, there are relatively few MOOCs dedicated to teaching logic. Most of the available courses are outdated, relying on interfaces built in older versions of HTML and CSS, which can make the user experience less intuitive and engaging. Additionally, these courses often lack diversity in types of exercises they offer. For instance, natural deduction exercises, the critical exercise where students struggle the most. Such exercises require extensive practice and exposure. Yet, many courses fail to provide an adequate automated feedback system in their exercises, which fails to guide students in understanding their mistakes.
+
+%At FCT NOVA University, in previous editions of the Computational Logic course, classes were taught using Tarski's World, a logic application that students used during practical classes. As a desktop application, it required installation on students' devices. However, the main reason teachers discontinued its use was that some of its methodologies were not the most suitable for the course's objectives. 
+
+%Recent efforts have started to address this problem, which could provide the basis for an online system. However, the range of specific types of logic exercises that have been implemented is very limited, both in number and depth, and they were created solely for testing purposes. This shows that there is still a need to develop a more complete and engaging platform, with a particular emphasis on feedback, to improve the way logic is taught.
+
+Logic is a fundamental topic in numerous fields, especially in mathematics and computer science. In computer science, it plays a crucial role across various domains, including architecture, software engineering, programming languages, databases, artificial intelligence, algorithms, and the theory of computation~\cite{bruce_panel}. As such, understanding computational logic is essential for anyone studying computer science. It is especially important for formal reasoning, which is key to solving problems and making decisions in computing. Nowadays, many universities offering computer science degrees include logic courses as part of their curriculum.
+
+Despite the importance of logic, both learning and teaching it present significant challenges. Many logic courses require extensive practice and exposure. While traditional methods like books can be useful, they are not as effective as online interactive tools in supporting student learning. Additionally, professors often struggle to provide and assess exercises efficiently, making it more difficult for students to practice and receive timely feedback.
+
+Digital platforms offer valuable tools to complement traditional classes, making educational resources more interactive and accessible to everyone. A notable example of those digital platforms is Massive Open Online Courses (MOOCs)~\cite{alhazzani_2020_moocs}. These courses grew in popularity during the COVID-19 pandemic and have had a significant impact on higher education, as they provide some benefits that normally traditional classes do not. They are flexible by allowing students to study at their own pace whenever they want. This freedom is particularly important for students who may need additional time and practice to understand certain ideas or even for those who want to progress faster. MOOCs can help with a common issue in classrooms, where students often hesitate to ask questions because they worry about looking unintelligent or asking something silly. This can effectively affect the way students progress in their learning, as they create gaps in their understanding that impede or slow down their progress. These digital platforms often provide material and exercises equipped with feedback, allowing learners to identify and address misconceptions in real time, without the pressure of interrupting a class or asking a teacher for help.
+
+However, in the field of logic education, there are few online tools with characteristics similar to those mentioned, such as Iltis~\cite{geck_iltis, geck_2018_introduction} and Logic4Fun~\cite{slaney_logic}. Most of the available courses were created years ago, relying on outdated interfaces that can make the user experience less intuitive and engaging. Additionally, some teaching methods have changed, but many of these tools remain the same. They offer a limited variety of exercises and do not allow teachers to add new material.
+
+Logic courses usually include various types of exercises, and natural deduction exercises are considered one of the most difficult for students due to the complex reasoning involved. These exercises are important because they cover both Propositional Logic and First-Order Logic, which extends the first. For this reason, they appear in all tests and exams at NOVA University Lisbon, as they cover both parts of the course. According to professor Ricardo Gonçalves, coordinator of the Computational Logic course at NOVA University Lisbon, these exercises are particularly challenging and essential to the subject. Unfortunately, there are currently no effective online tools to support these exercises.
+
+In addition to these limitations, another significant issue in the realm of online logic education is the lack of effective feedback mechanisms. Most tools do not provide feedback at all, and those that do often make it too vague to be useful. The lack of feedback can cause students to feel lost in the exercises, leading to a loss of interest or motivation. It can also lead to lower student retention rates, potentially impacting the platform's long-term success. Research shows that any feedback, even if negative, is better than none at all~\cite{Zhu2022AnyFI}. Developing a tool with effective feedback mechanisms is a key factor in achieving a successful one. However, implementing feedback is not an easy task, as it is necessary to find a balance between a system where students are always dependent on feedback and stop thinking for themselves and a system where students lose interest in learning because they are always stuck in exercises. It becomes even harder when considering a tool that will be used by a large number of students with different levels of skills~\cite{Cavalcanti2019AnAO}.
+
+Recent efforts have started to address this problem, which could provide the basis for an online system for logic. However, the range of specific types of logic exercises that have been implemented is very limited, both in number and depth, and they were created solely for testing purposes, so they do not include assistance systems.
+
+This highlights the need for the development of a more complete and engaging platform that complements logic courses. Such a platform should place particular emphasis on providing effective feedback mechanisms to enhance the teaching and learning of logic.
+
+\section{Problem Formulation}
+\label{tab:problem_formulation}
+Considering the topics previously mentioned, we propose, in this dissertation, a plan to design and implement an online platform that complements logic classes, enabling students to practice natural deduction exercises. The primary challenge of this work will be identifying and implementing feedback mechanisms that provide valuable guidance while keeping the user engaged and motivated. 
+
+The platform will have two distinct perspectives: one for students and another for teachers.
+
+From the students' perspective, we aim to provide an online environment that presents Natural Deduction exercises in tree shape, covering both Propositional Logic and First-Order Logic, allowing students to practice effectively. We will equip these interactive exercises with an advanced feedback and hint system. It will not only be capable of reporting structural and conceptual errors, but it will also be able to adapt its assistance to the students' solutions to guide them efficiently through the exercises. There will be different levels of feedback and hints. Some will offer more generic guidance, while others will provide more precise help but in a balanced manner. The system will automatically adjust its assistance level according to the students' proficiency, determined by their past mistakes. Additionally, students will be able to submit their exercises for evaluation and access the solutions.
+
+From the teachers' perspective, we also want to provide an online interface with an intuitive way to add new exercises that can be evaluated and a way to grade them.
+
+Finally, our tool should be integrated with an online e-learning platform like Moodle, utilizing its built-in mechanisms for managing classes and grades.
+
+\section{Document Structure}
+
+This document is organized into several chapters, each addressing a key aspect of the project. Chapter \ref{chap:back} provides the necessary theoretical background, covering fundamental concepts in logic, Natural Deduction, and proof assistants. Chapter \ref{chap:related} examines existing online tools relevant to our work, with a particular focus on their implemented feedback systems. Chapter \ref{chap:algo} explores the challenge of providing meaningful feedback, presenting key elements and a potential algorithmic approach to tackle this issue. Finally, Chapter \ref{chap:work} outlines our methodology, detailing our strategy, work plan, and evaluation process to ensure the project's success.
+
+

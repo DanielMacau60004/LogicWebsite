@@ -1,0 +1,104 @@
+%!TEX root = ../template.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% annex1.tex
+%% NOVA thesis document file
+%%
+%% Chapter with example of appendix with a short dummy text
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\typeout{NT FILE annex1.tex}%
+
+
+\chapter{Natural Deduction Rules}
+\label{ann:nd_rules}
+
+\section{Propositional Logic Rules}
+\[
+\begin{array}{c c}
+
+\multicolumn{2}{c}{
+\frac{\overset{\displaystyle\mathcal{D}_1\strut}{\displaystyle \varphi \strut}\quad \overset{\displaystyle\mathcal{D}_2\strut} {\displaystyle \psi \strut}}{\displaystyle \varphi \land \psi \strut} \quad (\land I)
+} \\[5pt]
+\multicolumn{2}{c}{\textbf{Conjunction Introduction}} \\[10pt]
+\end{array}
+\]
+
+\[
+\begin{array}{c c}
+
+\frac{\displaystyle \overset{\displaystyle\mathcal{D} \strut} {\varphi \land \psi \strut}}{\displaystyle \varphi \strut} \quad (\land E_r) 
+& \frac{\displaystyle \overset{\displaystyle\mathcal{D} \strut} {\varphi \land \psi \strut}}{\displaystyle \psi \strut} \quad (\land E_k) \\[5pt]
+\textbf{Conjunction Elimination, right} & \textbf{Conjunction Elimination, left} \\[10pt]
+\end{array}
+\]
+
+\[
+\begin{array}{c c}
+\frac{\displaystyle \overset{\displaystyle\mathcal{D} \strut} {\varphi 
+\strut}}{\displaystyle \varphi \vee \psi \strut} \quad (\vee I_r) 
+& \frac{\displaystyle \overset{\displaystyle\mathcal{D} \strut} {\psi \strut}}{\displaystyle \varphi \vee \psi \strut} \quad (\vee I_l) \\[5pt]
+\textbf{Disjunction Introduction, right} & \textbf{Disjunction Introduction, left} \\[10pt]
+
+\end{array}
+\]
+
+\[
+\begin{array}{c c}
+\multicolumn{2}{c}{
+\frac{\overset{\displaystyle\mathcal{D}_1 \strut} {\displaystyle\varphi \vee \psi \strut} \quad \quad \overset{\displaystyle[\varphi_1]^m\strut}{\overset{\displaystyle\mathcal{D}_2 \strut} {\displaystyle\psi 
+\strut}} \quad \quad \overset{\displaystyle[\varphi_2]^n\strut}{\overset{\displaystyle\mathcal{D}_3 \strut} {\displaystyle\psi 
+\strut}}}{\displaystyle\psi\strut} \quad (\vee E, m, n)
+} \\[5pt]
+\multicolumn{2}{c}{\textbf{Disjunction Elimination}} \\[10pt]
+\end{array}
+\]
+
+\[
+\begin{array}{c c}
+\frac{\overset{\displaystyle\mathcal{D}_1\strut}{\displaystyle \varphi \strut}\quad \overset{\displaystyle\mathcal{D}_2\strut} {\displaystyle \varphi \to \psi \strut}}{\displaystyle\psi\strut} \quad (\to E) 
+& \frac{\overset{\displaystyle[\varphi]^m\strut}{\overset{\displaystyle\mathcal{D} \strut} {\displaystyle\varphi 
+\strut}}}{\displaystyle \varphi \to \psi \strut} \quad (\to I, m) \\[5pt]
+\textbf{Implication Elimination} & \textbf{Implication Introduction}\\[10pt]
+\end{array}
+\]
+
+\[
+\begin{array}{c c}
+\frac{\overset{\displaystyle\mathcal{D}_1\strut}{\displaystyle \varphi \strut}\quad \overset{\displaystyle\mathcal{D}_2\strut} {\displaystyle \neg \varphi \strut}}{\displaystyle\bot\strut} \quad (\neg E) 
+& \frac{\overset{\displaystyle[\varphi]^m\strut}{\overset{\displaystyle\mathcal{D} \strut} {\displaystyle\bot 
+\strut}}}{\displaystyle\neg \varphi\strut} \quad (\neg I, m) \\[5pt]
+\textbf{Negation Elimination} & \textbf{Negation Introduction}\\[10pt]
+\end{array}
+\]
+
+\[
+\begin{array}{c c}
+\multicolumn{2}{c}{
+\frac{\overset{\displaystyle[\neg\varphi]^m\strut}{\overset{\displaystyle\mathcal{D} \strut} {\displaystyle\bot 
+\strut}}}{\displaystyle \varphi\strut} \quad (\bot, m)
+} \\[5pt]
+\multicolumn{2}{c}{\textbf{Contradiction}} \\[10pt]
+\end{array}
+\]
+
+\section{First-Order Logic Additional Rules}
+
+\[
+\begin{array}{c c}
+\frac{{\overset{\displaystyle\mathcal{D} \strut} {\displaystyle\forall x \, \varphi 
+\strut}}}{\displaystyle\left[ \varphi \right]^x_{\substack{t}}\strut} \quad (\forall E)
+& \frac{{\overset{\displaystyle\mathcal{D} \strut} {\displaystyle\left[ \varphi\right]^x_{\substack{y}} 
+\strut}}}{\displaystyle\forall x \, \varphi\strut} \quad (\forall I) \\[5pt]
+\textbf{Universal Elimination} & \textbf{Universal Introduction}\\[10pt]
+\end{array}
+\]
+
+\[
+\begin{array}{c c}
+\frac{\overset{\displaystyle\mathcal{D}_1 \strut} {\displaystyle\exists x \, \varphi \strut} \quad \quad \overset{\displaystyle(\left[ \varphi \right]^x_{\substack{y}})^m\strut}{\overset{\displaystyle\mathcal{D}_2 \strut} {\displaystyle\psi 
+\strut}}}{\displaystyle\psi\strut} \quad (\exists E, m)
+& \frac{{\overset{\displaystyle\mathcal{D} \strut} {\displaystyle\left[ \varphi \right]^x_{\substack{t}} 
+\strut}}}{\displaystyle\exists x \, \varphi\strut} \quad (\exists I) \\[5pt]
+\textbf{Existential Elimination} & \textbf{Existential Introduction}\\[10pt]
+\end{array}
+\]
