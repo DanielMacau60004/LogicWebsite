@@ -25,6 +25,8 @@ export interface Component {
     position?: Position;
     value?: object;
     parent?: number;
+    draggable: boolean,
+    droppable: boolean,
 
     [key: string]: any;
 }
@@ -34,12 +36,18 @@ abstract class BaseComponent implements Component {
     position?: Position;
     value?: object;
     parent?: number;
+    draggable: boolean;
+    droppable: boolean;
 
-    constructor(id: number, position?: Position, value?: object, parent?: number) {
+    protected constructor(id: number, draggable: boolean, droppable: boolean,
+                          position?: Position, value?: object, parent?: number) {
         this.id = id;
+        this.draggable = draggable;
+        this.droppable = droppable;
         this.position = position;
         this.value = value;
         this.parent = parent;
+
     }
 
     canDrop(other?: Component): boolean {
@@ -47,11 +55,26 @@ abstract class BaseComponent implements Component {
     }
 }
 
-export class Expression extends BaseComponent {}
+export class Expression extends BaseComponent {
+    constructor(id: number, position?: Position, value?: object, parent?: number,
+    ) {
+        super(id, true, true, position, value, parent)
+    }
+}
 
-export class Mark extends BaseComponent {}
+export class Mark extends BaseComponent {
+    constructor(id: number, position?: Position, value?: object, parent?: number,
+    ) {
+        super(id, true, true, position, value, parent)
+    }
+}
 
-export class Rule extends BaseComponent {}
+export class Rule extends BaseComponent {
+    constructor(id: number, position?: Position, value?: object, parent?: number,
+    ) {
+        super(id, true, true, position, value, parent)
+    }
+}
 
 export class Tree extends BaseComponent {
     conclusion: number[];
@@ -67,7 +90,7 @@ export class Tree extends BaseComponent {
         value?: object,
         parent?: number
     ) {
-        super(id, position, value, parent);
+        super(id, true, false, position, value, parent);
         this.conclusion = conclusion;
         this.rule = rule;
         this.marks = marks;
