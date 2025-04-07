@@ -1,0 +1,92 @@
+* {
+
+}
+
+.component {
+    display: inline-block;
+    border-collapse: unset;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tree {
+    border-collapse: unset;
+    background-color: #edefed;
+    text-align: center;
+    border-radius: 10px;
+    padding: 15px;
+    white-space: nowrap;
+}
+
+.hypotheses > td > .tree {
+    margin-top: 0!important;
+    margin-bottom: 0!important;
+    padding: 0!important;
+}
+
+.conclusion > td > div {
+    margin-bottom: -16px;
+}
+
+.expression {
+    min-width: 10px;
+    height: 30px;
+    border-radius: 13px;
+    border: solid 1px #333;
+    background-color: lightgrey;
+    padding: 0 10px;
+    font-size: 20px !important;
+    margin: -10px 10px;
+}
+
+.rule {
+    border-radius: 3px;
+    border: solid 2px dimgrey;
+    font-size: 20px !important;
+    width: 30px;
+    height: 30px;
+    background-color: grey;
+    color:white;
+}
+
+.mark {
+    border-radius: 50%;
+    border: solid 2px #333;
+    width: 25px;
+    height: 25px;
+    background-color: dimgrey;
+    color: white;
+    font-size: 14px !important;
+    font-weight: bold;
+}
+
+.draggable {
+    cursor: grab;
+}
+
+.droppable {
+    border: 2px dashed #333;
+    background-color: white;
+    color:black;
+}
+
+/*
+.expression-content {
+    display: inline-block;
+    position: relative;
+    width: fit-content;
+    margin: 20px;
+}
+
+.expression-content > .mark {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+}
+ */
