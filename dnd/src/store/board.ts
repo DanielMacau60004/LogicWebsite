@@ -1,6 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {boardItems, components} from './boardInit';
 import {canDrop, Component, Position, reset} from "./components";
+import {deepCopy} from "../utils";
 
 export interface BoardState {
     active: Component | undefined;
@@ -18,13 +19,13 @@ const initialState: BoardState = {
     redoStack: []
 };
 
-const MAX_HISTORY_DEPTH = 10;
+const MAX_HISTORY_DEPTH = 20;
 
 function cloneState(state: BoardState): Omit<BoardState, 'undoStack' | 'redoStack'> {
     return {
-        active: state.active,
-        boardItems: {...state.boardItems},
-        components: {...state.components}
+        active: state.active ? deepCopy(state.active) : undefined,
+        boardItems: deepCopy(state.boardItems),
+        components: deepCopy(state.components)
     };
 }
 
@@ -44,7 +45,6 @@ const slice = createSlice({
         },
         deleteItem: (state) => {
             const active = state.active;
-            console.log(active)
             if (active) {
                 saveStateForUndo(state);
                 delete state.boardItems[active.id];
@@ -58,15 +58,23 @@ const slice = createSlice({
             const active = state.active;
 
             if (active) {
+
                 let dragging = state.components[active.id];
-                const dropping = state.components[Number(over)];
+                let dropping = state.components[Number(over)];
 
                 if (canDrop(dragging, dropping)) {
                     saveStateForUndo(state);
 
-                    const tempValue = dragging.value;
-                    dragging.value = dropping.value;
-                    dropping.value = tempValue;
+                    const copyDragging = deepCopy(dragging);
+                    copyDragging.id = dropping.id
+                    copyDragging.parent = dropping.parent
+
+                    const copyDropping = deepCopy(dropping);
+                    copyDropping.id = dragging.id
+                    copyDropping.parent = dragging.parent
+
+                    state.components[dragging.id] = copyDropping;
+                    state.components[dropping.id] = copyDragging;
 
                     if(dragging.parent === undefined)
                         delete state.components[dragging.id];
@@ -106,6 +114,7 @@ const slice = createSlice({
 
                     //state.active = undefined;
                 }
+
             }
 
         },
@@ -116,7 +125,6 @@ const slice = createSlice({
             if (prevState) {
                 state.redoStack.push(cloneState(state));
                 Object.assign(state, prevState);
-                console.log(prevState)
             }
         },
         redo: (state) => {
@@ -134,3 +142,5 @@ const slice = createSlice({
 export const {selectItem, deleteItem, dragItem, undo, redo} = slice.actions;
 
 export const boardReducer = slice.reducer;
+
+console.log(components)

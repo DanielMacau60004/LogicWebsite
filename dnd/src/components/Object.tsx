@@ -10,7 +10,7 @@ function hasValue(children: any) {
 
 export function Object(props: Component) {
     const {active} = useSelector((state: GlobalState) => state.board)
-    const {id, className, position, children} = props;
+    const {id, className, position, children, droppableTypes} = props;
     const draggable = useDraggable({id: id,});
     const droppable = useDroppable({id: id,});
 
@@ -42,7 +42,7 @@ export function Object(props: Component) {
 
     return (
         <div className="component" style={translation}>
-            {droppable ? (
+            {droppableTypes !== undefined ? (
                 <div id={String(id)} ref={droppable.setNodeRef}>
                     {getElement()}
                 </div>

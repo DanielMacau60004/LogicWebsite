@@ -9,11 +9,17 @@ export function distance(p1: Position, p2: Position): number {
     return Math.sqrt(dx * dx + dy * dy);
 }
 
+export enum EComponentTypes {
+    EXP = 'EXP',
+    RULE = 'RULE',
+    MARK = 'MARK',
+    TREE = 'TREE'
+}
+
 export interface Component {
     id: number;
-    type: string;
-    draggable: boolean;
-    droppable: boolean;
+    type: EComponentTypes;
+    droppableTypes?: EComponentTypes[];
     parent?: number;
     value?: object;
     position?: Position;
@@ -22,43 +28,42 @@ export interface Component {
 }
 
 export function createExpression(id: number, parent?: number, value?: object, position?: Position): Component {
-    return {id, type: "exp", draggable: true, droppable: true, parent, value, position};
+    return {id, type: EComponentTypes.EXP, droppableTypes: [EComponentTypes.EXP, EComponentTypes.TREE], parent, value, position
+    };
 }
 
 export function createMark(id: number, parent?: number, value?: object, position?: Position): Component {
-    return {id, type: "mark", draggable: true, droppable: true, parent, value, position};
+    return {id, type: EComponentTypes.MARK, droppableTypes: [EComponentTypes.MARK], parent, value, position};
 }
 
 export function createRule(id: number, parent?: number, value?: object, position?: Position): Component {
-    return {id, type: "rule", draggable: true, droppable: true, parent, value, position};
+    return {id, type: EComponentTypes.RULE, droppableTypes: [EComponentTypes.RULE], parent, value, position};
 }
 
 export function createTree(id: number, conclusion: number, rule: number, hypotheses: number[],
                            marks: number[], parent?: number, value?: object, position?: Position): Component {
     return {
-        id, conclusion, rule, hypotheses, marks, type: "tree", draggable: true, droppable: true,
+        id, conclusion, rule, hypotheses, marks, type: EComponentTypes.TREE, droppableTypes: undefined,
         parent, value, position
     };
 }
 
 export function canDrop(dragging?: Component, dropping?: Component): boolean {
-    if(dragging == null || dropping == null) return  false
-
-    if(dragging.type !== dropping.type)
-        return  false
-    //if(dragging.type !== dropping.type && !(dragging.type === "tree" && dropping.type === "exp"))
-    //    return  false
-    return dragging.id !== dropping.id;
+    return (
+        dragging !== undefined && dropping !== undefined &&
+        dragging.id !== dropping.id && dropping.droppableTypes?.includes(dragging.type) === true &&
+             dragging.id !== dropping.parent
+    );
 }
 
 export function reset(component: Component): Component {
-    const { id, parent, type } = component;
+    const {id, parent, type} = component;
 
     switch (type) {
-        case 'exp':
-        case 'tree':
+        case EComponentTypes.EXP:
+        case EComponentTypes.TREE:
             return createExpression(id, parent);
-        case 'mark':
+        case EComponentTypes.MARK:
             return createMark(id, parent);
         default:
             return createRule(id, parent);

@@ -2,7 +2,7 @@ import React from 'react';
 import {Object} from "./Object";
 import {GlobalState} from "../store";
 import {useSelector} from "react-redux";
-import {Component} from "../store/components";
+import {Component, EComponentTypes} from "../store/components";
 
 export function Rule(props: Component) {
     return <Object {...props} className={'rule center-content'}> {props.value} </Object>
@@ -54,13 +54,13 @@ export function Tree(props: Component) {
 
 export function Element(props: Component) {
     switch (props.type) {
-        case "exp" :
+        case EComponentTypes.EXP :
             return <Expression {...props}/>
-        case "mark" :
+        case EComponentTypes.MARK :
             return <Mark {...props}/>
-        case "rule" :
+        case EComponentTypes.RULE :
             return <Rule {...props} />
-        case "tree" :
+        case EComponentTypes.TREE :
             return <Tree {...props} />
     }
 }
