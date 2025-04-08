@@ -1,28 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {boardItems, components} from './boardInit';
-
-export interface Position {
-    x: number;
-    y: number;
-}
-
-export class Component {
-    id: number;
-    type: string;
-    position?: Position;
-    value?: Object;
-    parent?: number;
-
-    [key: string]: any; //Allow more fields
-
-    constructor(id: number, type: string, position?: Position, value?: object, parent?: number) {
-        this.id = id;
-        this.type = type;
-        this.position = position;
-        this.value = value;
-        this.parent = parent;
-    }
-}
+import {canDrop, Component, Position, reset} from "./components";
 
 export interface BoardState {
     active: Component | undefined;
@@ -66,6 +44,7 @@ const slice = createSlice({
         },
         deleteItem: (state) => {
             const active = state.active;
+            console.log(active)
             if (active) {
                 saveStateForUndo(state);
                 delete state.boardItems[active.id];
@@ -82,8 +61,7 @@ const slice = createSlice({
                 let dragging = state.components[active.id];
                 const dropping = state.components[Number(over)];
 
-                if (dragging && dropping && dragging.type === dropping.type
-                    && dragging !== dropping && dropping.type !== 'tree') {
+                if (canDrop(dragging, dropping)) {
                     saveStateForUndo(state);
 
                     const tempValue = dragging.value;
@@ -93,7 +71,7 @@ const slice = createSlice({
                     if(dragging.parent === undefined)
                         delete state.components[dragging.id];
 
-                    state.active = undefined;
+                    //state.active = undefined;
                 }
 
                 else if (dragging) {
@@ -101,7 +79,7 @@ const slice = createSlice({
 
                     let element = dragging
 
-                    if (dragging.parent !== undefined) {//Add a new item
+                    if (dragging.parent !== undefined) {//Add new item
                         const newID = Object.keys(state.components).length;
                         element = {...dragging}
                         element.id = newID
@@ -109,15 +87,14 @@ const slice = createSlice({
                         state.boardItems[newID] = newID
                         element.parent = undefined
 
-                        const HTML = document.getElementById(String(dragging.id))
+                        /*const HTML = document.getElementById(String(dragging.id))
                         if(HTML)  {
                             const {x, y} = HTML.getBoundingClientRect()
                             console.log(position)
-                            //element.position = {x:x,y:y}
-                        }
-                        state.components[dragging.id] = {id: dragging.id, type:dragging.type, parent: dragging.parent}
-                        //console.log({id: dragging.id, type:dragging.type, parent: dragging.parent})
-                        //dragging.value = undefined
+                            element.position = {x:x,y:y}
+                        }*/
+
+                        state.components[dragging.id] = reset(dragging);
                     }
 
                     if (element.position) {
@@ -127,7 +104,7 @@ const slice = createSlice({
                         element.position = position;
                     }
 
-                    state.active = undefined;
+                    //state.active = undefined;
                 }
             }
 
@@ -139,6 +116,7 @@ const slice = createSlice({
             if (prevState) {
                 state.redoStack.push(cloneState(state));
                 Object.assign(state, prevState);
+                console.log(prevState)
             }
         },
         redo: (state) => {

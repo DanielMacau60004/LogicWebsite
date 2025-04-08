@@ -2,7 +2,7 @@ import React from 'react';
 import {Object} from "./Object";
 import {GlobalState} from "../store";
 import {useSelector} from "react-redux";
-import {Component} from "../store/board";
+import {Component} from "../store/components";
 
 export function Rule(props: Component) {
     return <Object {...props} className={'rule center-content'}> {props.value} </Object>

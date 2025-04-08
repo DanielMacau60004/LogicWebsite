@@ -3,96 +3,67 @@ export interface Position {
     y: number;
 }
 
-export class Point implements Position {
-    x: number;
-    y: number;
-
-    constructor(x: number, y: number) {
-        this.x = x;
-        this.y = y;
-    }
-
-    distance(other: Position): number {
-        const dx = this.x - other.x;
-        const dy = this.y - other.y;
-        return Math.sqrt(dx * dx + dy * dy);
-    }
-
+export function distance(p1: Position, p2: Position): number {
+    const dx = p1.x - p2.x;
+    const dy = p1.y - p2.y;
+    return Math.sqrt(dx * dx + dy * dy);
 }
 
 export interface Component {
     id: number;
-    position?: Position;
-    value?: object;
+    type: string;
+    draggable: boolean;
+    droppable: boolean;
     parent?: number;
-    draggable: boolean,
-    droppable: boolean,
+    value?: object;
+    position?: Position;
 
     [key: string]: any;
 }
 
-abstract class BaseComponent implements Component {
-    id: number;
-    position?: Position;
-    value?: object;
-    parent?: number;
-    draggable: boolean;
-    droppable: boolean;
+export function createExpression(id: number, parent?: number, value?: object, position?: Position): Component {
+    return {id, type: "exp", draggable: true, droppable: true, parent, value, position};
+}
 
-    protected constructor(id: number, draggable: boolean, droppable: boolean,
-                          position?: Position, value?: object, parent?: number) {
-        this.id = id;
-        this.draggable = draggable;
-        this.droppable = droppable;
-        this.position = position;
-        this.value = value;
-        this.parent = parent;
+export function createMark(id: number, parent?: number, value?: object, position?: Position): Component {
+    return {id, type: "mark", draggable: true, droppable: true, parent, value, position};
+}
 
-    }
+export function createRule(id: number, parent?: number, value?: object, position?: Position): Component {
+    return {id, type: "rule", draggable: true, droppable: true, parent, value, position};
+}
 
-    canDrop(other?: Component): boolean {
-        return other ? this.constructor === other.constructor && this.id !== other.id : false;
+export function createTree(id: number, conclusion: number, rule: number, hypotheses: number[],
+                           marks: number[], parent?: number, value?: object, position?: Position): Component {
+    return {
+        id, conclusion, rule, hypotheses, marks, type: "tree", draggable: true, droppable: true,
+        parent, value, position
+    };
+}
+
+export function canDrop(dragging?: Component, dropping?: Component): boolean {
+    if(dragging == null || dropping == null) return  false
+
+    if(dragging.type !== dropping.type)
+        return  false
+    //if(dragging.type !== dropping.type && !(dragging.type === "tree" && dropping.type === "exp"))
+    //    return  false
+    return dragging.id !== dropping.id;
+}
+
+export function reset(component: Component): Component {
+    const { id, parent, type } = component;
+
+    switch (type) {
+        case 'exp':
+        case 'tree':
+            return createExpression(id, parent);
+        case 'mark':
+            return createMark(id, parent);
+        default:
+            return createRule(id, parent);
     }
 }
 
-export class Expression extends BaseComponent {
-    constructor(id: number, position?: Position, value?: object, parent?: number,
-    ) {
-        super(id, true, true, position, value, parent)
-    }
-}
 
-export class Mark extends BaseComponent {
-    constructor(id: number, position?: Position, value?: object, parent?: number,
-    ) {
-        super(id, true, true, position, value, parent)
-    }
-}
 
-export class Rule extends BaseComponent {
-    constructor(id: number, position?: Position, value?: object, parent?: number,
-    ) {
-        super(id, true, true, position, value, parent)
-    }
-}
-
-export class Tree extends BaseComponent {
-    conclusion: number[];
-    rule: number;
-    marks: number[];
-
-    constructor(
-        id: number,
-        conclusion: number[],
-        rule: number,
-        marks: number[],
-        position?: Position,
-        value?: object,
-        parent?: number
-    ) {
-        super(id, true, false, position, value, parent);
-        this.conclusion = conclusion;
-        this.rule = rule;
-        this.marks = marks;
-    }
-}
