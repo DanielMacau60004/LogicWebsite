@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Object} from "./Object";
 import {GlobalState} from "../store";
 import {useSelector} from "react-redux";
@@ -18,13 +18,13 @@ export function Expression(props: Component) {
 
 export function Tree(props: Component) {
     const {id, conclusion, hypotheses, rule, marks} = props
-    const {components, boardItems} = useSelector((state: GlobalState) => state.board)
+    const {components} = useSelector((state: GlobalState) => state.board)
 
     return (
         <Object key={id} {...props} className="tree">
             <table>
                 <tbody>
-                <tr className="hypotheses">
+                <tr>
                     <td>
                         {hypotheses && hypotheses.map((hypothesis: number) =>
                             (<Element key={hypothesis} {...components[hypothesis]} />))}
@@ -34,21 +34,18 @@ export function Tree(props: Component) {
                     <td>
                         <hr/>
                     </td>
-
                     <td><Rule key={rule} {...components[rule]}/></td>
                     {marks && marks.map((mark: number) =>
                         (<td key={mark}><Mark{...components[mark]}/></td>))}
                 </tr>
-                <tr className="conclusion">
+                <tr>
                     <td>
-                        {conclusion &&
-                            <Element key={conclusion} {...components[conclusion]}/>}
+                        {conclusion && <Element key={conclusion} {...components[conclusion]}/>}
                     </td>
                 </tr>
                 </tbody>
             </table>
         </Object>
-
     );
 }
 

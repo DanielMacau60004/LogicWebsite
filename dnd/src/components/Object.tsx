@@ -9,22 +9,20 @@ function hasValue(children: any) {
 }
 
 export function Object(props: Component) {
-    const {active} = useSelector((state: GlobalState) => state.board)
+    const {components, active} = useSelector((state: GlobalState) => state.board)
     const {id, className, position, children, droppableTypes} = props;
     const draggable = useDraggable({id: id,});
     const droppable = useDroppable({id: id,});
 
     const translation = {
-        position: "relative",
-        top: `${position?.y ?? 0}px`,
-        left: `${position?.x ?? 0}px`
+        ...(active?.id === props.id && {zIndex: 1000}),
+        transform: `translate(${position?.x ?? 0}px, ${position?.y ?? 0}px)`
     } as React.CSSProperties;
 
     const style = {
-        zIndex: active?.id === props.id ? 10000 : 1,
-        ...(droppable.isOver && canDrop(active, props) && {scale: 1.4}),
-        ...(draggable.transform && {opacity: 0.5}),
-        ...(draggable.transform && {zIndex: 1000}),
+        ...(droppable.isOver && canDrop(components, active, props) && {scale: 1.3}),
+        ...((draggable.transform) && {opacity: 0.5}),
+        ...((draggable.transform) && {zIndex: 1000}),
     } as React.CSSProperties;
 
     let classList = (hasValue(children) ? 'draggable ' : 'droppable ') + className;
@@ -41,8 +39,8 @@ export function Object(props: Component) {
     }
 
     return (
-        <div className="component" style={translation}>
-            {droppableTypes !== undefined ? (
+        <div className="component" style={{ ...(props.style || {}), ...translation }}>
+            {droppableTypes ? (
                 <div id={String(id)} ref={droppable.setNodeRef}>
                     {getElement()}
                 </div>

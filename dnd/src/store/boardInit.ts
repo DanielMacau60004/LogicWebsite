@@ -1,4 +1,12 @@
-import {Component, createExpression, createMark, createRule, createTree} from "./components";
+import {
+    Component,
+    createConclusion,
+    createExpression,
+    createMark,
+    createRule,
+    createTree,
+    EComponentTypes
+} from "./components";
 
 export const boardItems: { [key: number]: number } = {};
 export const components: { [key: number]: Component } = {};
@@ -8,26 +16,72 @@ let id = 0;
 //TODO change to a better format
 const trees = [
     {
-        conclusion: "c1",
+        conclusion: "Likes(a, b)",
         rule: "r1",
         hypotheses: [
             {
-                conclusion: "c2",
+                conclusion: "∃y (Likes(x, y))",
                 rule: undefined,
                 hypotheses: [
-                    {
-                        conclusion: "c3",
-                        rule: "r3",
-                        hypotheses: [undefined, undefined],
-                        marks: ["3_1", "3_2"]
-                    },
                     undefined
                 ],
-                marks: ["2_1", "2_2"]
+                marks: ["3"]
             },
-            undefined,
             undefined
         ]
+    },
+    {
+        conclusion: "Happy(a) ∨ Sad(a)",
+        rule: undefined,
+        hypotheses: [
+            {
+                conclusion: "∀x (Student(x) → (Happy(x) ∨ Sad(x)))",
+                rule: undefined,
+                hypotheses: [undefined, undefined],
+                marks: []
+            },
+            "¬Likes(x, Pizza)",
+            undefined
+        ],
+        marks: ["3"]
+    },
+    {
+        conclusion: "Sad(a)",
+        rule: undefined,
+        hypotheses: [
+            {
+                conclusion: "Happy(a)",
+                rule: undefined,
+                hypotheses: [undefined, undefined],
+                marks: []
+            },
+            {
+                conclusion: "∃x ¬Likes(x, Pizza)",
+                rule: undefined,
+                hypotheses: [undefined, undefined],
+                marks: ["1"]
+            }
+        ],
+        marks: ["3"]
+    },
+    {
+        conclusion: "Sad(a)",
+        rule: undefined,
+        hypotheses: [
+            {
+                conclusion: "Happy(a)",
+                rule: undefined,
+                hypotheses: [undefined, undefined],
+                marks: []
+            },
+            {
+                conclusion: "∃x ¬Likes(x, Pizza)",
+                rule: undefined,
+                hypotheses: [undefined, undefined],
+                marks: ["1"]
+            }
+        ],
+        marks: ["3"]
     }
 ];
 
@@ -39,18 +93,18 @@ function addComponent(component : Component) {
 function treeBoardItemConverter(tree: any, parent?: number) {
     const treeID = id++;
 
-    const conclusion = addComponent(createExpression(id++, treeID, tree.conclusion))
+    const conclusion = addComponent(createConclusion(id++, treeID, tree.conclusion))
     const rule = addComponent(createRule(id++, treeID, tree.rule))
 
     const hypotheses = tree.hypotheses.map((hypothesis: any) => {
         if (typeof hypothesis === 'string')
-            return addComponent(createExpression(id++, treeID, { value: hypothesis }));
+            return addComponent(createExpression(id++, treeID, hypothesis));
         if (hypothesis)
             return treeBoardItemConverter(hypothesis, treeID);
         return addComponent(createExpression(id++, treeID));
     });
 
-    const marks = tree.marks?.map((m: any) => addComponent(createMark(id++, treeID,m)));
+    const marks = tree.marks?.map((m: any) => addComponent(createMark(id++, treeID, m)));
 
     return addComponent(createTree(treeID, conclusion, rule, hypotheses, marks, parent))
 }
