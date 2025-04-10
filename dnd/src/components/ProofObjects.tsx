@@ -1,19 +1,19 @@
-import React, {useEffect} from 'react';
-import {Object} from "./Object";
+import React from 'react';
+import {ProofObject} from "./ProofObject";
 import {GlobalState} from "../store";
 import {useSelector} from "react-redux";
-import {Component, EComponentTypes} from "../store/components";
+import {Component, EProof} from "../utils/components";
 
 export function Rule(props: Component) {
-    return <Object {...props} className={'rule center-content'}> {props.value} </Object>
+    return <ProofObject {...props} className={'rule center-content'}> {props.value} </ProofObject>
 }
 
 export function Mark(props: Component) {
-    return <Object {...props} className={'mark center-content'}> {props.value} </Object>
+    return <ProofObject {...props} className={'mark center-content'}> {props.value} </ProofObject>
 }
 
 export function Expression(props: Component) {
-    return <Object {...props} className={'expression center-content'}> {props.value} </Object>
+    return <ProofObject {...props} className={'expression center-content'}> {props.value} </ProofObject>
 }
 
 export function Tree(props: Component) {
@@ -21,7 +21,7 @@ export function Tree(props: Component) {
     const {components} = useSelector((state: GlobalState) => state.board)
 
     return (
-        <Object key={id} {...props} className="tree">
+        <ProofObject key={id} {...props} className={"tree"}>
             <table>
                 <tbody>
                 <tr>
@@ -45,19 +45,19 @@ export function Tree(props: Component) {
                 </tr>
                 </tbody>
             </table>
-        </Object>
+        </ProofObject>
     );
 }
 
 export function Element(props: Component) {
     switch (props.type) {
-        case EComponentTypes.EXP :
+        case EProof.EXP :
             return <Expression {...props}/>
-        case EComponentTypes.MARK :
+        case EProof.MARK :
             return <Mark {...props}/>
-        case EComponentTypes.RULE :
+        case EProof.RULE :
             return <Rule {...props} />
-        case EComponentTypes.TREE :
+        case EProof.TREE :
             return <Tree {...props} />
     }
 }

@@ -1,7 +1,8 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {boardItems, components} from './boardInit';
-import {canDrop, Component, EComponentTypes, Position, reset} from "./components";
-import {deepCopy} from "../utils";
+import {canDropComponent, Component, EProof, Position, resetComponent} from "../utils/components";
+import {deepCopy} from "../utils/general";
+import {appendComponents} from "../utils/board";
+import {boardComponents} from "../utils/init";
 
 export interface BoardState {
     active: Component | undefined;
@@ -11,6 +12,7 @@ export interface BoardState {
     redoStack: Omit<BoardState, 'undoStack' | 'redoStack'>[];
 }
 
+const {boardItems, components} = appendComponents(boardComponents)
 const initialState: BoardState = {
     active: undefined,
     boardItems: boardItems,
@@ -69,7 +71,7 @@ function dragInComponents(state: BoardState, dragging: Component, dropping: Comp
     if (dragging.parent === undefined)
         delete state.boardItems[dragging.id];
 
-    if (dragging.type === EComponentTypes.TREE)
+    if (dragging.type === EProof.TREE)
         attachTreeElements(dragging, dropping.id, state.components);
 
 }
@@ -88,10 +90,10 @@ function dragOutComponent(state: BoardState, position: Position, dragging: Compo
         state.components[newID] = element;
         state.boardItems[newID] = newID;
 
-        if (dragging.type === EComponentTypes.TREE)
+        if (dragging.type === EProof.TREE)
             attachTreeElements(element, newID, state.components);
 
-        state.components[dragging.id] = reset(dragging);
+        state.components[dragging.id] = resetComponent(dragging);
         element.position = computeRelativeCoordinates(dragging.id)
     }
 
@@ -101,16 +103,18 @@ function dragOutComponent(state: BoardState, position: Position, dragging: Compo
     } else {
         element.position = {...position};
     }
+
+    state.active = element
 }
 
 export function boardTranslation() {
     const board = document.getElementById("board");
 
-    if(board) {
+    if (board) {
         const boardRect = board.getBoundingClientRect();
         return {x: -boardRect.x, y: -boardRect.y};
     }
-    return { x: 0, y: 0 };
+    return {x: 0, y: 0};
 }
 
 function computeRelativeCoordinates(id: number): Position {
@@ -123,18 +127,18 @@ function computeRelativeCoordinates(id: number): Position {
         const x = elementRect.x + boardRect.x;
         const y = elementRect.y + boardRect.y;
 
-        return { x, y };
+        return {x, y};
     }
 
-    return { x: 0, y: 0 };
+    return {x: 0, y: 0};
 }
 
 const slice = createSlice({
     name: 'board',
     initialState,
     reducers: {
-        selectItem: (state, action: PayloadAction<number>) => {
-            state.active = state.components[action.payload];
+        selectItem: (state, action: PayloadAction<Component>) => {
+            state.active = action.payload;
         },
         deleteItem: (state) => {
             const active = state.active;
@@ -153,13 +157,13 @@ const slice = createSlice({
                 return
 
             if (active) {
-                let dragging = state.components[active.id];
+                let dragging = state.components[Number(active.id)];
                 let dropping = state.components[Number(over)];
 
-                if (canDrop(state.components, dragging, dropping)) {
+                if (canDropComponent(state.components, dragging, dropping)) {
                     saveStateForUndo(state);
                     dragInComponents(state, dragging, dropping)
-                } else if (dragging) {
+                } else {
                     saveStateForUndo(state);
                     dragOutComponent(state, position, dragging)
                 }
