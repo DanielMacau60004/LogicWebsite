@@ -8,7 +8,7 @@
     z-index: 200;
     position: absolute;
     height: auto;
-    margin: 10px;
+    margin: 30px;
     padding: 10px;
     background-color: white;
     border: solid 1px transparent;
@@ -37,6 +37,7 @@
 ul > hr {
     width: 80% !important;
     margin-top: 0;
+    margin-bottom: 5px;
 }
 
 .sidebar > ul {
@@ -51,5 +52,11 @@ ul > hr {
 
 .no-caret::after {
     display: none !important;
+}
+
+.sidebar-item-content {
+    max-height: 350px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 

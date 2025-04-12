@@ -1,26 +1,29 @@
-import React from "react";
+import React, {useState} from "react";
 import {Button,} from "react-bootstrap";
 import {FaArrowRotateLeft, FaArrowRotateRight} from "react-icons/fa6";
 import "../style/Controls.css"
 import {useDispatch, useSelector} from "react-redux";
 import {GlobalState} from "../store";
-import {deleteItem, redo, selectItem, undo} from "../store/board";
-import {DndContext, DragEndEvent, DragStartEvent, pointerWithin, useDroppable} from "@dnd-kit/core";
-import {restrictToFirstScrollableAncestor} from "@dnd-kit/modifiers";
+import {redo, undo} from "../store/board";
+import {useDroppable} from "@dnd-kit/core";
+import {Droppable} from "./Droppable";
 
-function TrashBin() {
-    const id = -10000
-    const {components, active} = useSelector((state: GlobalState) => state.board)
-    const droppable = useDroppable({id: id,});
+const TrashBin = () => {
+    const droppable = useDroppable({id: 0});
+
+    let className = ""
+    if (droppable.isOver)
+        className = "trash-open"
 
     return (
-        <div id={String(id)} ref={droppable.setNodeRef}>
-                          <span className="trash">
-                            <span></span>
-                            <i></i>
-                        </span>
+        <div id={String(0)} ref={droppable.setNodeRef} className={"trash-box"} >
+            <span className="trash">
+                <span className={className}></span>
+                <i></i>
+            </span>
         </div>
     );
+
 }
 
 export function Controls() {
@@ -28,7 +31,6 @@ export function Controls() {
     const {undoStack, redoStack} = useSelector((state: GlobalState) => state.board)
 
     return (
-
         <div>
             <div className="controls p-0 list-unstyled d-flex flex-row align-items-center">
                 <div id="sidebar-collapse" className={"controls-content border shadow ms-2 p-1"}
@@ -44,11 +46,11 @@ export function Controls() {
             </div>
 
             <div className="delete-control">
-                <TrashBin/>
+                <Droppable id={0} >
+                    <TrashBin />
+                </Droppable>
             </div>
         </div>
 
     )
-
-
 }

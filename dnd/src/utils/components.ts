@@ -50,6 +50,7 @@ function containDragType(components: { [key: number]: Component }, dragging: Com
 export function canDropComponent(components: { [key: number]: Component }, dragging?: Component, dropping?: Component): boolean {
     return (
         dragging !== undefined && dropping !== undefined &&
+        dropping.parent !== undefined &&
         dragging.id !== dropping.id &&
         dragging.id !== dropping.parent &&
         containDragType(components, dragging, dropping) &&
@@ -57,15 +58,9 @@ export function canDropComponent(components: { [key: number]: Component }, dragg
     );
 }
 
-//Check if a component is droppable
-export function isDroppableComponent(component: Component) {
-    return Array.from(dragMap.values()).includes(component.type);
-}
-
 //Method responsible to reset a component to its initial state before being dragged
 export function resetComponent(component: Component): Component {
     const {id, parent, type} = component;
-    console.log({id, parent, type: dragMap.get(type) || type})
     return {id, parent, type: dragMap.get(type) || type}
 }
 

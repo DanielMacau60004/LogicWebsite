@@ -6,7 +6,7 @@ import {Controls} from "./components/Controls";
 import {DndContext, DragEndEvent, DragOverlay, DragStartEvent, pointerWithin} from "@dnd-kit/core";
 import {useDispatch, useSelector} from "react-redux";
 import {GlobalState} from "./store";
-import {deleteItem, dragItem, redo, selectItem, undo} from "./store/board";
+import {deleteItem, dragItem, redo, selectDrag, selectItem, undo} from "./store/board";
 import {restrictToFirstScrollableAncestor} from "@dnd-kit/modifiers";
 import {Element} from "./components/ProofObjects";
 import "./style/Board.css"
@@ -51,7 +51,7 @@ function App() {
                 </div>
 
                 <DragOverlay dropAnimation={null}>
-                    {active && <Element style={{ opacity: 0.4 }} {...{ ...active, position: undefined }} />}
+                    {active && <Element style={{opacity: 0.4}} {...{...active, position: undefined}} />}
                 </DragOverlay>
 
                 <Controls/>
@@ -62,17 +62,16 @@ function App() {
     function handleDragStart(event: DragStartEvent) {
         const id = Number(event.active.id)
         let component = components[id]
-        /*
-        if(component === undefined) {
-            component = deepCopy(componentsList[id])
-            component.id = Object.keys(components).length
-        }*/
         dispatch(selectItem(component))
+        dispatch(selectDrag(component))
     }
 
     function handleDragEnd(event: DragEndEvent) {
         const {over, delta} = event
-        dispatch(dragItem({over: Number(over?.id), position: {x: delta.x, y: delta.y}}))
+
+        if (over?.id === 0) dispatch(deleteItem())
+        else dispatch(dragItem({over: Number(over?.id), position: {x: delta.x, y: delta.y}}))
+        dispatch(selectDrag(undefined))
     }
 
 }

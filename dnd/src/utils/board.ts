@@ -1,21 +1,48 @@
 import {Component, EProof, Position} from "./components";
+import {boardComponents} from "./init/boardInit";
 
 let id = 1;
+export const components: { [key: number]: Component } = {};
 
-export function mark(value? : string, position?: Position) {
-    return {id: id++, type: EProof.MARK, value, position}
+export function getNextID(): number {
+    return id++
 }
 
-export function rule(value? : string, position?: Position) {
-    return {id: id++, type: EProof.RULE, value, position}
+export function mark(value?: string, position?: Position): Component {
+    return {id: getNextID(), type: EProof.MARK, value, position};
 }
 
-export function exp(value? : string, position?: Position) {
-    return {id: id++, type: EProof.EXP, value, position}
+export function markC(value?: string): Component {
+    const cloneableMark = {...mark(value), cloneable: true}
+    return components[cloneableMark.id] = cloneableMark
 }
 
-export function tree(conclusion: Component, rule: Component, hypotheses: Component[], marks?: Component[], position?: Position) {
-    return {id: id++, type: EProof.TREE, conclusion, rule, hypotheses, marks, position}
+export function rule(value?: string, position?: Position): Component {
+    return {id: getNextID(), type: EProof.RULE, value, position};
+}
+
+export function ruleC(value?: string): Component {
+    const cloneableRule = {...rule(value), cloneable: true}
+    return components[cloneableRule.id] = cloneableRule
+}
+
+export function exp(value?: string, position?: Position): Component {
+    return {id: getNextID(),type: EProof.EXP, value, position};
+}
+
+export function expC(value?: string): Component {
+    const cloneableExp = {...exp(value), cloneable: true}
+    return components[cloneableExp.id] = cloneableExp
+}
+
+export function tree(conclusion: Component, rule: Component, hypotheses: Component[], marks?: Component[],
+                     position?: Position): Component {
+    return {id: getNextID(), type: EProof.TREE, conclusion, rule, hypotheses, marks, position};
+}
+
+export function treeC(conclusion: Component, rule: Component, hypotheses: Component[], marks?: Component[]): Component {
+    const cloneableTree = {...tree(conclusion, rule, hypotheses, marks), cloneable: true}
+    return components[cloneableTree.id] = cloneableTree
 }
 
 function appendComponent(components: {
@@ -42,16 +69,16 @@ function appendComponent(components: {
     return id;
 }
 
-export function appendComponents(componentsList: Component[]): {
-    boardItems: { [key: number]: number },
-    components: { [key: number]: Component }
+export function loadComponents(): {
+    boardItems: { [key: number]: number };
+    components: { [key: number]: Component };
 } {
-    const boardItems: { [key: number]: number } = {};
-    const components: { [key: number]: Component } = {};
+    const boardItems: { [key: number]: number } = {}
+    boardComponents().forEach(component =>
+        boardItems[component.id] = appendComponent(components, component)
+    );
 
-    componentsList.forEach((component: Component) => {
-        const id = appendComponent(components, component);
-        boardItems[id] = id;
-    });
+    console.log(boardItems, components)
     return {boardItems, components}
 }
+

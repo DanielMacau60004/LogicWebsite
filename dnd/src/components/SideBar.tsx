@@ -1,24 +1,29 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Button, Collapse, Dropdown} from "react-bootstrap";
-import {DragStartEvent} from "@dnd-kit/core";
 import {Element} from "./ProofObjects";
 import {FaBars, FaTimes} from 'react-icons/fa';
-import {sideBarComponents} from "../utils/init";
 import {SideBarComponent, SideBarItemList} from "../utils/sidebar";
 import {Component} from "../utils/components";
+import {useSelector} from "react-redux";
+import {GlobalState} from "../store";
+import {sideBarComponents} from "../utils/init/sidebarInit";
 
 
 export function SideBar() {
-
+    const {drag, components} = useSelector((state: GlobalState) => state.board)
     const [isOpen, setIsOpen] = useState(true);
-    const [active, setActive] = useState<number | undefined>();
     const [show, setShow] = useState<string | undefined>();
+
+    useEffect(() => {
+        if (drag === undefined)
+            setShow(undefined);
+    }, [drag]);
 
     function SideBarItemList(list: SideBarItemList) {
 
         return (
             <Dropdown
-                show={show === list.name}
+                show={show === list.name && drag === undefined}
                 onMouseEnter={() => setShow(list.name)}
                 onMouseLeave={() => setShow(undefined)}
                 drop="end"
@@ -26,13 +31,13 @@ export function SideBar() {
             >
                 <Dropdown.Toggle variant="primary" className={`sidebar-item no-caret p-1 
                     ${show === list.name ? "sidebar-item-active" : ""}`}>
-                    <Element {...list.icon}/>
+                    <Element {...components[list.icon.id]} />
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu className={"sidebar-item-content"}>
                     <h5>{list.name}</h5>
-                    {list.values.map((item) => (
-                        <SideBarItem {...item}/>
+                    {list.values.map((item, index) => (
+                        <SideBarItem key={index} {...item} />
                     ))}
                 </Dropdown.Menu>
             </Dropdown>
@@ -44,18 +49,12 @@ export function SideBar() {
             <>
                 {list.name && <h6>{list.name}</h6>}
                 {list.list.map((component: Component, index) => (
-                    <Dropdown.Item key={index}>
-                        <Element {...component} />
+                    <Dropdown.Item key={index} >
+                        <Element {...components[component.id]}/>
                     </Dropdown.Item>
                 ))}
             </>
         );
-    }
-
-    //TODO SHOULD BE CALLED
-    function handleDragStart(event: DragStartEvent) {
-        setActive(Number(event.active.id))
-        setShow(undefined)
     }
 
     return (

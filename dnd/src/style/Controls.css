@@ -3,7 +3,7 @@
     z-index: 200;
     position: absolute;
     height: auto;
-    margin: 10px;
+    margin: 30px;
     padding: 10px;
     right: 0;
     top: 0;
@@ -12,7 +12,6 @@
 .delete-control {
     position: absolute;
     height: auto;
-    padding: 50px;
     right: 0;
     bottom: 0;
 }
@@ -44,6 +43,10 @@
 
 .control:disabled {
     color: lightgrey !important;
+}
+
+.trash-box{
+    padding: 50px;
 }
 
 .trash {
@@ -127,7 +130,7 @@
     border-radius: 5px;
 }
 
-.trash:hover span {
-    transform: rotate(45deg);
-    transition: transform 250ms;
+.trash-open {
+    transform: rotate(70deg) !important;
+    transition: transform 250ms !important;
 }

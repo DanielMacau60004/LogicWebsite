@@ -6,6 +6,17 @@
     z-index: 10;
 }
 
+.board > .component {
+    border-radius: 12px;
+    cursor: grab;
+    transition: box-shadow 0.5s ease;
+}
+
+.board > .component:hover {
+    box-shadow: 0 0 15px lightgrey, 0 4px 20px grey;
+    transform: translateY(-2px);
+}
+
 tr > td > .component {
     margin-bottom: -6px;
     margin-left: 2px;
@@ -68,7 +79,6 @@ div > .component > div > .tree {
     background-color: #404040;
     color: white;
 }
-
 
 .mark {
     border-radius: 50%;
