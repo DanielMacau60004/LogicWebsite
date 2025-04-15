@@ -1,0 +1,94 @@
+@mixin center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+}
+
+.proof-component {
+  display: inline-block;
+  text-align: center;
+  z-index: 10;
+  font-weight: bold;
+  font-size: 14px;
+
+  &.dragging {
+    opacity: 0.4;
+    z-index: 100;
+  }
+
+  &.dropping {
+    scale: 1.5 !important;
+  }
+
+  &.active {
+    z-index: 100
+  }
+
+  &.draggable {
+    cursor: grab;
+  }
+
+  &.droppable {
+    border: 2px dashed #333;
+    background-color: white;
+    color: black !important;
+  }
+
+}
+
+.proof-tree {
+  background-color: #f7f7f7;
+  border-radius: 10px;
+}
+
+.proof-hypothesis > .proof-component {
+  margin-bottom: -6px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.proof-exp {
+  min-width: 10px;
+  height: 25px;
+  border-radius: 13px;
+  background-color: grey;
+  color: white;
+
+  > .proof-component-content {
+    @include center-content;
+    padding: 0 10px;
+
+  }
+
+}
+
+.proof-exp-input {
+  border: unset;
+  text-align: center;
+}
+
+.proof-rule {
+  border-radius: 3px;
+  width: 25px;
+  height: 25px;
+  background-color: #404040;
+  color: white;
+
+  > .proof-component-content {
+    @include center-content;
+  }
+}
+
+.proof-mark {
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  background-color: #404040;
+  color: white;
+
+  > .proof-component-content {
+    @include center-content;
+  }
+}

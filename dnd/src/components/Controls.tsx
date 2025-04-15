@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {Button,} from "react-bootstrap";
 import {FaArrowRotateLeft, FaArrowRotateRight} from "react-icons/fa6";
 import "../style/Controls.css"
@@ -16,7 +16,7 @@ const TrashBin = () => {
         className = "trash-open"
 
     return (
-        <div id={String(0)} ref={droppable.setNodeRef} className={"trash-box"} >
+        <div id={String(0)} ref={droppable.setNodeRef} className={"trash-box"}>
             <span className="trash">
                 <span className={className}></span>
                 <i></i>
@@ -46,8 +46,8 @@ export function Controls() {
             </div>
 
             <div className="delete-control">
-                <Droppable id={0} >
-                    <TrashBin />
+                <Droppable id={0}>
+                    <TrashBin/>
                 </Droppable>
             </div>
         </div>

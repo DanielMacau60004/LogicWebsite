@@ -1,0 +1,22 @@
+:root {
+  --font-family: 'Inter', sans-serif;
+
+  --light-shadow: 0 0 10px lightgrey, 0 4px 15px grey;
+  --strong-shadow: 0 0 15px lightgrey, 0 4px 20px grey;
+}
+
+.light {
+  --bg-color: #e1e1e1;
+  --text-color: black;
+
+  --primary-color: #3498db;
+  --secondary-color: #3498db;
+}
+
+.dark {
+  --bg-color: #1e1e1e;
+  --text-color: white;
+
+  --primary-color: #2980b9;
+  --secondary-color: #3498db;
+}

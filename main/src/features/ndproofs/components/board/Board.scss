@@ -1,0 +1,35 @@
+@import "../../../../style/variables";
+
+.board {
+  background-image: radial-gradient(#000 1px, transparent 1px);
+  background-size: 20px 20px;
+  background-color: #e1e1e1 !important;
+  height: 100vh;
+  position: relative;
+  width: auto;
+  overflow: auto;
+
+  > .proof-component {
+    position: absolute;
+    box-shadow: var(--light-shadow);
+    transition: box-shadow 0.5s ease;
+  }
+
+  >.proof-component:hover {
+    box-shadow: var(--strong-shadow);
+    transform: translateY(-2px);
+  }
+
+  > .proof-tree,
+  > .drag-overlay > .proof-tree {
+    display: inline-block;
+    padding: 16px;
+  }
+
+  .drag-overlay {
+    opacity: 0.4;
+    width: unset !important;
+    height: unset !important;
+  }
+
+}
