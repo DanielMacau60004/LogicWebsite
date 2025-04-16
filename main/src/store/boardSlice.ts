@@ -13,7 +13,7 @@ export function cloneState(state: Board): Omit<Board, 'redoStack' | 'undoStack'>
         active: state.active ? deepCopy(state.active) : undefined,
         drag: state.drag ? deepCopy(state.drag) : undefined,
         isEditable: state.isEditable,
-        doubleClicked: state.doubleClicked ? deepCopy(state.doubleClicked) : undefined,
+        editing: state.editing ? deepCopy(state.editing) : undefined,
         boardItems: deepCopy(state.boardItems),
         components: deepCopy(state.components)
     };
@@ -113,15 +113,17 @@ const slice = createSlice({
         selectDraggingComponent: (state, action: PayloadAction<BoardComponent | undefined>) => {
             state.drag = action.payload;
         },
-        selectDoubleClickedComponent: (state, action: PayloadAction<BoardComponent | undefined>) => {
-            state.doubleClicked = action.payload;
+        selectEditingComponent: (state, action: PayloadAction<BoardComponent | undefined>) => {
+            state.editing = action.payload;
         },
         setEditable: (state, action: PayloadAction<boolean>) => {
           state.isEditable = action.payload
         },
         updateComponent: (state, action: PayloadAction<BoardComponent>) => {
+            saveStateForUndo(state);
             const component = action.payload
             state.components[component.id] = component
+            state.editing = component
         },
         deleteComponent: (state) => {
             if(!state.isEditable) return
@@ -137,7 +139,7 @@ const slice = createSlice({
                     delete state.components[active.id];
                 }
 
-                state.doubleClicked = undefined;
+                state.editing = undefined;
                 state.active = undefined;
             }
         },
@@ -188,7 +190,7 @@ const slice = createSlice({
 export const {
     selectComponent,
     selectDraggingComponent,
-    selectDoubleClickedComponent,
+    selectEditingComponent,
     setEditable,
     updateComponent,
     deleteComponent,

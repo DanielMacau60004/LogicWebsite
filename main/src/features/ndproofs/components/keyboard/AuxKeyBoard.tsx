@@ -25,16 +25,16 @@ function renderKeyButtons(
 export function AuxKeyBoard() {
     const {ref, target, show, style, onKeyClick} = useAuxBoard()
 
-    console.log("fired")
     return (
-        <div id={"keyboard"} ref={ref} style={style}>
+        <div id={"keyboard"} tabIndex={-1} ref={ref} style={style}>
             <Overlay
                 show={show}
                 target={target}
                 placement="bottom"
-                container={ref.current}
+                container={ref}
             >
                 <Popover id="popover-contained" className="aux-keyboard">
+
                     <div className="aux-keyboard-content">
                         {renderKeyButtons(LOGICAL_SYMBOLS, "key", onKeyClick)}
                     </div>

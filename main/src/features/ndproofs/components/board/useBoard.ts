@@ -12,7 +12,7 @@ import {
     dragComponent,
     redo,
     selectComponent,
-    selectDoubleClickedComponent,
+    selectEditingComponent,
     selectDraggingComponent,
     setEditable,
     undo
@@ -56,7 +56,7 @@ export function useBoard() {
 
         const currentTime = Date.now()
         if (currentTime - lastClickTime.current <= clickThreshold) {
-            dispatch(selectDoubleClickedComponent(component))
+            dispatch(selectEditingComponent(component))
 
             if(component.type === EProofType.EXP && component.value)
                 dispatch(setEditable(false))

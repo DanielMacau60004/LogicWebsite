@@ -2,7 +2,7 @@ export interface Board {
     currentId: number;
     active: BoardComponent | undefined;
     drag: BoardComponent | undefined;
-    doubleClicked: BoardComponent | undefined;
+    editing: BoardComponent | undefined;
     isEditable: boolean;
     boardItems: { [key: number]: number };
     components: { [key: number]: BoardComponent };

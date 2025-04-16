@@ -21,7 +21,7 @@ export function proofBoard(): Board {
         active: undefined,
         drag: undefined,
         isEditable: true,
-        doubleClicked: undefined,
+        editing: undefined,
         components: {},
         boardItems: {},
         redoStack: [],

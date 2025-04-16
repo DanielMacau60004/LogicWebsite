@@ -1,45 +1,52 @@
-import React, {useEffect, useRef} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {GlobalState} from "../../../../store";
 import {BoardComponent} from "../../types/proofBoard";
-import {selectDoubleClickedComponent, setEditable, updateComponent} from "../../../../store/boardSlice";
+import {selectEditingComponent, setEditable, updateComponent} from "../../../../store/boardSlice";
 
 export function useExpression(exp: BoardComponent) {
     const ref = useRef<HTMLInputElement>(null);
-    const {doubleClicked, components} = useSelector((state: GlobalState) => state.board)
+    const {editing, components} = useSelector((state: GlobalState) => state.board)
     const dispatch: any = useDispatch()
+    const [value, setValue] = useState(exp.value)
 
-    const isSelected = exp.value && doubleClicked?.id === exp.id
     useEffect(() => {
-        if (doubleClicked?.id === exp.id) {
+        setValue(exp.value);
+    }, [exp.value]);
+    
+    const isSelected = exp.value && editing?.id === exp.id
+    useEffect(() => {
+        if (editing?.id === exp.id) {
             const timer = setTimeout(() => {
                 if (ref.current) {
                     const input = ref.current;
-                    const length = input.value.length;
-                    input.setSelectionRange(length, length);
                     input.focus();
                 }
             }, 200);
             return () => clearTimeout(timer);
         }
-    }, [doubleClicked?.id, exp.id]);
+    }, [components, dispatch, editing?.id, exp.id, value]);
 
     const onBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-        if (ref.current && event.relatedTarget && (event.relatedTarget as HTMLElement).id === 'keyboard-key') {
+        if (ref.current && event.relatedTarget && (event.relatedTarget as HTMLElement)?.id.includes("keyboard")) {
             event.preventDefault();
             event.stopPropagation();
             ref.current.focus();
+
             return;
         }
 
+        dispatch(updateComponent({ ...components[exp.id], value: value }));
         dispatch(setEditable(true));
-        dispatch(selectDoubleClickedComponent(undefined));
+        dispatch(selectEditingComponent(undefined));
     };
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(updateComponent({ ...components[exp.id], value: e.target.value }));
+        setValue(e.target.value);
+
+        dispatch(selectEditingComponent({ ...components[exp.id], value: value }))
     };
 
-    return {isSelected, ref, onBlur, onChange}
+    return {isSelected, ref, onBlur, onChange, value}
 
 }
