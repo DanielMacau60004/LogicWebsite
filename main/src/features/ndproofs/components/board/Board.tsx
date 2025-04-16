@@ -1,4 +1,4 @@
-import {DndContext, DragOverlay,} from "@dnd-kit/core";
+import {DndContext, DragOverlay, KeyboardSensor, MouseSensor, TouchSensor, useSensor, useSensors,} from "@dnd-kit/core";
 import {restrictToFirstScrollableAncestor} from "@dnd-kit/modifiers";
 import {Element} from "../proof/ProofComponents";
 import {useBoard} from "./useBoard";
@@ -13,6 +13,11 @@ export function Board() {
     const {isEditable, components, active, boardItems} = useSelector((state: GlobalState) => state.board)
     const {handleDragStart, handleDragEnd, collisionAlgorithm} = useBoard()
 
+    const mouseSensor = useSensor(MouseSensor);
+    const touchSensor = useSensor(TouchSensor);
+
+    const sensors = useSensors(mouseSensor, touchSensor,);
+
     return (
         <DndContext
             onDragStart={handleDragStart}
@@ -20,6 +25,7 @@ export function Board() {
             modifiers={[restrictToFirstScrollableAncestor]}
             collisionDetection={collisionAlgorithm}
             autoScroll={true}
+            sensors={sensors}
         >
             <div id={"board"} className={"board"}>
                 {Object.values(boardItems).map((item) => {
@@ -32,10 +38,10 @@ export function Board() {
                     </DragOverlay>
                 }
 
-                <StateControl/>
-                <DeleteControl/>
-                <AuxKeyBoard/>
             </div>
+            <StateControl/>
+            <DeleteControl/>
+            <AuxKeyBoard/>
         </DndContext>
 
     );

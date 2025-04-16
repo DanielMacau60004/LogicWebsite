@@ -20,9 +20,15 @@ export function useExpression(exp: BoardComponent) {
             const timer = setTimeout(() => {
                 if (ref.current) {
                     const input = ref.current;
+
+                    if(document.activeElement === input)
+                        return
+
                     input.focus();
+                    const length = input.value.length;
+                    input.setSelectionRange(length, length);
                 }
-            }, 200);
+            }, 500);
             return () => clearTimeout(timer);
         }
     }, [components, dispatch, editing?.id, exp.id, value]);

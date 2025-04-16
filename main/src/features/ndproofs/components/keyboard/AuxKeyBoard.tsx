@@ -27,11 +27,13 @@ export function AuxKeyBoard() {
 
     return (
         <div id={"keyboard"} tabIndex={-1} ref={ref} style={style}>
+
             <Overlay
                 show={show}
                 target={target}
                 placement="bottom"
                 container={ref}
+                offset={[0,10]}
             >
                 <Popover id="popover-contained" className="aux-keyboard">
 
