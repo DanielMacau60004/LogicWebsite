@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {GlobalState} from "../../../../store";
 import {BoardComponent} from "../../types/proofBoard";
 import {selectEditingComponent, setEditable, updateComponent} from "../../../../store/boardSlice";
+import {KEYBOARD_COMPONENT_ID} from "../../models/proofBoard";
 
 export function useExpression(exp: BoardComponent) {
     const ref = useRef<HTMLInputElement>(null);
@@ -34,7 +35,8 @@ export function useExpression(exp: BoardComponent) {
     }, [components, dispatch, editing?.id, exp.id, value]);
 
     const onBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-        if (ref.current && event.relatedTarget && (event.relatedTarget as HTMLElement)?.id.includes("keyboard")) {
+        if (ref.current && event.relatedTarget &&
+            (event.relatedTarget as HTMLElement)?.id.includes(KEYBOARD_COMPONENT_ID)) {
             event.preventDefault();
             event.stopPropagation();
             ref.current.focus();

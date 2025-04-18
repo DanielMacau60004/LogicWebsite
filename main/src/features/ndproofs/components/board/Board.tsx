@@ -1,4 +1,4 @@
-import {DndContext, DragOverlay, KeyboardSensor, MouseSensor, TouchSensor, useSensor, useSensors,} from "@dnd-kit/core";
+import {DndContext, DragOverlay, MouseSensor, TouchSensor, useSensor, useSensors,} from "@dnd-kit/core";
 import {restrictToFirstScrollableAncestor} from "@dnd-kit/modifiers";
 import {Element} from "../proof/ProofComponents";
 import {useBoard} from "./useBoard";
@@ -8,6 +8,7 @@ import {DeleteControl} from "../controls/state/DeleteControl";
 import {AuxKeyBoard} from "../keyboard/AuxKeyBoard";
 import {useSelector} from "react-redux";
 import {GlobalState} from "../../../../store";
+import {SideBar} from "../sidebar/SideBar";
 
 export function Board() {
     const {isEditable, components, active, boardItems} = useSelector((state: GlobalState) => state.board)
@@ -22,7 +23,6 @@ export function Board() {
         <DndContext
             onDragStart={handleDragStart}
             onDragEnd={handleDragEnd}
-            modifiers={[restrictToFirstScrollableAncestor]}
             collisionDetection={collisionAlgorithm}
             autoScroll={true}
             sensors={sensors}
@@ -39,6 +39,7 @@ export function Board() {
                 }
 
             </div>
+            <SideBar/>
             <StateControl/>
             <DeleteControl/>
             <AuxKeyBoard/>

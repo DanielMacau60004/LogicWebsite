@@ -31,6 +31,7 @@ function containDragType(board: Board, dragging: BoardComponent, dropping: Board
 export function canDropComponent(board: Board, dragging?: BoardComponent, dropping?: BoardComponent): boolean {
     return (
         dragging !== undefined && dropping !== undefined &&
+        dropping.isDroppable && dragging.isDraggable &&
         dropping.parent !== undefined &&
         dragging.id !== dropping.id &&
         dragging.id !== dropping.parent &&
@@ -42,7 +43,7 @@ export function canDropComponent(board: Board, dragging?: BoardComponent, droppi
 //Method responsible to reset a component to its initial state before being dragged
 export function resetComponent(component: BoardComponent): BoardComponent {
     const {id, parent, type} = component;
-    return {id, parent, type: dragMap.get(type) || type, isDraggable: false, isDroppable: true}
+    return {id, parent, type: dragMap.get(type) || type, isDraggable: false, isDroppable: true, isMovable: true}
 }
 
 

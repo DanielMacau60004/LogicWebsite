@@ -1,6 +1,6 @@
-import {ProofComponent} from "./ProofComponent";
-import {BoardComponent} from "../../types/proofBoard";
-import {useExpression} from "./useExpression";
+import {ProofComponent} from "../ProofComponent";
+import {BoardComponent} from "../../../types/proofBoard";
+import {useExpression} from "../useExpression";
 
 export function ExpComponent(exp: BoardComponent) {
     const {isSelected, ref, onBlur, onChange, value} = useExpression(exp)

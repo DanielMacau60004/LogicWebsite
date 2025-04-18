@@ -1,9 +1,9 @@
-import {BoardComponent} from "../../types/proofBoard";
+import {BoardComponent} from "../../../types/proofBoard";
 import {useSelector} from "react-redux";
-import {GlobalState} from "../../../../store";
-import {ProofComponent} from "./ProofComponent";
+import {GlobalState} from "../../../../../store";
+import {ProofComponent} from "../ProofComponent";
 import React from "react";
-import {Element} from "./ProofComponents";
+import {Element} from "../ProofComponents";
 
 export function TreeComponent(tree: BoardComponent) {
     const {components} = useSelector((state: GlobalState) => state.board)

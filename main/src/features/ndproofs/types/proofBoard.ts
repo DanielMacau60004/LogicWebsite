@@ -1,19 +1,25 @@
+import {SideBarComponentList} from "./proofSidebar";
+
 export interface Board {
     currentId: number;
     active: BoardComponent | undefined;
     drag: BoardComponent | undefined;
     editing: BoardComponent | undefined;
+    copy: BoardPreviewComponent | undefined;
     isEditable: boolean;
     boardItems: { [key: number]: number };
     components: { [key: number]: BoardComponent };
-    undoStack: Omit<Board, 'undoStack' | 'redoStack'>[];
-    redoStack: Omit<Board, 'undoStack' | 'redoStack'>[];
+    sideBarItems: SideBarComponentList[],
+    undoStack: Omit<Board, 'undoStack' | 'redoStack' | 'sideBarItems'>[];
+    redoStack: Omit<Board, 'undoStack' | 'redoStack' | 'sideBarItems'>[];
 }
 
 export enum BoardAction {
     Delete = 'delete',
     Undo = 'undo',
     Redo = 'redo',
+    Copy = 'copy',
+    Paste = 'paste'
 }
 
 export type Position = {
@@ -28,11 +34,12 @@ export enum EProofType {
     TREE = 'TREE'
 }
 
-export interface BoardCreatorComponent {
+export interface BoardPreviewComponent {
     type: EProofType;
     position?: Position;
     isDraggable: boolean;
     isDroppable: boolean;
+    isMovable: boolean;
 
     [key: string]: any;
 }
@@ -44,6 +51,7 @@ export interface BoardComponent {
     parent?: number;
     isDraggable: boolean;
     isDroppable: boolean;
+    isMovable: boolean;
 
     [key: string]: any;
 }

@@ -18,7 +18,7 @@ export const useProofComponent = (
     style = {
         ...style,
         ...(state.active?.id === component.id && {zIndex: 100}),
-        transform: `translate(${position?.x ?? 0}px, ${position?.y ?? 0}px)`
+        ...(component.isMovable && {transform: `translate(${position?.x ?? 0}px, ${position?.y ?? 0}px)`})
     };
 
     if (state.active?.id === component.id) className += ' active'

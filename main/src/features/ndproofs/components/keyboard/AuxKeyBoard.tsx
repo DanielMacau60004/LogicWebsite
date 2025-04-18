@@ -1,4 +1,4 @@
-import {GREEK_LETTERS, GROUPING_SYMBOLS, LOGICAL_SYMBOLS} from "../../models/proofBoard";
+import {GREEK_LETTERS, GROUPING_SYMBOLS, KEYBOARD_COMPONENT_ID, LOGICAL_SYMBOLS} from "../../models/proofBoard";
 import "./AuxKeyBoard.scss"
 import {Overlay, Popover} from "react-bootstrap";
 import React from "react";
@@ -26,7 +26,7 @@ export function AuxKeyBoard() {
     const {ref, target, show, style, onKeyClick} = useAuxBoard()
 
     return (
-        <div id={"keyboard"} tabIndex={-1} ref={ref} style={style}>
+        <div id={KEYBOARD_COMPONENT_ID} tabIndex={-1} ref={ref} style={style}>
 
             <Overlay
                 show={show}

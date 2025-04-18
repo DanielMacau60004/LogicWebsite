@@ -1,7 +1,7 @@
-import {BoardCreatorComponent} from "./types/proofBoard";
+import {BoardPreviewComponent} from "./types/proofBoard";
 import {exp, mark, rule, tree} from "./models/proofBoardComponentsFactory";
 
-export function boardComponents(): BoardCreatorComponent[] {
+export function boardComponents(): BoardPreviewComponent[] {
     return [
         tree(
             exp("Likes(a, b)"),

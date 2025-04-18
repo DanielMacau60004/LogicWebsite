@@ -1,19 +1,28 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {deepCopy} from "../utils/general";
 import {Board, BoardComponent, EProofType, Position} from "../features/ndproofs/types/proofBoard";
-import {computeRelativeCoordinates, proofBoard} from "../features/ndproofs/models/proofBoard";
+import {
+    appendComponent,
+    computeBoardCoordinates,
+    computeRelativeCoordinates,
+    proofBoard,
+    toCreateComponent
+} from "../features/ndproofs/models/proofBoard";
 import {canDropComponent, resetComponent} from "../features/ndproofs/models/proofBoardComponents";
 
 const MOVEMENT_THRESHOLD = 10;
 const MAX_HISTORY_DEPTH = 20;
 
-export function cloneState(state: Board): Omit<Board, 'redoStack' | 'undoStack'> {
+export function cloneState(state: Board): Omit<Board, 'redoStack' | 'undoStack' | 'sideBarItems'> {
     return {
         currentId: state.currentId,
         active: state.active ? deepCopy(state.active) : undefined,
         drag: state.drag ? deepCopy(state.drag) : undefined,
-        isEditable: state.isEditable,
-        editing: state.editing ? deepCopy(state.editing) : undefined,
+        copy: state.copy ? deepCopy(state.copy) : undefined,
+        //isEditable: state.isEditable,
+        //editing: state.editing ? deepCopy(state.editing) : undefined,
+        isEditable: true,
+        editing: undefined,
         boardItems: deepCopy(state.boardItems),
         components: deepCopy(state.components)
     };
@@ -117,7 +126,7 @@ const slice = createSlice({
             state.editing = action.payload;
         },
         setEditable: (state, action: PayloadAction<boolean>) => {
-          state.isEditable = action.payload
+            state.isEditable = action.payload
         },
         updateComponent: (state, action: PayloadAction<BoardComponent>) => {
             saveStateForUndo(state);
@@ -126,7 +135,7 @@ const slice = createSlice({
             state.editing = component
         },
         deleteComponent: (state) => {
-            if(!state.isEditable) return
+            if (!state.isEditable) return
 
             const active = state.active;
             if (state.isEditable && active) {
@@ -143,8 +152,8 @@ const slice = createSlice({
                 state.active = undefined;
             }
         },
-        dragComponent: (state, action: PayloadAction<{over?: number, position: Position }>) => {
-            if(!state.isEditable) return
+        dragComponent: (state, action: PayloadAction<{ over?: number, position: Position }>) => {
+            if (!state.isEditable) return
 
             const {over, position} = action.payload;
             const active = state.active;
@@ -165,6 +174,34 @@ const slice = createSlice({
                     dragOutsideComponent(state, position, dragging)
                 }
             }
+        },
+        copy: (state) => {
+            if (!state.isEditable) return
+            const active = state.active;
+
+            if (active)
+                state.copy = toCreateComponent(state, active.id)
+
+        },
+        paste: (state) => {
+            if (!state.isEditable) return
+
+            if (state.copy) {
+                saveStateForUndo(state);
+
+                const newID = appendComponent(state, state.copy)
+                let newComponent = state.components[newID]
+
+                const previous = document.getElementById(state.copy.id)
+                if (previous) {
+                    const boundingBox = previous.getBoundingClientRect()
+                    newComponent.position = computeBoardCoordinates({x: boundingBox.x + 20, y: boundingBox.y + 20})
+                    state.boardItems[newID] = newID
+                    state.active = newComponent
+                }
+
+            }
+
         },
         undo: (state) => {
             if (state.undoStack.length === 0) return;
@@ -195,8 +232,10 @@ export const {
     updateComponent,
     deleteComponent,
     dragComponent,
+    copy,
+    paste,
     undo,
-    redo
+    redo,
 } = slice.actions;
 
 export const boardReducer = slice.reducer;

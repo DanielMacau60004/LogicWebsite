@@ -8,19 +8,21 @@ import {
     rectIntersection
 } from "@dnd-kit/core";
 import {
+    copy,
     deleteComponent,
     dragComponent,
+    paste,
     redo,
     selectComponent,
-    selectEditingComponent,
     selectDraggingComponent,
+    selectEditingComponent,
     setEditable,
     undo
 } from "../../../../store/boardSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {GlobalState} from "../../../../store";
 import {useEffect, useRef} from "react";
-import {KeyActionMap} from "../../models/proofBoard";
+import {DELETE_COMPONENT_ID, KeyActionMap} from "../../models/proofBoard";
 import {BoardAction, EProofType} from "../../types/proofBoard";
 import {RectMap} from "@dnd-kit/core/dist/store";
 import {Coordinates} from "@dnd-kit/core/dist/types";
@@ -35,17 +37,18 @@ export function useBoard() {
         const key = event.ctrlKey ? `Ctrl+${event.code}` : event.code;
         const action = KeyActionMap.get(key);
 
-        switch (action) {
-            case BoardAction.Delete:
-                dispatch(deleteComponent());
-                break;
-            case BoardAction.Undo:
-                dispatch(undo());
-                break;
-            case BoardAction.Redo:
-                dispatch(redo());
-                break;
+        if (action === BoardAction.Delete) {
+            dispatch(deleteComponent());
+        } else if (action === BoardAction.Undo) {
+            dispatch(undo());
+        } else if (action === BoardAction.Redo) {
+            dispatch(redo());
+        } else if (action === BoardAction.Copy) {
+            dispatch(copy());
+        } else if (action === BoardAction.Paste) {
+            dispatch(paste());
         }
+
     }
 
     function handleDragStart(event: DragStartEvent) {
@@ -58,7 +61,7 @@ export function useBoard() {
         if (currentTime - lastClickTime.current <= clickThreshold) {
             dispatch(selectEditingComponent(component))
 
-            if(component.type === EProofType.EXP && component.value)
+            if (component.type === EProofType.EXP && component.value)
                 dispatch(setEditable(false))
         }
 
@@ -68,7 +71,7 @@ export function useBoard() {
     function handleDragEnd(event: DragEndEvent) {
         const {over, delta} = event
 
-        if (over?.id === "delete") dispatch(deleteComponent())
+        if (over?.id === DELETE_COMPONENT_ID) dispatch(deleteComponent())
         else dispatch(dragComponent({over: Number(over?.id), position: {x: delta.x, y: delta.y}}))
         dispatch(selectDraggingComponent(undefined))
     }
