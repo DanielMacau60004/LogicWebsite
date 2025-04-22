@@ -1,15 +1,13 @@
-import {SideBarComponentList} from "./proofSidebar";
 
 export interface Board {
     currentId: number;
-    active: BoardComponent | undefined;
-    drag: BoardComponent | undefined;
-    editing: BoardComponent | undefined;
-    copy: BoardPreviewComponent | undefined;
+    active: Component | undefined;
+    drag: TreeComponent | undefined;
+    editing: Component | undefined;
+    copy: number | undefined;
     isEditable: boolean;
     boardItems: { [key: number]: number };
-    components: { [key: number]: BoardComponent };
-    sideBarItems: SideBarComponentList[],
+    components: { [key: number]: Component };
     undoStack: Omit<Board, 'undoStack' | 'redoStack' | 'sideBarItems'>[];
     redoStack: Omit<Board, 'undoStack' | 'redoStack' | 'sideBarItems'>[];
 }
@@ -27,32 +25,67 @@ export type Position = {
     y: number
 }
 
-export enum EProofType {
-    EXP = 'EXP',
-    RULE = 'RULE',
-    MARK = 'MARK',
-    TREE = 'TREE'
+export enum ComponentType {
+    EXP = "EXP",
+    MARK = "MARK",
+    RULE = "RULE",
+    TREE = "TREE",
 }
 
-export interface BoardPreviewComponent {
-    type: EProofType;
-    position?: Position;
-    isDraggable: boolean;
-    isDroppable: boolean;
-    isMovable: boolean;
+export interface PreviewComponent {
+    type: ComponentType;
 
     [key: string]: any;
 }
 
-export interface BoardComponent {
-    id: number | 0;
-    type: EProofType;
-    position?: Position;
+export interface PreviewExpComponent extends PreviewComponent {
+    value: string | undefined;
+    type: ComponentType.EXP;
+}
+
+export interface PreviewMarkComponent extends PreviewComponent {
+    value: number | undefined;
+    type: ComponentType.MARK;
+}
+
+export interface PreviewRuleComponent extends PreviewComponent {
+    value: string | undefined;
+    type: ComponentType.RULE;
+}
+
+export interface TreePreviewComponent extends PreviewComponent {
+    conclusion: PreviewExpComponent,
+    marks: PreviewMarkComponent[],
+    rule: PreviewRuleComponent,
+    hypotheses: (PreviewExpComponent | TreePreviewComponent)[]
+    position?: Position
+}
+
+export interface Component extends PreviewComponent {
+    id: number;
     parent?: number;
-    isDraggable: boolean;
-    isDroppable: boolean;
-    isMovable: boolean;
-
-    [key: string]: any;
 }
 
+export interface ExpComponent extends Component {
+    value: string;
+    type: ComponentType.EXP;
+}
+
+export interface MarkComponent extends Component {
+    value: number;
+    type: ComponentType.MARK;
+}
+
+export interface RuleComponent extends Component {
+    value: string;
+    type: ComponentType.RULE;
+}
+
+export interface TreeComponent extends Component {
+    type: ComponentType.TREE;
+    conclusion: number;
+    marks: number[];
+    rule: number;
+    hypotheses: number[];
+    position?: Position;
+}

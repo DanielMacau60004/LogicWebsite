@@ -1,14 +1,13 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {deepCopy} from "../utils/general";
-import {Board, BoardComponent, EProofType, Position} from "../features/ndproofs/types/proofBoard";
+import {Board, Component, ComponentType, Position, TreeComponent} from "../features/ndproofs/types/proofBoard";
 import {
-    appendComponent,
     computeBoardCoordinates,
     computeRelativeCoordinates,
+    duplicateComponent,
     proofBoard,
-    toCreateComponent
 } from "../features/ndproofs/models/proofBoard";
-import {canDropComponent, resetComponent} from "../features/ndproofs/models/proofBoardComponents";
+import {Components} from "../features/ndproofs/models/proofComponents";
 
 const MOVEMENT_THRESHOLD = 10;
 const MAX_HISTORY_DEPTH = 20;
@@ -19,8 +18,6 @@ export function cloneState(state: Board): Omit<Board, 'redoStack' | 'undoStack' 
         active: state.active ? deepCopy(state.active) : undefined,
         drag: state.drag ? deepCopy(state.drag) : undefined,
         copy: state.copy ? deepCopy(state.copy) : undefined,
-        //isEditable: state.isEditable,
-        //editing: state.editing ? deepCopy(state.editing) : undefined,
         isEditable: true,
         editing: undefined,
         boardItems: deepCopy(state.boardItems),
@@ -35,100 +32,94 @@ function saveStateForUndo(state: Board) {
     state.redoStack = [];
 }
 
-//Assign a new parent id to the tree elements
-function attachTreeElements(state: Board, tree: BoardComponent, parentId: number) {
-    const idsToUpdate = [
-        tree.conclusion,
-        ...(tree.rule != null ? [tree.rule] : []),
-        ...(tree.hypotheses?.length ? tree.hypotheses : []),
-        ...(tree.marks?.length ? tree.marks : []),
-    ];
-    idsToUpdate.forEach((id) => {
-        state.components[id] = {...state.components[id], parent: parentId,};
-    });
-}
+function dragInsideComponents(state: Board, elem1: Component, elem2: Component) {
+    const isDroppingConclusion = Components.isConclusion(state, elem2);
+    const dragging = !isDroppingConclusion ? state.components[elem1.parent!!] : state.components[elem2.parent!!]
+    const dropping = isDroppingConclusion ? state.components[elem1.id] : state.components[elem2.id]
 
-//Swap two elements in the tree
-function dragInsideComponents(state: Board, dragging: BoardComponent, dropping: BoardComponent) {
+    const parentDragging = Components.getLastParent(state, dropping)
+    const parentDropping = Components.getLastParent(state, dragging)
 
-    //TODO CLONE
-    const copyDragging = {...dragging};
-    copyDragging.id = dropping.id;
-    copyDragging.parent = dropping.parent;
-    copyDragging.position = undefined;
+    const pDragging = state.components[dragging.parent!!]
+    const pDropping = state.components[dropping.parent!!]
 
-    const copyDropping = {...dropping};
-    copyDropping.id = dragging.id;
-    copyDropping.parent = dragging.parent;
-    copyDropping.position = undefined;
+    state.components[dragging.id].parent = pDropping.id
+    state.components[dropping.id].parent = pDragging?.id
 
-    state.components[dragging.id] = copyDropping;
-    state.components[dropping.id] = copyDragging;
+    const dragIndex = pDragging?.hypotheses.indexOf(dragging.id)
+    const dropIndex = pDropping?.hypotheses.indexOf(dropping.id)
 
-    if (dragging.parent === undefined)
+    if (dropIndex !== undefined) pDropping.hypotheses[dropIndex] = dragging.id
+    else pDropping.conclusion = dragging.id
+
+    if (pDragging) {
+        if (dragIndex !== undefined) pDragging.hypotheses[dragIndex] = dropping.id
+        else pDragging.conclusion = dropping.id
+    } else {
         delete state.boardItems[dragging.id];
+        delete state.components[dropping.id];
+    }
 
-    if (dragging.type === EProofType.TREE)
-        attachTreeElements(state, dragging, dropping.id);
+    //Fix position
+    if (isDroppingConclusion) {
+        parentDragging.position = {...parentDropping.position}
+        parentDropping.position = undefined
+    } else {
+        state.components[dragging.id].position = undefined
+        if (state.components[dropping.id])
+            state.components[dropping.id].position = undefined
+    }
+
 }
 
 //Drop an element out of other
-function dragOutsideComponent(state: Board, position: Position, dragging: BoardComponent) {
+function dragOutsideComponent(state: Board, position: Position, dragging: TreeComponent) {
     let element = dragging;
-
-    /*if (dragging.clone) { //TODO
-        console.log("clone")
-
-        //element = cloneComponent(dragging)
-        state.components[element.id] = element
-        state.boardItems[element.id] = element.id
-        element.position = computeRelativeCoordinates(dragging.id)
-    }*/
 
     if (dragging.parent !== undefined) {
         const newID = state.currentId++;
-
-        element = deepCopy(dragging);
+        const element = Components.reset(dragging)
         element.id = newID;
-        element.parent = undefined;
-
         state.components[newID] = element;
-        state.boardItems[newID] = newID;
 
-        if (dragging.type === EProofType.TREE)
-            attachTreeElements(state, element, newID);
+        const pDragging = state.components[dragging.parent]
+        const dragIndex = pDragging?.hypotheses.indexOf(dragging.id)
 
-        state.components[dragging.id] = resetComponent(dragging);
-        element.position = computeRelativeCoordinates(dragging.id)
+        if (dragIndex !== undefined) pDragging.hypotheses[dragIndex] = element.id
+        else pDragging.conclusion = element.id
+
+        state.boardItems[dragging.id] = dragging.id;
+        dragging.parent = undefined;
+        dragging.position = computeRelativeCoordinates(dragging.id)
+        console.log(deepCopy(element))
     }
 
     if (element.position) {
         element.position.x += position.x;
         element.position.y += position.y;
+
     } else
         element.position = {...position};
 
-
-    state.active = element
 }
 
 const slice = createSlice({
     name: 'board',
     initialState: proofBoard(),
     reducers: {
-        selectComponent: (state, action: PayloadAction<BoardComponent | undefined>) => {
+        selectComponent: (state, action: PayloadAction<Component | undefined>) => {
             state.active = action.payload;
         },
-        selectDraggingComponent: (state, action: PayloadAction<BoardComponent | undefined>) => {
+        selectDraggingComponent: (state, action: PayloadAction<TreeComponent | undefined>) => {
             state.drag = action.payload;
         },
-        selectEditingComponent: (state, action: PayloadAction<BoardComponent | undefined>) => {
+        selectEditingComponent: (state, action: PayloadAction<Component | undefined>) => {
             state.editing = action.payload;
         },
         setEditable: (state, action: PayloadAction<boolean>) => {
             state.isEditable = action.payload
         },
-        updateComponent: (state, action: PayloadAction<BoardComponent>) => {
+        updateComponent: (state, action: PayloadAction<Component>) => {
             saveStateForUndo(state);
             const component = action.payload
             state.components[component.id] = component
@@ -138,11 +129,11 @@ const slice = createSlice({
             if (!state.isEditable) return
 
             const active = state.active;
-            if (state.isEditable && active) {
+            if (active) {
                 saveStateForUndo(state);
 
                 if (active.parent) {
-                    state.components[active.id] = resetComponent(active)
+                    state.components[active.id] = Components.reset(active)
                 } else {
                     delete state.boardItems[active.id];
                     delete state.components[active.id];
@@ -158,41 +149,53 @@ const slice = createSlice({
             const {over, position} = action.payload;
             const active = state.active;
 
+            //Check if the movement is big enough to trigger the drag event
             if (Math.abs(position.x) + Math.abs(position.y) < MOVEMENT_THRESHOLD)
                 return
 
-            if (state.isEditable && active) {
+            //Check if an expression is selected
+            if (active === undefined)
+                return
 
-                let dragging = state.components[Number(active.id)];
-                let dropping = state.components[Number(over)];
+            let dragging = state.components[active.id];
+            let dropping = state.components[Number(over)];
 
-                if (canDropComponent(state, dragging, dropping)) {
-                    saveStateForUndo(state);
-                    dragInsideComponents(state, dragging, dropping)
-                } else {
-                    saveStateForUndo(state);
-                    dragOutsideComponent(state, position, dragging)
-                }
+            if (Components.canDrop(state, dragging, dropping)) {
+                saveStateForUndo(state);
+                dragInsideComponents(state, dragging, dropping)
+            } else {
+                saveStateForUndo(state);
+                dragOutsideComponent(state, position, state.components[state.drag!!.id] as TreeComponent)
             }
+
+            state.active = undefined
         },
         copy: (state) => {
             if (!state.isEditable) return
+
             const active = state.active;
 
-            if (active)
-                state.copy = toCreateComponent(state, active.id)
+            //Check if an expression is selected
+            if (active === undefined)
+                return
+
+            if (active.type === ComponentType.TREE)
+                state.copy = active.id
+            else if (active.parent && state.components[active.parent].type === ComponentType.TREE)
+                state.copy = state.components[active.parent].id
 
         },
         paste: (state) => {
             if (!state.isEditable) return
 
-            if (state.copy) {
+            if (state.copy && state.copy in state.components) {
                 saveStateForUndo(state);
 
-                const newID = appendComponent(state, state.copy)
+                const newID = duplicateComponent(state, state.components[state.copy])
                 let newComponent = state.components[newID]
 
-                const previous = document.getElementById(state.copy.id)
+                //TODO change to the mouse pointer
+                const previous = document.getElementById(String(state.copy))
                 if (previous) {
                     const boundingBox = previous.getBoundingClientRect()
                     newComponent.position = computeBoardCoordinates({x: boundingBox.x + 20, y: boundingBox.y + 20})

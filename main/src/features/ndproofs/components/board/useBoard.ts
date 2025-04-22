@@ -23,15 +23,17 @@ import {useDispatch, useSelector} from "react-redux";
 import {GlobalState} from "../../../../store";
 import {useEffect, useRef} from "react";
 import {DELETE_COMPONENT_ID, KeyActionMap} from "../../models/proofBoard";
-import {BoardAction, EProofType} from "../../types/proofBoard";
+import {BoardAction, ComponentType, TreeComponent} from "../../types/proofBoard";
 import {RectMap} from "@dnd-kit/core/dist/store";
 import {Coordinates} from "@dnd-kit/core/dist/types";
+import {Components} from "../../models/proofComponents";
+
+const clickThreshold = 350;
 
 export function useBoard() {
     const dispatch: any = useDispatch()
     const {components} = useSelector((state: GlobalState) => state.board)
     const lastClickTime = useRef<number>(0);
-    const clickThreshold = 350;
 
     function handleKeyPress(event: KeyboardEvent) {
         const key = event.ctrlKey ? `Ctrl+${event.code}` : event.code;
@@ -52,16 +54,32 @@ export function useBoard() {
     }
 
     function handleDragStart(event: DragStartEvent) {
-        const id = Number(event.active.id)
-        let component = components[id]
-        dispatch(selectComponent(component))
+        let id = Number(event.active.id);
+        let component = components[id];
+
+        if(component.type === ComponentType.TREE)
+            dispatch(selectDraggingComponent(component as TreeComponent))
+
+        const targetId = Number((event.activatorEvent.target as HTMLElement)?.id);
+        if (!isNaN(targetId) && targetId in components) {
+            id = targetId;
+            component = components[id];
+        }
+
+        //Set the conclusion as the default element to be active
+        if(component.type === ComponentType.TREE) {
+            component = components[Number(component.conclusion)]
+        }
+
         dispatch(selectComponent(component))
 
+        //TODO double click event handler
         const currentTime = Date.now()
         if (currentTime - lastClickTime.current <= clickThreshold) {
             dispatch(selectEditingComponent(component))
 
-            if (component.type === EProofType.EXP && component.value)
+            console.log("DOUBLE CLICKED ON " + component.type)
+            if (component.type === ComponentType.EXP && component.value)
                 dispatch(setEditable(false))
         }
 
@@ -96,7 +114,6 @@ export function useBoard() {
             document.removeEventListener('keydown', handleKeyPress);
         };
     });
-
 
     return {handleDragStart, handleDragEnd, collisionAlgorithm}
 }

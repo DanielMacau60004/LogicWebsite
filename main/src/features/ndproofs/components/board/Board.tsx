@@ -1,6 +1,5 @@
 import {DndContext, DragOverlay, MouseSensor, TouchSensor, useSensor, useSensors,} from "@dnd-kit/core";
-import {restrictToFirstScrollableAncestor} from "@dnd-kit/modifiers";
-import {Element} from "../proof/ProofComponents";
+
 import {useBoard} from "./useBoard";
 import "./Board.scss"
 import {StateControl} from "../controls/state/StateControl";
@@ -9,14 +8,15 @@ import {AuxKeyBoard} from "../keyboard/AuxKeyBoard";
 import {useSelector} from "react-redux";
 import {GlobalState} from "../../../../store";
 import {SideBar} from "../sidebar/SideBar";
+import {Tree} from "../proof/types/Tree";
+import {TreeComponent} from "../../types/proofBoard";
 
 export function Board() {
-    const {isEditable, components, active, boardItems} = useSelector((state: GlobalState) => state.board)
+    const {isEditable, components, drag, boardItems} = useSelector((state: GlobalState) => state.board)
     const {handleDragStart, handleDragEnd, collisionAlgorithm} = useBoard()
 
     const mouseSensor = useSensor(MouseSensor);
     const touchSensor = useSensor(TouchSensor);
-
     const sensors = useSensors(mouseSensor, touchSensor,);
 
     return (
@@ -29,12 +29,12 @@ export function Board() {
         >
             <div id={"board"} className={"board"}>
                 {Object.values(boardItems).map((item) => {
-                    return (<Element key={item} {...components[item]} />);
+                    return (<Tree key={item} {...components[item] as TreeComponent} />);
                 })}
 
-                {active && isEditable &&
+                {drag && isEditable &&
                     <DragOverlay dropAnimation={null} className={"drag-overlay"}>
-                        <Element {...active} />
+                        <Tree {...drag} />
                     </DragOverlay>
                 }
 

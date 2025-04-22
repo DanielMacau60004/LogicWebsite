@@ -1,80 +1,47 @@
 import {SideBarCreatorComponentList} from "./types/proofSidebar";
-import {exp, mark, rule, tree} from "./models/proofBoardComponentsFactory";
+import {createPreviewTree} from "./models/proofComponents";
 
 export function sideBarComponents(): SideBarCreatorComponentList[] {
     return [
-        {
-            name: "Marks",
-            icon: mark("M"),
-            values: [
-                {
-                    list: [mark("1"), mark("2"), mark("3"), mark("4"), mark("5")]
-                }
-            ]
-        },
-        {
-            name: "Rules",
-            icon: rule("R"),
-            values: [
-                {
-                    name: "pl",
-                    list: [rule("⊥"), rule("∧I"), rule("∧El"), rule("∧Er"), rule("∨Il"), rule("∨E"), rule("∨Ir"),
-                        rule("→I"), rule("→E"), rule("¬I"), rule("¬E")]
-                },
-                {
-                    name: "fol",
-                    list: [rule("∀I"), rule("∀E"), rule("∃I"), rule("∃E")]
-                }
-            ]
-        },
-        {
-            name: "Expressions",
-            icon: exp("E"),
-            values: [
-                {
-                    list: [exp("p ∧ q"), exp("p ∧ (p ∧ q)")]
-                },
-            ]
-        },
-        {
+        /*{
             name: "Tree Templates",
-            icon: exp("T"),
+            icon: createPreviewTree(undefined, undefined, [undefined], []),
             values: [
                 {
                     name: "temp1",
-                    list: [tree(exp(), rule(), [exp()], [])]
+                    list: [createPreviewTree(undefined, undefined, [undefined], [])]
                 },
                 {
                     name: "temp2",
-                    list: [tree(exp(), rule(), [exp()], [mark()])]
+                    list: [createPreviewTree(undefined, undefined, [undefined], [undefined])]
                 },
                 {
                     name: "temp3",
-                    list: [tree(exp(), rule(), [exp(), exp()], [])]
+                    list: [createPreviewTree(undefined, undefined, [undefined, undefined], [])]
                 },
                 {
                     name: "temp4",
-                    list: [tree(exp(), rule(), [exp(), exp(), exp()], [mark(), mark()])]
+                    list: [createPreviewTree(undefined, undefined, [undefined, undefined, undefined], [undefined, undefined])]
                 }
             ]
         },
         {
             name: "Tree",
-            icon: exp("T"),
+            icon: createPreviewTree(undefined, undefined, [undefined], []),
             values: [
                 {
                     name: "elim dis",
-                    list: [tree(exp(), rule("∨E"), [exp(), exp(), exp()], [mark("m"), mark("n")])]
+                    list: [createPreviewTree(undefined, "∨E", [undefined, undefined, undefined], [1, 2])]
                 },
                 {
                     name: "absurdity",
-                    list: [tree(exp(), rule(), [exp("⊥")], [mark("m")])]
+                    list: [createPreviewTree(undefined, undefined, ["⊥"], [1])]
                 },
                 {
                     name: "elim neg",
-                    list: [tree(exp("⊥"), rule("¬E"), [exp(), exp()], [])]
+                    list: [createPreviewTree("⊥", "¬E", [undefined, undefined], [])]
                 }
             ]
-        }
+        }*/
     ];
 }

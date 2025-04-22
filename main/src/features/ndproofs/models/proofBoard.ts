@@ -1,8 +1,13 @@
-import {Board, BoardAction, BoardComponent, BoardPreviewComponent, EProofType, Position} from "../types/proofBoard";
+import {
+    Board,
+    BoardAction, Component,
+    ComponentType, MarkComponent,
+    Position,
+    PreviewComponent,
+    PreviewMarkComponent, TreeComponent,
+    TreePreviewComponent
+} from "../types/proofBoard";
 import {boardComponents} from "../boardInit";
-import {sideBarComponents} from "../sidebarInit";
-import {appendSidebarItemList} from "./proofSidebar";
-
 export const BOARD_COMPONENT_ID = "board"
 export const DELETE_COMPONENT_ID = "delete"
 export const KEYBOARD_COMPONENT_ID = "keyboard"
@@ -28,79 +33,77 @@ export function proofBoard(): Board {
         isEditable: true,
         copy: undefined,
         editing: undefined,
-        sideBarItems: [], //Move to a different store :d
         components: {},
         boardItems: {},
         redoStack: [],
         undoStack: []
     };
 
-    sideBarComponents().forEach(sidebarItem => {
-        const items = appendSidebarItemList(board, sidebarItem)
-        board.sideBarItems.push(items)
-    })
-
     boardComponents().forEach(component => {
         const id = appendComponent(board, component);
         board.boardItems[id] = id;
     });
 
-    console.log(board.sideBarItems);
     console.log(board.boardItems);
     console.log(board.components);
 
     return board;
 }
 
-export function appendComponent(state: Board, component: BoardPreviewComponent, parent?: number): number {
+export function appendComponent(state: Board, component: PreviewComponent, parent?: number): number {
     const id = state.currentId++;
 
     switch (component.type) {
-        case EProofType.TREE:
-            const conclusion = appendComponent(state, component.conclusion, id)
-            const rule = appendComponent(state, component.rule, id)
-            const hypotheses = component.hypotheses.map((hypothesis: any) =>
-                appendComponent(state, hypothesis, id));
-            const marks = component.marks?.map((mark: any) =>
+        case ComponentType.TREE:
+            const tree = component as TreePreviewComponent
+            const conclusion = appendComponent(state, tree.conclusion, id)
+            const rule = appendComponent(state, tree.rule, id)
+            const hypotheses = tree.hypotheses.map((hypothesis: PreviewComponent) =>
+                appendComponent(state, hypothesis, id))
+            const marks = tree.marks?.map((mark: PreviewMarkComponent) =>
                 appendComponent(state, mark, id));
 
             state.components[id] = {
-                id, type: EProofType.TREE, parent, position: component.position, conclusion, rule,
-                hypotheses, marks, isDraggable: component.isDraggable, isDroppable: component.isDroppable,
-                isMovable: component.isMovable
+                id, type: ComponentType.TREE, parent, position: tree.position, conclusion, rule, hypotheses, marks
             }
+
             break;
         default:
             component.parent = parent
             state.components[id] = {...component, id}
             break;
     }
+
     return id;
 }
 
-export function toCreateComponent(state: Board, id: number): BoardPreviewComponent {
-    const component = state.components[id]
+export function duplicateComponent(state: Board, component: Component, parent?: number): number {
+    const id = state.currentId++;
 
     switch (component.type) {
-        case EProofType.TREE:
-            const conclusion = state.components[component.conclusion]
-            const rule = state.components[component.rule]
-            const hypotheses = component.hypotheses.map((hypothesis: any) =>
-                toCreateComponent(state, hypothesis));
-            const marks = component.marks?.map((mark: any) =>
-                toCreateComponent(state, mark));
+        case ComponentType.TREE:
+            const tree = component as TreeComponent
+            const conclusion = duplicateComponent(state, state.components[tree.conclusion], id)
+            const rule = duplicateComponent(state, state.components[tree.rule], id)
+            const hypotheses = tree.hypotheses.map((hypothesis: number) =>
+                duplicateComponent(state, state.components[hypothesis], id))
+            const marks = tree.marks?.map((mark: number) =>
+                duplicateComponent(state, state.components[mark], id));
 
-            return { id: component.id,
-                type: EProofType.TREE, parent: component.parent, position: component.position, conclusion, rule,
-                hypotheses, marks, isDraggable: component.isDraggable, isDroppable: component.isDroppable,
-                isMovable: component.isMovable
+            state.components[id] = {
+                id, type: ComponentType.TREE, parent, position: tree.position, conclusion, rule, hypotheses, marks
             }
 
+            break;
         default:
-            return component
+            component.parent = parent
+            state.components[id] = {...component, id}
+            break;
     }
 
+    return id;
 }
+
 
 function boardTranslation(): Position {
     const board = document.getElementById(BOARD_COMPONENT_ID);
@@ -131,3 +134,4 @@ export function computeBoardCoordinates(position: Position): Position {
 
     return {x, y};
 }
+

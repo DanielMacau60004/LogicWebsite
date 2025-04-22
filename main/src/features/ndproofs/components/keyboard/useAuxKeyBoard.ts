@@ -1,14 +1,14 @@
 import React, {useRef} from "react";
 import {useSelector} from "react-redux";
 import {GlobalState} from "../../../../store";
-import {EProofType} from "../../types/proofBoard";
 import {forceInputChange} from "../../../../utils/general";
+import {ComponentType} from "../../types/proofBoard";
 
 export function useAuxBoard() {
     const ref = useRef<HTMLDivElement | null>(null);
     const {components, editing} = useSelector((state: GlobalState) => state.board)
     const target = document.getElementById(String(editing?.id)) as HTMLElement
-    const show = editing !== undefined && editing.type === EProofType.EXP
+    const show = editing !== undefined && editing.type === ComponentType.EXP
     const style: React.CSSProperties = {position: show ? 'absolute' : 'fixed'};
 
     const onKeyClick = (char: string) => {

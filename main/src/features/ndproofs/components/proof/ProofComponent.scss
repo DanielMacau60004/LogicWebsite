@@ -12,6 +12,7 @@
   z-index: 10;
   font-weight: bold;
   font-size: 14px;
+  vertical-align: bottom;
 
   &.dragging {
     opacity: 0.4;
@@ -54,7 +55,7 @@
 }
 
 .proof-exp {
-  min-width: 10px;
+  min-width: 40px;
   height: 25px;
   border-radius: 13px;
   background-color: grey;
@@ -63,7 +64,6 @@
   > .proof-component-content {
     @include center-content;
     padding: 0 10px;
-
   }
 
 }

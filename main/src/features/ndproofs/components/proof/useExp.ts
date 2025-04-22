@@ -1,11 +1,12 @@
 import React, {useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {GlobalState} from "../../../../store";
-import {BoardComponent} from "../../types/proofBoard";
 import {selectEditingComponent, setEditable, updateComponent} from "../../../../store/boardSlice";
 import {KEYBOARD_COMPONENT_ID} from "../../models/proofBoard";
+import {ExpComponent} from "../../types/proofBoard";
 
-export function useExpression(exp: BoardComponent) {
+export function useExp({ exp }: { exp: ExpComponent }) {
+    const id =  String(exp.id)
     const ref = useRef<HTMLInputElement>(null);
     const {editing, components} = useSelector((state: GlobalState) => state.board)
     const dispatch: any = useDispatch()
@@ -15,7 +16,7 @@ export function useExpression(exp: BoardComponent) {
         setValue(exp.value);
     }, [exp.value]);
     
-    const isSelected = exp.value && editing?.id === exp.id
+    const isSelected = editing?.id === exp.id
     useEffect(() => {
         if (editing?.id === exp.id) {
             const timer = setTimeout(() => {
@@ -26,10 +27,11 @@ export function useExpression(exp: BoardComponent) {
                         return
 
                     input.focus();
-                    const length = input.value.length;
+
+                    const length = input.value ? input.value.length : 0;
                     input.setSelectionRange(length, length);
                 }
-            }, 500);
+            }, 200);
             return () => clearTimeout(timer);
         }
     }, [components, dispatch, editing?.id, exp.id, value]);
@@ -55,6 +57,6 @@ export function useExpression(exp: BoardComponent) {
         dispatch(selectEditingComponent({ ...components[exp.id], value: value }))
     };
 
-    return {isSelected, ref, onBlur, onChange, value}
+    return {id, isSelected, ref, onBlur, onChange, value}
 
 }

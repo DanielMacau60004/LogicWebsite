@@ -4,18 +4,18 @@ import {FaBars, FaTimes} from 'react-icons/fa';
 import {useSelector} from "react-redux";
 import {SideBarComponent, SideBarComponentList} from "../../types/proofSidebar";
 import {GlobalState} from "../../../../store";
-import {BoardComponent} from "../../types/proofBoard";
 import "./Sidebar.scss"
-import {Element} from "../proof/ProofComponents";
+import {TreeComponent} from "../../types/proofBoard";
+import {Tree} from "../proof/types/Tree";
 
 export function SideBarItem({ name, list }: SideBarComponent) {
     const {components} = useSelector((state: GlobalState) => state.board);
     return (
         <>
             {name && <h6>{name}</h6>}
-            {list.map((component: BoardComponent, index) => (
+            {list.map((component: TreeComponent, index) => (
                 <Dropdown.Item key={index}>
-                    <Element {...components[component.id]} />
+                    <Tree {...components[component.id] as TreeComponent} />
                 </Dropdown.Item>
             ))}
         </>
@@ -53,7 +53,7 @@ export function SideBarItemList(
                     isActive ? 'sidebar-item-active' : ''
                 }`}
             >
-                <Element {...components[icon.id]} />
+                <Tree {...components[icon.id] as TreeComponent} />
             </Dropdown.Toggle>
 
             <Dropdown.Menu className="sidebar-item-content">
@@ -67,7 +67,7 @@ export function SideBarItemList(
 }
 
 export function SideBar() {
-    const { sideBarItems, drag } = useSelector((state: GlobalState) => state.board);
+    const { drag } = useSelector((state: GlobalState) => state.board);
     const [isOpen, setIsOpen] = useState(true);
     const [show, setShow] = useState<string | undefined>();
 
@@ -90,7 +90,7 @@ export function SideBar() {
                 <div id="sidebar-collapse" className="sidebar-content">
                     <ul className="px-0 m-0 d-flex flex-column align-items-center">
                         <hr />
-                        {sideBarItems.map((item: SideBarComponentList) => (
+                        {/*sideBarItems.map((item: SideBarComponentList) => (
                             <li key={item.name}>
                                 <SideBarItemList
                                     {...item}
@@ -98,7 +98,7 @@ export function SideBar() {
                                     onShowChange={setShow}
                                 />
                             </li>
-                        ))}
+                        ))*/}
                     </ul>
                 </div>
             </Collapse>
