@@ -26,11 +26,13 @@ import {CLONE_COMPONENT_ID, DELETE_COMPONENT_ID, KeyActionMap} from "../../model
 import {BoardAction, ComponentType, TreeComponent} from "../../types/proofBoard";
 import {RectMap} from "@dnd-kit/core/dist/store";
 import {Coordinates} from "@dnd-kit/core/dist/types";
+import {Components} from "../../models/proofComponents";
 
 const clickThreshold = 350;
 
 export function useBoard() {
     const dispatch: any = useDispatch()
+    const state = useSelector((state: GlobalState) => state.board)
     const {isEditable, components} = useSelector((state: GlobalState) => state.board)
     const lastClickTime = useRef<number>(0);
 
@@ -65,11 +67,11 @@ export function useBoard() {
         const targetId = (event.activatorEvent.target as HTMLElement).closest('.proof-component')?.id;
 
         if(dragging && targetId === DELETE_COMPONENT_ID) {
-            dispatch(selectComponent(dragging))
+            dispatch(selectComponent(Components.getLastParent(state, dragging)))
             dispatch(deleteComponent())
             return;
         }else if(dragging && targetId === CLONE_COMPONENT_ID) {
-            dispatch(selectComponent(dragging))
+            dispatch(selectComponent(Components.getLastParent(state, dragging)))
             dispatch(copy())
             dispatch(paste())
             return;

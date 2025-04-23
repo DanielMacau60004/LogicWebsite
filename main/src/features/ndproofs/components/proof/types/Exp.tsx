@@ -1,14 +1,13 @@
 import {useExp} from "../useExp";
 import {Droppable, DroppableRender} from "../../../../../components/Droppable";
-import {ExpComponent} from "../../../types/proofBoard";
+import {ComponentType, ExpComponent} from "../../../types/proofBoard";
 import React from "react";
 import {useSelector} from "react-redux";
 import {GlobalState} from "../../../../../store";
 import {Components} from "../../../models/proofComponents";
-import {deepCopy} from "../../../../../utils/general";
-import { MathJax, MathJaxContext } from "better-react-mathjax";
+import {Mark} from "./Mark";
 
-export function Exp({ exp }: { exp: ExpComponent }) {
+export function Exp({exp}: { exp: ExpComponent }) {
     const {id, isSelected, ref, onBlur, onChange, value} = useExp({exp})
     const state = useSelector((state: GlobalState) => state.board);
 
@@ -35,6 +34,7 @@ export function Exp({ exp }: { exp: ExpComponent }) {
 
         <Droppable id={String(exp.id)} className={`proof-component proof-exp`} onRender={onRender}>
             <div className={"proof-component-content"}>
+                {Components.isLeaf(state, exp) && <Mark mark={{id: -1, type: ComponentType.MARK}}/>}
                 {isSelected ?
                     <input
                         id={"input-expression"}
@@ -51,7 +51,7 @@ export function Exp({ exp }: { exp: ExpComponent }) {
                         aria-autocomplete="none"
                         maxLength={50}
                     />
-                    :  value
+                    : value
                 }
             </div>
         </Droppable>

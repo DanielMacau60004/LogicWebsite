@@ -35,14 +35,38 @@
 
   > .proof-properties {
     position: absolute;
-    top: -20px;
-    right: -40px;
     cursor: default;
-    background-color: red;
-    padding: 5px 15px;
+    background-color: transparent;
+    padding: 5px 10px;
     border-radius: 10px;
-    box-shadow: var(--light-shadow);
-    transition: box-shadow 0.5s ease;
+
+    &.top-right {
+      top: -35px;
+      right: -35px;
+    }
+
+    &.top-left {
+      top: -35px;
+      left: -25px;
+    }
+
+    &.bottom-right {
+      bottom: -25px;
+      right: -35px;
+    }
+
+    > button {
+      background-color: var(--color-6);
+      border: none;
+      color: var(--text-color);
+      margin: 2px 4px 0 0;
+      padding: 6px;
+      border-radius: 5px;
+    }
+
+    > button:hover {
+      transform: scale(1.1);
+    }
   }
 
 }
@@ -53,8 +77,8 @@
 
 .proof-hypothesis > .proof-component {
   margin-bottom: -6px;
-  margin-left: 2px;
-  margin-right: 2px;
+  margin-left: 6px;
+  margin-right: 6px;
 }
 
 @keyframes highlightPulse {
@@ -79,10 +103,17 @@
   background-color: var(--color-4);
   color: var(--text-color);
   cursor: grab !important;
+  position: relative;
 
   > .proof-component-content {
     @include center-content;
     padding: 0 10px;
+
+    > .proof-mark {
+      position: absolute !important;
+      top: -12px;
+      right: -12px;
+    }
   }
 
   .proof-exp-input {
@@ -121,7 +152,7 @@
   border-radius: 50%;
   width: 25px;
   height: 25px;
-  background-color: var(--color-5);
+  background-color: var(--color-3);
   color: var(--text-color);
   cursor: pointer;
 

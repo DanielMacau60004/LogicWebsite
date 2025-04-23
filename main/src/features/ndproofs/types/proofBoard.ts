@@ -67,17 +67,17 @@ export interface Component extends PreviewComponent {
 }
 
 export interface ExpComponent extends Component {
-    value: string;
+    value?: string;
     type: ComponentType.EXP;
 }
 
 export interface MarkComponent extends Component {
-    value: number;
+    value?: number;
     type: ComponentType.MARK;
 }
 
 export interface RuleComponent extends Component {
-    value: string;
+    value?: string;
     type: ComponentType.RULE;
 }
 

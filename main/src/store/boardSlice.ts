@@ -70,6 +70,8 @@ function dragInsideComponents(state: Board, elem1: Component, elem2: Component) 
             state.components[dropping.id].position = undefined
     }
 
+    state.active = dragging
+
 }
 
 //Drop an element out of other
@@ -101,6 +103,7 @@ function dragOutsideComponent(state: Board, position: Position, dragging: TreeCo
     } else
         element.position = {...position};
 
+    state.active = element
 }
 
 const slice = createSlice({
@@ -171,7 +174,7 @@ const slice = createSlice({
                 dragOutsideComponent(state, position, state.components[drag!!.id] as TreeComponent)
             }
 
-            state.active = undefined
+            //state.active = undefined
         },
         copy: (state) => {
             if (!state.isEditable) return

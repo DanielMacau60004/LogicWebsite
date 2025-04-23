@@ -7,10 +7,12 @@ import {Mark} from "./Mark";
 import {Exp} from "./Exp";
 import {Rule} from "./Rule";
 import "../Types.scss"
-import {FaClone, FaTrash} from "react-icons/fa";
 import {CLONE_COMPONENT_ID, DELETE_COMPONENT_ID} from "../../../models/proofBoard";
+import {Components} from "../../../models/proofComponents";
+import {FaCheck, FaClone, FaQuestion, FaTrash} from "react-icons/fa";
 
 export function Tree(tree: TreeComponent) {
+    const state = useSelector((state: GlobalState) => state.board)
     const {components, drag, active} = useSelector((state: GlobalState) => state.board)
     const {conclusion, hypotheses, rule, marks} = tree
 
@@ -32,16 +34,26 @@ export function Tree(tree: TreeComponent) {
         };
     };
 
+    const isRoot = tree.parent === undefined
+    const hasSelectedTree = active && active.id && active.type === ComponentType.TREE &&
+        Components.getLastParent(state, active).id === tree.id
 
     return (
-        <Draggable id={String(id)} className={`proof-component proof-tree ${tree.parent === undefined ? 'root' : ''}`}
+        <Draggable id={String(id)} className={`proof-component proof-tree ${isRoot ? 'root' : ''}`}
                    onRender={onRender}>
 
-            {active && active.id === tree.id && drag === undefined &&
-                <div className={"proof-properties"}>
-                    <button id={DELETE_COMPONENT_ID} className={"proof-component"}><FaTrash size={20} /></button>
-                    <button id={CLONE_COMPONENT_ID} className={"proof-component"}><FaClone size={20} /></button>
-                </div>
+            {isRoot && active && hasSelectedTree && drag === undefined &&
+                <>
+                    <div className={"proof-properties top-right"}>
+                        <button id={DELETE_COMPONENT_ID} className={"proof-component"}><FaTrash size={20}/></button>
+                        <button id={CLONE_COMPONENT_ID} className={"proof-component"}><FaClone size={20}/></button>
+                        <button className={"proof-component"}><FaQuestion size={20}/></button>
+                    </div>
+
+                    <div className={"proof-properties bottom-right"}>
+                        <button className={"proof-component"}>Submit</button>
+                    </div>
+                </>
             }
             <table>
                 <tbody>
