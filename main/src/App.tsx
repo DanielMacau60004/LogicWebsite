@@ -1,7 +1,11 @@
 import NDProofsPage from "./pages/NDProofsPage";
 
 function App() {
-    return <NDProofsPage/>
+    return (
+        <div className={"light"}>
+            <NDProofsPage/>
+        </div>
+    )
 }
 
 export default App;

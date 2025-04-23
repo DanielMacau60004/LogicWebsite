@@ -2,13 +2,10 @@ import {
     Board,
     Component,
     ComponentType,
-    ExpComponent,
-    MarkComponent,
     Position,
     PreviewExpComponent,
     PreviewMarkComponent,
     PreviewRuleComponent,
-    RuleComponent,
     TreePreviewComponent
 } from "../types/proofBoard";
 
@@ -32,18 +29,6 @@ export function createPreviewTree(
     position?: Position
 ): TreePreviewComponent {
     return {type: ComponentType.TREE, conclusion, rule, hypotheses, marks, position};
-}
-
-export function createExp(id: number, value?: string, parent?: number): ExpComponent {
-    return {id: id, type: ComponentType.EXP, value: value ? value : " ", parent};
-}
-
-export function createRule(id: number, value?: string, parent?: number): RuleComponent {
-    return {id: id, type: ComponentType.RULE, value: value ? value : " ", parent};
-}
-
-export function createMark(id: number, value?: number, parent?: number): MarkComponent {
-    return {id: id, type: ComponentType.MARK, value: value ? value : -1, parent};
 }
 
 export const Components = {
@@ -78,9 +63,10 @@ export const Components = {
         return component
     },
 
-    //TODO pode nao estar 100% correto!
     canDrop(board: Board, dragging?: Component, dropping?: Component): boolean {
         if (!dragging || !dropping) return false;
+
+        const hasTheCorrectTypes = dragging.type === dropping.type && dragging.type === ComponentType.EXP
 
         const isValidDirection =
             (this.isConclusion(board, dropping) &&
@@ -91,7 +77,11 @@ export const Components = {
                 this.isLeaf(board, dropping));
 
         const noParentConflict = !this.containsParent(board, dropping, dragging.parent!!)
-        return isValidDirection && noParentConflict;
+
+        const hasSameContent = (dropping.value === undefined || dropping.value === dragging.value) ||
+            (dragging.value === undefined || dragging.value === dropping.value)
+
+        return hasTheCorrectTypes && isValidDirection && noParentConflict && hasSameContent;
     }
 };
 

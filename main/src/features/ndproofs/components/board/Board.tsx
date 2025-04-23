@@ -4,12 +4,14 @@ import {useBoard} from "./useBoard";
 import "./Board.scss"
 import {StateControl} from "../controls/state/StateControl";
 import {DeleteControl} from "../controls/state/DeleteControl";
-import {AuxKeyBoard} from "../keyboard/AuxKeyBoard";
+import {ExpKeyBoard} from "../keyboards/ExpKeyBoard";
 import {useSelector} from "react-redux";
 import {GlobalState} from "../../../../store";
 import {SideBar} from "../sidebar/SideBar";
 import {Tree} from "../proof/types/Tree";
 import {TreeComponent} from "../../types/proofBoard";
+import {RuleKeyBoard} from "../keyboards/RuleKeyBoard";
+import {MarkKeyBoard} from "../keyboards/MarkKeyBoard";
 
 export function Board() {
     const {isEditable, components, drag, boardItems} = useSelector((state: GlobalState) => state.board)
@@ -19,14 +21,8 @@ export function Board() {
     const touchSensor = useSensor(TouchSensor);
     const sensors = useSensors(mouseSensor, touchSensor,);
 
-    return (
-        <DndContext
-            onDragStart={handleDragStart}
-            onDragEnd={handleDragEnd}
-            collisionDetection={collisionAlgorithm}
-            autoScroll={true}
-            sensors={sensors}
-        >
+    function getDndContext() {
+        return <>
             <div id={"board"} className={"board"}>
                 {Object.values(boardItems).map((item) => {
                     return (<Tree key={item} {...components[item] as TreeComponent} />);
@@ -37,13 +33,31 @@ export function Board() {
                         <Tree {...drag} />
                     </DragOverlay>
                 }
-
             </div>
             <SideBar/>
             <StateControl/>
             <DeleteControl/>
-            <AuxKeyBoard/>
-        </DndContext>
+            <ExpKeyBoard/>
+            <RuleKeyBoard/>
+            <MarkKeyBoard/>
+        </>;
+    }
+
+    return (
+        <>
+            {isEditable ? (
+                <DndContext
+                    onDragStart={handleDragStart}
+                    onDragEnd={handleDragEnd}
+                    collisionDetection={collisionAlgorithm}
+                    autoScroll={true}
+                    sensors={sensors}
+                >
+                    {getDndContext()}
+                </DndContext>
+            ) : (getDndContext())}
+        </>
+
 
     );
 

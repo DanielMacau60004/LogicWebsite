@@ -34,7 +34,15 @@ export function boardComponents(): TreePreviewComponent[] {
             [],
             {x: 700, y: 400}
         ),
-
+        createPreviewTree(
+            createPreviewExp("Likes(a, b)"),
+            createPreviewRule(""),
+            [
+                createPreviewExp(),
+            ],
+            [],
+            {x: 400, y: 200}
+        ),
     ];
 }
 

@@ -22,17 +22,16 @@ import {
 import {useDispatch, useSelector} from "react-redux";
 import {GlobalState} from "../../../../store";
 import {useEffect, useRef} from "react";
-import {DELETE_COMPONENT_ID, KeyActionMap} from "../../models/proofBoard";
+import {CLONE_COMPONENT_ID, DELETE_COMPONENT_ID, KeyActionMap} from "../../models/proofBoard";
 import {BoardAction, ComponentType, TreeComponent} from "../../types/proofBoard";
 import {RectMap} from "@dnd-kit/core/dist/store";
 import {Coordinates} from "@dnd-kit/core/dist/types";
-import {Components} from "../../models/proofComponents";
 
 const clickThreshold = 350;
 
 export function useBoard() {
     const dispatch: any = useDispatch()
-    const {components} = useSelector((state: GlobalState) => state.board)
+    const {isEditable, components} = useSelector((state: GlobalState) => state.board)
     const lastClickTime = useRef<number>(0);
 
     function handleKeyPress(event: KeyboardEvent) {
@@ -54,39 +53,53 @@ export function useBoard() {
     }
 
     function handleDragStart(event: DragStartEvent) {
+        if(!isEditable) return
+
         let id = Number(event.active.id);
         let component = components[id];
+        let dragging = undefined
 
         if(component.type === ComponentType.TREE)
-            dispatch(selectDraggingComponent(component as TreeComponent))
+            dragging = component as TreeComponent
 
-        const targetId = Number((event.activatorEvent.target as HTMLElement)?.id);
-        if (!isNaN(targetId) && targetId in components) {
-            id = targetId;
+        const targetId = (event.activatorEvent.target as HTMLElement).closest('.proof-component')?.id;
+
+        if(dragging && targetId === DELETE_COMPONENT_ID) {
+            dispatch(selectComponent(dragging))
+            dispatch(deleteComponent())
+            return;
+        }else if(dragging && targetId === CLONE_COMPONENT_ID) {
+            dispatch(selectComponent(dragging))
+            dispatch(copy())
+            dispatch(paste())
+            return;
+        } else if (!isNaN(Number(targetId)) && Number(targetId) in components) {
+            id = Number(targetId);
             component = components[id];
         }
 
-        //Set the conclusion as the default element to be active
-        if(component.type === ComponentType.TREE) {
-            component = components[Number(component.conclusion)]
-        }
-
         dispatch(selectComponent(component))
-
-        //TODO double click event handler
         const currentTime = Date.now()
         if (currentTime - lastClickTime.current <= clickThreshold) {
             dispatch(selectEditingComponent(component))
-
-            console.log("DOUBLE CLICKED ON " + component.type)
-            if (component.type === ComponentType.EXP && component.value)
+            dispatch(selectComponent(undefined))
+            if (component.type === ComponentType.EXP)
                 dispatch(setEditable(false))
         }
 
+        if(component.type === ComponentType.RULE || component.type === ComponentType.MARK) {
+            dispatch(selectEditingComponent(component))
+            dispatch(selectComponent(undefined))
+            dragging = undefined
+        }
+
         lastClickTime.current = currentTime;
+        dispatch(selectDraggingComponent(dragging))
     }
 
     function handleDragEnd(event: DragEndEvent) {
+        if(!isEditable) return
+
         const {over, delta} = event
 
         if (over?.id === DELETE_COMPONENT_ID) dispatch(deleteComponent())

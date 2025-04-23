@@ -1,0 +1,131 @@
+@import "../../../../style/variables";
+
+@mixin center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+}
+
+.proof-component {
+  display: inline-block;
+  text-align: center;
+  z-index: 10;
+  font-weight: bold;
+  font-size: 14px;
+  vertical-align: bottom;
+
+  &.active {
+    z-index: 100
+  }
+
+}
+
+.proof-tree {
+  background-color: var(--color-1);
+  border-radius: 10px;
+  outline: none;
+  cursor: move !important;
+
+  &.root {
+    display: inline-block;
+    padding: 16px;
+  }
+
+  > .proof-properties {
+    position: absolute;
+    top: -20px;
+    right: -40px;
+    cursor: default;
+    background-color: red;
+    padding: 5px 15px;
+    border-radius: 10px;
+    box-shadow: var(--light-shadow);
+    transition: box-shadow 0.5s ease;
+  }
+
+}
+
+.proof-hypothesis {
+  white-space: nowrap;
+}
+
+.proof-hypothesis > .proof-component {
+  margin-bottom: -6px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+@keyframes highlightPulse {
+  0% {
+    background-color: var(--color-6);
+    transform: scale(1.1);
+  }
+  50% {
+    background-color: var(--color-2);
+    transform: scale(1);
+  }
+  100% {
+    background-color: var(--color-6);
+    transform: scale(1.1);
+  }
+}
+
+.proof-exp {
+  min-width: 40px;
+  height: 25px;
+  border-radius: 13px;
+  background-color: var(--color-4);
+  color: var(--text-color);
+  cursor: grab !important;
+
+  > .proof-component-content {
+    @include center-content;
+    padding: 0 10px;
+  }
+
+  .proof-exp-input {
+    border: unset;
+    text-align: center;
+    width: auto !important;
+  }
+
+  &.highlight {
+    animation: highlightPulse 1s ease-in-out infinite;
+    color: var(--text-color);
+  }
+
+  &.highlight-hover {
+    animation: unset;
+    transform: scale(1.2);
+    background-color: var(--color-6) !important;
+  }
+
+}
+
+.proof-rule {
+  border-radius: 5px;
+  width: 30px;
+  height: 25px;
+  background-color: var(--color-5);
+  color: var(--text-color);
+  cursor: pointer;
+
+  > .proof-component-content {
+    @include center-content;
+  }
+}
+
+.proof-mark {
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  background-color: var(--color-5);
+  color: var(--text-color);
+  cursor: pointer;
+
+  > .proof-component-content {
+    @include center-content;
+  }
+}

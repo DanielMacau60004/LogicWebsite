@@ -6,6 +6,7 @@ import {useSelector} from "react-redux";
 import {GlobalState} from "../../../../../store";
 import {Components} from "../../../models/proofComponents";
 import {deepCopy} from "../../../../../utils/general";
+import { MathJax, MathJaxContext } from "better-react-mathjax";
 
 export function Exp({ exp }: { exp: ExpComponent }) {
     const {id, isSelected, ref, onBlur, onChange, value} = useExp({exp})
@@ -16,18 +17,24 @@ export function Exp({ exp }: { exp: ExpComponent }) {
         style?: React.CSSProperties;
     } = (args) => {
 
+        const canDrag = Components.canDrop(state, state.active, exp) || (state.active && state.active.id === exp.id)
+        const className = [
+            args.className,
+            canDrag ? "highlight" : "",
+            canDrag && args.droppable.isOver ? "highlight-hover" : ""
+        ].join(" ").trim();
+
         return {
-            className: args.className,
-            style: {
-                ...args.style,
-                ...(Components.canDrop(state, state.active, exp) && { backgroundColor:"red" })
-            }
+            className: className,
+            style: args.style
         };
     };
 
+
     return (
-        <Droppable id={id} className={`proof-component proof-exp`} onRender={onRender}>
-            <div id={id} className={"proof-component-content"}>
+
+        <Droppable id={String(exp.id)} className={`proof-component proof-exp`} onRender={onRender}>
+            <div className={"proof-component-content"}>
                 {isSelected ?
                     <input
                         id={"input-expression"}
@@ -44,7 +51,7 @@ export function Exp({ exp }: { exp: ExpComponent }) {
                         aria-autocomplete="none"
                         maxLength={50}
                     />
-                    : value
+                    :  value
                 }
             </div>
         </Droppable>

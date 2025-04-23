@@ -4,7 +4,7 @@ import {GlobalState} from "../../../../store";
 import {forceInputChange} from "../../../../utils/general";
 import {ComponentType} from "../../types/proofBoard";
 
-export function useAuxBoard() {
+export function useExpBoard() {
     const ref = useRef<HTMLDivElement | null>(null);
     const {components, editing} = useSelector((state: GlobalState) => state.board)
     const target = document.getElementById(String(editing?.id)) as HTMLElement

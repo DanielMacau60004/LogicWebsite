@@ -1,8 +1,8 @@
-import {GREEK_LETTERS, GROUPING_SYMBOLS, KEYBOARD_COMPONENT_ID, LOGICAL_SYMBOLS} from "../../models/proofBoard";
-import "./AuxKeyBoard.scss"
+import {GREEK_LETTERS, GROUPING_SYMBOLS, EXP_KEYBOARD_COMPONENT_ID, LOGICAL_SYMBOLS} from "../../models/proofBoard";
+import "./KeyBoards.scss"
 import {Overlay, Popover} from "react-bootstrap";
 import React from "react";
-import {useAuxBoard} from "./useAuxKeyBoard";
+import {useExpBoard} from "./useExpKeyBoard";
 
 function renderKeyButtons(
     symbols: string[],
@@ -12,7 +12,7 @@ function renderKeyButtons(
 
     return symbols.map((symbol) => (
         <button
-            id={"keyboard-key"}
+            id={EXP_KEYBOARD_COMPONENT_ID+"-key"}
             key={symbol}
             className={className}
             onClick={() => onKeyClick(symbol)}
@@ -22,11 +22,11 @@ function renderKeyButtons(
     ));
 }
 
-export function AuxKeyBoard() {
-    const {ref, target, show, style, onKeyClick} = useAuxBoard()
+export function ExpKeyBoard() {
+    const {ref, target, show, style, onKeyClick} = useExpBoard()
 
     return (
-        <div id={KEYBOARD_COMPONENT_ID} tabIndex={-1} ref={ref} style={style}>
+        <div id={EXP_KEYBOARD_COMPONENT_ID} tabIndex={-1} ref={ref} style={style}>
 
             <Overlay
                 show={show}
@@ -37,10 +37,10 @@ export function AuxKeyBoard() {
             >
                 <Popover id="popover-contained" className="aux-keyboard">
 
-                    <div className="aux-keyboard-content">
+                    <div className="aux-keyboard-content inline">
                         {renderKeyButtons(LOGICAL_SYMBOLS, "key", onKeyClick)}
                     </div>
-                    <div className="aux-keyboard-content">
+                    <div className="aux-keyboard-content inline">
                         {renderKeyButtons(GREEK_LETTERS, "key", onKeyClick)}
                         {renderKeyButtons(GROUPING_SYMBOLS, "key large", onKeyClick)}
                     </div>

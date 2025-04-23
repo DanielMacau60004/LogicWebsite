@@ -28,6 +28,7 @@ export function Droppable({
         onRender
     }: DroppableProps) {
 
+
     const droppable = useDroppable({id, disabled});
 
     const {className: renderClassName, style: renderStyle} = onRender

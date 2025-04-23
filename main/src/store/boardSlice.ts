@@ -15,9 +15,9 @@ const MAX_HISTORY_DEPTH = 20;
 export function cloneState(state: Board): Omit<Board, 'redoStack' | 'undoStack' | 'sideBarItems'> {
     return {
         currentId: state.currentId,
-        active: state.active ? deepCopy(state.active) : undefined,
-        drag: state.drag ? deepCopy(state.drag) : undefined,
-        copy: state.copy ? deepCopy(state.copy) : undefined,
+        active: undefined,
+        drag: undefined,
+        copy: undefined,
         isEditable: true,
         editing: undefined,
         boardItems: deepCopy(state.boardItems),
@@ -119,9 +119,11 @@ const slice = createSlice({
         setEditable: (state, action: PayloadAction<boolean>) => {
             state.isEditable = action.payload
         },
-        updateComponent: (state, action: PayloadAction<Component>) => {
-            saveStateForUndo(state);
-            const component = action.payload
+        updateComponent: (state, action: PayloadAction<{ component: Component, saveState: boolean }>) => {
+            const {component, saveState} = action.payload
+
+            if (saveState)
+                saveStateForUndo(state);
             state.components[component.id] = component
             state.editing = component
         },
@@ -147,6 +149,7 @@ const slice = createSlice({
             if (!state.isEditable) return
 
             const {over, position} = action.payload;
+            const drag = state.drag;
             const active = state.active;
 
             //Check if the movement is big enough to trigger the drag event
@@ -154,7 +157,7 @@ const slice = createSlice({
                 return
 
             //Check if an expression is selected
-            if (active === undefined)
+            if (active === undefined || drag === undefined)
                 return
 
             let dragging = state.components[active.id];
@@ -165,7 +168,7 @@ const slice = createSlice({
                 dragInsideComponents(state, dragging, dropping)
             } else {
                 saveStateForUndo(state);
-                dragOutsideComponent(state, position, state.components[state.drag!!.id] as TreeComponent)
+                dragOutsideComponent(state, position, state.components[drag!!.id] as TreeComponent)
             }
 
             state.active = undefined

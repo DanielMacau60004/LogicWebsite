@@ -1,7 +1,7 @@
 import {
     Board,
     BoardAction, Component,
-    ComponentType, MarkComponent,
+    ComponentType,
     Position,
     PreviewComponent,
     PreviewMarkComponent, TreeComponent,
@@ -10,11 +10,16 @@ import {
 import {boardComponents} from "../boardInit";
 export const BOARD_COMPONENT_ID = "board"
 export const DELETE_COMPONENT_ID = "delete"
-export const KEYBOARD_COMPONENT_ID = "keyboard"
+export const CLONE_COMPONENT_ID = "clone"
+export const EXP_KEYBOARD_COMPONENT_ID = "exp-keyboard"
+export const RULE_KEYBOARD_COMPONENT_ID = "rule-keyboard"
+export const MARK_KEYBOARD_COMPONENT_ID = "mark-keyboard"
 
 export const LOGICAL_SYMBOLS: string[] = ['⊥', '⊤', '¬', '∧', '∨', '→', '∀', '∃'];
 export const GROUPING_SYMBOLS: string[] = ['(', ')'];
 export const GREEK_LETTERS: string[] = ['α', 'β', 'γ', 'δ', 'φ', 'ψ'];
+export const RULE_SYMBOLS = ["⊥", "∧I", "∧El", "∧Er", "∨Il", "∨E", "∨Ir", "→I", "→E", "¬I", "¬E", "∀I", "∀E", "∃I", "∃E"];
+export const MARKS_SYMBOLS = Array.from({ length: 20 }, (_, i) => (i + 1).toString());
 
 export const KeyActionMap: Map<string, BoardAction> = new Map([
     ['Backspace', BoardAction.Delete],
@@ -96,8 +101,7 @@ export function duplicateComponent(state: Board, component: Component, parent?: 
 
             break;
         default:
-            component.parent = parent
-            state.components[id] = {...component, id}
+            state.components[id] = {...component, id, parent}
             break;
     }
 
