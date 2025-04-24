@@ -5,12 +5,13 @@ import {
     createPreviewRule,
     createPreviewTree
 } from "./models/proofComponents";
+import {RULE} from "./types/proofRules";
 
 export function boardComponents(): TreePreviewComponent[] {
     return [
         createPreviewTree(
             createPreviewExp("Likes(a, b)"),
-            createPreviewRule("r1"),
+            createPreviewRule(RULE.AND_ELIM_LEFT),
             [
                 createPreviewTree(
                     createPreviewExp("∃y (Likes(x, y))"),
@@ -26,7 +27,7 @@ export function boardComponents(): TreePreviewComponent[] {
         ),
         createPreviewTree(
             createPreviewExp("Likes(a, b)"),
-            createPreviewRule("r2"),
+            createPreviewRule(RULE.AND_ELIM_LEFT),
             [
                 createPreviewExp(),
                 createPreviewExp("a")
@@ -36,12 +37,12 @@ export function boardComponents(): TreePreviewComponent[] {
         ),
         createPreviewTree(
             createPreviewExp("Likes(a, b)"),
-            createPreviewRule(""),
+            createPreviewRule(RULE.FORALL_ELIM),
             [
                 createPreviewExp(),
             ],
             [],
-            {x: 400, y: 200}
+            {x: 100, y: 200}
         ),
     ];
 }

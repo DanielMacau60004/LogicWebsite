@@ -19,7 +19,7 @@ export function useMarkBoard() {
         const currentInput = document.getElementById(String(editing?.id)) as HTMLInputElement;
 
         if (currentInput && editing) {
-            dispatch(updateComponent({component: {...components[editing.id], value: char}, saveState: false}));
+            dispatch(updateComponent({component: {...components[editing.id], value: char}, saveState: true}));
             dispatch(selectEditingComponent(undefined));
         }
 

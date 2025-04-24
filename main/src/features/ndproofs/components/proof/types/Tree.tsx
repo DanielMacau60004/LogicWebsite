@@ -9,14 +9,16 @@ import {Rule} from "./Rule";
 import "../Types.scss"
 import {CLONE_COMPONENT_ID, DELETE_COMPONENT_ID} from "../../../models/proofBoard";
 import {Components} from "../../../models/proofComponents";
-import {FaCheck, FaClone, FaQuestion, FaTrash} from "react-icons/fa";
+import {FaClone, FaQuestion, FaTrash} from "react-icons/fa";
 
 export function Tree(tree: TreeComponent) {
     const state = useSelector((state: GlobalState) => state.board)
-    const {components, drag, active} = useSelector((state: GlobalState) => state.board)
+    const {components, drag, active, editing} = useSelector((state: GlobalState) => state.board)
     const {conclusion, hypotheses, rule, marks} = tree
 
     const {id, position} = tree
+    const isActive = (active && Components.getLastParent(state, active).id === tree.id) ||(
+        editing && Components.getLastParent(state, editing).id === tree.id)
 
     const onRender: (args: DraggableRender) => {
         className?: string;
@@ -26,7 +28,7 @@ export function Tree(tree: TreeComponent) {
             className: `${tree.className || ''} ${args.className || ''}`,
             style: {
                 ...args.style,
-                ...(active?.id === tree.id && {zIndex: 1000}),
+                ...(isActive && {zIndex: 1000}),
                 ...(args.draggable.active?.id === tree.id && {opacity: 100}),
                 ...(args.draggable.isDragging && !tree.parent && drag && {opacity: 0}),
                 transform: `translate(${position?.x ?? 0}px, ${position?.y ?? 0}px)`

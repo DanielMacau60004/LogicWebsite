@@ -33,6 +33,10 @@ export function Board() {
                         <Tree {...drag} />
                     </DragOverlay>
                 }
+
+                <div style={{backgroundColor: "red", position:"absolute", bottom: 0, left:0}}>
+                    {Object.keys(components).length}
+                </div>
             </div>
             <SideBar/>
             <StateControl/>

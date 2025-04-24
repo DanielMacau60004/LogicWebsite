@@ -8,12 +8,13 @@ import {
     PreviewRuleComponent,
     TreePreviewComponent
 } from "../types/proofBoard";
+import {RULE} from "../types/proofRules";
 
 export function createPreviewExp(value?: string): PreviewExpComponent {
     return {type: ComponentType.EXP, value: value};
 }
 
-export function createPreviewRule(value?: string): PreviewRuleComponent {
+export function createPreviewRule(value?: RULE): PreviewRuleComponent {
     return {type: ComponentType.RULE, value: value};
 }
 
@@ -66,13 +67,13 @@ export const Components = {
     canDrop(board: Board, dragging?: Component, dropping?: Component): boolean {
         if (!dragging || !dropping) return false;
 
-        const hasTheCorrectTypes = dragging.type === dropping.type && dragging.type === ComponentType.EXP
+        const hasTheCorrectType = dragging.type === dropping.type && dragging.type === ComponentType.EXP
 
         const isValidDirection =
             (this.isConclusion(board, dropping) &&
                 this.isLeaf(board, dragging) &&
                 this.getLastParent(board, dragging).id !== dropping.parent &&
-                this.getLastParent(board, dropping).id === dropping.parent) ||
+                this.getLastParent(board, dropping).id === dropping.parent)||
             (this.isConclusion(board, dragging) &&
                 this.isLeaf(board, dropping));
 
@@ -81,7 +82,7 @@ export const Components = {
         const hasSameContent = (dropping.value === undefined || dropping.value === dragging.value) ||
             (dragging.value === undefined || dragging.value === dropping.value)
 
-        return hasTheCorrectTypes && isValidDirection && noParentConflict && hasSameContent;
+        return hasTheCorrectType && isValidDirection && noParentConflict && hasSameContent;
     }
 };
 

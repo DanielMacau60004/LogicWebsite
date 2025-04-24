@@ -1,3 +1,4 @@
+import {RULE} from "./proofRules";
 
 export interface Board {
     currentId: number;
@@ -49,7 +50,7 @@ export interface PreviewMarkComponent extends PreviewComponent {
 }
 
 export interface PreviewRuleComponent extends PreviewComponent {
-    value: string | undefined;
+    value: RULE | undefined;
     type: ComponentType.RULE;
 }
 
@@ -77,7 +78,7 @@ export interface MarkComponent extends Component {
 }
 
 export interface RuleComponent extends Component {
-    value?: string;
+    value?: RULE;
     type: ComponentType.RULE;
 }
 
