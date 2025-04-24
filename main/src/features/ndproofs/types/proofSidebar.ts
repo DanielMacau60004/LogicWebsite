@@ -1,13 +1,13 @@
-import {TreeComponent, TreePreviewComponent} from "./proofBoard";
+import {TreeComponent, PreviewTreeComponent} from "./proofBoard";
 
 export interface SideBarCreatorComponent {
     name?: string,
-    list: TreePreviewComponent[]
+    list: PreviewTreeComponent[]
 }
 
 export interface SideBarCreatorComponentList {
     name: string;
-    icon: TreePreviewComponent;//JSX.Element;
+    icon: PreviewTreeComponent;//JSX.Element;
     values: SideBarCreatorComponent[];
 }
 

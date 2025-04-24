@@ -1,12 +1,15 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {deepCopy} from "../utils/general";
-import {Board, Component, ComponentType, Position, TreeComponent} from "../features/ndproofs/types/proofBoard";
 import {
-    computeBoardCoordinates,
-    computeRelativeCoordinates,
-    duplicateComponent,
-    proofBoard,
-} from "../features/ndproofs/models/proofBoard";
+    Board,
+    Component,
+    ComponentType,
+    Position,
+    RuleComponent,
+    TreeComponent,
+    PreviewTreeComponent, PreviewMarkComponent
+} from "../features/ndproofs/types/proofBoard";
+import {Boards, proofBoard,} from "../features/ndproofs/models/proofBoard";
 import {Components} from "../features/ndproofs/models/proofComponents";
 
 const MOVEMENT_THRESHOLD = 10;
@@ -32,84 +35,34 @@ function saveStateForUndo(state: Board) {
     state.redoStack = [];
 }
 
-function dragInsideComponents(state: Board, elem1: Component, elem2: Component) {
-    const isDroppingConclusion = Components.isConclusion(state, elem2);
-    const dragging = !isDroppingConclusion ? state.components[elem1.parent!!] : state.components[elem2.parent!!]
-    const dropping = isDroppingConclusion ? state.components[elem1.id] : state.components[elem2.id]
-
-    const parentDragging = Components.getLastParent(state, dropping)
-    const parentDropping = Components.getLastParent(state, dragging)
-
-    const pDragging = state.components[dragging.parent!!]
-    const pDropping = state.components[dropping.parent!!]
-
-    state.components[dragging.id].parent = pDropping.id
-    state.components[dropping.id].parent = pDragging?.id
-
-    const dragIndex = pDragging?.hypotheses.indexOf(dragging.id)
-    const dropIndex = pDropping?.hypotheses.indexOf(dropping.id)
-
-    if (dropIndex !== undefined) pDropping.hypotheses[dropIndex] = dragging.id
-    else pDropping.conclusion = dragging.id
-
-    if (pDragging) {
-        if (dragIndex !== undefined) pDragging.hypotheses[dragIndex] = dropping.id
-        else pDragging.conclusion = dropping.id
-    } else {
-        delete state.boardItems[dragging.id];
-        delete state.components[dropping.id];
-    }
-
-    //Fix position
-    if (isDroppingConclusion) {
-        parentDragging.position = {...parentDropping.position}
-        parentDropping.position = undefined
-    } else {
-        state.components[dragging.id].position = undefined
-        if (state.components[dropping.id])
-            state.components[dropping.id].position = undefined
-    }
-
-    state.active = dragging
-
-}
-
-//Drop an element out of other
-function dragOutsideComponent(state: Board, position: Position, dragging: TreeComponent) {
-    let element = dragging;
-
-    if (dragging.parent !== undefined) {
-        const newID = state.currentId++;
-        const element = Components.reset(dragging)
-        element.id = newID;
-        state.components[newID] = element;
-
-        const pDragging = state.components[dragging.parent]
-        const dragIndex = pDragging?.hypotheses.indexOf(dragging.id)
-
-        if (dragIndex !== undefined) pDragging.hypotheses[dragIndex] = element.id
-        else pDragging.conclusion = element.id
-
-        state.boardItems[dragging.id] = dragging.id;
-        dragging.parent = undefined;
-        dragging.position = computeRelativeCoordinates(dragging.id)
-        console.log(deepCopy(element))
-    }
-
-    if (element.position) {
-        element.position.x += position.x;
-        element.position.y += position.y;
-
-    } else
-        element.position = {...position};
-
-    state.active = element
-}
-
 const slice = createSlice({
     name: 'board',
     initialState: proofBoard(),
     reducers: {
+        appendTree: (state, action: PayloadAction<PreviewTreeComponent>) => {
+            const newID = Boards.appendComponent(state, action.payload);
+            const newTree = state.components[newID]
+
+            if (!state.active || !state.active.parent) return
+            saveStateForUndo(state);
+
+            const currentParent = state.components[state.active.parent]
+            if (!Components.isASimpleTree(currentParent)) {
+                const index = currentParent?.hypotheses?.indexOf(state.active.id)
+                currentParent.hypotheses[index] = newID
+                newTree.parent = currentParent.id
+
+                delete state.components[state.active.id]
+            } else {
+                state.boardItems[newID] = newID
+                newTree.position = currentParent.position
+
+                Boards.deleteEntireComponent(state, currentParent)
+                delete state.boardItems[currentParent.id]
+            }
+
+            state.active = undefined
+        },
         selectComponent: (state, action: PayloadAction<Component | undefined>) => {
             state.active = action.payload;
         },
@@ -127,6 +80,10 @@ const slice = createSlice({
 
             if (saveState)
                 saveStateForUndo(state);
+
+            if (component.type === ComponentType.RULE)
+                Boards.updateRule(state, component as RuleComponent)
+
             state.components[component.id] = component
             state.editing = component
         },
@@ -136,6 +93,7 @@ const slice = createSlice({
             const active = state.active;
             if (active) {
                 saveStateForUndo(state);
+                Boards.deleteEntireComponent(state, active)
 
                 if (active.parent) {
                     state.components[active.id] = Components.reset(active)
@@ -168,10 +126,10 @@ const slice = createSlice({
 
             if (Components.canDrop(state, dragging, dropping)) {
                 saveStateForUndo(state);
-                dragInsideComponents(state, dragging, dropping)
+                Boards.dragInsideComponents(state, dragging, dropping)
             } else {
                 saveStateForUndo(state);
-                dragOutsideComponent(state, position, state.components[drag!!.id] as TreeComponent)
+                Boards.dragOutsideComponent(state, position, state.components[drag!!.id] as TreeComponent)
             }
 
             //state.active = undefined
@@ -197,14 +155,16 @@ const slice = createSlice({
             if (state.copy && state.copy in state.components) {
                 saveStateForUndo(state);
 
-                const newID = duplicateComponent(state, state.components[state.copy])
+                const newID = Boards.duplicateComponent(state, state.components[state.copy])
                 let newComponent = state.components[newID]
 
-                //TODO change to the mouse pointer
                 const previous = document.getElementById(String(state.copy))
                 if (previous) {
                     const boundingBox = previous.getBoundingClientRect()
-                    newComponent.position = computeBoardCoordinates({x: boundingBox.x + 20, y: boundingBox.y + 20})
+                    newComponent.position = Boards.computeBoardCoordinates({
+                        x: boundingBox.x + 20,
+                        y: boundingBox.y + 20
+                    })
                     state.boardItems[newID] = newID
                     state.active = newComponent
                 }
@@ -234,6 +194,7 @@ const slice = createSlice({
 });
 
 export const {
+    appendTree,
     selectComponent,
     selectDraggingComponent,
     selectEditingComponent,

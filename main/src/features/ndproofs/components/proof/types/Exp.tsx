@@ -1,11 +1,14 @@
 import {useExp} from "../useExp";
 import {Droppable, DroppableRender} from "../../../../../components/Droppable";
-import {ComponentType, ExpComponent} from "../../../types/proofBoard";
+import {ComponentType, ExpComponent, MarkComponent} from "../../../types/proofBoard";
 import React from "react";
 import {useSelector} from "react-redux";
 import {GlobalState} from "../../../../../store";
 import {Components} from "../../../models/proofComponents";
 import {Mark} from "./Mark";
+import {Rule} from "./Rule";
+import {APPEND_MARK_COMPONENT_ID, APPEND_RULE_COMPONENT_ID} from "../../../models/proofBoard";
+import {deepCopy} from "../../../../../utils/general";
 
 export function Exp({exp}: { exp: ExpComponent }) {
     const {id, isSelected, ref, onBlur, onChange, value} = useExp({exp})
@@ -29,12 +32,32 @@ export function Exp({exp}: { exp: ExpComponent }) {
         };
     };
 
+    /*const show = state.active && state.active.id === Components.getLastParent(state, exp).id
+        && Components.isLeaf(state, exp) && state.drag === undefined*/
+    const show = state.drag === undefined && Components.isLeaf(state, exp) &&
+        ((state.active !== undefined && state.active.id === exp.id)
+        || (state.editing && exp.mark && state.editing.id === exp.mark)) &&
+        (exp.mark === undefined || state.components[exp.mark].value === undefined)
 
     return (
 
         <Droppable id={String(exp.id)} className={`proof-component proof-exp`} onRender={onRender}>
+            {show && <>
+                <div className={`rule-adder`}>
+                    <Rule rule={{id: APPEND_RULE_COMPONENT_ID, type: ComponentType.RULE}}/>
+                </div>
+                <div className={`mark-adder`}>
+                    {exp.mark && <Mark mark={state.components[exp.mark] as MarkComponent}/>}
+                </div>
+            </>
+            }
+            {exp.mark && state.components[exp.mark].value &&
+                <div className={`mark-adder`}>
+                    <Mark mark={state.components[exp.mark] as MarkComponent}/>
+                </div>
+            }
+
             <div className={"proof-component-content"}>
-                {Components.isLeaf(state, exp) && <Mark mark={{id: -1, type: ComponentType.MARK}}/>}
                 {isSelected ?
                     <input
                         id={"input-expression"}
@@ -55,5 +78,6 @@ export function Exp({exp}: { exp: ExpComponent }) {
                 }
             </div>
         </Droppable>
+
     );
 }

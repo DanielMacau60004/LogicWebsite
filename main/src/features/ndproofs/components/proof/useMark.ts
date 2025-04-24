@@ -26,6 +26,7 @@ export function useMark({mark}: { mark: MarkComponent }) {
     }, [components, dispatch, editing?.id, mark.id]);
 
     const onBlur = (event: React.FocusEvent<HTMLDivElement>) => {
+        console.log("BLUR")
         if (ref.current && event.relatedTarget &&
             (event.relatedTarget as HTMLElement)?.id.includes(MARK_KEYBOARD_COMPONENT_ID)) {
             event.preventDefault();
@@ -34,8 +35,9 @@ export function useMark({mark}: { mark: MarkComponent }) {
             return;
         }
 
-        if (editing === undefined || editing.id === mark.id)
+        if (editing === undefined || editing.id === mark.id) {
             dispatch(selectEditingComponent(undefined));
+        }
     };
 
     return {id, ref, onBlur}

@@ -1,8 +1,10 @@
 import React, {useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {GlobalState} from "../../../../store";
-import {ComponentType} from "../../types/proofBoard";
+import {ComponentType, TreeComponent} from "../../types/proofBoard";
 import {selectEditingComponent, updateComponent} from "../../../../store/boardSlice";
+import {Boards} from "../../models/proofBoard";
+import {RULE} from "../../types/proofRules";
 
 export function useRuleBoard() {
     const dispatch: any = useDispatch()
@@ -12,13 +14,13 @@ export function useRuleBoard() {
     const show = editing !== undefined && editing.type === ComponentType.RULE
     const style: React.CSSProperties = {position: show ? 'absolute' : 'fixed'};
 
-    const onKeyClick = (char: string) => {
+    const onKeyClick = (char: RULE) => {
         if (!show) return
 
         const currentInput = document.getElementById(String(editing?.id)) as HTMLInputElement;
 
         if (currentInput && editing) {
-            dispatch(updateComponent({component: {...components[editing.id], value: char}, saveState: false}));
+            dispatch(updateComponent({component: {...components[editing.id], value: char}, saveState: true}));
             dispatch(selectEditingComponent(undefined));
         }
 

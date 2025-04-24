@@ -1,16 +1,16 @@
 import {
-    EXP_KEYBOARD_COMPONENT_ID,
-    RULE_KEYBOARD_COMPONENT_ID, RULE_SYMBOLS
+    RULE_KEYBOARD_COMPONENT_ID
 } from "../../models/proofBoard";
 import "./KeyBoards.scss"
 import {Overlay, Popover} from "react-bootstrap";
 import React from "react";
 import {useRuleBoard} from "./useRuleKeyBoard";
+import {RULE} from "../../types/proofRules";
 
 function renderKeyButtons(
-    symbols: string[],
+    symbols: RULE[],
     className: string,
-    onKeyClick: (char: string) => void
+    onKeyClick: (char: RULE) => void
 ) {
 
     return symbols.map((symbol) => (
@@ -39,9 +39,8 @@ export function RuleKeyBoard() {
                 offset={[0,10]}
             >
                 <Popover id="popover-contained" className="aux-keyboard">
-
                     <div className="aux-keyboard-content scrollable">
-                        {renderKeyButtons(RULE_SYMBOLS, "key large", onKeyClick)}
+                        {renderKeyButtons(Object.values(RULE), "key large", onKeyClick)}
                     </div>
                 </Popover>
             </Overlay>

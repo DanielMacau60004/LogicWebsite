@@ -9,14 +9,16 @@ import {Rule} from "./Rule";
 import "../Types.scss"
 import {CLONE_COMPONENT_ID, DELETE_COMPONENT_ID} from "../../../models/proofBoard";
 import {Components} from "../../../models/proofComponents";
-import {FaCheck, FaClone, FaQuestion, FaTrash} from "react-icons/fa";
+import {FaClone, FaQuestion, FaTrash} from "react-icons/fa";
 
 export function Tree(tree: TreeComponent) {
     const state = useSelector((state: GlobalState) => state.board)
-    const {components, drag, active} = useSelector((state: GlobalState) => state.board)
+    const {components, drag, active, editing} = useSelector((state: GlobalState) => state.board)
     const {conclusion, hypotheses, rule, marks} = tree
 
     const {id, position} = tree
+    const isActive = (active && Components.getLastParent(state, active).id === tree.id) ||(
+        editing && Components.getLastParent(state, editing).id === tree.id)
 
     const onRender: (args: DraggableRender) => {
         className?: string;
@@ -26,7 +28,7 @@ export function Tree(tree: TreeComponent) {
             className: `${tree.className || ''} ${args.className || ''}`,
             style: {
                 ...args.style,
-                ...(active?.id === tree.id && {zIndex: 1000}),
+                ...(isActive && {zIndex: 100}),
                 ...(args.draggable.active?.id === tree.id && {opacity: 100}),
                 ...(args.draggable.isDragging && !tree.parent && drag && {opacity: 0}),
                 transform: `translate(${position?.x ?? 0}px, ${position?.y ?? 0}px)`
@@ -47,7 +49,6 @@ export function Tree(tree: TreeComponent) {
                     <div className={"proof-properties top-right"}>
                         <button id={DELETE_COMPONENT_ID} className={"proof-component"}><FaTrash size={20}/></button>
                         <button id={CLONE_COMPONENT_ID} className={"proof-component"}><FaClone size={20}/></button>
-                        <button className={"proof-component"}><FaQuestion size={20}/></button>
                     </div>
 
                     <div className={"proof-properties bottom-right"}>
@@ -57,6 +58,7 @@ export function Tree(tree: TreeComponent) {
             }
             <table>
                 <tbody>
+                { hypotheses &&
                 <tr>
                     <td className={"proof-hypothesis"}>
                         {hypotheses && hypotheses.map((number: any) => {
@@ -66,15 +68,17 @@ export function Tree(tree: TreeComponent) {
                         })}
                     </td>
                 </tr>
-                <tr>
+                }
+                {rule && marks && <tr>
                     <td>
                         <hr/>
                     </td>
                     <td><Rule rule={components[rule] as RuleComponent}/></td>
-                    {marks && marks.map((mark: number, index) => (
+                    { marks.map((mark: number, index) => (
                         <td key={index}><Mark mark={components[mark] as MarkComponent}/></td>
                     ))}
                 </tr>
+                }
                 <tr>
                     <td className={"proof-conclusion"}>
                         {conclusion && <Exp exp={components[conclusion] as ExpComponent}/>}

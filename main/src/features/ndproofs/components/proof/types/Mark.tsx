@@ -8,7 +8,7 @@ export function Mark({ mark }: { mark: MarkComponent }) {
         <div id={id} ref={ref} onBlur={onBlur} tabIndex={0}
              className={`proof-component proof-mark`}>
             <div className={"proof-component-content"}>
-                {mark.value}
+                {mark.value ? mark.value : "+"}
             </div>
         </div>
     )

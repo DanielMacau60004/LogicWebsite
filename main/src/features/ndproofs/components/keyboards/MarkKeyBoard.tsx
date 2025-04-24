@@ -23,7 +23,7 @@ function renderKeyButtons(
 }
 
 export function MarkKeyBoard() {
-    const {ref, target, show, style, onKeyClick} = useMarkBoard()
+    const {ref, target, show, style, onKeyClick, onDeleteClick, canDelete} = useMarkBoard()
 
     return (
         <div id={MARK_KEYBOARD_COMPONENT_ID} tabIndex={-1} ref={ref} style={style}>
@@ -37,6 +37,7 @@ export function MarkKeyBoard() {
             >
                 <Popover id="popover-contained" className="aux-keyboard">
                     <div className="aux-keyboard-content scrollable">
+                        {canDelete && renderKeyButtons(['x'], "key delete", onDeleteClick)}
                         {renderKeyButtons(MARKS_SYMBOLS, "key", onKeyClick)}
                     </div>
                 </Popover>

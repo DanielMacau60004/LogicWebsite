@@ -34,17 +34,29 @@
     margin: 2px;
     font-size: 14px;
     font-weight: bold;
+    cursor: pointer;
     @include center-content;
 
     &.large {
       width: 40px !important;
     }
+
+    &.delete {
+      background-color: red !important;
+
+      &:hover {
+        color: var(--text-color) !important;
+        background-color: red !important;
+      }
+    }
+
+
+    &:hover {
+      color: var(--text-color) !important;
+      background-color: var(--color-6) !important;
+    }
   }
 
-  .key:hover {
-    color: var(--text-color) !important;
-    background-color: var(--color-6) !important;
-  }
 }
 .aux-keyboard-content {
 

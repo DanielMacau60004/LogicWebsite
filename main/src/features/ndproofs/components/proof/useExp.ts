@@ -4,7 +4,7 @@ import {GlobalState} from "../../../../store";
 import {selectEditingComponent, setEditable, updateComponent} from "../../../../store/boardSlice";
 import {EXP_KEYBOARD_COMPONENT_ID} from "../../models/proofBoard";
 import {ExpComponent} from "../../types/proofBoard";
-import {forceInputChange} from "../../../../utils/general";
+import {deepCopy, forceInputChange} from "../../../../utils/general";
 
 export function useExp({ exp }: { exp: ExpComponent }) {
     const id =  String(exp.id)

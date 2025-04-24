@@ -8,6 +8,7 @@ import {
     rectIntersection
 } from "@dnd-kit/core";
 import {
+    appendTree,
     copy,
     deleteComponent,
     dragComponent,
@@ -22,11 +23,25 @@ import {
 import {useDispatch, useSelector} from "react-redux";
 import {GlobalState} from "../../../../store";
 import {useEffect, useRef} from "react";
-import {CLONE_COMPONENT_ID, DELETE_COMPONENT_ID, KeyActionMap} from "../../models/proofBoard";
+import {
+    APPEND_MARK_COMPONENT_ID,
+    APPEND_RULE_COMPONENT_ID,
+    Boards,
+    CLONE_COMPONENT_ID,
+    DELETE_COMPONENT_ID,
+    KeyActionMap
+} from "../../models/proofBoard";
 import {BoardAction, ComponentType, TreeComponent} from "../../types/proofBoard";
 import {RectMap} from "@dnd-kit/core/dist/store";
 import {Coordinates} from "@dnd-kit/core/dist/types";
-import {Components} from "../../models/proofComponents";
+import {
+    Components,
+    createPreviewExp,
+    createPreviewMark,
+    createPreviewRule,
+    createPreviewTree
+} from "../../models/proofComponents";
+import {deepCopy} from "../../../../utils/general";
 
 const clickThreshold = 350;
 
@@ -55,29 +70,40 @@ export function useBoard() {
     }
 
     function handleDragStart(event: DragStartEvent) {
-        if(!isEditable) return
+        if (!isEditable) return
 
         let id = Number(event.active.id);
         let component = components[id];
         let dragging = undefined
 
-        if(component.type === ComponentType.TREE)
+        if (component.type === ComponentType.TREE)
             dragging = component as TreeComponent
 
+        dispatch(selectEditingComponent(undefined))
         const targetId = (event.activatorEvent.target as HTMLElement).closest('.proof-component')?.id;
 
-        if(dragging && targetId === DELETE_COMPONENT_ID) {
+        if (state.active && targetId && targetId === String(APPEND_RULE_COMPONENT_ID)) {
+            dispatch(appendTree(createPreviewTree(createPreviewExp(state.active.value), createPreviewRule(), [createPreviewExp()], [])))
+            dispatch(selectComponent(undefined))
+            dragging = undefined
+            console.log("APPEND RULE")
+        }
+
+        if (dragging && targetId === DELETE_COMPONENT_ID) {
             dispatch(selectComponent(Components.getLastParent(state, dragging)))
             dispatch(deleteComponent())
+            console.log("DELETE")
             return;
-        }else if(dragging && targetId === CLONE_COMPONENT_ID) {
+        } else if (dragging && targetId === CLONE_COMPONENT_ID) {
             dispatch(selectComponent(Components.getLastParent(state, dragging)))
             dispatch(copy())
             dispatch(paste())
+            console.log("DUPLICATE")
             return;
         } else if (!isNaN(Number(targetId)) && Number(targetId) in components) {
             id = Number(targetId);
             component = components[id];
+            console.log("GENERAL COMPONENT")
         }
 
         dispatch(selectComponent(component))
@@ -85,18 +111,25 @@ export function useBoard() {
         if (currentTime - lastClickTime.current <= clickThreshold) {
             dispatch(selectEditingComponent(component))
             dispatch(selectComponent(undefined))
-            if (component.type === ComponentType.EXP)
+            console.log("DOUBLE CLICK")
+            if (component.type === ComponentType.EXP) {
                 dispatch(setEditable(false))
+                console.log("EDIT EXP")
+            }
+
         }
 
-        if(component.type === ComponentType.RULE || component.type === ComponentType.MARK) {
+        if (component.type === ComponentType.RULE || component.type === ComponentType.MARK) {
             dispatch(selectEditingComponent(component))
-            dispatch(selectComponent(undefined))
+            //dispatch(selectComponent(undefined))
             dragging = undefined
+            console.log("EDIT MARK | RULE")
         }
+
 
         lastClickTime.current = currentTime;
         dispatch(selectDraggingComponent(dragging))
+        console.log("##############")
     }
 
     function handleDragEnd(event: DragEndEvent) {

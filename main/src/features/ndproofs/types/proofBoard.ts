@@ -1,3 +1,4 @@
+import {RULE} from "./proofRules";
 
 export interface Board {
     currentId: number;
@@ -34,13 +35,13 @@ export enum ComponentType {
 
 export interface PreviewComponent {
     type: ComponentType;
-
     [key: string]: any;
 }
 
 export interface PreviewExpComponent extends PreviewComponent {
     value: string | undefined;
     type: ComponentType.EXP;
+    mark?: PreviewMarkComponent;
 }
 
 export interface PreviewMarkComponent extends PreviewComponent {
@@ -49,15 +50,15 @@ export interface PreviewMarkComponent extends PreviewComponent {
 }
 
 export interface PreviewRuleComponent extends PreviewComponent {
-    value: string | undefined;
+    value: RULE | undefined;
     type: ComponentType.RULE;
 }
 
-export interface TreePreviewComponent extends PreviewComponent {
+export interface PreviewTreeComponent extends PreviewComponent {
     conclusion: PreviewExpComponent,
-    marks: PreviewMarkComponent[],
-    rule: PreviewRuleComponent,
-    hypotheses: (PreviewExpComponent | TreePreviewComponent)[]
+    marks?: PreviewMarkComponent[],
+    rule?: PreviewRuleComponent,
+    hypotheses?: (PreviewExpComponent | PreviewTreeComponent)[]
     position?: Position
 }
 
@@ -69,6 +70,7 @@ export interface Component extends PreviewComponent {
 export interface ExpComponent extends Component {
     value?: string;
     type: ComponentType.EXP;
+    mark?: number;
 }
 
 export interface MarkComponent extends Component {
@@ -77,15 +79,15 @@ export interface MarkComponent extends Component {
 }
 
 export interface RuleComponent extends Component {
-    value?: string;
+    value?: RULE;
     type: ComponentType.RULE;
 }
 
 export interface TreeComponent extends Component {
     type: ComponentType.TREE;
     conclusion: number;
-    marks: number[];
-    rule: number;
-    hypotheses: number[];
+    marks?: number[];
+    rule?: number;
+    hypotheses?: number[];
     position?: Position;
 }
