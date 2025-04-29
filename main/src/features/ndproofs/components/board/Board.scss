@@ -1,0 +1,30 @@
+@import "../../../../style/variables";
+
+.board {
+  background-image: radial-gradient(circle, var(--color-5) 1px, transparent 1px);
+  background-size: 20px 20px;
+  background-color: var(--bg-color) !important;
+  height: 100vh;
+  position: relative;
+  width: auto;
+  overflow: auto;
+
+  > .proof-component {
+    position: absolute;
+    box-shadow: var(--light-shadow);
+    transition: box-shadow 0.5s ease;
+  }
+
+  >.proof-component:hover {
+    box-shadow: var(--strong-shadow);
+    transform: translateY(-2px);
+  }
+
+  .drag-overlay {
+    opacity: 0.4;
+    width: unset !important;
+    height: unset !important;
+    z-index: 1000 !important;
+  }
+
+}
