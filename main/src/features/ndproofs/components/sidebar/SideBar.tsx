@@ -6,7 +6,7 @@ import {SideBarComponent, SideBarComponentList} from "../../types/proofSidebar";
 import {GlobalState} from "../../../../store";
 import "./Sidebar.scss"
 import {TreeComponent} from "../../types/proofBoard";
-import {Tree} from "../proof/types/Tree";
+import {Tree} from "../proof/tree/Tree";
 
 export function SideBarItem({ name, list }: SideBarComponent) {
     const {components} = useSelector((state: GlobalState) => state.board);
@@ -15,7 +15,7 @@ export function SideBarItem({ name, list }: SideBarComponent) {
             {name && <h6>{name}</h6>}
             {list.map((component: TreeComponent, index) => (
                 <Dropdown.Item key={index}>
-                    <Tree {...components[component.id] as TreeComponent} />
+                    <Tree tree={components[component.id] as TreeComponent} />
                 </Dropdown.Item>
             ))}
         </>
@@ -53,7 +53,7 @@ export function SideBarItemList(
                     isActive ? 'sidebar-item-active' : ''
                 }`}
             >
-                <Tree {...components[icon.id] as TreeComponent} />
+                <Tree tree={components[icon.id] as TreeComponent} />
             </Dropdown.Toggle>
 
             <Dropdown.Menu className="sidebar-item-content">

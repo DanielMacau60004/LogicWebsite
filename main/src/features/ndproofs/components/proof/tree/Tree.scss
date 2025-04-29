@@ -1,0 +1,61 @@
+@import "../../../../../style/variables";
+@import "../Proof";
+
+.proof-tree {
+  background-color: var(--color-1);
+  border-radius: 10px;
+  outline: none;
+  cursor: move !important;
+
+  &.root {
+    display: inline-block;
+    padding: 16px;
+  }
+
+  > .proof-properties {
+    position: absolute;
+    cursor: default;
+    background-color: transparent;
+    padding: 5px 10px;
+    border-radius: 10px;
+
+    &.top-right {
+      top: -35px;
+      right: -35px;
+    }
+
+    &.top-left {
+      top: -35px;
+      left: -25px;
+    }
+
+    &.bottom-right {
+      bottom: -25px;
+      right: -35px;
+    }
+
+    > button {
+      background-color: var(--color-6);
+      border: none;
+      color: var(--text-color);
+      margin: 2px 4px 0 0;
+      padding: 6px;
+      border-radius: 5px;
+    }
+
+    > button:hover {
+      transform: scale(1.1);
+    }
+  }
+
+}
+
+.proof-hypothesis {
+  white-space: nowrap;
+}
+
+.proof-hypothesis > .proof-component {
+  margin-bottom: -6px;
+  margin-left: 6px;
+  margin-right: 6px;
+}

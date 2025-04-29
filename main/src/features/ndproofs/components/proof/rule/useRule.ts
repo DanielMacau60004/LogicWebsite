@@ -1,17 +1,21 @@
 import React, {useEffect, useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {GlobalState} from "../../../../store";
-import {selectEditingComponent} from "../../../../store/boardSlice";
-import {RuleComponent} from "../../types/proofBoard";
-import {EXP_KEYBOARD_COMPONENT_ID, RULE_KEYBOARD_COMPONENT_ID} from "../../models/proofBoard";
+import {GlobalState} from "../../../../../store";
+import {selectEditingComponent} from "../../../../../store/boardSlice";
+import {RuleComponent} from "../../../types/proofBoard";
+import {RULE_KEYBOARD_COMPONENT_ID} from "../../../models/proofBoard";
+
+const EMPTY_VALUE = "+"
+const SHOW_DELAY = 150
 
 export function useRule({rule}: { rule: RuleComponent }) {
     const id = String(rule.id)
     const ref = useRef<HTMLInputElement>(null);
     const {editing, components} = useSelector((state: GlobalState) => state.board)
     const dispatch: any = useDispatch()
-
+    const value = rule.value ?  rule.value : EMPTY_VALUE;
     const isSelected = editing?.id === rule.id
+
     useEffect(() => {
         if (!isSelected || !ref.current) return;
 
@@ -20,7 +24,7 @@ export function useRule({rule}: { rule: RuleComponent }) {
                 if (document.activeElement !== input) {
                     input.focus();
                 }
-            }, 150);
+            }, SHOW_DELAY);
 
             return () => clearTimeout(timer);
     }, [components, dispatch, editing?.id, rule.id]);
@@ -38,6 +42,6 @@ export function useRule({rule}: { rule: RuleComponent }) {
           dispatch(selectEditingComponent(undefined));
     };
 
-    return {id, ref, onBlur}
+    return {id, ref, value, onBlur}
 
 }

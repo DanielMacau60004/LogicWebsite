@@ -1,0 +1,18 @@
+import {CLONE_COMPONENT_ID, DELETE_COMPONENT_ID} from "../../../models/proofBoard";
+import {FaClone, FaTrash} from "react-icons/fa";
+import React from "react";
+
+export function TreeMenu() {
+    return (
+        <>
+            <div className={"proof-properties top-right"}>
+                <button id={DELETE_COMPONENT_ID} className={"proof-component"}><FaTrash size={20}/></button>
+                <button id={CLONE_COMPONENT_ID} className={"proof-component"}><FaClone size={20}/></button>
+            </div>
+
+            <div className={"proof-properties bottom-right"}>
+                <button className={"proof-component"}>Submit</button>
+            </div>
+        </>
+    )
+}

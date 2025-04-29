@@ -1,27 +1,30 @@
 import React, {useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {GlobalState} from "../../../../store";
-import {selectEditingComponent, setEditable, updateComponent} from "../../../../store/boardSlice";
-import {EXP_KEYBOARD_COMPONENT_ID} from "../../models/proofBoard";
-import {ExpComponent} from "../../types/proofBoard";
-import {deepCopy, forceInputChange} from "../../../../utils/general";
+import {GlobalState} from "../../../../../store";
+import {selectEditingComponent, setEditable, updateComponent} from "../../../../../store/boardSlice";
+import {EXP_KEYBOARD_COMPONENT_ID} from "../../../models/proofBoard";
+import {ExpComponent} from "../../../types/proofBoard";
+import {forceInputChange} from "../../../../../utils/general";
 
-export function useExp({ exp }: { exp: ExpComponent }) {
-    const id =  String(exp.id)
+const EMPTY_VALUE = " "
+const SHOW_DELAY = 150
+
+
+export function useInputExp({ exp }: { exp: ExpComponent }) {
     const ref = useRef<HTMLInputElement>(null);
     const {editing, components} = useSelector((state: GlobalState) => state.board)
     const dispatch: any = useDispatch()
 
     const [value, setValue] = useState(exp.value)
+    const isSelected = editing?.id === exp.id
+    const size = value ? value.length + 2 : 2
 
     useEffect(() => {
         setValue(exp.value);
-
         if(ref.current)
-            forceInputChange(ref.current, " ")
+            forceInputChange(ref.current, EMPTY_VALUE)
     }, [exp.value]);
 
-    const isSelected = editing?.id === exp.id
     useEffect(() => {
         if (!isSelected || !ref.current) return;
 
@@ -34,10 +37,24 @@ export function useExp({ exp }: { exp: ExpComponent }) {
                 const length = input.value.length;
                 input.setSelectionRange(length, length);
             }
-        }, 150);
+        }, SHOW_DELAY);
 
         return () => clearTimeout(timer);
     }, [components, dispatch, editing?.id, exp.id, value]);
+
+    function finalizeEditing() {
+        const cleanValue = value?.trim() === "" ? undefined : value;
+
+        if (cleanValue !== components[exp.id].value) {
+            dispatch(updateComponent({
+                component: { ...components[exp.id], value: cleanValue },
+                saveState: true
+            }));
+        }
+
+        dispatch(setEditable(true));
+        dispatch(selectEditingComponent(undefined));
+    }
 
     const onBlur = (event: React.FocusEvent<HTMLInputElement>) => {
         if (ref.current && event.relatedTarget &&
@@ -48,11 +65,7 @@ export function useExp({ exp }: { exp: ExpComponent }) {
             return;
         }
 
-        const cleanValue = value?.trim() === "" ? undefined : value;
-        if(cleanValue !== components[exp.id].value)
-            dispatch(updateComponent({component: { ...components[exp.id], value: cleanValue }, saveState: true}));
-        dispatch(setEditable(true));
-        dispatch(selectEditingComponent(undefined));
+        finalizeEditing()
     };
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -60,6 +73,11 @@ export function useExp({ exp }: { exp: ExpComponent }) {
         dispatch(selectEditingComponent({ ...components[exp.id], value: value}))
     };
 
-    return {id, isSelected, ref, onBlur, onChange, value}
+    const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') finalizeEditing()
+    };
+
+
+    return {isSelected, size, ref, value, onBlur, onChange, onKeyDown}
 
 }

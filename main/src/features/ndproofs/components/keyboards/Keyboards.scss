@@ -24,8 +24,8 @@
   }
 
   .key {
-    width: 25px !important;
-    height: 25px !important;
+    width: 30px !important;
+    height: 30px !important;
     display: inline-block !important;
     border-radius: 10px;
     background-color: var(--color-5) !important;
@@ -42,18 +42,18 @@
     }
 
     &.delete {
-      background-color: red !important;
+      background-color: var(--color-6) !important;
+      font-size: 18px;
 
       &:hover {
         color: var(--text-color) !important;
-        background-color: red !important;
+        background-color: var(--color-3) !important;
       }
     }
 
-
     &:hover {
       color: var(--text-color) !important;
-      background-color: var(--color-6) !important;
+      background-color: var(--color-3) !important;
     }
   }
 

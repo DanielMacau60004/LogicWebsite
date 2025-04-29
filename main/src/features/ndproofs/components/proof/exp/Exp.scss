@@ -1,0 +1,81 @@
+@import "../../../../../style/variables";
+@import "../Proof";
+
+.proof-exp {
+  min-width: 50px;
+  height: 25px;
+  border-radius: 13px;
+  background-color: var(--color-4);
+  color: var(--text-color);
+  cursor: grab !important;
+  position: relative;
+
+  > .proof-component-content {
+    @include center-content;
+    padding: 0 10px;
+    border-radius: 13px;
+
+    > .proof-mark {
+      position: absolute !important;
+      top: -12px;
+      right: -12px;
+    }
+  }
+
+  .proof-exp-input {
+    border: unset;
+    text-align: center;
+    width: auto !important;
+  }
+
+  @keyframes highlightPulse {
+    0% {
+      background-color: var(--color-6);
+      transform: scale(1.1);
+    }
+    50% {
+      background-color: var(--color-2);
+      transform: scale(1);
+    }
+    100% {
+      background-color: var(--color-6);
+      transform: scale(1.1);
+    }
+  }
+
+  &.highlight > .proof-component-content {
+    animation: highlightPulse 1s ease-in-out infinite;
+    color: var(--text-color);
+  }
+
+  &.highlight-hover > .proof-component-content {
+    animation: unset;
+    transform: scale(1.2);
+    background-color: var(--color-6) !important;
+  }
+
+}
+
+/*TODO FORMAT EXPANDER*/
+.rule-adder{
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.mark-adder{
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5px;
+  z-index: 1;
+}
+
+
+
