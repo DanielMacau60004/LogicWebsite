@@ -1,13 +1,18 @@
 @import "../../../../style/variables";
 
+.board-container {
+  position: relative;
+  overflow: hidden;
+}
+
 .board {
+  width: 1000px;
+  height: 1000px;
   background-image: radial-gradient(circle, var(--color-5) 1px, transparent 1px);
   background-size: 20px 20px;
   background-color: var(--bg-color) !important;
-  height: 100vh;
+  overflow: hidden;
   position: relative;
-  width: auto;
-  overflow: auto;
 
   > .proof-component {
     position: absolute;
@@ -21,6 +26,7 @@
   }
 
   .drag-overlay {
+    position: sticky !important;
     opacity: 0.4;
     width: unset !important;
     height: unset !important;

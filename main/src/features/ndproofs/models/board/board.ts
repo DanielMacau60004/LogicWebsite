@@ -1,6 +1,4 @@
-import {
-    Board,
-} from "../../types/proofBoard";
+import {Board,} from "../../types/proofBoard";
 import {boardComponents} from "../../boardInit";
 import {Boards} from "./logic";
 import {mark, rule} from "../components/components";
@@ -17,7 +15,9 @@ export function board(): Board {
         components: {},
         boardItems: {},
         redoStack: [],
-        undoStack: []
+        undoStack: [],
+        offset: {x: 0, y: 0},
+        zoom: 1
     };
 
     APPENDS.APPEND_RULE_COMPONENT_ID = Boards.appendComponent(board, rule())

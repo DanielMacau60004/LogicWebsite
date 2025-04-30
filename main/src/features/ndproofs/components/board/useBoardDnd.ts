@@ -63,12 +63,16 @@ export function useBoardDnd() {
 
     }
 
-
     function handleDragStart(event: DragStartEvent) {
         if (!isEditable) return
 
         let component = components[Number(event.active.id)];
         let dragging = undefined
+
+        if(!component) {
+            dispatch(selectComponent(undefined))
+            return;
+        }
 
         if (component.type === ComponentType.TREE)
             dragging = component as TreeComponent
@@ -111,8 +115,8 @@ export function useBoardDnd() {
     }
 
     function handleDragEnd(event: DragEndEvent) {
-        if (!isEditable) return
-
+        if (!isEditable) return;
+        console.log(event)
         const {over, delta} = event
         const overID = Number(over?.id)
         const cursorPosition = {x: delta.x, y: delta.y}

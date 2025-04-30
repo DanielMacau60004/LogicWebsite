@@ -27,7 +27,9 @@ function cloneState(state: Board): Omit<Board, 'redoStack' | 'undoStack' | 'side
         isEditable: true,
         editing: undefined,
         boardItems: deepCopy(state.boardItems),
-        components: deepCopy(state.components)
+        components: deepCopy(state.components),
+        offset: state.offset,
+        zoom: state.zoom
     };
 }
 
@@ -181,7 +183,11 @@ const slice = createSlice({
                 state.undoStack.push(cloneState(state));
                 Object.assign(state, nextState);
             }
-        }
+        },
+        setZoom: (state, action: PayloadAction<number>) => {
+            state.zoom += action.payload;
+            state.zoom = Math.min(Math.max(state.zoom, 0.5), 2)
+        },
     }
 });
 
@@ -198,6 +204,7 @@ export const {
     paste,
     undo,
     redo,
+    setZoom,
 } = slice.actions;
 
 export const boardReducer = slice.reducer;

@@ -7,6 +7,8 @@ import {GlobalState} from "../../../../store";
 import {BoardContent} from "./BoardContent";
 import {useCollisionDetection} from "./useCollisionDetection";
 import {useKeyboardShortCuts} from "./useKeyboardShortCuts";
+import '@xyflow/react/dist/style.css';
+import React from 'react';
 
 export function Board() {
     useKeyboardShortCuts()
@@ -17,6 +19,7 @@ export function Board() {
     const mouseSensor = useSensor(MouseSensor);
     const touchSensor = useSensor(TouchSensor);
     const sensors = useSensors(mouseSensor, touchSensor,);
+
 
     return (
         <>
@@ -32,7 +35,6 @@ export function Board() {
                 </DndContext>
             ) : <BoardContent/>}
         </>
-
     );
 
 }

@@ -98,8 +98,8 @@ export const BoardDrag = {
         }
 
         if (element.position) {
-            element.position.x += position.x;
-            element.position.y += position.y;
+            element.position.x += position.x / state.zoom;
+            element.position.y += position.y / state.zoom;
 
         } else
             element.position = {...position};

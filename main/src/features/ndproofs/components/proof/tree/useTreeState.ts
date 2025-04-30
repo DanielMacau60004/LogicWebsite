@@ -29,7 +29,7 @@ export function useTreeState(tree: TreeComponent) {
                 ...(isActive && { zIndex: 100 }),
                 ...(args.draggable.active?.id === tree.id && { opacity: 1 }),
                 ...(args.draggable.isDragging && !tree.parent && drag && { opacity: 0 }),
-                transform: `translate(${tree.position?.x ?? 0}px, ${tree.position?.y ?? 0}px)`,
+                transform: `translate(${(tree.position?.x ?? 0)}px, ${(tree.position?.y ?? 0)}px)`
             },
         };
     };
