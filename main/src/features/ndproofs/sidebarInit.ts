@@ -1,5 +1,5 @@
 import {SideBarCreatorComponentList} from "./types/proofSidebar";
-import {createPreviewTree} from "./models/proofComponents";
+import {tree} from "./models/components/components";
 
 export function sideBarComponents(): SideBarCreatorComponentList[] {
     return [

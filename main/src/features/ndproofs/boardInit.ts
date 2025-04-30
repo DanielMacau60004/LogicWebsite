@@ -1,53 +1,53 @@
 import {PreviewTreeComponent} from "./types/proofBoard";
 import {
-    createPreviewExp,
-    createPreviewMark,
-    createPreviewRule,
-    createPreviewTree,
-    createPreviewTreeExp
-} from "./models/proofComponents";
+    exp,
+    mark,
+    rule,
+    tree,
+    treeExp
+} from "./models/components/components";
 import {RULE} from "./types/proofRules";
 
 export function boardComponents(): PreviewTreeComponent[] {
     return [
-        createPreviewTree(
-            createPreviewExp("Likes(a, b)"),
-            createPreviewRule(RULE.AND_ELIM_LEFT),
+        tree(
+            exp("Likes(a, b)"),
+            rule(RULE.AND_ELIM_LEFT),
             [
-                createPreviewTree(
-                    createPreviewExp("∃y (Likes(x, y))"),
-                    createPreviewRule(),
-                    [createPreviewExp(), createPreviewExp("a", 3)],
-                    [createPreviewMark(1)]
+                tree(
+                    exp("∃y (Likes(x, y))"),
+                    rule(),
+                    [exp(), exp("a", 3)],
+                    [mark(1)]
                 ),
-                createPreviewExp(),
-                createPreviewExp("a")
+                exp(),
+                exp("a")
             ],
             [],
             {x: 400, y: 200}
         ),
-        createPreviewTree(
-            createPreviewExp("Likes(a, b)"),
-            createPreviewRule(RULE.AND_ELIM_LEFT),
+        tree(
+            exp("Likes(a, b)"),
+            rule(RULE.AND_ELIM_LEFT),
             [
-                createPreviewExp(),
-                createPreviewExp("a", 1)
+                exp(),
+                exp("a", 1)
             ],
             [],
             {x: 700, y: 400}
         ),
-        createPreviewTree(
-            createPreviewExp("Likes(a, b)"),
-            createPreviewRule(RULE.FORALL_ELIM),
+        tree(
+            exp("Likes(a, b)"),
+            rule(RULE.FORALL_ELIM),
             [
-                createPreviewExp(),
+                exp(),
             ],
             [],
             {x: 100, y: 200}
         ),
-        createPreviewTreeExp(createPreviewExp("Likes(a, b)", 1), {x: 120, y: 400}),
-        createPreviewTreeExp(createPreviewExp(), {x: 50, y: 600}),
-        createPreviewTreeExp(createPreviewExp("b"), {x: 100, y: 500})
+        treeExp(exp("Likes(a, b)", 1), {x: 120, y: 400}),
+        treeExp(exp(), {x: 50, y: 600}),
+        treeExp(exp("b"), {x: 100, y: 500})
     ];
 }
 

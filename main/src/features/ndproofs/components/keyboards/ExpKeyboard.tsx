@@ -1,8 +1,8 @@
-import {EXP_KEYBOARD_COMPONENT_ID, GREEK_LETTERS, GROUPING_SYMBOLS, LOGICAL_SYMBOLS} from "../../models/proofBoard";
 import "./Keyboards.scss"
 import React from "react";
 import {useExpBoard} from "./useExpKeyboard";
 import {Keyboard, renderKeyButtons} from "./Keyboard";
+import {EXP_KEYBOARD_COMPONENT_ID, GREEK_LETTERS, GROUPING_SYMBOLS, LOGICAL_SYMBOLS} from "../../constants";
 
 export function ExpKeyboard() {
     const {ref, target, show, style, onKeyClick} = useExpBoard()

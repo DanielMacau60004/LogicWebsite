@@ -2,8 +2,8 @@ import {useSelector} from "react-redux";
 import {GlobalState} from "../../../../store";
 import {forceInputChange} from "../../../../utils/general";
 import {ComponentType} from "../../types/proofBoard";
-import {EXP_INPUT_COMPONENT_ID} from "../../models/proofBoard";
 import {useKeyBoard} from "./useKeyboard";
+import {EXP_INPUT_COMPONENT_ID} from "../../constants";
 
 export function useExpBoard() {
     const {components, editing} = useSelector((state: GlobalState) => state.board)

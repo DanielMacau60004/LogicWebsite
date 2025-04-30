@@ -1,8 +1,8 @@
 import {useDispatch} from "react-redux";
 import {useEffect} from "react";
-import {KeyActionMap} from "../../models/proofBoard";
 import {BoardAction} from "../../types/proofBoard";
 import {copy, deleteComponent, paste, redo, undo} from "../../../../store/boardSlice";
+import {KeyActionMap} from "../../constants";
 
 export function useKeyboardShortCuts() {
     const dispatch = useDispatch();

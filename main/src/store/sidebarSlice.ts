@@ -1,9 +1,9 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {proofBoard} from "../features/ndproofs/models/proofBoard";
+import {board} from "../features/ndproofs/models/board/board";
 
 const slice = createSlice({
     name: 'sidebar',
-    initialState: proofBoard(),
+    initialState: board(),
     reducers: {}
 })
 

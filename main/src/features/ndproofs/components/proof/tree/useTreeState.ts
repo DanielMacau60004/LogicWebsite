@@ -2,8 +2,8 @@ import { useSelector } from "react-redux";
 import React from "react";
 import {ComponentType, TreeComponent} from "../../../types/proofBoard";
 import {GlobalState} from "../../../../../store";
-import {Components} from "../../../models/proofComponents";
-import {DraggableRender} from "../../../../../components/Draggable"; // Adjust if needed
+import {DraggableRender} from "../../../../../components/Draggable";
+import {Components} from "../../../models/components/logic"; // Adjust if needed
 
 export function useTreeState(tree: TreeComponent) {
     const state = useSelector((state: GlobalState) => state.board);

@@ -13,14 +13,15 @@ import {
 import {useDispatch, useSelector} from "react-redux";
 import {GlobalState} from "../../../../store";
 import {useRef} from "react";
+import {ComponentType, ExpComponent, TreeComponent} from "../../types/proofBoard";
+import { exp, rule, tree} from "../../models/components/components";
 import {
     APPEND_RULE_COMPONENT_ID,
     CLONE_COMPONENT_ID,
     DELETE_COMPONENT_ID,
-    DOUBLE_CLICK_THRESHOLD,
-} from "../../models/proofBoard";
-import {ComponentType, ExpComponent, TreeComponent} from "../../types/proofBoard";
-import {Components, createPreviewExp, createPreviewRule, createPreviewTree} from "../../models/proofComponents";
+    DOUBLE_CLICK_THRESHOLD
+} from "../../constants";
+import {Components} from "../../models/components/logic";
 
 export function useBoardDnd() {
     const dispatch: any = useDispatch()
@@ -76,7 +77,7 @@ export function useBoardDnd() {
 
         //TODO temporary Handle append rule
         if (component && clickedID === String(APPEND_RULE_COMPONENT_ID)) {
-            dispatch(appendTree(createPreviewTree(createPreviewExp(component.value), createPreviewRule(), [createPreviewExp()], [])))
+            dispatch(appendTree(tree(exp(component.value), rule(), [exp()], [])))
             dispatch(selectComponent(undefined))
             return;
         }

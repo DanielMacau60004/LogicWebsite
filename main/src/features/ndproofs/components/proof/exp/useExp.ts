@@ -3,8 +3,8 @@ import {useSelector} from "react-redux";
 import {GlobalState} from "../../../../../store";
 
 import {ExpComponent} from "../../../types/proofBoard";
-import {Components} from "../../../models/proofComponents";
 import {DroppableRender} from "../../../../../components/Droppable";
+import {Components} from "../../../models/components/logic";
 
 export function useExp({ exp }: { exp: ExpComponent }) {
     const state = useSelector((state: GlobalState) => state.board);

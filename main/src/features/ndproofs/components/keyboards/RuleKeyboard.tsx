@@ -1,9 +1,9 @@
-import {RULE_KEYBOARD_COMPONENT_ID} from "../../models/proofBoard";
 import "./Keyboards.scss"
 import React from "react";
 import {useRuleBoard} from "./useRuleKeyboard";
 import {RULE} from "../../types/proofRules";
 import {Keyboard, renderKeyButtons} from "./Keyboard";
+import {RULE_KEYBOARD_COMPONENT_ID} from "../../constants";
 
 export function RuleKeyboard() {
     const {ref, target, show, style, onKeyClick} = useRuleBoard()

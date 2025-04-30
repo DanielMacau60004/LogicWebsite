@@ -7,39 +7,11 @@ import {
     PreviewMarkComponent,
     PreviewRuleComponent,
     PreviewTreeComponent
-} from "../types/proofBoard";
-import {RULE} from "../types/proofRules";
-
-export function createPreviewExp(value?: string, mark?: number): PreviewExpComponent {
-    return {type: ComponentType.EXP, value: value, mark: createPreviewMark(mark)};
-}
-
-export function createPreviewRule(value?: RULE): PreviewRuleComponent {
-    return {type: ComponentType.RULE, value: value};
-}
-
-export function createPreviewMark(value?: number): PreviewMarkComponent {
-    return {type: ComponentType.MARK, value: value};
-}
-
-export function createPreviewTree(
-    conclusion: PreviewExpComponent,
-    rule?: PreviewRuleComponent,
-    hypotheses?: (PreviewExpComponent | PreviewTreeComponent)[],
-    marks?: PreviewMarkComponent[],
-    position?: Position
-): PreviewTreeComponent {
-    return {type: ComponentType.TREE, conclusion, rule, hypotheses, marks, position};
-}
-
-export function createPreviewTreeExp(
-    conclusion: PreviewExpComponent,
-    position?: Position
-): PreviewTreeComponent {
-    return {type: ComponentType.TREE, conclusion, position};
-}
+} from "../../types/proofBoard";
+import {RULE} from "../../types/proofRules";
 
 export const Components = {
+    //TODO ...
     reset(component: Component): Component {
         return {
             id: component.id, value: undefined, parent: component.parent,

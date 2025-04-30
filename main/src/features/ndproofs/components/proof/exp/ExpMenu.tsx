@@ -1,7 +1,7 @@
 import {Rule} from "../rule/Rule";
-import {APPEND_RULE_COMPONENT_ID} from "../../../models/proofBoard";
 import {ComponentType} from "../../../types/proofBoard";
 import {Mark} from "../mark/Mark";
+import {APPEND_RULE_COMPONENT_ID} from "../../../constants";
 
 export function ExpMenu({ show, markComponent }: { show: boolean, markComponent: any }) {
     if (!show) return null;

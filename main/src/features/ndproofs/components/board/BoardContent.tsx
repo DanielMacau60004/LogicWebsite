@@ -1,7 +1,6 @@
 import {useSelector} from "react-redux";
 import {GlobalState} from "../../../../store";
 import {DragOverlay} from "@dnd-kit/core";
-import {BOARD_COMPONENT_ID} from "../../models/proofBoard";
 import {Tree} from "../proof/tree/Tree";
 import {TreeComponent} from "../../types/proofBoard";
 import {SideBar} from "../sidebar/SideBar";
@@ -9,6 +8,7 @@ import {StateControl} from "../controls/state/StateControl";
 import {ExpKeyboard} from "../keyboards/ExpKeyboard";
 import {RuleKeyboard} from "../keyboards/RuleKeyboard";
 import {MarkKeyboard} from "../keyboards/MarkKeyboard";
+import {BOARD_COMPONENT_ID} from "../../constants";
 
 export function BoardContent() {
     const {isEditable, components, drag, boardItems} = useSelector((state: GlobalState) => state.board)

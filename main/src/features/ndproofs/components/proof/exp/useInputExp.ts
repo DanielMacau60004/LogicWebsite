@@ -2,13 +2,12 @@ import React, {useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {GlobalState} from "../../../../../store";
 import {selectEditingComponent, setEditable, updateComponent} from "../../../../../store/boardSlice";
-import {EXP_KEYBOARD_COMPONENT_ID} from "../../../models/proofBoard";
 import {ExpComponent} from "../../../types/proofBoard";
 import {forceInputChange} from "../../../../../utils/general";
+import {EXP_KEYBOARD_COMPONENT_ID} from "../../../constants";
 
 const EMPTY_VALUE = " "
 const SHOW_DELAY = 150
-
 
 export function useInputExp({ exp }: { exp: ExpComponent }) {
     const ref = useRef<HTMLInputElement>(null);

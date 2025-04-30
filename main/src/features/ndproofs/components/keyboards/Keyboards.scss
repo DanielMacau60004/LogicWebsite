@@ -25,7 +25,7 @@
 
   .key {
     width: 30px !important;
-    height: 30px !important;
+    height: 25px !important;
     display: inline-block !important;
     border-radius: 10px;
     background-color: var(--color-5) !important;
@@ -43,7 +43,8 @@
 
     &.delete {
       background-color: var(--color-6) !important;
-      font-size: 18px;
+      font-size: 20px;
+      line-height: 1 !important;
 
       &:hover {
         color: var(--text-color) !important;
@@ -58,6 +59,7 @@
   }
 
 }
+
 .aux-keyboard-content {
 
   &.inline {

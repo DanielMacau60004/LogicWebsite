@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {GlobalState} from "../../../../../store";
 import {selectEditingComponent} from "../../../../../store/boardSlice";
 import {MarkComponent} from "../../../types/proofBoard";
-import {MARK_KEYBOARD_COMPONENT_ID} from "../../../models/proofBoard";
+import {MARK_KEYBOARD_COMPONENT_ID} from "../../../constants";
 
 const EMPTY_VALUE = "+"
 const SHOW_DELAY = 150

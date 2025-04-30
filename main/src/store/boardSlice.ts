@@ -5,17 +5,20 @@ import {
     Component,
     ComponentType,
     Position,
+    PreviewTreeComponent,
     RuleComponent,
-    TreeComponent,
-    PreviewTreeComponent, PreviewMarkComponent
+    TreeComponent
 } from "../features/ndproofs/types/proofBoard";
-import {Boards, proofBoard,} from "../features/ndproofs/models/proofBoard";
-import {Components} from "../features/ndproofs/models/proofComponents";
+import {board,} from "../features/ndproofs/models/board/board";
+import {Boards} from "../features/ndproofs/models/board/logic";
+import {Components} from "../features/ndproofs/models/components/logic";
+import {BoardDrag} from "../features/ndproofs/models/board/drag";
+import {BoardPosition} from "../features/ndproofs/models/board/position";
 
 const MOVEMENT_THRESHOLD = 10;
 const MAX_HISTORY_DEPTH = 20;
 
-export function cloneState(state: Board): Omit<Board, 'redoStack' | 'undoStack' | 'sideBarItems'> {
+function cloneState(state: Board): Omit<Board, 'redoStack' | 'undoStack' | 'sideBarItems'> {
     return {
         currentId: state.currentId,
         active: undefined,
@@ -37,30 +40,13 @@ function saveStateForUndo(state: Board) {
 
 const slice = createSlice({
     name: 'board',
-    initialState: proofBoard(),
+    initialState: board(),
     reducers: {
         appendTree: (state, action: PayloadAction<PreviewTreeComponent>) => {
-            const newID = Boards.appendComponent(state, action.payload);
-            const newTree = state.components[newID]
-
             if (!state.active || !state.active.parent) return
             saveStateForUndo(state);
 
-            const currentParent = state.components[state.active.parent]
-            if (!Components.isASimpleTree(currentParent)) {
-                const index = currentParent?.hypotheses?.indexOf(state.active.id)
-                currentParent.hypotheses[index] = newID
-                newTree.parent = currentParent.id
-
-                delete state.components[state.active.id]
-            } else {
-                state.boardItems[newID] = newID
-                newTree.position = currentParent.position
-
-                Boards.deleteEntireComponent(state, currentParent)
-                delete state.boardItems[currentParent.id]
-            }
-
+            Boards.appendTree(state, action.payload)
             state.active = undefined
         },
         selectComponent: (state, action: PayloadAction<Component | undefined>) => {
@@ -78,8 +64,7 @@ const slice = createSlice({
         updateComponent: (state, action: PayloadAction<{ component: Component, saveState: boolean }>) => {
             const {component, saveState} = action.payload
 
-            if (saveState)
-                saveStateForUndo(state);
+            if (saveState) saveStateForUndo(state);
 
             if (component.type === ComponentType.RULE)
                 Boards.updateRule(state, component as RuleComponent)
@@ -126,13 +111,12 @@ const slice = createSlice({
 
             if (Components.canDrop(state, dragging, dropping)) {
                 saveStateForUndo(state);
-                Boards.dragInsideComponents(state, dragging, dropping)
+                BoardDrag.dragInsideComponents(state, dragging, dropping)
             } else {
                 saveStateForUndo(state);
-                Boards.dragOutsideComponent(state, position, state.components[drag!!.id] as TreeComponent)
+                BoardDrag.dragOutsideComponent(state, position, state.components[drag!!.id] as TreeComponent)
             }
 
-            //state.active = undefined
         },
         copy: (state) => {
             if (!state.isEditable) return
@@ -161,7 +145,7 @@ const slice = createSlice({
                 const previous = document.getElementById(String(state.copy))
                 if (previous) {
                     const boundingBox = previous.getBoundingClientRect()
-                    newComponent.position = Boards.computeBoardCoordinates({
+                    newComponent.position = BoardPosition.computeBoardCoordinates({
                         x: boundingBox.x + 20,
                         y: boundingBox.y + 20
                     })

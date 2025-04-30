@@ -1,6 +1,6 @@
-import {CLONE_COMPONENT_ID, DELETE_COMPONENT_ID} from "../../../models/proofBoard";
 import {FaClone, FaTrash} from "react-icons/fa";
 import React from "react";
+import {CLONE_COMPONENT_ID, DELETE_COMPONENT_ID} from "../../../constants";
 
 export function TreeMenu() {
     return (

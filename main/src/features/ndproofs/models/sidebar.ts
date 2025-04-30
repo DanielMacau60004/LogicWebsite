@@ -6,7 +6,7 @@ import {
     SideBarCreatorComponent,
     SideBarCreatorComponentList
 } from "../types/proofSidebar";
-import {Boards} from "./proofBoard";
+import {Boards} from "./board/logic";
 
 export function appendSidebarItemList(board: Board, item: SideBarCreatorComponentList): SideBarComponentList {
     const icon = board.components[Boards.appendComponent(board, item.icon)]
