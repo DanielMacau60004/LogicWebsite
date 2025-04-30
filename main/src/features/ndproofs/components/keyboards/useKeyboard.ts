@@ -2,6 +2,7 @@ import React, {useRef} from "react";
 import {useSelector} from "react-redux";
 import {GlobalState} from "../../../../store";
 import {ComponentType} from "../../types/proofBoard";
+import {deepCopy} from "../../../../utils/general";
 
 type ExpKeyBoardProps = {
     type: ComponentType;

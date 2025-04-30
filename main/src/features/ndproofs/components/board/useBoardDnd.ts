@@ -1,6 +1,5 @@
 import {DragEndEvent, DragStartEvent,} from "@dnd-kit/core";
 import {
-    appendTree,
     copy,
     deleteComponent,
     dragComponent,
@@ -9,18 +8,13 @@ import {
     selectDraggingComponent,
     selectEditingComponent,
     setEditable,
+    updateComponent,
 } from "../../../../store/boardSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {GlobalState} from "../../../../store";
 import {useRef} from "react";
 import {ComponentType, ExpComponent, TreeComponent} from "../../types/proofBoard";
-import { exp, rule, tree} from "../../models/components/components";
-import {
-    APPEND_RULE_COMPONENT_ID,
-    CLONE_COMPONENT_ID,
-    DELETE_COMPONENT_ID,
-    DOUBLE_CLICK_THRESHOLD
-} from "../../constants";
+import {APPENDS, CLONE_COMPONENT_ID, DELETE_COMPONENT_ID, DOUBLE_CLICK_THRESHOLD} from "../../constants";
 import {Components} from "../../models/components/logic";
 
 export function useBoardDnd() {
@@ -52,15 +46,23 @@ export function useBoardDnd() {
         return false
     }
 
-    function handleExpActions(component: ExpComponent): boolean {
+    function setupSelectedRule(id: number) {
+        const rule = components[APPENDS.APPEND_RULE_COMPONENT_ID]
+        dispatch(updateComponent({component: {...rule, value: undefined, parent: id}, saveState: false}))
+
+    }
+
+    function handleExpActions(component: ExpComponent) {
         if (isDoubleClick()) {
             dispatch(selectEditingComponent(component))
             dispatch(selectComponent(undefined))
             dispatch(setEditable(false))
-            return true
         }
-        return false
+
+        setupSelectedRule(component.id)
+
     }
+
 
     function handleDragStart(event: DragStartEvent) {
         if (!isEditable) return
@@ -75,13 +77,6 @@ export function useBoardDnd() {
 
         dispatch(selectEditingComponent(undefined))
 
-        //TODO temporary Handle append rule
-        if (component && clickedID === String(APPEND_RULE_COMPONENT_ID)) {
-            dispatch(appendTree(tree(exp(component.value), rule(), [exp()], [])))
-            dispatch(selectComponent(undefined))
-            return;
-        }
-
         //Handle tree actions menu
         if (component.type === ComponentType.TREE)
             if (handleTreeActions(component as TreeComponent, clickedID))
@@ -95,8 +90,7 @@ export function useBoardDnd() {
 
         //Handle exp actions
         if (component.type === ComponentType.EXP)
-            if (handleExpActions(component as ExpComponent))
-                return;
+            handleExpActions(component as ExpComponent)
 
         //Handle rule actions
         if (component.type === ComponentType.RULE) {
@@ -108,6 +102,9 @@ export function useBoardDnd() {
         if (component.type === ComponentType.MARK) {
             dispatch(selectEditingComponent(component))
             dragging = undefined
+
+            if (component.parent && components[component.parent].type === ComponentType.EXP)
+                setupSelectedRule(components[component.parent].id)
         }
 
         dispatch(selectDraggingComponent(dragging))

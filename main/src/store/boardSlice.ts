@@ -46,7 +46,13 @@ const slice = createSlice({
             if (!state.active || !state.active.parent) return
             saveStateForUndo(state);
 
-            Boards.appendTree(state, action.payload)
+            const newTree = Boards.appendTree(state, action.payload)
+            if(newTree) {
+                const tree = state.components[newTree]
+                Boards.updateRule(state, state.components[tree.rule] as RuleComponent,
+                    tree as TreeComponent)
+            }
+
             state.active = undefined
         },
         selectComponent: (state, action: PayloadAction<Component | undefined>) => {
@@ -66,11 +72,13 @@ const slice = createSlice({
 
             if (saveState) saveStateForUndo(state);
 
-            if (component.type === ComponentType.RULE)
-                Boards.updateRule(state, component as RuleComponent)
+            if (component.type === ComponentType.RULE && state.editing?.parent) {
+                Boards.updateRule(state, component as RuleComponent,
+                    state.components[state.editing.parent] as TreeComponent)
+            }
 
             state.components[component.id] = component
-            state.editing = component
+            //state.editing = component
         },
         deleteComponent: (state) => {
             if (!state.isEditable) return
@@ -81,7 +89,7 @@ const slice = createSlice({
                 Boards.deleteEntireComponent(state, active)
 
                 if (active.parent) {
-                    state.components[active.id] = Components.reset(active)
+                    state.components[active.id] = Components.reset(state, active, active.id)
                 } else {
                     delete state.boardItems[active.id];
                     delete state.components[active.id];

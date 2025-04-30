@@ -12,7 +12,7 @@ export function Exp({exp}: { exp: ExpComponent }) {
 
     return (
         <Droppable id={String(exp.id)} className="proof-component proof-exp" onRender={onRender}>
-            <ExpMenu show={show} markComponent={markComponent} />
+            <ExpMenu exp={exp} show={show} markComponent={markComponent} />
             <ExpInput exp={exp}/>
             {hasMarkValue && markComponent && (
                 <div className="mark-adder">

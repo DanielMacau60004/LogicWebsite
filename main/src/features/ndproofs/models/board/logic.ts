@@ -9,6 +9,7 @@ import {RULE_DETAILS} from "../../types/proofRules";
 import {BoardPosition} from "./position";
 import {Components} from "../components/logic";
 import {exp, mark} from "../components/components";
+import {deepCopy} from "../../../../utils/general";
 
 export const Boards = {
 
@@ -78,14 +79,6 @@ export const Boards = {
         return id;
     },
 
-    createEmptyComponent(state: Board, target: Component): Component {
-        const newID = state.currentId++;
-        const element = Components.reset(target)
-        element.id = newID;
-        state.components[newID] = element;
-        return element
-    },
-
     deleteEntireComponent(state: Board, component: Component) {
         delete state.components[component.id]
         switch (component.type) {
@@ -107,11 +100,10 @@ export const Boards = {
         }
     },
 
-    updateRule(state: Board, rule: RuleComponent) {
+    updateRule(state: Board, rule: RuleComponent, tree: TreeComponent) {
         const ruleValue = rule.value;
-        if (!ruleValue || !state.editing?.parent) return;
+        if (!ruleValue) return;
 
-        const tree = state.components[state.editing.parent] as TreeComponent;
         const ruleInfo = RULE_DETAILS[ruleValue];
         if (!ruleInfo || !tree.hypotheses || !tree.marks) return;
 
@@ -143,6 +135,7 @@ export const Boards = {
                     element.parent = undefined;
                     state.boardItems[id] = id;
                 } else {
+                    Boards.deleteEntireComponent(state, state.components[id])
                     delete state.components[id];
                 }
             }
@@ -170,7 +163,7 @@ export const Boards = {
         }
     },
 
-    appendTree(state: Board, tree: PreviewTreeComponent) {
+    appendTree(state: Board, tree: PreviewTreeComponent): number | undefined {
         const active = state.active
         if (!active || !active.parent) return
 
@@ -183,6 +176,7 @@ export const Boards = {
             currentParent.hypotheses[index] = newID
             newTree.parent = currentParent.id
 
+            Boards.deleteEntireComponent(state, active)
             delete state.components[active.id]
         } else {
             state.boardItems[newID] = newID
@@ -192,6 +186,7 @@ export const Boards = {
             delete state.boardItems[currentParent.id]
         }
 
+        return newID
     }
 
 }

@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
 import {GlobalState} from "../../../../store";
 import {ComponentType} from "../../types/proofBoard";
-import {selectEditingComponent, updateComponent} from "../../../../store/boardSlice";
+import {selectComponent, selectEditingComponent, updateComponent} from "../../../../store/boardSlice";
 import {useKeyBoard} from "./useKeyboard";
 
 export function useMarkBoard() {
@@ -9,7 +9,8 @@ export function useMarkBoard() {
     const {components, editing} = useSelector((state: GlobalState) => state.board)
     const {ref, target, show, style} = useKeyBoard({type: ComponentType.MARK})
 
-    const canDelete = show && editing?.parent && components[editing.parent].type === ComponentType.EXP
+    const canDelete = show && editing?.parent && components[editing.parent].type === ComponentType.EXP &&
+        editing.value !== undefined
 
     const onKeyClick = (char: string) => {
         if (!show) return
@@ -18,11 +19,16 @@ export function useMarkBoard() {
 
         if (currentInput && editing) {
             const isAMark = !isNaN(Number(char))
+
             dispatch(updateComponent({
                 component: {...components[editing.id], value: isAMark ? char : undefined},
                 saveState: true
             }));
+
             dispatch(selectEditingComponent(undefined));
+            if(!isAMark && editing.parent) {
+                dispatch(selectComponent(components[editing.parent]))
+            }
         }
     };
 

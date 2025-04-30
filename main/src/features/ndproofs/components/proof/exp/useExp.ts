@@ -5,6 +5,7 @@ import {GlobalState} from "../../../../../store";
 import {ExpComponent} from "../../../types/proofBoard";
 import {DroppableRender} from "../../../../../components/Droppable";
 import {Components} from "../../../models/components/logic";
+import {deepCopy} from "../../../../../utils/general";
 
 export function useExp({ exp }: { exp: ExpComponent }) {
     const state = useSelector((state: GlobalState) => state.board);
@@ -20,9 +21,11 @@ export function useExp({ exp }: { exp: ExpComponent }) {
         Components.isLeaf(state, exp) &&
         (
             (state.active && state.active.id === exp.id) ||
+            (state.active && state.active.parent === exp.id) ||
             (state.editing && exp.mark !== undefined && state.editing.id === exp.mark)
         ) && (exp.mark === undefined || markComponent?.value === undefined)
     );
+
 
     const onRender: (args: DroppableRender) => {
         className?: string;

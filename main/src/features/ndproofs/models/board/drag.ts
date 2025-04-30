@@ -46,7 +46,7 @@ export const BoardDrag = {
             else pDragging.conclusion = dropping.id;
         } else if (isConclusion && pDropping?.parent) {
             const ppDropping = state.components[pDropping.parent];
-            const empty = Boards.createEmptyComponent(state, pDropping);
+            const empty = Components.reset(state, pDropping);
             const idx = ppDropping?.hypotheses.indexOf(pDropping.id);
             if (idx !== undefined) ppDropping.hypotheses[idx] = empty.id;
 
@@ -55,6 +55,7 @@ export const BoardDrag = {
             delete state.boardItems[dragging.id];
             state.boardItems[pDropping.id] = pDropping.id;
         } else {
+            Boards.deleteEntireComponent(state, state.components[dropping.id])
             delete state.boardItems[dragging.id];
             delete state.components[dropping.id];
         }
@@ -84,7 +85,7 @@ export const BoardDrag = {
         let element = dragging;
 
         if (dragging.parent !== undefined) {
-            const element = Boards.createEmptyComponent(state, dragging)
+            const element = Components.reset(state, dragging)
             const pDragging = state.components[dragging.parent]
             const dragIndex = pDragging?.hypotheses.indexOf(dragging.id)
 
@@ -94,7 +95,6 @@ export const BoardDrag = {
             state.boardItems[dragging.id] = dragging.id;
             dragging.parent = undefined;
             dragging.position = BoardPosition.computeRelativeCoordinates(dragging.id)
-            console.log(deepCopy(element))
         }
 
         if (element.position) {

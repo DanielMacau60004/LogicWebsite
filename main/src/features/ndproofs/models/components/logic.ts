@@ -2,21 +2,22 @@ import {
     Board,
     Component,
     ComponentType,
-    Position,
-    PreviewExpComponent,
-    PreviewMarkComponent,
-    PreviewRuleComponent,
-    PreviewTreeComponent
 } from "../../types/proofBoard";
-import {RULE} from "../../types/proofRules";
+import {Boards} from "../board/logic";
+import {mark} from "./components";
 
 export const Components = {
-    //TODO ...
-    reset(component: Component): Component {
-        return {
-            id: component.id, value: undefined, parent: component.parent,
-            type: component.type === ComponentType.TREE ? ComponentType.EXP : component.type
-        };
+
+    reset(board: Board, component: Component, id?: number): Component {
+        const componentId = id ?? board.currentId++;
+
+        const type = component.type === ComponentType.TREE ? ComponentType.EXP : component.type
+        let markId
+        if(type === ComponentType.EXP)
+            markId = Boards.appendComponent(board, mark(), id)
+        const element = {id: componentId, value: undefined, parent: component.parent, type, mark: markId};
+        board.components[componentId] = element;
+        return element
     },
 
     isASimpleTree(component: Component): boolean {

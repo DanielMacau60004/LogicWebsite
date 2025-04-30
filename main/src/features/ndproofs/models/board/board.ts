@@ -3,6 +3,8 @@ import {
 } from "../../types/proofBoard";
 import {boardComponents} from "../../boardInit";
 import {Boards} from "./logic";
+import {mark, rule} from "../components/components";
+import {APPENDS} from "../../constants";
 
 export function board(): Board {
     const board: Board = {
@@ -18,10 +20,14 @@ export function board(): Board {
         undoStack: []
     };
 
+    APPENDS.APPEND_RULE_COMPONENT_ID = Boards.appendComponent(board, rule())
+    APPENDS.APPEND_MARK_COMPONENT_ID = Boards.appendComponent(board, mark())
+
     boardComponents().forEach(component => {
         const id = Boards.appendComponent(board, component);
         board.boardItems[id] = id;
     });
+
 
     console.log(board.boardItems);
     console.log(board.components);

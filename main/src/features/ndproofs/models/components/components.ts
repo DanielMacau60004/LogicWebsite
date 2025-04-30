@@ -8,7 +8,6 @@ import {
 } from "../../types/proofBoard";
 import {RULE} from "../../types/proofRules";
 
-//TODO remove mark from here
 export function exp(value?: string, markNumber?: number): PreviewExpComponent {
     return {type: ComponentType.EXP, value: value, mark: mark(markNumber)};
 }

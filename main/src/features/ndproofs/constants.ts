@@ -8,8 +8,10 @@ export const EXP_INPUT_COMPONENT_ID = "input-expression"
 export const RULE_KEYBOARD_COMPONENT_ID = "rule-keyboard"
 export const MARK_KEYBOARD_COMPONENT_ID = "mark-keyboard"
 
-export const APPEND_MARK_COMPONENT_ID = -10
-export const APPEND_RULE_COMPONENT_ID = -11
+export const APPENDS = {
+    APPEND_MARK_COMPONENT_ID: 0,
+    APPEND_RULE_COMPONENT_ID: 0,
+};
 
 export const DOUBLE_CLICK_THRESHOLD  = 250
 
