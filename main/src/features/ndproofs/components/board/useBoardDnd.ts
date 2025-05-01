@@ -71,6 +71,7 @@ export function useBoardDnd() {
 
         if(!component) {
             dispatch(selectComponent(undefined))
+            dispatch(selectEditingComponent(undefined))
             return;
         }
 
@@ -116,7 +117,7 @@ export function useBoardDnd() {
 
     function handleDragEnd(event: DragEndEvent) {
         if (!isEditable) return;
-        console.log(event)
+
         const {over, delta} = event
         const overID = Number(over?.id)
         const cursorPosition = {x: delta.x, y: delta.y}

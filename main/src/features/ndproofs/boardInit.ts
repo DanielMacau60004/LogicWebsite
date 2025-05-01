@@ -24,7 +24,7 @@ export function boardComponents(): PreviewTreeComponent[] {
                 exp("a")
             ],
             [],
-            {x: 400, y: 200}
+            {x: 2100, y: 1200}
         ),
         tree(
             exp("Likes(a, b)"),
@@ -34,7 +34,7 @@ export function boardComponents(): PreviewTreeComponent[] {
                 exp("a", 1)
             ],
             [],
-            {x: 700, y: 400}
+            {x: 2700, y: 1000}
         ),
         tree(
             exp("Likes(a, b)"),
@@ -43,11 +43,10 @@ export function boardComponents(): PreviewTreeComponent[] {
                 exp(),
             ],
             [],
-            {x: 100, y: 200}
+            {x: 2600, y: 1200}
         ),
-        treeExp(exp("Likes(a, b)", 1), {x: 120, y: 400}),
-        treeExp(exp(), {x: 50, y: 600}),
-        treeExp(exp("b"), {x: 100, y: 500})
+        treeExp(exp("Likes(a, b)", 1), {x: 545, y: 241}),
+        treeExp(exp("b"), {x: 2000, y: 1500})
     ];
 }
 

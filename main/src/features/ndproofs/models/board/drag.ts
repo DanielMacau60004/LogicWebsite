@@ -94,12 +94,12 @@ export const BoardDrag = {
 
             state.boardItems[dragging.id] = dragging.id;
             dragging.parent = undefined;
-            dragging.position = BoardPosition.computeRelativeCoordinates(dragging.id)
+            dragging.position = BoardPosition.computeRelativeCoordinates(state, dragging.id)
         }
 
         if (element.position) {
-            element.position.x += position.x / state.zoom;
-            element.position.y += position.y / state.zoom;
+            element.position.x += position.x;
+            element.position.y += position.y;
 
         } else
             element.position = {...position};

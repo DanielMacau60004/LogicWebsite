@@ -1,17 +1,33 @@
 @import "../../../../style/variables";
 
-.board-container {
-  position: relative;
-  overflow: hidden;
+.board-wrapper {
+  max-width: 100%;
+  max-height: 100vh
+}
+
+.board-background {
+  background-image: radial-gradient(circle, var(--color-4) 1px, transparent 1px);
+  background-color: var(--bg-color) !important;
+  background-size: 20px 20px;
+}
+
+.board-background-map{
+  background-color: rgba(var(--color-1-rgb), 0.5);
+
+  height: 100%;
+
+  .board {
+    > .proof-component {
+      background-color: var(--color-6);
+      opacity: 0.5;
+      >table, div {
+        visibility: hidden;
+      }
+    }
+  }
 }
 
 .board {
-  width: 1000px;
-  height: 1000px;
-  background-image: radial-gradient(circle, var(--color-5) 1px, transparent 1px);
-  background-size: 20px 20px;
-  background-color: var(--bg-color) !important;
-  overflow: hidden;
   position: relative;
 
   > .proof-component {
@@ -26,11 +42,20 @@
   }
 
   .drag-overlay {
-    position: sticky !important;
+    position: absolute !important;
     opacity: 0.4;
     width: unset !important;
     height: unset !important;
     z-index: 1000 !important;
+    top: unset !important;
+    left: unset !important;
   }
 
+}
+
+.minimap {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 20px;
 }

@@ -131,7 +131,7 @@ export const Boards = {
 
                 if (previous && element.type === ComponentType.TREE) {
                     const rect = previous.getBoundingClientRect();
-                    element.position = BoardPosition.computeBoardCoordinates({ x: rect.x, y: rect.y });
+                    element.position = BoardPosition.computeBoardCoordinates(state, { x: rect.x, y: rect.y });
                     element.parent = undefined;
                     state.boardItems[id] = id;
                 } else {

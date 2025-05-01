@@ -62,6 +62,9 @@ const slice = createSlice({
         },
         selectDraggingComponent: (state, action: PayloadAction<TreeComponent | undefined>) => {
             state.drag = action.payload;
+
+            if(state.drag !== undefined)
+                state.drag = {...state.drag, position:BoardPosition.computeRelativeCoordinates(state, state.drag.id)}
         },
         selectEditingComponent: (state, action: PayloadAction<Component | undefined>) => {
             state.editing = action.payload;
@@ -155,7 +158,7 @@ const slice = createSlice({
                 const previous = document.getElementById(String(state.copy))
                 if (previous) {
                     const boundingBox = previous.getBoundingClientRect()
-                    newComponent.position = BoardPosition.computeBoardCoordinates({
+                    newComponent.position = BoardPosition.computeBoardCoordinates(state, {
                         x: boundingBox.x + 20,
                         y: boundingBox.y + 20
                     })
@@ -185,8 +188,7 @@ const slice = createSlice({
             }
         },
         setZoom: (state, action: PayloadAction<number>) => {
-            state.zoom += action.payload;
-            state.zoom = Math.min(Math.max(state.zoom, 0.5), 2)
+            state.zoom = action.payload;
         },
     }
 });
