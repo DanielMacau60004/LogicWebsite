@@ -1,8 +1,4 @@
-import {
-    Board,
-    Component,
-    ComponentType,
-} from "../../types/proofBoard";
+import {Board, Component, ComponentType} from "../../types/proofBoard";
 import {Boards} from "../board/logic";
 import {mark} from "./components";
 
@@ -17,6 +13,7 @@ export const Components = {
             markId = Boards.appendComponent(board, mark(), id)
         const element = {id: componentId, value: undefined, parent: component.parent, type, mark: markId};
         board.components[componentId] = element;
+
         return element
     },
 
@@ -73,10 +70,10 @@ export const Components = {
         const hasSameContent = (dropping.value === undefined || dropping.value === dragging.value) ||
             (dragging.value === undefined || dragging.value === dropping.value)
 
-        const singleNotATree = (dragging.parent === undefined ||
-            !Components.isASimpleTree(board.components[dragging.parent])) &&
-            (dropping.parent === undefined ||
-                !Components.isASimpleTree(board.components[dropping.parent]))
+        const singleNotATree = (!this.isConclusion(board, dropping)
+                || !Components.isASimpleTree(board.components[dragging.parent!!])) &&
+            (!this.isConclusion(board, dragging)
+                || !Components.isASimpleTree(board.components[dropping.parent!!]))
 
         return hasTheCorrectType && isValidDirection && noParentConflict && hasSameContent && singleNotATree;
     }

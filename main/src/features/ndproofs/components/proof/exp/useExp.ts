@@ -5,7 +5,8 @@ import {GlobalState} from "../../../../../store";
 import {ExpComponent} from "../../../types/proofBoard";
 import {DroppableRender} from "../../../../../components/Droppable";
 import {Components} from "../../../models/components/logic";
-import {deepCopy} from "../../../../../utils/general";
+
+const EMPTY_VALUE = ""
 
 export function useExp({ exp }: { exp: ExpComponent }) {
     const state = useSelector((state: GlobalState) => state.board);
@@ -15,8 +16,9 @@ export function useExp({ exp }: { exp: ExpComponent }) {
 
     const hasMarkValue = exp.mark && state.components[exp.mark]?.value !== undefined;
     const markComponent = exp.mark ? (state.components[exp.mark] as any) : undefined;
+    const isSelected = state.editing?.id === exp.id
+    const value = exp.value ? exp.value : EMPTY_VALUE
 
-    //TODO awful code
     const show = Boolean(state.drag === undefined &&
         Components.isLeaf(state, exp) &&
         (
@@ -25,7 +27,6 @@ export function useExp({ exp }: { exp: ExpComponent }) {
             (state.editing && exp.mark !== undefined && state.editing.id === exp.mark)
         ) && (exp.mark === undefined || markComponent?.value === undefined)
     );
-
 
     const onRender: (args: DroppableRender) => {
         className?: string;
@@ -40,5 +41,5 @@ export function useExp({ exp }: { exp: ExpComponent }) {
         return {className, style: args.style,};
     };
 
-    return {show, hasMarkValue, markComponent, onRender,};
+    return {isSelected, value, show, hasMarkValue, markComponent, onRender,};
 }

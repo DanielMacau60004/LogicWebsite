@@ -16,7 +16,7 @@ export function boardComponents(): PreviewTreeComponent[] {
             [
                 tree(
                     exp("∃y (Likes(x, y))"),
-                    rule(),
+                    rule(RULE.AND_ELIM_LEFT),
                     [exp(), exp("a", 3)],
                     [mark(1)]
                 ),

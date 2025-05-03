@@ -101,14 +101,38 @@ export const Boards = {
     },
 
     updateRule(state: Board, rule: RuleComponent, tree: TreeComponent) {
-        const ruleValue = rule.value;
-        if (!ruleValue) return;
+        const ruleInfo = rule?.value ? RULE_DETAILS[rule.value] : undefined;
+        if (!tree.hypotheses || !tree.marks) return;
 
-        const ruleInfo = RULE_DETAILS[ruleValue];
-        if (!ruleInfo || !tree.hypotheses || !tree.marks) return;
+        this.updateHypotheses(state, tree, ruleInfo?.hypothesesCount ?? 0);
+        this.updateMarks(state, tree, ruleInfo?.marksCount ?? 0);
 
-        this.updateHypotheses(state, tree, ruleInfo.hypothesesCount);
-        this.updateMarks(state, tree, ruleInfo.marksCount);
+        if(ruleInfo === undefined) {
+            const element =  state.components[tree.conclusion]
+
+            if(tree.parent) {
+                const treeParent = state.components[tree.parent]
+                const index = treeParent?.hypotheses?.indexOf(tree.id)
+
+                treeParent.hypotheses[index] = tree.conclusion
+                element.parent = treeParent.id
+                delete state.components[tree.id];
+
+                state.active = undefined
+
+            }
+
+            delete state.components[tree.rule!!]
+            tree.rule = undefined
+            tree.hypotheses = undefined
+
+            const previous = document.getElementById(String(tree.conclusion));
+            if(previous) {
+                const rect = previous.getBoundingClientRect();
+                tree.position = BoardPosition.computeBoardCoordinates(state, { x: rect.x, y: rect.y + 20 });
+            }
+
+        }
 
     },
 
@@ -134,6 +158,7 @@ export const Boards = {
                     element.position = BoardPosition.computeBoardCoordinates(state, { x: rect.x, y: rect.y });
                     element.parent = undefined;
                     state.boardItems[id] = id;
+                    state.active = element
                 } else {
                     Boards.deleteEntireComponent(state, state.components[id])
                     delete state.components[id];

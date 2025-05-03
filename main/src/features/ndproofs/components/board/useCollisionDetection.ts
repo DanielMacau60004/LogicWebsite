@@ -10,7 +10,7 @@ export function useCollisionDetection() {
         droppableContainers: DroppableContainer[];
         pointerCoordinates: Coordinates | null;
     }) => {
-        const pointerCollisions = pointerWithin(args);
-        return pointerCollisions.length > 0 ? pointerCollisions : rectIntersection(args);
+        const collisions = pointerWithin(args);
+        return collisions.length > 0 ? collisions : rectIntersection(args);
     };
 }

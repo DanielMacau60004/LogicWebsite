@@ -5,11 +5,10 @@ import {useSelector} from "react-redux";
 import {GlobalState} from "../../../../../store";
 import {APPENDS} from "../../../constants";
 
-export function ExpMenu({exp, show, markComponent}: { exp: ExpComponent, show: boolean, markComponent: any }) {
+export function ExpMenu({show, markComponent}: { show: boolean, markComponent: any }) {
     const state = useSelector((state: GlobalState) => state.board);
 
-    //TODO...
-    if (!show) return null; //is selected or the parent of the selectes is itself
+    if (!show) return null;
     const rule = state.components[APPENDS.APPEND_RULE_COMPONENT_ID]
 
     return (

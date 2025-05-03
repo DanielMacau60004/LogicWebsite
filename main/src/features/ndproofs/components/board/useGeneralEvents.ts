@@ -1,11 +1,10 @@
-import {useDispatch, useSelector} from "react-redux";
-import {useEffect, useRef} from "react";
+import {useDispatch} from "react-redux";
+import {useEffect} from "react";
 import {BoardAction} from "../../types/proofBoard";
-import {copy, deleteComponent, paste, redo, setZoom, undo} from "../../../../store/boardSlice";
+import {copy, deleteComponent, paste, redo, undo} from "../../../../store/boardSlice";
 import {KeyActionMap} from "../../constants";
-import {GlobalState} from "../../../../store";
 
-export function useKeyboardShortCuts() {
+export function useGeneralEvents() {
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -36,4 +35,14 @@ export function useKeyboardShortCuts() {
         return () => document.removeEventListener("keydown", handleKeyPress);
     }, [dispatch]);
 
+    useEffect(() => {
+        const handleContextMenu = (e: MouseEvent) => {
+            e.preventDefault();
+        };
+
+        document.addEventListener("contextmenu", handleContextMenu);
+        return () => {
+            document.removeEventListener("contextmenu", handleContextMenu);
+        };
+    }, []);
 }

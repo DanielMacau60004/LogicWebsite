@@ -4,6 +4,7 @@ export const BOARD_WIDTH = 5000
 export const BOARD_HEIGHT = 2500
 export const MIN_SCALE = 0.5
 export const MAX_SCALE = 3
+export const INT_SCALE = 1
 
 export const BOARD_COMPONENT_ID = "board"
 export const DELETE_COMPONENT_ID = "delete"

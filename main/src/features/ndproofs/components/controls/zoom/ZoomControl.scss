@@ -1,0 +1,31 @@
+@import "../../../../../style/variables";
+
+.zoom-controls {
+  z-index: 200;
+  position: absolute;
+  height: auto;
+  bottom:20px;
+  left: 20px;
+}
+
+.zoom-controls-btn {
+  border-radius: 10px;
+  background-color: var(--color-6) !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: unset !important;
+  padding: 7px 10px !important;
+  color: var(--text-color) !important;
+  border: none !important;
+  opacity: 1 !important;
+}
+
+.zoom-controls-btn:disabled {
+  color: var(--text-color) !important;
+  background-color: var(--color-2) !important;
+}
+
+.zoom-controls-btn:hover:not(:disabled) {
+  transform: scale(1.2);
+}

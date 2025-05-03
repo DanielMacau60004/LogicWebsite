@@ -2,7 +2,7 @@ import {Board,} from "../../types/proofBoard";
 import {boardComponents} from "../../boardInit";
 import {Boards} from "./logic";
 import {mark, rule} from "../components/components";
-import {APPENDS} from "../../constants";
+import {APPENDS, INT_SCALE} from "../../constants";
 
 export function board(): Board {
     const board: Board = {
@@ -16,8 +16,7 @@ export function board(): Board {
         boardItems: {},
         redoStack: [],
         undoStack: [],
-        offset: {x: 0, y: 0},
-        zoom: 1
+        zoom: INT_SCALE
     };
 
     APPENDS.APPEND_RULE_COMPONENT_ID = Boards.appendComponent(board, rule())

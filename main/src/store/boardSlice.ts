@@ -14,6 +14,7 @@ import {Boards} from "../features/ndproofs/models/board/logic";
 import {Components} from "../features/ndproofs/models/components/logic";
 import {BoardDrag} from "../features/ndproofs/models/board/drag";
 import {BoardPosition} from "../features/ndproofs/models/board/position";
+import {MAX_SCALE, MIN_SCALE} from "../features/ndproofs/constants";
 
 const MOVEMENT_THRESHOLD = 10;
 const MAX_HISTORY_DEPTH = 20;
@@ -28,7 +29,6 @@ function cloneState(state: Board): Omit<Board, 'redoStack' | 'undoStack' | 'side
         editing: undefined,
         boardItems: deepCopy(state.boardItems),
         components: deepCopy(state.components),
-        offset: state.offset,
         zoom: state.zoom
     };
 }
@@ -49,7 +49,7 @@ const slice = createSlice({
             saveStateForUndo(state);
 
             const newTree = Boards.appendTree(state, action.payload)
-            if(newTree) {
+            if (newTree) {
                 const tree = state.components[newTree]
                 Boards.updateRule(state, state.components[tree.rule] as RuleComponent,
                     tree as TreeComponent)
@@ -63,8 +63,8 @@ const slice = createSlice({
         selectDraggingComponent: (state, action: PayloadAction<TreeComponent | undefined>) => {
             state.drag = action.payload;
 
-            if(state.drag !== undefined)
-                state.drag = {...state.drag, position:BoardPosition.computeRelativeCoordinates(state, state.drag.id)}
+            if (state.drag !== undefined)
+                state.drag = {...state.drag, position: BoardPosition.computeRelativeCoordinates(state, state.drag.id)}
         },
         selectEditingComponent: (state, action: PayloadAction<Component | undefined>) => {
             state.editing = action.payload;
@@ -80,24 +80,33 @@ const slice = createSlice({
             if (component.type === ComponentType.RULE && state.editing?.parent) {
                 Boards.updateRule(state, component as RuleComponent,
                     state.components[state.editing.parent] as TreeComponent)
-            }
-
-            state.components[component.id] = component
+            } else state.components[component.id] = component
             //state.editing = component
         },
         deleteComponent: (state) => {
             if (!state.isEditable) return
 
             const active = state.active;
-            if (active) {
+            if (active && state.drag === undefined) {
                 saveStateForUndo(state);
-                Boards.deleteEntireComponent(state, active)
 
-                if (active.parent) {
-                    state.components[active.id] = Components.reset(state, active, active.id)
+                if (active.type === ComponentType.RULE && state.active?.parent) {
+                    Boards.updateRule(state, {...active, value: undefined} as RuleComponent,
+                        state.components[state.active.parent] as TreeComponent)
                 } else {
-                    delete state.boardItems[active.id];
-                    delete state.components[active.id];
+
+                    Boards.deleteEntireComponent(state, active)
+
+                    if (active.parent) {
+                        const parent = state.components[active.parent]
+                        if (Components.isASimpleTree(parent) && parent.parent) {
+                            state.components[parent.id] = Components.reset(state, parent, parent.id)
+                        } else
+                            state.components[active.id] = Components.reset(state, active, active.id)
+                    } else {
+                        delete state.boardItems[active.id];
+                        delete state.components[active.id];
+                    }
                 }
 
                 state.editing = undefined;
@@ -188,7 +197,7 @@ const slice = createSlice({
             }
         },
         setZoom: (state, action: PayloadAction<number>) => {
-            state.zoom = action.payload;
+            state.zoom = Number((Math.min(Math.max(action.payload, MIN_SCALE), MAX_SCALE)).toFixed(2))
         },
     }
 });

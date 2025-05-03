@@ -5,12 +5,14 @@ import {selectEditingComponent, setEditable, updateComponent} from "../../../../
 import {ExpComponent} from "../../../types/proofBoard";
 import {forceInputChange} from "../../../../../utils/general";
 import {EXP_KEYBOARD_COMPONENT_ID} from "../../../constants";
+import {Components} from "../../../models/components/logic";
 
 const EMPTY_VALUE = " "
 const SHOW_DELAY = 150
 
 export function useInputExp({ exp }: { exp: ExpComponent }) {
     const ref = useRef<HTMLInputElement>(null);
+    const state = useSelector((state: GlobalState) => state.board)
     const {editing, components} = useSelector((state: GlobalState) => state.board)
     const dispatch: any = useDispatch()
 
@@ -45,6 +47,7 @@ export function useInputExp({ exp }: { exp: ExpComponent }) {
         const cleanValue = value?.trim() === "" ? undefined : value;
 
         if (cleanValue !== components[exp.id].value) {
+
             dispatch(updateComponent({
                 component: { ...components[exp.id], value: cleanValue },
                 saveState: true

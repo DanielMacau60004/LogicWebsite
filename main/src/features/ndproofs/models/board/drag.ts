@@ -1,18 +1,18 @@
 import {Board, Component, Position, TreeComponent} from "../../types/proofBoard";
-import {deepCopy} from "../../../../utils/general";
 import {Boards} from "./logic";
 import {BoardPosition} from "./position";
 import {Components} from "../components/logic";
+import {deepCopy} from "../../../../utils/general";
 
 export const BoardDrag = {
 
     dragInsideComponents(state: Board, elem1: Component, elem2: Component) {
         const isDroppingConclusion = Components.isConclusion(state, elem2);
-        const dragging = !isDroppingConclusion ? state.components[elem1.parent!!] : state.components[elem2.parent!!]
-        const dropping = isDroppingConclusion ? state.components[elem1.id] : state.components[elem2.id]
+        let dragging = !isDroppingConclusion ? state.components[elem1.parent!!] : state.components[elem2.parent!!]
+        let dropping = isDroppingConclusion ? state.components[elem1.id] : state.components[elem2.id]
 
         const parentDragging = Components.getLastParent(state, dragging)
-        const parentDropping = state.components[dropping.parent!!]//Components.getLastParent(state, dropping)
+        const parentDropping = state.components[dropping.parent!!]
 
         const pDragging = state.components[dragging.parent!!]
         const pDropping = state.components[dropping.parent!!]
@@ -26,20 +26,24 @@ export const BoardDrag = {
         const dragIndex = pDragging?.hypotheses?.indexOf(dragging.id)
         const dropIndex = pDropping?.hypotheses?.indexOf(dropping.id)
 
-        if (dropIndex !== undefined) pDropping.hypotheses[dropIndex] = dragging.id
-        else pDropping.conclusion = dragging.id
-
         this.swapChildren(state, dragging, dropping, isDroppingConclusion, pDragging, pDropping, dragIndex, dropIndex);
         this.updatePositions(state, dragging, dropping, pDropping, parentDragging, parentDropping, isDroppingConclusion);
 
         state.active = dragging
+
+        if (Components.isASimpleTree(dragging))
+            delete state.components[dragging.id];
     },
 
     swapChildren(state: Board, dragging: Component, dropping: Component, isConclusion: boolean, pDragging?: Component,
                  pDropping?: Component, dragIdx?: number, dropIdx?: number) {
 
-        if (dropIdx !== undefined) pDropping!!.hypotheses[dropIdx] = dragging.id;
-        else pDropping!!.conclusion = dragging.id;
+        if (dropIdx !== undefined) {
+            if (Components.isASimpleTree(dragging)) {
+                pDropping!!.hypotheses[dropIdx] = dragging.conclusion
+                state.components[dragging.conclusion].parent = pDropping?.id
+            } else pDropping!!.hypotheses[dropIdx] = Components.isASimpleTree(dragging) ?  dragging.conclusion : dragging.id;
+        } else pDropping!!.conclusion = dragging.id;
 
         if (pDragging) {
             if (dragIdx !== undefined) pDragging.hypotheses[dragIdx] = dropping.id;
@@ -59,6 +63,7 @@ export const BoardDrag = {
             delete state.boardItems[dragging.id];
             delete state.components[dropping.id];
         }
+
     },
 
     updatePositions(state: Board, dragging: Component, dropping: Component, pDropping: Component,
