@@ -15,11 +15,19 @@
   padding: 6px;
   z-index: 1000 !important;
 
-  &.bs-popover-bottom .popover-arrow:after {
+  &.bs-popover-top .popover-arrow::after {
+    border-top-color: var(--color-2);
+  }
+
+  &.bs-popover-bottom .popover-arrow::after {
     border-bottom-color: var(--color-2);
   }
 
-  &.bs-popover-end .popover-arrow:after {
+  &.bs-popover-start .popover-arrow::after {
+    border-left-color: var(--color-2);
+  }
+
+  &.bs-popover-end .popover-arrow::after {
     border-right-color: var(--color-2);
   }
 

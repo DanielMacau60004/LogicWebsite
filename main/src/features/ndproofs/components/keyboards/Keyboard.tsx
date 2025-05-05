@@ -42,6 +42,20 @@ export function Keyboard({id, ref, show, target, placement, style, children}: Ex
                 placement={placement}
                 container={ref}
                 offset={[0, 10]}
+                popperConfig={{
+                    modifiers: [
+                        {
+                            name: 'preventOverflow',
+                            options: {
+                                boundary: 'viewport',
+                            },
+                        },
+                        {
+                            name: 'flip',
+                            enabled: true,
+                        },
+                    ],
+                }}
             >
                 <Popover id="popover-contained" className="aux-keyboard">
                     {children}

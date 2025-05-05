@@ -1,0 +1,22 @@
+@import "../../../../style/variables";
+
+.exercise {
+  position: absolute !important;
+  background-color: color-mix(in srgb, var(--color-6) 100%, transparent);
+  color: var(--text-color);
+  border-radius: 10px;
+  transform: translateX(-50%) !important;
+  top: 20px;
+  left: 50%;
+}
+
+.exercise-content {
+  margin: 10px;
+
+  >.proof-tree {
+    margin: 0 10px;
+    background-color: var(--color-4);
+    padding: 0 !important;
+  }
+}
+

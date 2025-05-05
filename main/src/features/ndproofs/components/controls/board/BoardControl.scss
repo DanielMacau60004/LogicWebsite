@@ -1,6 +1,6 @@
 @import "../../../../../style/variables";
 
-.zoom-controls {
+.board-controls {
   z-index: 200;
   position: absolute;
   height: auto;
@@ -8,7 +8,7 @@
   left: 20px;
 }
 
-.zoom-controls-btn {
+.board-controls-btn {
   border-radius: 10px;
   background-color: var(--color-6) !important;
   display: flex;
@@ -21,11 +21,12 @@
   opacity: 1 !important;
 }
 
-.zoom-controls-btn:disabled {
+.board-controls-btn:disabled,
+.board-control-disabled {
   color: var(--text-color) !important;
   background-color: var(--color-2) !important;
 }
 
-.zoom-controls-btn:hover:not(:disabled) {
+.board-controls-btn:hover:not(:disabled) {
   transform: scale(1.2);
 }

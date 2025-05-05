@@ -19,7 +19,7 @@ import {MAX_SCALE, MIN_SCALE} from "../features/ndproofs/constants";
 const MOVEMENT_THRESHOLD = 10;
 const MAX_HISTORY_DEPTH = 20;
 
-function cloneState(state: Board): Omit<Board, 'redoStack' | 'undoStack' | 'sideBarItems'> {
+function cloneState(state: Board): Omit<Board, 'redoStack' | 'undoStack'> {
     return {
         currentId: state.currentId,
         active: undefined,
@@ -29,7 +29,9 @@ function cloneState(state: Board): Omit<Board, 'redoStack' | 'undoStack' | 'side
         editing: undefined,
         boardItems: deepCopy(state.boardItems),
         components: deepCopy(state.components),
-        zoom: state.zoom
+        zoom: state.zoom,
+        exercise: state.exercise,
+        isFOL: state.isFOL
     };
 }
 

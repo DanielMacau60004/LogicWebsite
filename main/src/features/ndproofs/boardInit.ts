@@ -1,4 +1,4 @@
-import {PreviewTreeComponent} from "./types/proofBoard";
+import {PreviewExpComponent, PreviewTreeComponent} from "./types/proofBoard";
 import {
     exp,
     mark,
@@ -7,6 +7,10 @@ import {
     treeExp
 } from "./models/components/components";
 import {RULE} from "./types/proofRules";
+
+export function boardExercise(): PreviewTreeComponent[] {
+    return [treeExp(exp("(φ ∨ ψ) ∧ (φ ∨ δ)", 1)), treeExp(exp("(φ ∨ ψ)", 2)), treeExp(exp("φ ∨ (ψ ∧ δ)"))]
+}
 
 export function boardComponents(): PreviewTreeComponent[] {
     return [

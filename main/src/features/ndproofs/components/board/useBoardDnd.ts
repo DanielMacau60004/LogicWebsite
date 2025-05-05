@@ -1,4 +1,4 @@
-import {DragEndEvent, DragStartEvent,} from "@dnd-kit/core";
+import {Active, DragEndEvent, DragStartEvent,} from "@dnd-kit/core";
 import {
     copy,
     deleteComponent,
@@ -56,11 +56,8 @@ export function useBoardDnd() {
         if (isDoubleClick()) {
             dispatch(selectEditingComponent(component))
             dispatch(selectComponent(undefined))
-            dispatch(setEditable(false))
         }
-
-        setupSelectedRule(component.id)
-
+        else setupSelectedRule(component.id)
     }
 
     function handleDragStart(event: DragStartEvent) {
@@ -71,7 +68,7 @@ export function useBoardDnd() {
 
         if(!component) {
             dispatch(selectComponent(undefined))
-            dispatch(selectEditingComponent(undefined))
+            //dispatch(selectEditingComponent(undefined))
             return;
         }
 

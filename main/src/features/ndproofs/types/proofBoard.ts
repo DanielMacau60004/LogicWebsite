@@ -11,7 +11,9 @@ export interface Board {
     components: { [key: number]: Component };
     undoStack: Omit<Board, 'undoStack' | 'redoStack' | 'sideBarItems'>[];
     redoStack: Omit<Board, 'undoStack' | 'redoStack' | 'sideBarItems'>[];
-    zoom: number
+    zoom: number,
+    exercise: number[],
+    isFOL: boolean,
 }
 
 export enum BoardAction {

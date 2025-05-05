@@ -16,7 +16,8 @@ import {ExpKeyboard} from "../keyboards/ExpKeyboard";
 import {RuleKeyboard} from "../keyboards/RuleKeyboard";
 import {MarkKeyboard} from "../keyboards/MarkKeyboard";
 import {useZoom} from "./useZoom";
-import {ZoomControl} from "../controls/zoom/ZoomControl";
+import {BoardControl} from "../controls/board/BoardControl";
+import {Exercise} from "../exercise/Exercise";
 
 export function Board() {
     useGeneralEvents()
@@ -33,35 +34,45 @@ export function Board() {
 
     return (
         <TransformWrapper
-            panning={{disabled: drag !== undefined}}
+            panning={{disabled: drag !== undefined || editing !== undefined}}
             initialScale={INT_SCALE}
             minScale={MIN_SCALE}
             maxScale={MAX_SCALE}
             doubleClick={{disabled: true}}
-            disabled={!isEditable || editing !== undefined}
+            disabled={editing !== undefined}
             centerOnInit={true}
             onZoom={onZoom}
         >
             {({zoomIn, zoomOut, instance, ...rest}) => (
                 <>
-                    <TransformComponent wrapperClass="board-wrapper">
-                        <div className="board-background">
-                            {isEditable ? (
-                                <DndContext
-                                    onDragStart={handleDragStart}
-                                    onDragEnd={handleDragEnd}
-                                    collisionDetection={collisionAlgorithm}
-                                    autoScroll={true}
-                                    sensors={sensors}
-                                    modifiers={[zoomModifier]}
-                                >
-                                    {board}
-                                </DndContext>
-                            ) : (
-                                board
-                            )}
+                    <DndContext
+                        onDragStart={handleDragStart}
+                        onDragEnd={handleDragEnd}
+                        collisionDetection={collisionAlgorithm}
+                        autoScroll={true}
+                        sensors={sensors}
+                        modifiers={[zoomModifier]}
+                    >
+
+                        <TransformComponent wrapperClass="board-wrapper">
+                            <div className="board-background">
+                                {board}
+                            </div>
+                        </TransformComponent>
+
+                        {/* TEMPORARY DEBUG */}
+                        <div style={{backgroundColor: "red", position: "absolute", bottom: 0, right: 0}}>
+                            Entities: {Object.keys(components).length} Zoom: {zoom}
                         </div>
-                    </TransformComponent>
+
+                        <Exercise/>
+                        <BoardControl instance={instance}/>
+                        <StateControl/>
+                        <ExpKeyboard/>
+                        <RuleKeyboard/>
+                        <MarkKeyboard/>
+
+                    </DndContext>
 
                     <div className="minimap">
                         <MiniMap borderColor={"var(--color-6)"}>
@@ -69,18 +80,10 @@ export function Board() {
                         </MiniMap>
                     </div>
 
-                    {/* TEMPORARY DEBUG */}
-                    <div style={{backgroundColor: "red", position: "absolute", bottom: 0, right: 0}}>
-                        Entities: {Object.keys(components).length} Zoom: {zoom}
-                    </div>
-
-                    <ZoomControl instance={instance}/>
-                    <StateControl/>
-                    <ExpKeyboard/>
-                    <RuleKeyboard/>
-                    <MarkKeyboard/>
                 </>
             )}
+
+
         </TransformWrapper>
     );
 }
