@@ -1,4 +1,4 @@
-import {DndContext, MouseSensor, TouchSensor, useSensor, useSensors,} from "@dnd-kit/core";
+import {DndContext, DragOverlay, MouseSensor, TouchSensor, useSensor, useSensors,} from "@dnd-kit/core";
 
 import {useBoardDnd} from "./useBoardDnd";
 import "./Board.scss"
@@ -9,7 +9,7 @@ import {useCollisionDetection} from "./useCollisionDetection";
 import {useGeneralEvents} from "./useGeneralEvents";
 import '@xyflow/react/dist/style.css';
 import React from 'react';
-import {INT_SCALE, MAX_SCALE, MIN_SCALE} from "../../constants";
+import {APPENDS, INT_SCALE, MAX_SCALE, MIN_SCALE} from "../../constants";
 import {MiniMap, TransformComponent, TransformWrapper} from "react-zoom-pan-pinch";
 import {StateControl} from "../controls/state/StateControl";
 import {ExpKeyboard} from "../keyboards/ExpKeyboard";
@@ -18,17 +18,20 @@ import {MarkKeyboard} from "../keyboards/MarkKeyboard";
 import {useZoom} from "./useZoom";
 import {BoardControl} from "../controls/board/BoardControl";
 import {Exercise} from "../exercise/Exercise";
+import {Tree} from "../proof/tree/Tree";
+import {AdderControl} from "../controls/adder/AdderControl";
 
 export function Board() {
     useGeneralEvents()
-    const {isEditable, drag, components, zoom, editing} = useSelector((state: GlobalState) => state.board)
+    const {isEditable, drag, components, zoom, editing, isFOL} = useSelector((state: GlobalState) => state.board)
     const collisionAlgorithm = useCollisionDetection()
     const {handleDragStart, handleDragEnd} = useBoardDnd()
     const {zoomModifier, onZoom} = useZoom()
 
+    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
     const mouseSensor = useSensor(MouseSensor);
     const touchSensor = useSensor(TouchSensor);
-    const sensors = useSensors(mouseSensor, touchSensor,);
+    const sensors = useSensors(isTouchDevice ? touchSensor : mouseSensor);
 
     const board = <BoardContent/>
 
@@ -40,11 +43,14 @@ export function Board() {
             maxScale={MAX_SCALE}
             doubleClick={{disabled: true}}
             disabled={editing !== undefined}
-            centerOnInit={true}
+            onInit={(e)=>{
+                setTimeout(() => { e.zoomToElement(String(APPENDS.APPEND_MAIN_COMPONENT_ID), INT_SCALE)}, 200)}
+            }
             onZoom={onZoom}
         >
             {({zoomIn, zoomOut, instance, ...rest}) => (
                 <>
+
                     <DndContext
                         onDragStart={handleDragStart}
                         onDragEnd={handleDragEnd}
@@ -57,13 +63,16 @@ export function Board() {
                         <TransformComponent wrapperClass="board-wrapper">
                             <div className="board-background">
                                 {board}
+
                             </div>
                         </TransformComponent>
 
+
                         {/* TEMPORARY DEBUG */}
                         <div style={{backgroundColor: "red", position: "absolute", bottom: 0, right: 0}}>
-                            Entities: {Object.keys(components).length} Zoom: {zoom}
+                           FOL: {isFOL ? "true": "false"} Entities: {Object.keys(components).length} Zoom: {zoom}
                         </div>
+
 
                         <Exercise/>
                         <BoardControl instance={instance}/>
@@ -71,6 +80,7 @@ export function Board() {
                         <ExpKeyboard/>
                         <RuleKeyboard/>
                         <MarkKeyboard/>
+                        <AdderControl/>
 
                     </DndContext>
 

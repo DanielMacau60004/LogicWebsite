@@ -1,6 +1,7 @@
 import {Board, Component, ComponentType} from "../../types/proofBoard";
 import {Boards} from "../board/logic";
 import {mark} from "./components";
+import {deepCopy} from "../../../../utils/general";
 
 export const Components = {
 
@@ -47,8 +48,9 @@ export const Components = {
     },
 
     getLastParent(board: Board, component: Component): Component {
-        while (component.parent)
+        while (component.parent) {
             component = board.components[component.parent];
+        }
         return component
     },
 
@@ -75,7 +77,10 @@ export const Components = {
             (!this.isConclusion(board, dragging)
                 || !Components.isASimpleTree(board.components[dropping.parent!!]))
 
-        return hasTheCorrectType && isValidDirection && noParentConflict && hasSameContent && singleNotATree;
+        const notEditable = !this.getLastParent(board, dropping).clone
+
+        return hasTheCorrectType && isValidDirection && noParentConflict && hasSameContent && singleNotATree
+            && notEditable;
     }
 };
 

@@ -15,13 +15,17 @@ export const RULE_KEYBOARD_COMPONENT_ID = "rule-keyboard"
 export const MARK_KEYBOARD_COMPONENT_ID = "mark-keyboard"
 
 export const APPENDS = {
+    APPEND_MAIN_COMPONENT_ID: 0,
+    APPEND_TREE_COMPONENT_ID: 0,
     APPEND_MARK_COMPONENT_ID: 0,
     APPEND_RULE_COMPONENT_ID: 0,
 };
 
 export const DOUBLE_CLICK_THRESHOLD  = 250
 
-export const LOGICAL_SYMBOLS: string[] = ['⊥', '⊤', '¬', '∧', '∨', '→', '∀', '∃'];
+export const LOGICAL_SYMBOLS: string[] = ['⊥', '⊤', '¬', '∧', '∨', '→'];
+export const FOL_SYMBOLS: string[] = [...LOGICAL_SYMBOLS, '∀', '∃'];
+
 export const GROUPING_SYMBOLS: string[] = ['(', ')'];
 export const GREEK_LETTERS: string[] = ['α', 'β', 'γ', 'δ', 'φ', 'ψ'];
 export const MARKS_SYMBOLS = Array.from({length: 20}, (_, i) => (i + 1).toString());
@@ -33,4 +37,5 @@ export const KeyActionMap: Map<string, BoardAction> = new Map([
     ['Ctrl+KeyY', BoardAction.Redo],
     ['Ctrl+KeyC', BoardAction.Copy],
     ['Ctrl+KeyV', BoardAction.Paste],
+    ['Escape', BoardAction.SwitchFOL],
 ]);

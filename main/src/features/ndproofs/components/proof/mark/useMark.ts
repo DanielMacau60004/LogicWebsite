@@ -15,6 +15,7 @@ export function useMark({mark}: { mark: MarkComponent }) {
     const dispatch: any = useDispatch()
     const value = mark.value ? mark.value : EMPTY_VALUE
     const isSelected = editing?.id === mark.id
+    const className = mark.value ? "" : "empty"
 
     useEffect(() => {
         if (!isSelected || !ref.current) return;
@@ -41,5 +42,5 @@ export function useMark({mark}: { mark: MarkComponent }) {
             dispatch(selectEditingComponent(undefined));
     };
 
-    return {id, ref, value, onBlur}
+    return {id, ref, value, className, onBlur}
 }

@@ -1,6 +1,6 @@
-import {PreviewExpComponent, PreviewTreeComponent} from "./types/proofBoard";
+import {PreviewTreeComponent} from "./types/proofBoard";
 import {
-    exp,
+    exp, expSidebar,
     mark,
     rule,
     tree,
@@ -9,7 +9,7 @@ import {
 import {RULE} from "./types/proofRules";
 
 export function boardExercise(): PreviewTreeComponent[] {
-    return [treeExp(exp("(φ ∨ ψ) ∧ (φ ∨ δ)", 1)), treeExp(exp("(φ ∨ ψ)", 2)), treeExp(exp("φ ∨ (ψ ∧ δ)"))]
+    return [expSidebar("(φ ∨ ψ) ∧ (φ ∨ δ)", 1), expSidebar("(φ ∨ ψ)", 2), expSidebar("φ ∨ (ψ ∧ δ)")]
 }
 
 export function boardComponents(): PreviewTreeComponent[] {

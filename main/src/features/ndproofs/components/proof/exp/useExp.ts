@@ -19,7 +19,7 @@ export function useExp({ exp }: { exp: ExpComponent }) {
     const isSelected = state.editing?.id === exp.id
     const value = exp.value ? exp.value : EMPTY_VALUE
 
-    const show = Boolean(state.drag === undefined &&
+    const show = Boolean(state.drag === undefined && (exp?.editable ?? true) &&
         Components.isLeaf(state, exp) &&
         (
             (state.active && state.active.id === exp.id) ||
@@ -34,6 +34,8 @@ export function useExp({ exp }: { exp: ExpComponent }) {
     } = (args) => {
         const className = [
             args.className,
+            state.active && state.active.id === exp.id ? "active": "",
+            exp.value ? "" : "empty",
             canDrag ? "highlight" : "",
             canDrag && args.droppable.isOver ? "highlight-hover" : "",
         ].join(" ").trim();

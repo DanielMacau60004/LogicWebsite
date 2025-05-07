@@ -97,7 +97,6 @@ export const BoardDrag = {
             if (dragIndex !== undefined) pDragging.hypotheses[dragIndex] = element.id
             else pDragging.conclusion = element.id
 
-            state.boardItems[dragging.id] = dragging.id;
             dragging.parent = undefined;
             dragging.position = BoardPosition.computeRelativeCoordinates(state, dragging.id)
         }
@@ -105,11 +104,14 @@ export const BoardDrag = {
         if (element.position) {
             element.position.x += position.x;
             element.position.y += position.y;
-
         } else
             element.position = {...position};
 
+        state.boardItems[dragging.id] = dragging.id;
         state.active = element
+
+        if(dragging.cloned)
+            dragging.cloned = undefined
     },
 
 }

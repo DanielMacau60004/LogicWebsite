@@ -6,7 +6,7 @@ import {useKeyBoard} from "./useKeyboard";
 import {EXP_INPUT_COMPONENT_ID} from "../../constants";
 
 export function useExpBoard() {
-    const {components, editing} = useSelector((state: GlobalState) => state.board)
+    const {components, editing, isFOL} = useSelector((state: GlobalState) => state.board)
     const {ref, target, show, style} = useKeyBoard({type: ComponentType.EXP})
 
     const onKeyClick = (char: string) => {
@@ -23,5 +23,5 @@ export function useExpBoard() {
         }
     };
 
-    return {ref, target, show, style, onKeyClick}
+    return {ref, target, show, style, isFOL, onKeyClick}
 }

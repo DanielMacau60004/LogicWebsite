@@ -5,13 +5,10 @@ import {appendTree, selectComponent, selectEditingComponent, updateComponent} fr
 import {RULE} from "../../types/proofRules";
 import {useKeyBoard} from "./useKeyboard";
 import {exp, rule, tree} from "../../models/components/components";
-import {deepCopy} from "../../../../utils/general";
-import {Components} from "../../models/components/logic";
-import {Boards} from "../../models/board/logic";
 
 export function useRuleBoard() {
     const dispatch: any = useDispatch()
-    const {components, editing} = useSelector((state: GlobalState) => state.board)
+    const {components, editing, isFOL} = useSelector((state: GlobalState) => state.board)
     const {ref, target, show, style} = useKeyBoard({type: ComponentType.RULE})
 
     const canDelete = editing && components[editing.parent!!].type === ComponentType.TREE
@@ -22,7 +19,6 @@ export function useRuleBoard() {
         const currentInput = document.getElementById(String(editing?.id)) as HTMLInputElement;
 
         if (currentInput && editing) {
-
             const parent = editing?.parent !== undefined ? components[editing.parent] : undefined;
             if(parent && parent.type === ComponentType.EXP) {
                 dispatch(selectComponent(parent))
@@ -34,5 +30,5 @@ export function useRuleBoard() {
         }
     };
 
-    return {ref, target, show, style, canDelete, onKeyClick}
+    return {ref, target, show, style, canDelete, isFOL, onKeyClick}
 }

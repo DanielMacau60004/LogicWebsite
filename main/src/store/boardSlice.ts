@@ -42,6 +42,27 @@ function saveStateForUndo(state: Board) {
     state.redoStack = [];
 }
 
+function handleUndo(state: Board, addRedo: boolean) {
+    if (state.undoStack.length === 0) return;
+
+    const prevState = state.undoStack.pop();
+    if (prevState) {
+        if(addRedo)
+            state.redoStack.push(cloneState(state));
+        Object.assign(state, prevState);
+    }
+}
+function handleRedo(state: Board, addUndo: boolean) {
+    if (state.redoStack.length === 0) return;
+
+    const nextState = state.redoStack.pop();
+    if (nextState) {
+        if(addUndo)
+            state.undoStack.push(cloneState(state));
+        Object.assign(state, nextState);
+    }
+}
+
 const slice = createSlice({
     name: 'board',
     initialState: board(),
@@ -58,6 +79,30 @@ const slice = createSlice({
             }
 
             state.active = undefined
+        },
+        appendExpTree: (state, action: PayloadAction<PreviewTreeComponent>) => {
+            saveStateForUndo(state);
+
+            const id = Boards.appendComponent(state, action.payload)
+            state.boardItems[id] = id
+            state.active = state.components[id]
+        },
+        sideDragging: (state, action: PayloadAction<{ dragging: TreeComponent, preview: PreviewTreeComponent }>) => {
+            saveStateForUndo(state);
+
+            const newTree = Boards.appendComponent(state, action.payload.preview)
+
+            if (newTree) {
+                const tree = state.components[newTree] as TreeComponent
+                Boards.updateRule(state, state.components[tree.rule!!] as RuleComponent,
+                    tree as TreeComponent)
+
+                tree.position = BoardPosition.computeRelativeCoordinates(state, action.payload.dragging.id)
+                //state.boardItems[tree.id] = tree.id
+                tree.cloned = true
+                state.active = state.components[tree.conclusion]
+                state.drag = tree
+            }
         },
         selectComponent: (state, action: PayloadAction<Component | undefined>) => {
             state.active = action.payload;
@@ -82,6 +127,7 @@ const slice = createSlice({
             if (component.type === ComponentType.RULE && state.editing?.parent) {
                 Boards.updateRule(state, component as RuleComponent,
                     state.components[state.editing.parent] as TreeComponent)
+                state.components[component.id] = component
             } else state.components[component.id] = component
             //state.editing = component
         },
@@ -123,8 +169,16 @@ const slice = createSlice({
             const active = state.active;
 
             //Check if the movement is big enough to trigger the drag event
-            if (Math.abs(position.x) + Math.abs(position.y) < MOVEMENT_THRESHOLD)
+            if (Math.abs(position.x) + Math.abs(position.y) < MOVEMENT_THRESHOLD) {
+                if (drag && drag.cloned) {
+                    state.drag = undefined
+                    state.active = undefined
+
+                    Boards.deleteEntireComponent(state, drag)
+                    handleUndo(state, false)
+                }
                 return
+            }
 
             //Check if an expression is selected
             if (active === undefined || drag === undefined)
@@ -140,6 +194,7 @@ const slice = createSlice({
                 saveStateForUndo(state);
                 BoardDrag.dragOutsideComponent(state, position, state.components[drag!!.id] as TreeComponent)
             }
+
 
         },
         copy: (state) => {
@@ -181,32 +236,29 @@ const slice = createSlice({
 
         },
         undo: (state) => {
-            if (state.undoStack.length === 0) return;
-
-            const prevState = state.undoStack.pop();
-            if (prevState) {
-                state.redoStack.push(cloneState(state));
-                Object.assign(state, prevState);
-            }
+            handleUndo(state, true)
         },
         redo: (state) => {
-            if (state.redoStack.length === 0) return;
-
-            const nextState = state.redoStack.pop();
-            if (nextState) {
-                state.undoStack.push(cloneState(state));
-                Object.assign(state, nextState);
-            }
+            handleRedo(state, true)
         },
         setZoom: (state, action: PayloadAction<number>) => {
-            state.zoom = Number((Math.min(Math.max(action.payload, MIN_SCALE), MAX_SCALE)).toFixed(2))
+            state.zoom = Number((Math.min(Math.max(action.payload, MIN_SCALE), MAX_SCALE)))
         },
+        switchFOL: (state) => {
+            state.isFOL = !state.isFOL
+        },
+        setExercise: (state, action: PayloadAction<{exercise: string[],isFOL:boolean}>) => {
+            Object.assign(state, board(action.payload.exercise));
+            state.isFOL = action.payload.isFOL
+        }
     }
 });
 
 export const {
     appendTree,
+    appendExpTree,
     selectComponent,
+    sideDragging,
     selectDraggingComponent,
     selectEditingComponent,
     setEditable,
@@ -218,6 +270,8 @@ export const {
     undo,
     redo,
     setZoom,
+    switchFOL,
+    setExercise
 } = slice.actions;
 
 export const boardReducer = slice.reducer;

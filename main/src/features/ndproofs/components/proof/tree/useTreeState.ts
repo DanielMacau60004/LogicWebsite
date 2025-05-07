@@ -9,7 +9,7 @@ export function useTreeState(tree: TreeComponent) {
     const state = useSelector((state: GlobalState) => state.board);
     const { drag, active, editing } = state;
 
-    const isRoot = tree.parent === undefined;
+    const isRoot = tree.parent === undefined && !tree.cloned;
 
     const isActive =
         (active && Components.getLastParent(state, active).id === tree.id) ||

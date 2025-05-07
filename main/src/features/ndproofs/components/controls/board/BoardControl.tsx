@@ -1,8 +1,4 @@
-import {GlobalState} from "../../../../../store";
-import {useDispatch, useSelector} from "react-redux";
-import {FaArrowRotateLeft, FaArrowRotateRight} from "react-icons/fa6";
 import {Button} from "react-bootstrap";
-import {redo, undo} from "../../../../../store/boardSlice";
 import "./BoardControl.scss"
 import {useZoomControl} from "./useZoomControl";
 import { FaPlus } from "react-icons/fa";
@@ -10,6 +6,7 @@ import { FaMinus } from "react-icons/fa6";
 import {ReactZoomPanPinchContext} from "react-zoom-pan-pinch";
 import { FaLock, FaUnlock } from "react-icons/fa";
 import {useLockControl} from "./useLockControl";
+import { TiZoomInOutline,TiZoomOut } from "react-icons/ti";
 
 type ZoomButtonProps = {
     disabled: boolean;
@@ -18,16 +15,16 @@ type ZoomButtonProps = {
 
 function ZoomIn({onClick, disabled}: ZoomButtonProps) {
     return (
-        <Button className={"board-controls-btn mb-2"} onClick={onClick} disabled={disabled}>
-            <FaPlus size={20}/>
+        <Button className={"board-controls-btn mb-2 p-1"} onClick={onClick} disabled={disabled}>
+            <TiZoomInOutline  size={40}/>
         </Button>
     )
 }
 
 function ZoomOut({onClick, disabled}: ZoomButtonProps) {
     return (
-        <Button className={"board-controls-btn mb-2"} onClick={onClick} disabled={disabled}>
-            <FaMinus size={20}/>
+        <Button className={"board-controls-btn mb-2 p-1"} onClick={onClick} disabled={disabled}>
+            <TiZoomOut size={40}/>
         </Button>
     )
 }

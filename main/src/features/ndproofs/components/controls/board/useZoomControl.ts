@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from "react-redux";
-import {redo, setZoom, undo} from "../../../../../store/boardSlice";
+import {setZoom} from "../../../../../store/boardSlice";
 import {GlobalState} from "../../../../../store";
 import {MAX_SCALE, MIN_SCALE} from "../../../constants";
 import {BoardControlProps} from "./BoardControl";
@@ -10,11 +10,15 @@ export function useZoomControl({instance}: BoardControlProps) {
 
     const onZoomInClick = () => {
         instance.getContext().zoomIn()
-        dispatch(setZoom(instance.getContext().state.scale))
+
+        //Necessary because the value of the zoom only changes when the zoomIn effect finishes
+        setTimeout(() => {dispatch(setZoom(instance.getContext().state.scale));}, 500);
     }
     const onZoomOutClick = () => {
         instance.getContext().zoomOut()
-        dispatch(setZoom(instance.getContext().state.scale))
+
+        //Necessary because the value of the zoom only changes when the zoomOut effect finishes
+        setTimeout(() => {dispatch(setZoom(instance.getContext().state.scale));}, 500);
     }
 
     const canZoomIn = zoom >= MAX_SCALE

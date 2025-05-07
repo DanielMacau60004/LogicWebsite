@@ -27,7 +27,8 @@ export const Boards = {
                     this.appendComponent(state, mark, id));
 
                 state.components[id] = {
-                    id, type: ComponentType.TREE, parent, position: tree.position, conclusion, rule, hypotheses, marks
+                    id, type: ComponentType.TREE, parent, position: tree.position, conclusion, rule, hypotheses, marks,
+                    editable: tree.editable, clone: tree.clone
                 }
 
                 break;
@@ -35,12 +36,12 @@ export const Boards = {
                 let mark
                 if(component.mark)
                     mark = this.appendComponent(state, component.mark, id)
-                component.parent = parent
-                state.components[id] = {...component, id: id, mark}
+                //component.parent = parent
+                state.components[id] = {...component, id: id, mark, parent}
                 break;
             default:
-                component.parent = parent
-                state.components[id] = {...component, id}
+                //component.parent = parent
+                state.components[id] = {...component, id, parent}
                 break;
         }
 

@@ -7,8 +7,6 @@ import "./Exp.scss"
 import {ExpMenu} from "./ExpMenu";
 import {ExpInput} from "./ExpInput";
 
-
-
 export function Exp({exp}: { exp: ExpComponent }) {
     const {isSelected, value, show, hasMarkValue, markComponent, onRender } = useExp({exp});
 
@@ -30,5 +28,15 @@ export function Exp({exp}: { exp: ExpComponent }) {
             )}
         </Droppable>
 
+    );
+}
+
+export function ExpPreview({exp}: { exp: PreviewExpComponent }) {
+    return (
+        <div className="proof-component proof-exp">
+            <div className="proof-component-content">
+                {exp.value}
+            </div>
+        </div>
     );
 }

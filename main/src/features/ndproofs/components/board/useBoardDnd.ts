@@ -1,4 +1,4 @@
-import {Active, DragEndEvent, DragStartEvent,} from "@dnd-kit/core";
+import {DragEndEvent, DragStartEvent,} from "@dnd-kit/core";
 import {
     copy,
     deleteComponent,
@@ -7,20 +7,20 @@ import {
     selectComponent,
     selectDraggingComponent,
     selectEditingComponent,
-    setEditable,
+    sideDragging,
     updateComponent,
 } from "../../../../store/boardSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {GlobalState} from "../../../../store";
 import {useRef} from "react";
-import {ComponentType, ExpComponent, TreeComponent} from "../../types/proofBoard";
+import {ComponentType, ExpComponent, PreviewTreeComponent, TreeComponent} from "../../types/proofBoard";
 import {APPENDS, CLONE_COMPONENT_ID, DELETE_COMPONENT_ID, DOUBLE_CLICK_THRESHOLD} from "../../constants";
 import {Components} from "../../models/components/logic";
 
 export function useBoardDnd() {
     const dispatch: any = useDispatch()
     const state = useSelector((state: GlobalState) => state.board)
-    const {isEditable, components} = useSelector((state: GlobalState) => state.board)
+    const {isEditable, components, editing} = useSelector((state: GlobalState) => state.board)
     const lastClickTime = useRef<number>(0);
 
     function isDoubleClick(): boolean {
@@ -53,11 +53,10 @@ export function useBoardDnd() {
     }
 
     function handleExpActions(component: ExpComponent) {
-        if (isDoubleClick()) {
+        if (isDoubleClick() && (component.editable ?? true)) {
             dispatch(selectEditingComponent(component))
             dispatch(selectComponent(undefined))
-        }
-        else setupSelectedRule(component.id)
+        } else setupSelectedRule(component.id)
     }
 
     function handleDragStart(event: DragStartEvent) {
@@ -66,9 +65,19 @@ export function useBoardDnd() {
         let component = components[Number(event.active.id)];
         let dragging = undefined
 
-        if(!component) {
+        if(editing && editing.type === ComponentType.EXP)return;
+
+        if (!component) {
             dispatch(selectComponent(undefined))
             //dispatch(selectEditingComponent(undefined))
+            return;
+        }
+
+        if (component.clone) {
+            dispatch(sideDragging({
+                dragging: component as TreeComponent,
+                preview: component.clone as PreviewTreeComponent
+            }))
             return;
         }
 
@@ -90,18 +99,20 @@ export function useBoardDnd() {
 
         dispatch(selectComponent(component))
 
+        const editable = (component.parent && (components[component.parent]?.editable ?? true));
+
         //Handle exp actions
-        if (component.type === ComponentType.EXP)
+        if (component.type === ComponentType.EXP && editable)
             handleExpActions(component as ExpComponent)
 
         //Handle rule actions
-        if (component.type === ComponentType.RULE) {
+        if (component.type === ComponentType.RULE && editable) {
             dispatch(selectEditingComponent(component))
             dragging = undefined
         }
 
         //Handle mark actions
-        if (component.type === ComponentType.MARK) {
+        if (component.type === ComponentType.MARK && editable) {
             dispatch(selectEditingComponent(component))
             dragging = undefined
 

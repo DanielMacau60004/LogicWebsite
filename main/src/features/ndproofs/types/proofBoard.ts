@@ -21,7 +21,8 @@ export enum BoardAction {
     Undo = 'undo',
     Redo = 'redo',
     Copy = 'copy',
-    Paste = 'paste'
+    Paste = 'paste',
+    SwitchFOL = 'fol'
 }
 
 export type Position = {
@@ -38,6 +39,7 @@ export enum ComponentType {
 
 export interface PreviewComponent {
     type: ComponentType;
+    editable? : boolean;
     [key: string]: any;
 }
 

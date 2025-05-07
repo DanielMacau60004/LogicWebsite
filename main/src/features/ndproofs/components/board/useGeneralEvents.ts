@@ -1,7 +1,7 @@
 import {useDispatch} from "react-redux";
 import {useEffect} from "react";
 import {BoardAction} from "../../types/proofBoard";
-import {copy, deleteComponent, paste, redo, undo} from "../../../../store/boardSlice";
+import {copy, deleteComponent, paste, redo, switchFOL, undo} from "../../../../store/boardSlice";
 import {KeyActionMap} from "../../constants";
 
 export function useGeneralEvents() {
@@ -28,6 +28,8 @@ export function useGeneralEvents() {
                 case BoardAction.Paste:
                     dispatch(paste());
                     break;
+                case BoardAction.SwitchFOL:
+                    dispatch(switchFOL())
             }
         }
 

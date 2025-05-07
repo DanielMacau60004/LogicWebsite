@@ -1,17 +1,28 @@
-import {ComponentType, ExpComponent, MarkComponent, RuleComponent, TreeComponent} from "../../../types/proofBoard";
+import {
+    ComponentType,
+    ExpComponent,
+    MarkComponent, PreviewExpComponent, PreviewMarkComponent, PreviewRuleComponent,
+    PreviewTreeComponent,
+    RuleComponent,
+    TreeComponent
+} from "../../../types/proofBoard";
 import {useSelector} from "react-redux";
 import {GlobalState} from "../../../../../store";
-import React from "react";
+import React, {useRef} from "react";
 import {Draggable} from "../../../../../components/Draggable";
 import "./Tree.scss"
 import {TreeMenu} from "./TreeMenu";
-import {Exp} from "../exp/Exp";
-import {Rule} from "../rule/Rule";
-import {Mark} from "../mark/Mark";
+import {Exp, ExpPreview} from "../exp/Exp";
+import {Rule, RulePreview} from "../rule/Rule";
+import {Mark, MarkPreview} from "../mark/Mark";
 import {useTreeState} from "./useTreeState";
+import {FaQuestion} from "react-icons/fa";
+import {RULE, RULE_DETAILS} from "../../../types/proofRules";
+import {OverlayTrigger, Tooltip} from "react-bootstrap";
+import {BOARD_COMPONENT_ID} from "../../../constants";
 
-export function Tree({tree}: {tree: TreeComponent}) {
-    const {drag, isRoot, isSelected, onRender } = useTreeState(tree);
+export function Tree({tree}: { tree: TreeComponent }) {
+    const {drag, isRoot, isSelected, onRender} = useTreeState(tree);
 
     return (
         <Draggable
@@ -19,26 +30,26 @@ export function Tree({tree}: {tree: TreeComponent}) {
             className={`proof-component proof-tree ${isRoot ? "root" : ""}`}
             onRender={onRender}
         >
-            {isSelected && !drag && <TreeMenu />}
-            <TreeContent tree={tree} />
+            {isSelected && !drag && <TreeMenu/>}
+            <TreeContent tree={tree}/>
         </Draggable>
     );
 }
 
-function TreeContent({ tree }: { tree: TreeComponent }) {
+function TreeContent({tree}: { tree: TreeComponent }) {
     return (
         <table>
             <tbody>
-            {tree.hypotheses && <TreeChildren tree={tree} />}
-            {(tree.rule && tree.marks) && <TreeRuleRow tree={tree} />}
-            {tree.conclusion && <TreeConclusionRow tree={tree} />}
+            {tree.hypotheses && <TreeChildren tree={tree}/>}
+            {(tree.rule && tree.marks) && <TreeRuleRow tree={tree}/>}
+            {tree.conclusion && <TreeConclusionRow tree={tree}/>}
             </tbody>
         </table>
     );
 }
 
-function TreeChildren({ tree }: { tree: TreeComponent }) {
-    const { components } = useSelector((state: GlobalState) => state.board);
+function TreeChildren({tree}: { tree: TreeComponent }) {
+    const {components} = useSelector((state: GlobalState) => state.board);
 
     return (
         <tr>
@@ -46,36 +57,133 @@ function TreeChildren({ tree }: { tree: TreeComponent }) {
                 {tree.hypotheses!!.map(id => {
                     const comp = components[id];
                     return comp.type === ComponentType.TREE
-                        ? <Tree key={id} tree={comp as TreeComponent} />
-                        : <Exp key={id} exp={comp as ExpComponent} />;
+                        ? <Tree key={id} tree={comp as TreeComponent}/>
+                        : <Exp key={id} exp={comp as ExpComponent}/>;
                 })}
             </td>
         </tr>
     );
 }
 
-function TreeRuleRow({ tree }: { tree: TreeComponent }) {
-    const { components } = useSelector((state: GlobalState) => state.board);
+function TreeRuleRow({tree}: { tree: TreeComponent }) {
+    const {components} = useSelector((state: GlobalState) => state.board);
     return (
         <tr>
-            <td><hr /></td>
-            <td><Rule rule={components[tree.rule!!] as RuleComponent} /></td>
+            <td>
+                <hr/>
+            </td>
+            <td>
+                <Rule rule={components[tree.rule!!] as RuleComponent}/>
+            </td>
             {tree.marks!!.map((id, index) => (
                 <td key={index}>
-                    <Mark mark={components[id] as MarkComponent} />
+                    <Mark mark={components[id] as MarkComponent}/>
+                </td>
+            ))}
+            <td>             <TreeRuleHelp rule={components[tree.rule!!].value}/></td>
+        </tr>
+    );
+}
+
+function TreeConclusionRow({tree}: { tree: TreeComponent }) {
+    const {components} = useSelector((state: GlobalState) => state.board);
+    return (
+        <tr>
+            <td className="proof-conclusion">
+                <Exp exp={components[tree.conclusion] as ExpComponent}/>
+            </td>
+        </tr>
+    );
+}
+
+
+export function TreePreview({tree}: { tree: PreviewTreeComponent }) {
+
+    return (
+        <div className={`proof-component proof-tree`}>
+            <TreePreviewContent tree={tree}/>
+        </div>
+    );
+}
+
+function TreePreviewContent({tree}: { tree: PreviewTreeComponent }) {
+    return (
+        <table>
+            <tbody>
+            {tree.hypotheses && <TreePreviewChildren tree={tree}/>}
+            {(tree.rule || tree.marks) && <TreePreviewRuleRow tree={tree}/>}
+            {tree.conclusion && <TreePreviewConclusionRow tree={tree}/>}
+            </tbody>
+        </table>
+    );
+}
+
+function TreePreviewChildren({tree}: { tree: PreviewTreeComponent }) {
+    return (
+        <tr>
+            <td className="proof-hypothesis">
+                {tree.hypotheses!!.map((hypothesis, index) => {
+                    return hypothesis.type === ComponentType.TREE
+                        ? <TreePreview key={index} tree={hypothesis as PreviewTreeComponent} />
+                        : <ExpPreview key={index} exp={hypothesis as PreviewExpComponent} />;
+                })}
+            </td>
+        </tr>
+    );
+}
+
+function TreePreviewRuleRow({tree}: { tree: PreviewTreeComponent }) {
+
+    return (
+        <tr>
+            <td>
+                <hr/>
+            </td>
+            <td>
+                <RulePreview rule={tree.rule!! as PreviewRuleComponent}/>
+            </td>
+            {tree.marks && tree.marks.map((mark, index) => (
+                <td key={index}>
+                    <MarkPreview mark={mark as PreviewMarkComponent}/>
                 </td>
             ))}
         </tr>
     );
 }
 
-function TreeConclusionRow({ tree }: { tree: TreeComponent }) {
-    const { components } = useSelector((state: GlobalState) => state.board);
+function TreePreviewConclusionRow({tree}: { tree: PreviewTreeComponent }) {
     return (
         <tr>
             <td className="proof-conclusion">
-                <Exp exp={components[tree.conclusion] as ExpComponent} />
+                <ExpPreview exp={tree.conclusion as PreviewExpComponent}/>
             </td>
         </tr>
     );
+}
+
+//TODO MOVE TO ANOTHE CLASS
+function TreeRuleHelp({rule}: { rule: RULE }) {
+
+    const renderTooltip = (props: any) => (
+        <Tooltip id="button-tooltip" {...props}>
+            <div className={"board-preview"}>
+                <TreePreview tree={RULE_DETAILS[rule].preview}/>
+            </div>
+        </Tooltip>
+    );
+
+    return (
+        <OverlayTrigger
+            placement="right"
+            delay={{ show: 250, hide: 200 }}
+            overlay={renderTooltip}
+            container={document.getElementById(BOARD_COMPONENT_ID)}
+        >
+        <div className={"proof-component rule-helper"}>
+            <div className={"proof-component-content"}>
+                <FaQuestion/>
+            </div>
+        </div>
+        </OverlayTrigger>
+    )
 }

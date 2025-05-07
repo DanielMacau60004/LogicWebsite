@@ -1,33 +1,27 @@
 @import "../../../../../style/variables";
 
-.board-controls {
+.adder-controls {
   z-index: 200;
   position: absolute;
   height: auto;
-  bottom:20px;
+  top:20px;
   left: 20px;
+  padding: 10px;
 }
 
-.board-controls-btn {
-  width: 45px !important;
-  height: 45px !important;
+.adder-controls-btn {
   border-radius: 10px;
   background-color: var(--color-6) !important;
   display: flex;
   justify-content: center;
   align-items: center;
   border: unset !important;
+  padding: 10px 18px !important;
   color: var(--text-color) !important;
   border: none !important;
   opacity: 1 !important;
 }
 
-.board-controls-btn:disabled,
-.board-control-disabled {
-  color: var(--text-color) !important;
-  background-color: var(--color-2) !important;
-}
-
-.board-controls-btn:hover:not(:disabled) {
+.adder-controls-btn:hover:not(:disabled) {
   transform: scale(1.2);
 }

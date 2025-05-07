@@ -14,6 +14,12 @@
   font-size: 14px;
   vertical-align: bottom;
 
+  &.empty{
+    //border: 2px dashed var(--color-5);
+    //background-color: var(--text-color);
+    //color: var(--color-5);
+  }
+
   &.active {
     z-index: 100
   }
