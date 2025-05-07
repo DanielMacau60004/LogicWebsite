@@ -1,14 +1,17 @@
 import {
     ComponentType,
     ExpComponent,
-    MarkComponent, PreviewExpComponent, PreviewMarkComponent, PreviewRuleComponent,
+    MarkComponent,
+    PreviewExpComponent,
+    PreviewMarkComponent,
+    PreviewRuleComponent,
     PreviewTreeComponent,
     RuleComponent,
     TreeComponent
 } from "../../../types/proofBoard";
 import {useSelector} from "react-redux";
 import {GlobalState} from "../../../../../store";
-import React, {useRef} from "react";
+import React from "react";
 import {Draggable} from "../../../../../components/Draggable";
 import "./Tree.scss"
 import {TreeMenu} from "./TreeMenu";
@@ -16,10 +19,7 @@ import {Exp, ExpPreview} from "../exp/Exp";
 import {Rule, RulePreview} from "../rule/Rule";
 import {Mark, MarkPreview} from "../mark/Mark";
 import {useTreeState} from "./useTreeState";
-import {FaQuestion} from "react-icons/fa";
-import {RULE, RULE_DETAILS} from "../../../types/proofRules";
-import {OverlayTrigger, Tooltip} from "react-bootstrap";
-import {BOARD_COMPONENT_ID} from "../../../constants";
+import {RuleHelper} from "../../controls/helper/RuleHelper";
 
 export function Tree({tree}: { tree: TreeComponent }) {
     const {drag, isRoot, isSelected, onRender} = useTreeState(tree);
@@ -80,7 +80,7 @@ function TreeRuleRow({tree}: { tree: TreeComponent }) {
                     <Mark mark={components[id] as MarkComponent}/>
                 </td>
             ))}
-            <td>             <TreeRuleHelp rule={components[tree.rule!!].value}/></td>
+            <td><RuleHelper rule={components[tree.rule!!].value}/></td>
         </tr>
     );
 }
@@ -124,8 +124,8 @@ function TreePreviewChildren({tree}: { tree: PreviewTreeComponent }) {
             <td className="proof-hypothesis">
                 {tree.hypotheses!!.map((hypothesis, index) => {
                     return hypothesis.type === ComponentType.TREE
-                        ? <TreePreview key={index} tree={hypothesis as PreviewTreeComponent} />
-                        : <ExpPreview key={index} exp={hypothesis as PreviewExpComponent} />;
+                        ? <TreePreview key={index} tree={hypothesis as PreviewTreeComponent}/>
+                        : <ExpPreview key={index} exp={hypothesis as PreviewExpComponent}/>;
                 })}
             </td>
         </tr>
@@ -159,31 +159,4 @@ function TreePreviewConclusionRow({tree}: { tree: PreviewTreeComponent }) {
             </td>
         </tr>
     );
-}
-
-//TODO MOVE TO ANOTHE CLASS
-function TreeRuleHelp({rule}: { rule: RULE }) {
-
-    const renderTooltip = (props: any) => (
-        <Tooltip id="button-tooltip" {...props}>
-            <div className={"board-preview"}>
-                <TreePreview tree={RULE_DETAILS[rule].preview}/>
-            </div>
-        </Tooltip>
-    );
-
-    return (
-        <OverlayTrigger
-            placement="right"
-            delay={{ show: 250, hide: 200 }}
-            overlay={renderTooltip}
-            container={document.getElementById(BOARD_COMPONENT_ID)}
-        >
-        <div className={"proof-component rule-helper"}>
-            <div className={"proof-component-content"}>
-                <FaQuestion/>
-            </div>
-        </div>
-        </OverlayTrigger>
-    )
 }

@@ -1,4 +1,4 @@
-import {DndContext, DragOverlay, MouseSensor, TouchSensor, useSensor, useSensors,} from "@dnd-kit/core";
+import {DndContext, MouseSensor, TouchSensor, useSensor, useSensors,} from "@dnd-kit/core";
 
 import {useBoardDnd} from "./useBoardDnd";
 import "./Board.scss"
@@ -9,7 +9,7 @@ import {useCollisionDetection} from "./useCollisionDetection";
 import {useGeneralEvents} from "./useGeneralEvents";
 import '@xyflow/react/dist/style.css';
 import React from 'react';
-import {APPENDS, INT_SCALE, MAX_SCALE, MIN_SCALE} from "../../constants";
+import {APPENDS, BOARD_CONTROLLERS_ID, INT_SCALE, MAX_SCALE, MIN_SCALE} from "../../constants";
 import {MiniMap, TransformComponent, TransformWrapper} from "react-zoom-pan-pinch";
 import {StateControl} from "../controls/state/StateControl";
 import {ExpKeyboard} from "../keyboards/ExpKeyboard";
@@ -18,7 +18,6 @@ import {MarkKeyboard} from "../keyboards/MarkKeyboard";
 import {useZoom} from "./useZoom";
 import {BoardControl} from "../controls/board/BoardControl";
 import {Exercise} from "../exercise/Exercise";
-import {Tree} from "../proof/tree/Tree";
 import {AdderControl} from "../controls/adder/AdderControl";
 
 export function Board() {
@@ -43,8 +42,11 @@ export function Board() {
             maxScale={MAX_SCALE}
             doubleClick={{disabled: true}}
             disabled={editing !== undefined}
-            onInit={(e)=>{
-                setTimeout(() => { e.zoomToElement(String(APPENDS.APPEND_MAIN_COMPONENT_ID), INT_SCALE)}, 200)}
+            onInit={(e) => {
+                setTimeout(() => {
+                    e.zoomToElement(String(APPENDS.APPEND_MAIN_COMPONENT_ID), INT_SCALE)
+                }, 200)
+            }
             }
             onZoom={onZoom}
         >
@@ -70,17 +72,19 @@ export function Board() {
 
                         {/* TEMPORARY DEBUG */}
                         <div style={{backgroundColor: "red", position: "absolute", bottom: 0, right: 0}}>
-                           FOL: {isFOL ? "true": "false"} Entities: {Object.keys(components).length} Zoom: {zoom}
+                            FOL: {isFOL ? "true" : "false"} Entities: {Object.keys(components).length} Zoom: {zoom}
                         </div>
 
 
-                        <Exercise/>
-                        <BoardControl instance={instance}/>
-                        <StateControl/>
-                        <ExpKeyboard/>
-                        <RuleKeyboard/>
-                        <MarkKeyboard/>
-                        <AdderControl/>
+                        <div id={BOARD_CONTROLLERS_ID}>
+                            <Exercise/>
+                            <BoardControl instance={instance}/>
+                            <StateControl/>
+                            <ExpKeyboard/>
+                            <RuleKeyboard/>
+                            <MarkKeyboard/>
+                            <AdderControl/>
+                        </div>
 
                     </DndContext>
 

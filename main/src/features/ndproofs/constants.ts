@@ -7,6 +7,7 @@ export const MAX_SCALE = 3
 export const INT_SCALE = 1
 
 export const BOARD_COMPONENT_ID = "board"
+export const BOARD_CONTROLLERS_ID = "board-controllers"
 export const DELETE_COMPONENT_ID = "delete"
 export const CLONE_COMPONENT_ID = "clone"
 export const EXP_KEYBOARD_COMPONENT_ID = "exp-keyboard"
