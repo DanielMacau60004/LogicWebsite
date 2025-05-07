@@ -19,6 +19,20 @@
   background-color: var(--text-color);
 
   >div{
-    transform: scale(0.8);
+    transform: scale(0.9);
   }
+}
+
+.rule-substitution {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+}
+
+.rule-mark-info {
+  position: absolute;
+  top: -20px;
+  right: 50%;
+  transform: translate(-50%);
 }

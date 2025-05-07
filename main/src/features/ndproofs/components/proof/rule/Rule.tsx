@@ -20,7 +20,7 @@ export function RulePreview({rule}: { rule: PreviewRuleComponent }) {
     return (
         <div className={`proof-component proof-rule `}>
             <div className={"proof-component-content"}>
-                {rule.value}
+                <div dangerouslySetInnerHTML={{ __html: rule.value ?? "" }} />
             </div>
         </div>
     )

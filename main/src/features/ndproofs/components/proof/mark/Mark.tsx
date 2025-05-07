@@ -18,7 +18,7 @@ export function MarkPreview({mark}: { mark: PreviewMarkComponent }) {
     return (
         <div className={`proof-component proof-mark`}>
             <div className={"proof-component-content"}>
-                {mark.value}
+                <div dangerouslySetInnerHTML={{ __html: String(mark.value) ?? "" }} />
             </div>
         </div>
     )

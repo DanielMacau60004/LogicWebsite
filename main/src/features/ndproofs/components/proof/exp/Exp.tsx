@@ -35,7 +35,7 @@ export function ExpPreview({exp}: { exp: PreviewExpComponent }) {
     return (
         <div className="proof-component proof-exp">
             <div className="proof-component-content">
-                {exp.value}
+                <div dangerouslySetInnerHTML={{ __html: exp.value ?? "" }} />
             </div>
         </div>
     );
