@@ -14,6 +14,7 @@ export interface Board {
     zoom: number,
     exercise: number[],
     isFOL: boolean,
+    isHelpMode: boolean,
 }
 
 export enum BoardAction {
@@ -22,7 +23,8 @@ export enum BoardAction {
     Redo = 'redo',
     Copy = 'copy',
     Paste = 'paste',
-    SwitchFOL = 'fol'
+    SwitchFOL = 'fol',
+    SwitchHelp = 'help'
 }
 
 export type Position = {
@@ -39,7 +41,8 @@ export enum ComponentType {
 
 export interface PreviewComponent {
     type: ComponentType;
-    editable? : boolean;
+    editable?: boolean;
+
     [key: string]: any;
 }
 

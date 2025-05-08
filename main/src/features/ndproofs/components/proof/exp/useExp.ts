@@ -38,7 +38,9 @@ export function useExp({ exp }: { exp: ExpComponent }) {
             exp.value ? "" : "empty",
             canDrag ? "highlight" : "",
             canDrag && args.droppable.isOver ? "highlight-hover" : "",
+            exp.isWFF === undefined || exp.isWFF ? "": "incorrect"
         ].join(" ").trim();
+
 
         return {className, style: args.style,};
     };

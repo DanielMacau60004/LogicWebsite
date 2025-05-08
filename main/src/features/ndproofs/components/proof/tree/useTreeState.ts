@@ -22,8 +22,20 @@ export function useTreeState(tree: TreeComponent) {
         className?: string;
         style?: React.CSSProperties;
     } = (args) => {
+
+        //TODO temporary!!
+        const lastParent = Components.getLastParent(state, tree)
+        const isIncorrect = (tree.isWFP !== undefined && !tree.isWFP) ||
+            (lastParent.isWFP !== undefined && !lastParent.isWFP)
+
+        const className = [
+            tree.className,
+            args.className,
+            isIncorrect ? "incorrect" : ""
+        ].join(" ").trim();
+
         return {
-            className: `${tree.className || ""} ${args.className || ""}`,
+            className: className,
             style: {
                 ...args.style,
                 ...(isActive && { zIndex: 100 }),

@@ -17,7 +17,8 @@ export function board(exercise?: string[]): Board {
         undoStack: [],
         zoom: INT_SCALE,
         exercise: [],
-        isFOL: false
+        isFOL: false,
+        isHelpMode: false
     };
 
     APPENDS.APPEND_TREE_COMPONENT_ID = Boards.appendComponent(board, expSidebar(""))

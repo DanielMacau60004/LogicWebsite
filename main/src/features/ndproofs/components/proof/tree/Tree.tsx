@@ -20,6 +20,10 @@ import {Rule, RulePreview} from "../rule/Rule";
 import {Mark, MarkPreview} from "../mark/Mark";
 import {useTreeState} from "./useTreeState";
 import {RuleHelper} from "../../controls/helper/RuleHelper";
+import {FaExclamation, FaQuestion} from "react-icons/fa";
+import {OverlayTrigger, Tooltip} from "react-bootstrap";
+import {RULE_DETAILS} from "../../../types/proofRules";
+import {BOARD_CONTROLLERS_ID} from "../../../constants";
 
 export function Tree({tree}: { tree: TreeComponent }) {
     const {drag, isRoot, isSelected, onRender} = useTreeState(tree);
@@ -43,9 +47,35 @@ function TreeContent({tree}: { tree: TreeComponent }) {
             {tree.hypotheses && <TreeChildren tree={tree}/>}
             {(tree.rule && tree.marks) && <TreeRuleRow tree={tree}/>}
             {tree.conclusion && <TreeConclusionRow tree={tree}/>}
+            {tree.isWFP !== undefined && !tree.isWFP && <IncorrectTreeChildren tree={tree}/>}
             </tbody>
         </table>
     );
+}
+
+function IncorrectTreeChildren({tree}: { tree: TreeComponent }) {
+    const renderTooltip = (props: any) => (
+        <Tooltip id="button-tooltip" {...props}>
+            <div className={"proof-incorrect-tooltip"}>
+                {tree.error}
+            </div>
+        </Tooltip>
+    );
+
+    return (
+        <tr>
+            <td>
+                <OverlayTrigger
+                    placement="right"
+                    delay={{show: 250, hide: 200}}
+                    overlay={renderTooltip}
+                    container={document.getElementById(BOARD_CONTROLLERS_ID)}
+                >
+                    <div className={"proof-incorrect"}><FaExclamation/></div>
+                </OverlayTrigger>
+            </td>
+        </tr>
+    )
 }
 
 function TreeChildren({tree}: { tree: TreeComponent }) {
@@ -66,7 +96,7 @@ function TreeChildren({tree}: { tree: TreeComponent }) {
 }
 
 function TreeRuleRow({tree}: { tree: TreeComponent }) {
-    const {components} = useSelector((state: GlobalState) => state.board);
+    const {components, isHelpMode} = useSelector((state: GlobalState) => state.board);
     return (
         <tr>
             <td>
@@ -80,7 +110,7 @@ function TreeRuleRow({tree}: { tree: TreeComponent }) {
                     <Mark mark={components[id] as MarkComponent}/>
                 </td>
             ))}
-            <td><RuleHelper rule={components[tree.rule!!].value}/></td>
+            {isHelpMode && <td><RuleHelper rule={components[tree.rule!!].value}/></td>}
         </tr>
     );
 }
@@ -92,6 +122,7 @@ function TreeConclusionRow({tree}: { tree: TreeComponent }) {
             <td className="proof-conclusion">
                 <Exp exp={components[tree.conclusion] as ExpComponent}/>
             </td>
+
         </tr>
     );
 }

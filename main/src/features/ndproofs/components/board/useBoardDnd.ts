@@ -14,13 +14,22 @@ import {useDispatch, useSelector} from "react-redux";
 import {GlobalState} from "../../../../store";
 import {useRef} from "react";
 import {ComponentType, ExpComponent, PreviewTreeComponent, TreeComponent} from "../../types/proofBoard";
-import {APPENDS, CLONE_COMPONENT_ID, DELETE_COMPONENT_ID, DOUBLE_CLICK_THRESHOLD} from "../../constants";
+import {
+    APPENDS,
+    CLONE_COMPONENT_ID,
+    DELETE_COMPONENT_ID,
+    DOUBLE_CLICK_THRESHOLD,
+    SUBMIT_COMPONENT_ID
+} from "../../constants";
 import {Components} from "../../models/components/logic";
+import {convertTreeToAPIFormat} from "../../models/board/logicAPI";
+import {testProof} from "../../models/requests";
+import {replaceUnicodeEscapes} from "../../../../utils/strings";
 
 export function useBoardDnd() {
     const dispatch: any = useDispatch()
     const state = useSelector((state: GlobalState) => state.board)
-    const {isEditable, components, editing} = useSelector((state: GlobalState) => state.board)
+    const {isEditable, components, editing, isFOL} = useSelector((state: GlobalState) => state.board)
     const lastClickTime = useRef<number>(0);
 
     function isDoubleClick(): boolean {
@@ -42,6 +51,19 @@ export function useBoardDnd() {
             dispatch(copy());
             dispatch(paste());
             return true
+        } else if (clickedID === SUBMIT_COMPONENT_ID) {
+            testProof(convertTreeToAPIFormat(state, component), isFOL).then(response => {
+               if(response) {
+                   dispatch(updateComponent({
+                       component: {
+                           ...components[component.id],
+                           isWFP: response.isWFP, ...( !response.isWFP && {
+                               error: response.response ? replaceUnicodeEscapes(response.response) : "Incomplete proof!"
+                           })
+                       }, saveState: false
+                   }));
+               }
+            })
         }
         return false
     }
@@ -69,7 +91,7 @@ export function useBoardDnd() {
 
         if (!component) {
             dispatch(selectComponent(undefined))
-            //dispatch(selectEditingComponent(undefined))
+            dispatch(selectEditingComponent(undefined)) //This was commented
             return;
         }
 

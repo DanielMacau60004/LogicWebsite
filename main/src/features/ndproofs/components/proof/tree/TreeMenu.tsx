@@ -1,6 +1,6 @@
 import {FaClone, FaTrash} from "react-icons/fa";
 import React from "react";
-import {CLONE_COMPONENT_ID, DELETE_COMPONENT_ID} from "../../../constants";
+import {CLONE_COMPONENT_ID, DELETE_COMPONENT_ID, SUBMIT_COMPONENT_ID} from "../../../constants";
 
 export function TreeMenu() {
     return (
@@ -11,7 +11,7 @@ export function TreeMenu() {
             </div>
 
             <div className={"proof-properties bottom-right"}>
-                <button className={"proof-component"}>Submit</button>
+                <button id={SUBMIT_COMPONENT_ID} className={"proof-component"}>Submit</button>
             </div>
         </>
     )

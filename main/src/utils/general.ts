@@ -20,3 +20,10 @@ export const forceDivChange = (div: HTMLDivElement, newText: string) => {
 export function deepCopy<T>(value: T): T {
     return JSON.parse(JSON.stringify(value));
 }
+
+export function numberToHexColor(num: number): string {
+    const baseHue = 240;
+    const hueStep = 137;
+    const hue = (baseHue + (num - 1) * hueStep) % 360;
+    return `hsl(${hue}, 70%, 50%)`;
+}

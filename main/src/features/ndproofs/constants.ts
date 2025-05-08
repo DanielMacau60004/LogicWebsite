@@ -10,6 +10,7 @@ export const BOARD_COMPONENT_ID = "board"
 export const BOARD_CONTROLLERS_ID = "board-controllers"
 export const DELETE_COMPONENT_ID = "delete"
 export const CLONE_COMPONENT_ID = "clone"
+export const SUBMIT_COMPONENT_ID = "submit"
 export const EXP_KEYBOARD_COMPONENT_ID = "exp-keyboard"
 export const EXP_INPUT_COMPONENT_ID = "input-expression"
 export const RULE_KEYBOARD_COMPONENT_ID = "rule-keyboard"
@@ -38,5 +39,6 @@ export const KeyActionMap: Map<string, BoardAction> = new Map([
     ['Ctrl+KeyY', BoardAction.Redo],
     ['Ctrl+KeyC', BoardAction.Copy],
     ['Ctrl+KeyV', BoardAction.Paste],
-    ['Escape', BoardAction.SwitchFOL],
+    ['Digit1', BoardAction.SwitchFOL],
+    ['Digit2', BoardAction.SwitchHelp],
 ]);

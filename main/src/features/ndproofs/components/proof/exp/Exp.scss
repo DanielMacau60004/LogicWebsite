@@ -60,6 +60,20 @@
     border: unset !important;
   }
 
+  &.incorrect {
+    background-color: rgba(var(--color-danger), 0.7) !important;
+    animation: pulse 0.5s infinite alternate;
+  }
+
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 10px rgba(var(--color-danger), 0.7);
+    }
+    100% {
+      box-shadow: 0 0 20px rgba(var(--color-danger), 1);
+    }
+  }
+
 }
 
 .rule-adder{

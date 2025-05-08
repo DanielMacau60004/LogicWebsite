@@ -31,7 +31,8 @@ function cloneState(state: Board): Omit<Board, 'redoStack' | 'undoStack'> {
         components: deepCopy(state.components),
         zoom: state.zoom,
         exercise: state.exercise,
-        isFOL: state.isFOL
+        isFOL: state.isFOL,
+        isHelpMode: state.isHelpMode
     };
 }
 
@@ -118,6 +119,12 @@ const slice = createSlice({
         },
         setEditable: (state, action: PayloadAction<boolean>) => {
             state.isEditable = action.payload
+
+            if(!state.isEditable) {
+                state.active = undefined
+                state.drag = undefined
+                state.editing = undefined
+            }
         },
         updateComponent: (state, action: PayloadAction<{ component: Component, saveState: boolean }>) => {
             const {component, saveState} = action.payload
@@ -247,6 +254,9 @@ const slice = createSlice({
         switchFOL: (state) => {
             state.isFOL = !state.isFOL
         },
+        switchHelpMode: (state) => {
+            state.isHelpMode = !state.isHelpMode
+        },
         setExercise: (state, action: PayloadAction<{exercise: string[],isFOL:boolean}>) => {
             Object.assign(state, board(action.payload.exercise));
             state.isFOL = action.payload.isFOL
@@ -271,6 +281,7 @@ export const {
     redo,
     setZoom,
     switchFOL,
+    switchHelpMode,
     setExercise
 } = slice.actions;
 

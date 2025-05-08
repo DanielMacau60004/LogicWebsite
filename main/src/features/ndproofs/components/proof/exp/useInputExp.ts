@@ -4,12 +4,13 @@ import {GlobalState} from "../../../../../store";
 import {selectEditingComponent, updateComponent} from "../../../../../store/boardSlice";
 import {ExpComponent} from "../../../types/proofBoard";
 import {EXP_KEYBOARD_COMPONENT_ID} from "../../../constants";
+import {testExpression} from "../../../models/requests";
 
 const SHOW_DELAY = 150
 
 export function useInputExp({exp}: { exp: ExpComponent }) {
     const ref = useRef<HTMLInputElement>(null);
-    const {editing, components} = useSelector((state: GlobalState) => state.board)
+    const {editing, components, isFOL} = useSelector((state: GlobalState) => state.board)
     const dispatch: any = useDispatch()
 
     const [value, setValue] = useState(exp.value)
@@ -36,13 +37,28 @@ export function useInputExp({exp}: { exp: ExpComponent }) {
     }, [components, dispatch, editing?.id, exp.id, value]);
 
     function finalizeEditing() {
-        const cleanValue = value?.trim() === "" ? undefined : value;
+        const cleanValue = value?.trim() === "" ? undefined : value?.trim();
 
         if (cleanValue !== components[exp.id].value) {
-            dispatch(updateComponent({
-                component: {...components[exp.id], value: cleanValue},
-                saveState: true
-            }));
+            //Check if the formula is correct
+            if (cleanValue) {
+                testExpression(cleanValue, isFOL).then(response => {
+                    const isWFF = response !== undefined && response.isWFF
+                    const value = isWFF ? response?.response : cleanValue
+
+                    dispatch(updateComponent({
+                        component: {...components[exp.id], value: value, isWFF: isWFF},
+                        saveState: true
+                    }));
+
+                    if(!isWFF) console.log(response?.response)
+                })
+            } else {
+                dispatch(updateComponent({
+                    component: {...components[exp.id], value: cleanValue},
+                    saveState: true
+                }));
+            }
         }
 
         dispatch(selectEditingComponent(undefined));

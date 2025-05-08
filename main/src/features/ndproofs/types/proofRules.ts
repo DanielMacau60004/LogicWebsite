@@ -27,7 +27,7 @@ export type RuleInfo = {
 };
 
 export const RULE_DETAILS: Record<RULE, RuleInfo> = {
-    [RULE.BOTTOM]: {hypothesesCount: 1, marksCount: 0, isFOL: false,
+    [RULE.BOTTOM]: {hypothesesCount: 1, marksCount: 1, isFOL: false,
         preview: tree(exp("φ"), rule(RULE.BOTTOM), [exp("⊥")], [mark(1)])},
     [RULE.AND_INTRO]: {hypothesesCount: 2, marksCount: 0, isFOL: false,
         preview: tree(exp("φ ∧ ψ"), rule(RULE.AND_INTRO), [exp("φ"), exp("ψ")])},

@@ -4,6 +4,7 @@ import {GlobalState} from "../../../../../store";
 import {selectEditingComponent} from "../../../../../store/boardSlice";
 import {MarkComponent} from "../../../types/proofBoard";
 import {MARK_KEYBOARD_COMPONENT_ID} from "../../../constants";
+import {numberToHexColor} from "../../../../../utils/general";
 
 const EMPTY_VALUE = "+"
 const SHOW_DELAY = 150
@@ -16,6 +17,7 @@ export function useMark({mark}: { mark: MarkComponent }) {
     const value = mark.value ? mark.value : EMPTY_VALUE
     const isSelected = editing?.id === mark.id
     const className = mark.value ? "" : "empty"
+    const style = mark.value ? {backgroundColor: numberToHexColor(mark.value)} as React.CSSProperties : undefined
 
     useEffect(() => {
         if (!isSelected || !ref.current) return;
@@ -42,5 +44,5 @@ export function useMark({mark}: { mark: MarkComponent }) {
             dispatch(selectEditingComponent(undefined));
     };
 
-    return {id, ref, value, className, onBlur}
+    return {id, ref, value, className, style, onBlur}
 }

@@ -22,7 +22,7 @@ import {AdderControl} from "../controls/adder/AdderControl";
 
 export function Board() {
     useGeneralEvents()
-    const {isEditable, drag, components, zoom, editing, isFOL} = useSelector((state: GlobalState) => state.board)
+    const {isHelpMode, drag, components, zoom, editing, isFOL} = useSelector((state: GlobalState) => state.board)
     const collisionAlgorithm = useCollisionDetection()
     const {handleDragStart, handleDragEnd} = useBoardDnd()
     const {zoomModifier, onZoom} = useZoom()
@@ -72,7 +72,7 @@ export function Board() {
 
                         {/* TEMPORARY DEBUG */}
                         <div style={{backgroundColor: "red", position: "absolute", bottom: 0, right: 0}}>
-                            FOL: {isFOL ? "true" : "false"} Entities: {Object.keys(components).length} Zoom: {zoom}
+                            HelpMode: {isHelpMode ? "true" : "false"} FOL: {isFOL ? "true" : "false"} Entities: {Object.keys(components).length} Zoom: {zoom}
                         </div>
 
 
