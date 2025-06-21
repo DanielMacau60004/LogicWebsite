@@ -15,6 +15,7 @@
   height: 100%;
 
   .board {
+
     > .proof-component {
       background-color: var(--color-6);
       opacity: 0.6;
@@ -27,7 +28,6 @@
 }
 
 .board {
-
   > .proof-component {
     position: absolute;
     box-shadow: var(--light-shadow);

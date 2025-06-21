@@ -8,14 +8,13 @@ import "./style/variables.scss"
 function App() {
 
     return (
-        <div className={"light"}>
-            <Router>
-                <Routes>
-                    <Route path="/" element={<NDMainPage/>}/>
-                    <Route path="/exercise" element={<NDProofsPage/>}/>
-                </Routes>
-            </Router>
-        </div>
+        <Router>
+            <Routes>
+                <Route path="/" element={<NDMainPage/>}/>
+                <Route path="/exercise" element={<NDProofsPage/>}/>
+            </Routes>
+        </Router>
+
     )
 }
 

@@ -32,6 +32,8 @@ export const GROUPING_SYMBOLS: string[] = ['(', ')'];
 export const GREEK_LETTERS: string[] = ['α', 'β', 'γ', 'δ', 'φ', 'ψ'];
 export const MARKS_SYMBOLS = Array.from({length: 20}, (_, i) => (i + 1).toString());
 
+export const SUB_TREE_SYMBOL = '𝒟'
+
 export const KeyActionMap: Map<string, BoardAction> = new Map([
     ['Backspace', BoardAction.Delete],
     ['Delete', BoardAction.Delete],
@@ -41,4 +43,19 @@ export const KeyActionMap: Map<string, BoardAction> = new Map([
     ['Ctrl+KeyV', BoardAction.Paste],
     ['Digit1', BoardAction.SwitchFOL],
     ['Digit2', BoardAction.SwitchHelp],
+    ['Digit3', BoardAction.SwitchFeedbackLevel],
 ]);
+
+export const MarksColorsArray: string[] = [
+    '#001fed',
+    '#1e1ea5',
+    '#010442',
+    '#8390f1',
+    '#383e98',
+    '#48484c',
+    '#5e67ff',
+    '#8390f1',
+    '#5c608f',
+    '#111a8a',
+    '#69696a',
+];

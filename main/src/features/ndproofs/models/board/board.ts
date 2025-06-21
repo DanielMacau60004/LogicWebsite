@@ -2,8 +2,10 @@ import {Board, PreviewTreeComponent,} from "../../types/proofBoard";
 import {Boards} from "./logic";
 import {exp, expSidebar, mark, rule, treeExp} from "../components/components";
 import {APPENDS, BOARD_HEIGHT, BOARD_WIDTH, INT_SCALE} from "../../constants";
+import {FeedbackLevel} from "../../types/feedback";
 
 export function board(exercise?: string[]): Board {
+
     const board: Board = {
         currentId: 1,
         active: undefined,
@@ -17,8 +19,11 @@ export function board(exercise?: string[]): Board {
         undoStack: [],
         zoom: INT_SCALE,
         exercise: [],
+        problem: undefined,
         isFOL: false,
-        isHelpMode: false
+        isHelpMode: false,
+        currentProof: undefined,
+        feedbackLevel: FeedbackLevel.Solution
     };
 
     APPENDS.APPEND_TREE_COMPONENT_ID = Boards.appendComponent(board, expSidebar(""))
@@ -26,15 +31,18 @@ export function board(exercise?: string[]): Board {
     APPENDS.APPEND_MARK_COMPONENT_ID = Boards.appendComponent(board, mark())
 
     if (exercise) {
+        board.problem = {conclusion: exercise[exercise.length - 1], premises: exercise.slice(0, exercise.length - 1)}
+
         boardExercise(exercise).forEach(component => {
             const id = Boards.appendComponent(board, component);
             board.exercise[id] = id;
         });
 
-        const id = Boards.appendComponent(board, treeExp(exp(exercise[exercise.length - 1]), {
+        const id = Boards.appendComponent(board, treeExp(exp(board.problem.conclusion), {
             x: BOARD_WIDTH / 2,
             y: BOARD_HEIGHT / 2
         }))
+
         board.boardItems[id] = id;
         APPENDS.APPEND_MAIN_COMPONENT_ID = id
     }
@@ -47,7 +55,8 @@ export function board(exercise?: string[]): Board {
 
 function boardExercise(exercise: string[]): PreviewTreeComponent[] {
     return exercise.map((exp, index) => {
+        //If we want to assign a mark to each premise
         const mark = index === exercise.length - 1 ? undefined : index + 1;
-        return expSidebar(exp, mark);
+        return expSidebar(exp, undefined);
     });
 }

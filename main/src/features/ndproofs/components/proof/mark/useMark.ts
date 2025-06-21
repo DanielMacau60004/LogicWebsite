@@ -2,12 +2,18 @@ import React, {useEffect, useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {GlobalState} from "../../../../../store";
 import {selectEditingComponent} from "../../../../../store/boardSlice";
-import {MarkComponent} from "../../../types/proofBoard";
-import {MARK_KEYBOARD_COMPONENT_ID} from "../../../constants";
-import {numberToHexColor} from "../../../../../utils/general";
+import {MarkComponent, PreviewMarkComponent} from "../../../types/proofBoard";
+import {MARK_KEYBOARD_COMPONENT_ID, MarksColorsArray} from "../../../constants";
 
 const EMPTY_VALUE = "+"
 const SHOW_DELAY = 150
+
+export function useMarkPreview({mark}: { mark: PreviewMarkComponent }) {
+    const value = (mark.value !== undefined && mark.value !== null) ? String(mark.value) : EMPTY_VALUE
+    const style = mark.value ? {backgroundColor: MarksColorsArray[(mark.value - 1) % MarksColorsArray.length]} as React.CSSProperties : undefined
+
+    return {value, style}
+}
 
 export function useMark({mark}: { mark: MarkComponent }) {
     const id = String(mark.id)
@@ -17,7 +23,7 @@ export function useMark({mark}: { mark: MarkComponent }) {
     const value = mark.value ? mark.value : EMPTY_VALUE
     const isSelected = editing?.id === mark.id
     const className = mark.value ? "" : "empty"
-    const style = mark.value ? {backgroundColor: numberToHexColor(mark.value)} as React.CSSProperties : undefined
+    const style = mark.value ? {backgroundColor: MarksColorsArray[(mark.value - 1) % MarksColorsArray.length]} as React.CSSProperties : undefined
 
     useEffect(() => {
         if (!isSelected || !ref.current) return;

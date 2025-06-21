@@ -2,6 +2,7 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {deepCopy} from "../utils/general";
 import {
     Board,
+    BoardCurrentProof,
     Component,
     ComponentType,
     Position,
@@ -15,6 +16,8 @@ import {Components} from "../features/ndproofs/models/components/logic";
 import {BoardDrag} from "../features/ndproofs/models/board/drag";
 import {BoardPosition} from "../features/ndproofs/models/board/position";
 import {MAX_SCALE, MIN_SCALE} from "../features/ndproofs/constants";
+import {expSidebar} from "../features/ndproofs/models/components/components";
+import {feedbackLevels} from "../features/ndproofs/types/feedback";
 
 const MOVEMENT_THRESHOLD = 10;
 const MAX_HISTORY_DEPTH = 20;
@@ -31,8 +34,11 @@ function cloneState(state: Board): Omit<Board, 'redoStack' | 'undoStack'> {
         components: deepCopy(state.components),
         zoom: state.zoom,
         exercise: state.exercise,
+        problem: state.problem,
         isFOL: state.isFOL,
-        isHelpMode: state.isHelpMode
+        isHelpMode: state.isHelpMode,
+        currentProof: undefined,
+        feedbackLevel: state.feedbackLevel
     };
 }
 
@@ -48,17 +54,18 @@ function handleUndo(state: Board, addRedo: boolean) {
 
     const prevState = state.undoStack.pop();
     if (prevState) {
-        if(addRedo)
+        if (addRedo)
             state.redoStack.push(cloneState(state));
         Object.assign(state, prevState);
     }
 }
+
 function handleRedo(state: Board, addUndo: boolean) {
     if (state.redoStack.length === 0) return;
 
     const nextState = state.redoStack.pop();
     if (nextState) {
-        if(addUndo)
+        if (addUndo)
             state.undoStack.push(cloneState(state));
         Object.assign(state, nextState);
     }
@@ -81,10 +88,11 @@ const slice = createSlice({
 
             state.active = undefined
         },
-        appendExpTree: (state, action: PayloadAction<PreviewTreeComponent>) => {
-            saveStateForUndo(state);
+        addTree: (state, action: PayloadAction<{ component: PreviewTreeComponent, saveState: boolean }>) => {
+            if (action.payload.saveState)
+                saveStateForUndo(state);
 
-            const id = Boards.appendComponent(state, action.payload)
+            const id = Boards.appendComponent(state, action.payload.component)
             state.boardItems[id] = id
             state.active = state.components[id]
         },
@@ -120,7 +128,7 @@ const slice = createSlice({
         setEditable: (state, action: PayloadAction<boolean>) => {
             state.isEditable = action.payload
 
-            if(!state.isEditable) {
+            if (!state.isEditable) {
                 state.active = undefined
                 state.drag = undefined
                 state.editing = undefined
@@ -138,13 +146,14 @@ const slice = createSlice({
             } else state.components[component.id] = component
             //state.editing = component
         },
-        deleteComponent: (state) => {
+        deleteComponent: (state, action: PayloadAction<{ saveState: boolean }>) => {
             if (!state.isEditable) return
 
             const active = state.active;
-            if (active && state.drag === undefined) {
-                saveStateForUndo(state);
 
+            if (active && state.drag === undefined) {
+                if (action.payload.saveState)
+                    saveStateForUndo(state);
                 if (active.type === ComponentType.RULE && state.active?.parent) {
                     Boards.updateRule(state, {...active, value: undefined} as RuleComponent,
                         state.components[state.active.parent] as TreeComponent)
@@ -257,16 +266,56 @@ const slice = createSlice({
         switchHelpMode: (state) => {
             state.isHelpMode = !state.isHelpMode
         },
-        setExercise: (state, action: PayloadAction<{exercise: string[],isFOL:boolean}>) => {
+        switchFeedbackLevel: (state) => {
+            const currentIndex = feedbackLevels.indexOf(state.feedbackLevel);
+            const nextIndex = (currentIndex + 1) % feedbackLevels.length;
+            state.feedbackLevel = feedbackLevels[nextIndex];
+        },
+        setExercise: (state, action: PayloadAction<{ exercise: string[], isFOL: boolean }>) => {
             Object.assign(state, board(action.payload.exercise));
             state.isFOL = action.payload.isFOL
+        },
+        updateCurrentProof: (state, action: PayloadAction<any>) => {
+            const result = action.payload
+            const current: BoardCurrentProof = {
+                premises: [],
+                conclusion: undefined,
+                hypotheses: []
+            };
+
+            if (state.currentProof) {
+                const {premises, conclusion, hypotheses} = state.currentProof
+                if (premises) premises.forEach(p => Boards.deleteEntireComponent(state, state.components[p]));
+                if (conclusion) Boards.deleteEntireComponent(state, state.components[conclusion]);
+                if (hypotheses) hypotheses.forEach(p => Boards.deleteEntireComponent(state, state.components[p]));
+            }
+
+            if (result.premises) {
+                result.premises.forEach((p: string | undefined) => {
+                    const id = Boards.appendComponent(state, expSidebar(p as string, undefined));
+                    console.log(deepCopy(expSidebar(p as string, undefined)))
+                    current.premises!.push(id);
+                });
+            }
+
+            if (result.conclusion)
+                current.conclusion! = Boards.appendComponent(state, expSidebar(result.conclusion, undefined));
+
+            if (result.hypotheses) {
+                Object.entries(result.hypotheses).forEach(([key, value]) => {
+                    const id = Boards.appendComponent(state, expSidebar(value as string, Number(key)));
+                    current.hypotheses!.push(id);
+                });
+            }
+
+            state.currentProof = current
         }
     }
 });
 
 export const {
     appendTree,
-    appendExpTree,
+    addTree,
     selectComponent,
     sideDragging,
     selectDraggingComponent,
@@ -282,7 +331,9 @@ export const {
     setZoom,
     switchFOL,
     switchHelpMode,
-    setExercise
+    switchFeedbackLevel,
+    setExercise,
+    updateCurrentProof
 } = slice.actions;
 
 export const boardReducer = slice.reducer;

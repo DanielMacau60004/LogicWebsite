@@ -1,8 +1,5 @@
-import {GlobalState} from "../../../../../store";
-import {useDispatch, useSelector} from "react-redux";
 import {FaArrowRotateLeft, FaArrowRotateRight} from "react-icons/fa6";
 import {Button} from "react-bootstrap";
-import {redo, undo} from "../../../../../store/boardSlice";
 import "./StateControl.scss"
 import {useStateControl} from "./useStateControl";
 
@@ -28,7 +25,7 @@ function RedoState({onClick, disabled}: StateButtonProps) {
 }
 
 export function StateControl() {
-    const {onUndo, onRedo, canRedo, canUndo} = useStateControl()
+    const {onUndo, onRedo, canRedo, canUndo} = useStateControl();
 
     return (
         <div className="state-controls p-0 list-unstyled d-flex flex-row align-items-center">

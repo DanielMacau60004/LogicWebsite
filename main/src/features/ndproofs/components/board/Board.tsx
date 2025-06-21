@@ -11,18 +11,19 @@ import '@xyflow/react/dist/style.css';
 import React from 'react';
 import {APPENDS, BOARD_CONTROLLERS_ID, INT_SCALE, MAX_SCALE, MIN_SCALE} from "../../constants";
 import {MiniMap, TransformComponent, TransformWrapper} from "react-zoom-pan-pinch";
-import {StateControl} from "../controls/state/StateControl";
 import {ExpKeyboard} from "../keyboards/ExpKeyboard";
 import {RuleKeyboard} from "../keyboards/RuleKeyboard";
 import {MarkKeyboard} from "../keyboards/MarkKeyboard";
 import {useZoom} from "./useZoom";
 import {BoardControl} from "../controls/board/BoardControl";
 import {Exercise} from "../exercise/Exercise";
-import {AdderControl} from "../controls/adder/AdderControl";
+import {ToolsControl} from "../controls/tools/ToolsControl";
+import {ProofState} from "../controls/proofState/ProofState";
+import {StateControl} from "../controls/state/StateControl";
 
 export function Board() {
     useGeneralEvents()
-    const {isHelpMode, drag, components, zoom, editing, isFOL} = useSelector((state: GlobalState) => state.board)
+    const {isHelpMode, drag, components, zoom, editing, isFOL, feedbackLevel} = useSelector((state: GlobalState) => state.board)
     const collisionAlgorithm = useCollisionDetection()
     const {handleDragStart, handleDragEnd} = useBoardDnd()
     const {zoomModifier, onZoom} = useZoom()
@@ -50,7 +51,7 @@ export function Board() {
             }
             onZoom={onZoom}
         >
-            {({zoomIn, zoomOut, instance, ...rest}) => (
+            {({zoomIn, zoomOut, instance, zoomToElement, ...rest}) => (
                 <>
 
                     <DndContext
@@ -72,18 +73,18 @@ export function Board() {
 
                         {/* TEMPORARY DEBUG */}
                         <div style={{backgroundColor: "red", position: "absolute", bottom: 0, right: 0}}>
-                            HelpMode: {isHelpMode ? "true" : "false"} FOL: {isFOL ? "true" : "false"} Entities: {Object.keys(components).length} Zoom: {zoom}
+                            Level: {feedbackLevel} HelpMode: {isHelpMode ? "true" : "false"} FOL: {isFOL ? "true" : "false"} Entities: {Object.keys(components).length} Zoom: {zoom}
                         </div>
-
 
                         <div id={BOARD_CONTROLLERS_ID}>
                             <Exercise/>
                             <BoardControl instance={instance}/>
-                            <StateControl/>
                             <ExpKeyboard/>
                             <RuleKeyboard/>
                             <MarkKeyboard/>
-                            <AdderControl/>
+
+                            <StateControl/>
+                            <ToolsControl zoomToElement={zoomToElement}/>
                         </div>
 
                     </DndContext>

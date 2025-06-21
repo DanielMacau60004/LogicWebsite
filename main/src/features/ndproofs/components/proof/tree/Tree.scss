@@ -12,6 +12,13 @@
     padding: 20px;
   }
 
+  > .tool-tip {
+    position: absolute;
+    left: -10px;
+    top: -10px;
+    transform: scale(1.6);
+  }
+
   > .proof-properties {
     position: absolute;
     cursor: default;
@@ -29,9 +36,10 @@
       left: -25px;
     }
 
-    &.bottom-right {
+    &.bottom-center {
       bottom: -25px;
-      right: -35px;
+      left: 50%;
+      transform: translate(-50%);
     }
 
     > button {
@@ -50,31 +58,24 @@
 
 }
 
-.proof-incorrect {
-  position: absolute;
-  background-color: rgb(var(--color-danger)) !important;
-  color: var(--text-color);
-  padding: 2px;
-  border-radius: 10px;
-  cursor: pointer;
-  width: 40px;
-  bottom: -10px;
-  left: 50%;
-  transform: translate(-50%);
-}
-
-.proof-incorrect-tooltip {
-  max-width: 300px;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-}
-
 .proof-hypothesis {
   white-space: nowrap;
 }
 
-.proof-hypothesis > .proof-component {
-  margin-bottom: -6px;
+.proof-component .proof-exp {
   margin-left: 6px;
   margin-right: 6px;
+}
+
+.proof-check {
+  width: 120px;
+}
+
+.proof-rules {
+  > td {
+    > hr {
+      margin: 0;
+      padding: 0;
+    }
+  }
 }

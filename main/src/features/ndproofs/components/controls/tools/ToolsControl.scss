@@ -1,6 +1,6 @@
 @import "../../../../../style/variables";
 
-.adder-controls {
+.tools-controls {
   z-index: 200;
   position: absolute;
   height: auto;
@@ -9,7 +9,7 @@
   padding: 10px;
 }
 
-.adder-controls-btn {
+.tools-controls-btn {
   border-radius: 10px;
   background-color: var(--color-6) !important;
   display: flex;
@@ -22,6 +22,6 @@
   opacity: 1 !important;
 }
 
-.adder-controls-btn:hover:not(:disabled) {
+.tools-controls-btn:hover:not(:disabled) {
   transform: scale(1.2);
 }

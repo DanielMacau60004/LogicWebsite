@@ -3,6 +3,7 @@ import React from "react";
 import {CLONE_COMPONENT_ID, DELETE_COMPONENT_ID, SUBMIT_COMPONENT_ID} from "../../../constants";
 
 export function TreeMenu() {
+
     return (
         <>
             <div className={"proof-properties top-right"}>
@@ -10,8 +11,8 @@ export function TreeMenu() {
                 <button id={CLONE_COMPONENT_ID} className={"proof-component"}><FaClone size={20}/></button>
             </div>
 
-            <div className={"proof-properties bottom-right"}>
-                <button id={SUBMIT_COMPONENT_ID} className={"proof-component"}>Submit</button>
+            <div className={"proof-properties bottom-center"}>
+                <button id={SUBMIT_COMPONENT_ID} className={"proof-component proof-check"}>Check Proof</button>
             </div>
         </>
     )

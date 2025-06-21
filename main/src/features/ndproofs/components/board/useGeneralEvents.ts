@@ -1,7 +1,16 @@
 import {useDispatch} from "react-redux";
 import {useEffect} from "react";
 import {BoardAction} from "../../types/proofBoard";
-import {copy, deleteComponent, paste, redo, switchFOL, switchHelpMode, undo} from "../../../../store/boardSlice";
+import {
+    copy,
+    deleteComponent,
+    paste,
+    redo,
+    switchFeedbackLevel,
+    switchFOL,
+    switchHelpMode,
+    undo
+} from "../../../../store/boardSlice";
 import {KeyActionMap} from "../../constants";
 
 export function useGeneralEvents() {
@@ -14,7 +23,7 @@ export function useGeneralEvents() {
 
             switch (action) {
                 case BoardAction.Delete:
-                    dispatch(deleteComponent());
+                    dispatch(deleteComponent({saveState: true}));
                     break;
                 case BoardAction.Undo:
                     dispatch(undo());
@@ -33,6 +42,9 @@ export function useGeneralEvents() {
                     break;
                 case BoardAction.SwitchHelp:
                     dispatch(switchHelpMode())
+                    break;
+                case BoardAction.SwitchFeedbackLevel:
+                    dispatch(switchFeedbackLevel())
                     break;
             }
         }

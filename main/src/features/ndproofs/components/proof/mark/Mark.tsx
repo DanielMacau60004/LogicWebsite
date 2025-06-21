@@ -1,6 +1,6 @@
 import React from "react";
 import {MarkComponent, PreviewMarkComponent} from "../../../types/proofBoard";
-import {useMark} from "./useMark";
+import {useMark, useMarkPreview} from "./useMark";
 import "./Mark.scss"
 
 export function Mark({mark}: { mark: MarkComponent }) {
@@ -16,10 +16,12 @@ export function Mark({mark}: { mark: MarkComponent }) {
 }
 
 export function MarkPreview({mark}: { mark: PreviewMarkComponent }) {
+    const {value, style} = useMarkPreview({mark})
+
     return (
-        <div className={`proof-component proof-mark`}>
+        <div className={`proof-component proof-mark`} style={style}>
             <div className={"proof-component-content"}>
-                <div dangerouslySetInnerHTML={{ __html: String(mark.value) ?? "" }} />
+                <div dangerouslySetInnerHTML={{ __html: value }} />
             </div>
         </div>
     )

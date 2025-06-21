@@ -12,7 +12,7 @@ export function useKeyBoard({type}: ExpKeyBoardProps) {
     const {editing} = useSelector((state: GlobalState) => state.board)
     const target = document.getElementById(String(editing?.id)) as HTMLElement
     const show = editing !== undefined && editing.type === type
-    const style: React.CSSProperties = {position: show ? 'absolute' : 'fixed'};
+    const style: React.CSSProperties = {position: 'fixed', visibility: show ? "visible" : "hidden"};
 
     return {ref, target, show, style}
 }

@@ -1,4 +1,5 @@
 import {RULE} from "./proofRules";
+import {FeedbackLevel} from "./feedback";
 
 export interface Board {
     currentId: number;
@@ -13,8 +14,22 @@ export interface Board {
     redoStack: Omit<Board, 'undoStack' | 'redoStack' | 'sideBarItems'>[];
     zoom: number,
     exercise: number[],
+    problem?: NDProblem,
     isFOL: boolean,
     isHelpMode: boolean,
+    currentProof?: BoardCurrentProof,
+    feedbackLevel : FeedbackLevel
+}
+
+export interface BoardCurrentProof {
+    premises?: number[],
+    conclusion?: number,
+    hypotheses?: number[]
+}
+
+export interface NDProblem {
+    conclusion: string
+    premises: string[]
 }
 
 export enum BoardAction {
@@ -24,7 +39,8 @@ export enum BoardAction {
     Copy = 'copy',
     Paste = 'paste',
     SwitchFOL = 'fol',
-    SwitchHelp = 'help'
+    SwitchHelp = 'help',
+    SwitchFeedbackLevel = 'feedbackLevel',
 }
 
 export type Position = {
@@ -53,7 +69,7 @@ export interface PreviewExpComponent extends PreviewComponent {
 }
 
 export interface PreviewMarkComponent extends PreviewComponent {
-    value: number | undefined;
+    value: any | undefined;
     type: ComponentType.MARK;
 }
 

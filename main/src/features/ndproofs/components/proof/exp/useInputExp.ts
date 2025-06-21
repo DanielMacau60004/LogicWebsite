@@ -4,16 +4,17 @@ import {GlobalState} from "../../../../../store";
 import {selectEditingComponent, updateComponent} from "../../../../../store/boardSlice";
 import {ExpComponent} from "../../../types/proofBoard";
 import {EXP_KEYBOARD_COMPONENT_ID} from "../../../constants";
-import {testExpression} from "../../../models/requests";
+import {testExpression} from "../../../services/requests";
 
 const SHOW_DELAY = 150
 
 export function useInputExp({exp}: { exp: ExpComponent }) {
     const ref = useRef<HTMLInputElement>(null);
-    const {editing, components, isFOL} = useSelector((state: GlobalState) => state.board)
+    const {editing, components, isFOL, feedbackLevel} = useSelector((state: GlobalState) => state.board)
     const dispatch: any = useDispatch()
 
-    const [value, setValue] = useState(exp.value)
+    const [value, setValue] = useState(exp.value);
+
     const isSelected = editing?.id === exp.id
     const size = value ? value.length + 2 : 2
 
@@ -42,16 +43,18 @@ export function useInputExp({exp}: { exp: ExpComponent }) {
         if (cleanValue !== components[exp.id].value) {
             //Check if the formula is correct
             if (cleanValue) {
-                testExpression(cleanValue, isFOL).then(response => {
+                testExpression(cleanValue, isFOL, feedbackLevel).then(response => {
                     const isWFF = response !== undefined && response.isWFF
                     const value = isWFF ? response?.response : cleanValue
+                    const errors: Record<string, any> = {};
+
+                    if(!isWFF && response?.response)
+                        errors[response?.response] = null;
 
                     dispatch(updateComponent({
-                        component: {...components[exp.id], value: value, isWFF: isWFF},
+                        component: {...components[exp.id], value: value, isWFF: isWFF, errors: errors},
                         saveState: true
                     }));
-
-                    if(!isWFF) console.log(response?.response)
                 })
             } else {
                 dispatch(updateComponent({
@@ -84,6 +87,38 @@ export function useInputExp({exp}: { exp: ExpComponent }) {
 
     const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') finalizeEditing()
+
+        if(value === undefined) return
+        const input = ref.current;
+
+        if(input === null) return
+        const selectionStart = input.selectionStart ?? 0;
+        const selectionEnd = input.selectionEnd ?? 0;
+
+        if (e.key === "(") {
+            e.preventDefault();
+            const newValue = value.slice(0, selectionStart) +
+                "()" + value.slice(selectionEnd);
+            setValue(newValue);
+            setTimeout(() => {
+                input.setSelectionRange(selectionStart + 1, selectionStart + 1);
+            }, 0);
+        }
+        else if (e.key === "Backspace") {
+            if (
+                value[selectionStart - 1] === "(" &&
+                value[selectionStart] === ")"
+            ) {
+                e.preventDefault();
+                const newValue =
+                    value.slice(0, selectionStart - 1) +
+                    value.slice(selectionStart + 1);
+                setValue(newValue);
+                setTimeout(() => {
+                    input.setSelectionRange(selectionStart - 1, selectionStart - 1);
+                }, 0);
+            }
+        }
     };
 
     return {isSelected, size, ref, value, onBlur, onChange, onKeyDown}

@@ -1,5 +1,5 @@
 import {Rule} from "../rule/Rule";
-import {ExpComponent, RuleComponent} from "../../../types/proofBoard";
+import {RuleComponent} from "../../../types/proofBoard";
 import {Mark} from "../mark/Mark";
 import {useSelector} from "react-redux";
 import {GlobalState} from "../../../../../store";

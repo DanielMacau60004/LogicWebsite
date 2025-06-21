@@ -77,7 +77,11 @@
 
   &.scrollable {
     overflow-y: scroll;
-    max-height: 180px;
+    max-height: 240px;
     scrollbar-width: none;
+  }
+
+  &.small {
+    max-height: 180px;
   }
 }

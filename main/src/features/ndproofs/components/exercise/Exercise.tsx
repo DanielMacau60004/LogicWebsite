@@ -6,7 +6,6 @@ import "../proof/exp/Exp.scss"
 import {useSelector} from "react-redux";
 import {GlobalState} from "../../../../store";
 import {Tree} from "../proof/tree/Tree";
-import {OverlayTrigger, Tooltip} from "react-bootstrap";
 
 function TurnstileIcon() {
     return (

@@ -4,7 +4,8 @@ import {useNavigate} from 'react-router-dom';
 import {useDispatch} from "react-redux";
 import {setExercise} from "../../../../store/boardSlice";
 import {useEffect, useState} from "react";
-import {loadExercises} from "../../models/requests";
+import {loadExercises} from "../../services/requests";
+import {NewProof} from "./NewProof";
 
 interface ExerciseComponentProps {
     exercises: string[][];
@@ -54,10 +55,10 @@ export function Menu() {
 
     useEffect(() => {
         async function fetchExercises() {
-            const plData = await loadExercises(100, false);
+            const plData = await loadExercises(200, false);
             if (plData) setPLExercises(plData);
 
-            const folData = await loadExercises(100, true);
+            const folData = await loadExercises(200, true);
             if (folData) setFOLExercises(folData);
         }
 
@@ -66,22 +67,21 @@ export function Menu() {
 
     return (
         <Container fluid className={"menu"}>
-
             <Row className={"menu-content pt-lg-5 pt-3"}>
                 <p className={"title"}>LOGIC TOOL</p>
-                <Col className={"tab"}>
+
+                <Col className={"tab col-12"}>
                     <p className={"title"}>PROPOSITIONAL</p>
 
                     <ExerciseComponent exercises={PLExercises} isFOL={false}/>
                 </Col>
 
-                <Col className={"tab"}>
+                <Col className={"tab col-12"}>
                     <p className={"title"}>FIRST-ORDER</p>
 
                     <ExerciseComponent exercises={FOLExercises} isFOL={true}/>
                 </Col>
             </Row>
-
             <p className="credits">© {new Date().getFullYear()} Daniel Macau. All rights reserved.</p>
 
         </Container>

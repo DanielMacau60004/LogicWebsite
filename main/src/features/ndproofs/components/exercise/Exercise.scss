@@ -10,10 +10,6 @@
   left: 50%;
 }
 
-.proof-consequence{
-  color: var(--color-5);
-  margin-left: 10px;
-}
 
 .exercise-content {
   margin: 15px;
@@ -22,6 +18,11 @@
     margin: 0 5px;
     background-color: transparent !important;
     padding: 0 !important;
+  }
+
+  >.proof-consequence{
+    color: var(--color-5);
+    margin-left: 10px;
   }
 }
 

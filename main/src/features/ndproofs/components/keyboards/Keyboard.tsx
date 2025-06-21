@@ -9,7 +9,6 @@ export function renderKeyButtons(
     className: string,
     onKeyClick: (char: any) => void
 ) {
-
     return symbols.map((symbol) => (
         <button
             id={id + "-key"}
@@ -26,9 +25,9 @@ type ExpKeyBoardProps = {
     id: string;
     ref: React.RefObject<HTMLDivElement | null>;
     show: boolean;
-    target: HTMLElement;
+    target: HTMLElement | null;
     placement?: Placement | undefined;
-    style: React.CSSProperties;
+    style?: React.CSSProperties;
     children: ReactNode;
 };
 
@@ -57,7 +56,11 @@ export function Keyboard({id, ref, show, target, placement, style, children}: Ex
                     ],
                 }}
             >
-                <Popover id="popover-contained" className="aux-keyboard">
+                <Popover
+                    id="popover-contained"
+                    className="aux-keyboard"
+                    style={style}
+                >
                     {children}
                 </Popover>
             </Overlay>

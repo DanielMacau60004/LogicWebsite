@@ -1,15 +1,17 @@
 import {
-    Board, Component,
+    Board,
+    Component,
     ComponentType,
     PreviewComponent,
     PreviewMarkComponent,
-    PreviewTreeComponent, RuleComponent, TreeComponent
+    PreviewTreeComponent,
+    RuleComponent,
+    TreeComponent
 } from "../../types/proofBoard";
 import {RULE_DETAILS} from "../../types/proofRules";
 import {BoardPosition} from "./position";
 import {Components} from "../components/logic";
 import {exp, mark} from "../components/components";
-import {deepCopy} from "../../../../utils/general";
 
 export const Boards = {
 
@@ -26,7 +28,7 @@ export const Boards = {
                 const marks = tree.marks?.map((mark: PreviewMarkComponent) =>
                     this.appendComponent(state, mark, id));
 
-                state.components[id] = {
+                state.components[id] = { ...tree,
                     id, type: ComponentType.TREE, parent, position: tree.position, conclusion, rule, hypotheses, marks,
                     editable: tree.editable, clone: tree.clone
                 }
@@ -34,7 +36,7 @@ export const Boards = {
                 break;
             case ComponentType.EXP:
                 let mark
-                if(component.mark)
+                if (component.mark)
                     mark = this.appendComponent(state, component.mark, id)
                 //component.parent = parent
                 state.components[id] = {...component, id: id, mark, parent}
@@ -68,7 +70,7 @@ export const Boards = {
                 break;
             case ComponentType.EXP:
                 let mark
-                if(component.mark)
+                if (component.mark)
                     mark = this.duplicateComponent(state, state.components[component.mark], id)
                 state.components[id] = {...component, id, parent, mark}
                 break;
@@ -78,6 +80,48 @@ export const Boards = {
         }
 
         return id;
+    },
+
+    convertToPreview(state: Board, id: number): PreviewComponent {
+        const component = state.components[id];
+
+        switch (component.type) {
+            case ComponentType.TREE:
+                const tree = component as any;
+
+                // Recursively extract nested PreviewComponents
+                const conclusion = this.convertToPreview(state, tree.conclusion);
+
+                if(!Components.isASimpleTree(tree))
+                    conclusion.mark  = undefined
+
+                const rule = tree.rule !== undefined ? this.convertToPreview(state, tree.rule) : undefined;
+                const hypotheses = tree.hypotheses?.map((hypId: number) => this.convertToPreview(state, hypId));
+                const marks = tree.marks?.map((markId: number) => this.convertToPreview(state, markId));
+
+                return {
+                    ...tree,
+                    conclusion,
+                    rule,
+                    hypotheses,
+                    marks,
+                } as PreviewTreeComponent;
+
+            case ComponentType.EXP:
+                let mark;
+                if (component.mark !== undefined) {
+                    mark = this.convertToPreview(state, component.mark);
+                }
+                return {
+                    ...component,
+                    mark,
+                } as PreviewComponent;
+
+            default:
+                return {
+                    ...component,
+                } as PreviewComponent;
+        }
     },
 
     deleteEntireComponent(state: Board, component: Component) {
@@ -96,7 +140,7 @@ export const Boards = {
 
                 break;
             case ComponentType.EXP:
-                if(component.mark)
+                if (component.mark)
                     this.deleteEntireComponent(state, state.components[component.mark])
         }
     },
@@ -108,10 +152,10 @@ export const Boards = {
         this.updateHypotheses(state, tree, ruleInfo?.hypothesesCount ?? 0);
         this.updateMarks(state, tree, ruleInfo?.marksCount ?? 0);
 
-        if(ruleInfo === undefined) {
-            const element =  state.components[tree.conclusion]
+        if (ruleInfo === undefined) {
+            const element = state.components[tree.conclusion]
 
-            if(tree.parent) {
+            if (tree.parent) {
                 const treeParent = state.components[tree.parent]
                 const index = treeParent?.hypotheses?.indexOf(tree.id)
 
@@ -128,9 +172,9 @@ export const Boards = {
             tree.hypotheses = undefined
 
             const previous = document.getElementById(String(tree.conclusion));
-            if(previous) {
+            if (previous) {
                 const rect = previous.getBoundingClientRect();
-                tree.position = BoardPosition.computeBoardCoordinates(state, { x: rect.x, y: rect.y + 20 });
+                tree.position = BoardPosition.computeBoardCoordinates(state, {x: rect.x, y: rect.y + 20});
             }
 
         }
@@ -138,7 +182,7 @@ export const Boards = {
     },
 
     updateHypotheses(state: Board, tree: TreeComponent, targetCount: number) {
-        if(!tree.hypotheses) return
+        if (!tree.hypotheses) return
 
         const current = tree.hypotheses.length;
 
@@ -156,7 +200,7 @@ export const Boards = {
 
                 if (previous && element.type === ComponentType.TREE) {
                     const rect = previous.getBoundingClientRect();
-                    element.position = BoardPosition.computeBoardCoordinates(state, { x: rect.x, y: rect.y });
+                    element.position = BoardPosition.computeBoardCoordinates(state, {x: rect.x, y: rect.y});
                     element.parent = undefined;
                     state.boardItems[id] = id;
                     state.active = element
@@ -170,7 +214,7 @@ export const Boards = {
     },
 
     updateMarks(state: Board, tree: TreeComponent, targetCount: number) {
-        if(!tree.marks) return;
+        if (!tree.marks) return;
 
         const current = tree.marks.length;
 

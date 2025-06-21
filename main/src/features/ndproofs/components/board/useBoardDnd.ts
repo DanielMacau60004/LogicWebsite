@@ -1,5 +1,6 @@
 import {DragEndEvent, DragStartEvent,} from "@dnd-kit/core";
 import {
+    addTree,
     copy,
     deleteComponent,
     dragComponent,
@@ -8,12 +9,18 @@ import {
     selectDraggingComponent,
     selectEditingComponent,
     sideDragging,
-    updateComponent,
+    updateComponent, updateCurrentProof,
 } from "../../../../store/boardSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {GlobalState} from "../../../../store";
 import {useRef} from "react";
-import {ComponentType, ExpComponent, PreviewTreeComponent, TreeComponent} from "../../types/proofBoard";
+import {
+    BoardCurrentProof,
+    ComponentType,
+    ExpComponent,
+    PreviewTreeComponent,
+    TreeComponent
+} from "../../types/proofBoard";
 import {
     APPENDS,
     CLONE_COMPONENT_ID,
@@ -22,14 +29,15 @@ import {
     SUBMIT_COMPONENT_ID
 } from "../../constants";
 import {Components} from "../../models/components/logic";
-import {convertTreeToAPIFormat} from "../../models/board/logicAPI";
-import {testProof} from "../../models/requests";
-import {replaceUnicodeEscapes} from "../../../../utils/strings";
+import {testProof} from "../../services/requests";
+import {Boards} from "../../models/board/logic";
+import {exp, treeExp} from "../../models/components/components";
+import {deepCopy} from "../../../../utils/general";
 
 export function useBoardDnd() {
     const dispatch: any = useDispatch()
     const state = useSelector((state: GlobalState) => state.board)
-    const {isEditable, components, editing, isFOL} = useSelector((state: GlobalState) => state.board)
+    const {isEditable, components, editing, isFOL, problem, feedbackLevel} = useSelector((state: GlobalState) => state.board)
     const lastClickTime = useRef<number>(0);
 
     function isDoubleClick(): boolean {
@@ -44,27 +52,78 @@ export function useBoardDnd() {
     function handleTreeActions(component: TreeComponent, clickedID?: string): boolean {
         if (clickedID === DELETE_COMPONENT_ID) {
             dispatch(selectComponent(Components.getLastParent(state, component)));
-            dispatch(deleteComponent());
+            dispatch(deleteComponent({saveState: true}));
             return true
         } else if (clickedID === CLONE_COMPONENT_ID) {
             dispatch(selectComponent(Components.getLastParent(state, component)));
             dispatch(copy());
             dispatch(paste());
             return true
-        } else if (clickedID === SUBMIT_COMPONENT_ID) {
-            testProof(convertTreeToAPIFormat(state, component), isFOL).then(response => {
-               if(response) {
-                   dispatch(updateComponent({
-                       component: {
-                           ...components[component.id],
-                           isWFP: response.isWFP, ...( !response.isWFP && {
-                               error: response.response ? replaceUnicodeEscapes(response.response) : "Incomplete proof!"
-                           })
-                       }, saveState: false
-                   }));
-               }
+        } else if (clickedID === SUBMIT_COMPONENT_ID && problem) {
+            const conclusion = components[component.conclusion].value
+            const exercise = [...problem.premises, problem.conclusion]
+            const shouldCompareConclusion = conclusion === problem.conclusion
+            const tree = Boards.convertToPreview(state, component.id) as PreviewTreeComponent
+
+            testProof(tree, isFOL, exercise, shouldCompareConclusion, feedbackLevel).then(it => {
+                if (it?.response) {
+                    let result = it.response
+
+                    dispatch(selectComponent(undefined))
+                    if (result.proof === undefined)
+                        return
+
+                    if (result.proof.type === ComponentType.EXP)
+                        result.proof = treeExp(result.proof)
+
+                    if (result.mainException) {
+                        const errors: Record<string, any> = {};
+                        errors[result.mainException] = null
+                        result.proof.mainError = errors
+                    }
+
+                    result.proof.hasErrors = result.hasErrors
+                    result.proof.proved = {};
+                    if (result.premises)
+                        result.proof.proved.premises = result.premises;
+
+                    if (result.conclusion)
+                        result.proof.proved.conclusion = result.conclusion;
+
+                    if (result.hypotheses)
+                        result.proof.proved.hypotheses = result.hypotheses;
+
+                    result.proof.position = component.position
+                    dispatch(selectComponent(component))
+                    dispatch(selectDraggingComponent(undefined))
+                    dispatch(deleteComponent({saveState: false}))
+                    dispatch(addTree({component: result.proof, saveState: false}))
+                    dispatch(updateCurrentProof(result))
+                    console.log("UPDATED")
+                }
             })
         }
+
+        /*if (problem) {
+            const cmp = Components.getLastParent(state, component)
+            const conclusion = state.components[cmp.conclusion].value
+            const exercise = [...problem.premises, problem.conclusion]
+            const shouldCompareConclusion = conclusion === cmp.conclusion
+            const tree = Boards.convertToPreview(state, cmp.id) as PreviewTreeComponent
+
+            testProof(tree, state.isFOL, exercise, shouldCompareConclusion).then(it => {
+                if (it?.response) {
+                    let result = it.response
+
+                    if (result.proof === undefined)
+                        return
+
+                    dispatch(updateCurrentProof(result))
+                }
+
+            })
+        }*/
+
         return false
     }
 
@@ -87,7 +146,7 @@ export function useBoardDnd() {
         let component = components[Number(event.active.id)];
         let dragging = undefined
 
-        if(editing && editing.type === ComponentType.EXP)return;
+        if (editing && editing.type === ComponentType.EXP) return;
 
         if (!component) {
             dispatch(selectComponent(undefined))
@@ -115,7 +174,7 @@ export function useBoardDnd() {
             if (handleTreeActions(component as TreeComponent, clickedID))
                 return;
 
-        //Select the clicked element
+        //Select clicked element
         if (!isNaN(Number(clickedID)) && Number(clickedID) in components)
             component = components[Number(clickedID)]
 

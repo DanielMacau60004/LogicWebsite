@@ -20,13 +20,14 @@ import {Rule, RulePreview} from "../rule/Rule";
 import {Mark, MarkPreview} from "../mark/Mark";
 import {useTreeState} from "./useTreeState";
 import {RuleHelper} from "../../controls/helper/RuleHelper";
-import {FaExclamation, FaQuestion} from "react-icons/fa";
-import {OverlayTrigger, Tooltip} from "react-bootstrap";
-import {RULE_DETAILS} from "../../../types/proofRules";
-import {BOARD_CONTROLLERS_ID} from "../../../constants";
+import {FaQuestion} from "react-icons/fa";
+import ErrorTooltip from "../../others/ErrorTooltip";
+import {FeedbackLevel} from "../../../types/feedback";
 
 export function Tree({tree}: { tree: TreeComponent }) {
+    const state = useSelector((state: GlobalState) => state.board);
     const {drag, isRoot, isSelected, onRender} = useTreeState(tree);
+    const hasErrors = !!Object.keys(tree.mainError || {}).length;
 
     return (
         <Draggable
@@ -34,6 +35,9 @@ export function Tree({tree}: { tree: TreeComponent }) {
             className={`proof-component proof-tree ${isRoot ? "root" : ""}`}
             onRender={onRender}
         >
+            <>
+                {hasErrors && state.feedbackLevel !== FeedbackLevel.None && <ErrorTooltip errors={tree.mainError} className={"tool-tip"}/>}
+            </>
             {isSelected && !drag && <TreeMenu/>}
             <TreeContent tree={tree}/>
         </Draggable>
@@ -41,40 +45,26 @@ export function Tree({tree}: { tree: TreeComponent }) {
 }
 
 function TreeContent({tree}: { tree: TreeComponent }) {
+    const {drag} = useSelector((state: GlobalState) => state.board);
     return (
         <table>
             <tbody>
             {tree.hypotheses && <TreeChildren tree={tree}/>}
             {(tree.rule && tree.marks) && <TreeRuleRow tree={tree}/>}
             {tree.conclusion && <TreeConclusionRow tree={tree}/>}
-            {tree.isWFP !== undefined && !tree.isWFP && <IncorrectTreeChildren tree={tree}/>}
             </tbody>
         </table>
     );
 }
 
-function IncorrectTreeChildren({tree}: { tree: TreeComponent }) {
-    const renderTooltip = (props: any) => (
-        <Tooltip id="button-tooltip" {...props}>
-            <div className={"proof-incorrect-tooltip"}>
-                {tree.error}
-            </div>
-        </Tooltip>
-    );
+function StateTreeChildren({tree}: { tree: TreeComponent }) {
+    const state = useSelector((state: GlobalState) => state.board);
+    const hasErrors = !!Object.keys(tree.errors || {}).length;
 
     return (
-        <tr>
-            <td>
-                <OverlayTrigger
-                    placement="right"
-                    delay={{show: 250, hide: 200}}
-                    overlay={renderTooltip}
-                    container={document.getElementById(BOARD_CONTROLLERS_ID)}
-                >
-                    <div className={"proof-incorrect"}><FaExclamation/></div>
-                </OverlayTrigger>
-            </td>
-        </tr>
+        <>
+            {hasErrors && state.feedbackLevel !== FeedbackLevel.None && <ErrorTooltip errors={tree.errors}/>}
+        </>
     )
 }
 
@@ -83,6 +73,7 @@ function TreeChildren({tree}: { tree: TreeComponent }) {
 
     return (
         <tr>
+            <td></td>
             <td className="proof-hypothesis">
                 {tree.hypotheses!!.map(id => {
                     const comp = components[id];
@@ -96,9 +87,12 @@ function TreeChildren({tree}: { tree: TreeComponent }) {
 }
 
 function TreeRuleRow({tree}: { tree: TreeComponent }) {
-    const {components, isHelpMode} = useSelector((state: GlobalState) => state.board);
+    const {drag, components, isHelpMode} = useSelector((state: GlobalState) => state.board);
     return (
-        <tr>
+        <tr className="proof-rules">
+            <td>
+                {<StateTreeChildren tree={tree}/>}
+            </td>
             <td>
                 <hr/>
             </td>
@@ -110,7 +104,15 @@ function TreeRuleRow({tree}: { tree: TreeComponent }) {
                     <Mark mark={components[id] as MarkComponent}/>
                 </td>
             ))}
-            {isHelpMode && <td><RuleHelper rule={components[tree.rule!!].value}/></td>}
+            {
+                isHelpMode && <td>
+                    <RuleHelper rule={components[tree.rule!!].value}>
+                        <div className={"rule-helper"}>
+                            <FaQuestion/>
+                        </div>
+                    </RuleHelper>
+                </td>
+            }
         </tr>
     );
 }
@@ -119,6 +121,7 @@ function TreeConclusionRow({tree}: { tree: TreeComponent }) {
     const {components} = useSelector((state: GlobalState) => state.board);
     return (
         <tr>
+            <td></td>
             <td className="proof-conclusion">
                 <Exp exp={components[tree.conclusion] as ExpComponent}/>
             </td>
@@ -128,8 +131,11 @@ function TreeConclusionRow({tree}: { tree: TreeComponent }) {
 }
 
 
-export function TreePreview({tree}: { tree: PreviewTreeComponent }) {
-
+export function TreePreview({
+                                tree
+                            }: {
+    tree: PreviewTreeComponent
+}) {
     return (
         <div className={`proof-component proof-tree`}>
             <TreePreviewContent tree={tree}/>
@@ -137,7 +143,11 @@ export function TreePreview({tree}: { tree: PreviewTreeComponent }) {
     );
 }
 
-function TreePreviewContent({tree}: { tree: PreviewTreeComponent }) {
+function TreePreviewContent({
+                                tree
+                            }: {
+    tree: PreviewTreeComponent
+}) {
     return (
         <table>
             <tbody>
@@ -149,7 +159,11 @@ function TreePreviewContent({tree}: { tree: PreviewTreeComponent }) {
     );
 }
 
-function TreePreviewChildren({tree}: { tree: PreviewTreeComponent }) {
+function TreePreviewChildren({
+                                 tree
+                             }: {
+    tree: PreviewTreeComponent
+}) {
     return (
         <tr>
             <td className="proof-hypothesis">
@@ -163,7 +177,11 @@ function TreePreviewChildren({tree}: { tree: PreviewTreeComponent }) {
     );
 }
 
-function TreePreviewRuleRow({tree}: { tree: PreviewTreeComponent }) {
+function TreePreviewRuleRow({
+                                tree
+                            }: {
+    tree: PreviewTreeComponent
+}) {
 
     return (
         <tr>
@@ -182,7 +200,11 @@ function TreePreviewRuleRow({tree}: { tree: PreviewTreeComponent }) {
     );
 }
 
-function TreePreviewConclusionRow({tree}: { tree: PreviewTreeComponent }) {
+function TreePreviewConclusionRow({
+                                      tree
+                                  }: {
+    tree: PreviewTreeComponent
+}) {
     return (
         <tr>
             <td className="proof-conclusion">
