@@ -5,8 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="961377de-44c0-4ce8-9942-64e88caeedf7" name="Changes" comment="Implication rules for ND added">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../LogicAPI" beforeDir="false" afterPath="$PROJECT_DIR$/../LogicAPI" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Website/.idea/Website.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../Website/.idea/Website.iml" afterDir="false" />
@@ -448,7 +446,7 @@
       <workItem from="1741458593537" duration="18976000" />
       <workItem from="1741597393424" duration="113069000" />
       <workItem from="1742375148342" duration="14454000" />
-      <workItem from="1750416691754" duration="4567000" />
+      <workItem from="1750416691754" duration="5771000" />
     </task>
     <task id="LOCAL-00001" summary="Starting implementing the advanced algorithm">
       <option name="closed" value="true" />
