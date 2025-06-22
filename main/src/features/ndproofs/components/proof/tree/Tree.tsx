@@ -25,20 +25,20 @@ import ErrorTooltip from "../../others/ErrorTooltip";
 import {FeedbackLevel} from "../../../types/feedback";
 
 export function Tree({tree}: { tree: TreeComponent }) {
-    const state = useSelector((state: GlobalState) => state.board);
+    const {feedbackLevel} = useSelector((state: GlobalState) => state.board);
     const {drag, isRoot, isSelected, onRender} = useTreeState(tree);
     const hasErrors = !!Object.keys(tree.mainError || {}).length;
 
     return (
         <Draggable
             id={String(tree.id)}
-            className={`proof-component proof-tree ${isRoot ? "root" : ""}`}
+            className={`proof-component proof-tree ${isRoot ? "root" : ""} ${tree.hasErrors ? "error" : ""}`}
             onRender={onRender}
         >
             <>
-                {hasErrors && state.feedbackLevel !== FeedbackLevel.None && <ErrorTooltip errors={tree.mainError} className={"tool-tip"}/>}
+                {hasErrors && feedbackLevel !== FeedbackLevel.None && <ErrorTooltip errors={tree.mainError} className={"tool-tip"}/>}
             </>
-            {isSelected && !drag && <TreeMenu/>}
+            {isSelected && !drag && <TreeMenu hasErrors={tree.hasErrors} isValid={tree.isValid} solveCurrentExercise={tree.solveExercise}/>}
             <TreeContent tree={tree}/>
         </Draggable>
     );

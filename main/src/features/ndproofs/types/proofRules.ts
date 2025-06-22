@@ -98,7 +98,7 @@ export const RULE_DETAILS: Record<RULE, RuleInfo> = {
     },
     [RULE.FORALL_INTRO]: {
         type: "∀",
-        hypothesesCount: 1, marksCount: 1, isFOL: true, preview: tree(exp("∀x φ"), rule(RULE.FORALL_INTRO),
+        hypothesesCount: 1, marksCount: 0, isFOL: true, preview: tree(exp("∀x φ"), rule(RULE.FORALL_INTRO),
             [exp(supSubStr("[φ]", "x", "y"), {subTree: SUB_TREE_SYMBOL})])
     },
     [RULE.FORALL_ELIM]: {

@@ -15,6 +15,43 @@ import {exp, mark} from "../components/components";
 
 export const Boards = {
 
+    canBeSubmitted(state: Board, component: PreviewComponent): boolean {
+        switch (component.type) {
+            case ComponentType.TREE:
+                const tree = component as PreviewTreeComponent;
+                const results = tree.hypotheses?.map(h => this.canBeSubmitted(state, h)) ?? [];
+                return this.canBeSubmitted(state, tree.conclusion) && results.every(Boolean);
+
+            case ComponentType.EXP:
+                const expCMP = state.components[component.id];
+                return !!expCMP?.value;
+
+            default:
+                return false;
+        }
+    },
+    reportErrors(state: Board, component: PreviewComponent): void {
+        switch (component.type) {
+            case ComponentType.TREE:
+                const tree = component as PreviewTreeComponent;
+                tree.hypotheses?.forEach(h => this.reportErrors(state, h));
+                this.reportErrors(state, tree.conclusion);
+                break;
+
+            case ComponentType.EXP:
+                const expCMP = state.components[component.id];
+                if (!expCMP?.value) {
+                    state.components[component.id] = {
+                        ...expCMP,
+                        errors: {
+                            ...(expCMP.errors || {}),
+                            "Missing formula!": null
+                        }
+                    };
+                }
+                break;
+        }
+    },
     appendComponent(state: Board, component: PreviewComponent, parent?: number): number {
         const id = state.currentId++;
 

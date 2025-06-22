@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import React from "react";
+import React, {useCallback} from "react";
 import {ComponentType, TreeComponent} from "../../../types/proofBoard";
 import {GlobalState} from "../../../../../store";
 import {DraggableRender} from "../../../../../components/Draggable";
@@ -18,33 +18,34 @@ export function useTreeState(tree: TreeComponent) {
     const isSelected = active && active.id && active.type === ComponentType.TREE &&
         Components.getLastParent(state, active).id === tree.id;
 
-    const onRender: (args: DraggableRender) => {
-        className?: string;
-        style?: React.CSSProperties;
-    } = (args) => {
-
-        //TODO temporary!!
-        const lastParent = Components.getLastParent(state, tree)
-        const isIncorrect = (tree.isWFP !== undefined && !tree.isWFP) ||
-            (lastParent.isWFP !== undefined && !lastParent.isWFP)
+    const onRender = useCallback((args: DraggableRender) => {
+        const lastParent = Components.getLastParent(state, tree);
+        const isIncorrect =
+            (tree.isWFP !== undefined && !tree.isWFP) ||
+            (lastParent.isWFP !== undefined && !lastParent.isWFP);
 
         const className = [
             tree.className,
             args.className,
-            isIncorrect ? "incorrect" : ""
-        ].join(" ").trim();
+            isIncorrect ? "incorrect" : "",
+        ]
+            .filter(Boolean)
+            .join(" ")
+            .trim();
 
-        return {
-            className: className,
-            style: {
-                ...args.style,
-                ...(isActive && { zIndex: 100 }),
-                ...(args.draggable.active?.id === tree.id && { opacity: 1 }),
-                ...(args.draggable.isDragging && !tree.parent && drag && { opacity: 0 }),
-                transform: `translate(${(tree.position?.x ?? 0)}px, ${(tree.position?.y ?? 0)}px)`
-            },
+        const style: React.CSSProperties = {
+            ...args.style,
+            ...(isActive && { zIndex: 100 }),
+            ...(args.draggable.active?.id === tree.id && { opacity: 1 }),
+            ...(tree.drag === undefined &&
+                !tree.parent &&
+                drag &&
+                drag.id === tree.id && { opacity: 0 }),
+            transform: `translate(${tree.position?.x ?? 0}px, ${tree.position?.y ?? 0}px)`,
         };
-    };
+
+        return { className, style };
+    }, [tree, state, drag, isActive]);
 
     return {drag, isRoot, isSelected, onRender,};
 }

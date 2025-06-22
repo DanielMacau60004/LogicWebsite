@@ -2,12 +2,21 @@
 @import "../Proof";
 
 .proof-tree {
-  background-color: var(--color-1);
   border-radius: 10px;
   outline: none;
   cursor: move !important;
+  /*border: none;
+
+  &:hover {
+    border: solid black 2px;
+  }
+
+  &:hover .board {
+    border: none;
+  }*/
 
   &.root {
+    background-color: var(--color-1);
     display: inline-block;
     padding: 20px;
   }
@@ -17,6 +26,20 @@
     left: -10px;
     top: -10px;
     transform: scale(1.6);
+  }
+
+  > .valid {
+    background-color: rgba(var(--color-success), 1) !important;
+    text-transform: uppercase;
+    color: var(--text-color);
+    position: absolute;
+  }
+
+  > .invalid {
+    background-color: rgba(var(--color-danger), 1) !important;
+    text-transform: uppercase;
+    color: var(--text-color);
+    position: absolute;
   }
 
   > .proof-properties {
@@ -29,6 +52,12 @@
     &.top-right {
       top: -35px;
       right: -35px;
+    }
+
+    &.top-center {
+      top: 3px;
+      left: 50%;
+      transform: translate(-50%, -100%);
     }
 
     &.top-left {

@@ -99,7 +99,11 @@ export function RuleKeyboard() {
                         }
                     }}
                 >
-                    {symbol}
+                    {rules.length === 1 &&
+                        isHelpMode ? <RuleHelper rule={rules[0]}>
+                                {symbol}
+                            </RuleHelper> : symbol
+                    }
                 </button>
             );
         }).flat();

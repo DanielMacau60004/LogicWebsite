@@ -5,7 +5,7 @@ import {
     BoardCurrentProof,
     Component,
     ComponentType,
-    Position,
+    Position, PreviewComponent,
     PreviewTreeComponent,
     RuleComponent,
     TreeComponent
@@ -309,6 +309,9 @@ const slice = createSlice({
             }
 
             state.currentProof = current
+        },
+        reportErrors(state, action: PayloadAction<PreviewComponent>): void {
+            Boards.reportErrors(state, action.payload)
         }
     }
 });
@@ -333,7 +336,8 @@ export const {
     switchHelpMode,
     switchFeedbackLevel,
     setExercise,
-    updateCurrentProof
+    updateCurrentProof,
+    reportErrors
 } = slice.actions;
 
 export const boardReducer = slice.reducer;

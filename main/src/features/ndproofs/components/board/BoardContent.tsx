@@ -23,7 +23,7 @@ export function BoardContent() {
 
             {drag && isEditable &&
                 <DragOverlay dropAnimation={null} className={"drag-overlay"}>
-                    <Tree tree={drag}/>
+                    <Tree tree={{...drag, drag: true}}/>
                 </DragOverlay>
             }
         </Draggable>
