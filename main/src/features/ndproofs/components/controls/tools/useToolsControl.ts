@@ -1,6 +1,6 @@
 import {useTransformContext} from "react-zoom-pan-pinch";
 import {useDispatch, useSelector} from "react-redux";
-import {addTree} from "../../../../../store/boardSlice";
+import {addTree, setZoom} from "../../../../../store/boardSlice";
 import {exp, treeExp} from "../../../models/components/components";
 import {solveProblem} from "../../../services/requests";
 import {GlobalState} from "../../../../../store";
@@ -24,6 +24,7 @@ export function useToolsControl(zoomToElement: (selector: string, scale?: number
             dispatch(addTree({component: treeExp(exp(), position), saveState: false}));
             setTimeout(() => {
                 zoomToElement(String(currentId), zoom)
+                dispatch(setZoom(zoom));
             }, 100)
         }
     };
@@ -47,6 +48,7 @@ export function useToolsControl(zoomToElement: (selector: string, scale?: number
                     dispatch(addTree({component: solution, saveState: false}));
                     setTimeout(() => {
                         zoomToElement(String(currentId), zoom)
+                        dispatch(setZoom(zoom));
                     }, 100)
                 }
             });

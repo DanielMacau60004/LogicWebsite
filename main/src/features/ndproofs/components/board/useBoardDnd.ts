@@ -81,13 +81,7 @@ export function useBoardDnd() {
                     if (result.proof.type === ComponentType.EXP)
                         result.proof = treeExp(result.proof)
 
-                    if (result.mainException) {
-                        const errors: Record<string, any> = {};
-                        errors[result.mainException] = null
-                        result.proof.mainError = errors
-                    }
-
-                    result.proof.hasErrors = result.hasErrors
+                    result.proof.hasErrors = result.hasError
                     result.proof.proved = {};
                     if (result.premises)
                         result.proof.proved.premises = result.premises;
@@ -98,7 +92,7 @@ export function useBoardDnd() {
                     if (result.hypotheses)
                         result.proof.proved.hypotheses = result.hypotheses;
 
-                    if(!result.hasErrors) {
+                    if(!result.hasError) {
                         result.proof.isValid = true;
                         result.proof.solveExercise = shouldCompareConclusion;
                     }

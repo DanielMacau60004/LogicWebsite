@@ -18,7 +18,10 @@ export function useGeneralEvents() {
 
     useEffect(() => {
         function handleKeyPress(event: KeyboardEvent) {
-            const key = event.ctrlKey ? `Ctrl+${event.code}` : event.code;
+            let prefix = '';
+            if (event.ctrlKey) prefix += 'Ctrl+';
+            if (event.shiftKey) prefix += 'Shift+';
+            const key = prefix + event.code;
             const action = KeyActionMap.get(key);
 
             switch (action) {

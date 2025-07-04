@@ -30,3 +30,15 @@ body {
 .bs-tooltip-bottom .tooltip-arrow::before {
   border-top-color: var(--color-5) !important;
 }
+
+
+.no-scrollbar {
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}

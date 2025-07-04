@@ -89,6 +89,16 @@
 
 .proof-hypothesis {
   white-space: nowrap;
+  > div {
+    margin-bottom: -10px !important;
+  }
+}
+
+.proof-conclusion {
+  > div {
+    margin-top: -10px !important;
+
+  }
 }
 
 .proof-component .proof-exp {
@@ -101,6 +111,7 @@
 }
 
 .proof-rules {
+
   > td {
     > hr {
       margin: 0;

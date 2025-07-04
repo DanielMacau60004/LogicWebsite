@@ -25,9 +25,7 @@ import ErrorTooltip from "../../others/ErrorTooltip";
 import {FeedbackLevel} from "../../../types/feedback";
 
 export function Tree({tree}: { tree: TreeComponent }) {
-    const {feedbackLevel} = useSelector((state: GlobalState) => state.board);
     const {drag, isRoot, isSelected, onRender} = useTreeState(tree);
-    const hasErrors = !!Object.keys(tree.mainError || {}).length;
 
     return (
         <Draggable
@@ -35,9 +33,6 @@ export function Tree({tree}: { tree: TreeComponent }) {
             className={`proof-component proof-tree ${isRoot ? "root" : ""} ${tree.hasErrors ? "error" : ""}`}
             onRender={onRender}
         >
-            <>
-                {hasErrors && feedbackLevel !== FeedbackLevel.None && <ErrorTooltip errors={tree.mainError} className={"tool-tip"}/>}
-            </>
             {isSelected && !drag && <TreeMenu hasErrors={tree.hasErrors} isValid={tree.isValid} solveCurrentExercise={tree.solveExercise}/>}
             <TreeContent tree={tree}/>
         </Draggable>
@@ -47,7 +42,7 @@ export function Tree({tree}: { tree: TreeComponent }) {
 function TreeContent({tree}: { tree: TreeComponent }) {
     const {drag} = useSelector((state: GlobalState) => state.board);
     return (
-        <table>
+        <table className="tree-table">
             <tbody>
             {tree.hypotheses && <TreeChildren tree={tree}/>}
             {(tree.rule && tree.marks) && <TreeRuleRow tree={tree}/>}
@@ -88,6 +83,8 @@ function TreeChildren({tree}: { tree: TreeComponent }) {
 
 function TreeRuleRow({tree}: { tree: TreeComponent }) {
     const {drag, components, isHelpMode} = useSelector((state: GlobalState) => state.board);
+    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+
     return (
         <tr className="proof-rules">
             <td>
@@ -97,7 +94,16 @@ function TreeRuleRow({tree}: { tree: TreeComponent }) {
                 <hr/>
             </td>
             <td>
-                <Rule rule={components[tree.rule!!] as RuleComponent}/>
+                {
+                    isHelpMode && !isTouchDevice ? (
+                        <RuleHelper rule={components[tree.rule!!].value} show={500}>
+                            <Rule rule={components[tree.rule!!] as RuleComponent} />
+                        </RuleHelper>
+                    ) : (
+                        <Rule rule={components[tree.rule!!] as RuleComponent} />
+                    )
+                }
+
             </td>
             {tree.marks!!.map((id, index) => (
                 <td key={index}>
@@ -105,7 +111,7 @@ function TreeRuleRow({tree}: { tree: TreeComponent }) {
                 </td>
             ))}
             {
-                isHelpMode && <td>
+                isHelpMode && isTouchDevice && <td>
                     <RuleHelper rule={components[tree.rule!!].value}>
                         <div className={"rule-helper"}>
                             <FaQuestion/>

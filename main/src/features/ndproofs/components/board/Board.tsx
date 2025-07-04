@@ -47,8 +47,7 @@ export function Board() {
                 setTimeout(() => {
                     e.zoomToElement(String(APPENDS.APPEND_MAIN_COMPONENT_ID), INT_SCALE)
                 }, 200)
-            }
-            }
+            }}
             onZoom={onZoom}
         >
             {({zoomIn, zoomOut, instance, zoomToElement, ...rest}) => (

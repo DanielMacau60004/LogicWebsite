@@ -42,7 +42,7 @@ const ErrorTooltip: React.FC<TooltipWrapperProps> = (
                     ))}
                 </div>
 
-                {value && Array.isArray(value) && <div className={"board-previews"}>
+                {value && Array.isArray(value) && value.length > 0 && <div className={"board-previews"}>
                     {value.map((obj: any, i: number) => (
                         <div className="board-preview" key={i}>
                             {obj.type === "TREE" ? (

@@ -13,11 +13,15 @@ function NDProofsPage() {
             navigate('/');
     }, [exercise, navigate]);
 
-    return (
-        <>
-            <Board/>
-        </>
-    );
+    useEffect(() => {
+        document.body.style.overflow = 'hidden';
+
+        return () => {
+            document.body.style.overflow = '';
+        };
+    });
+
+    return <Board />;
 }
 
 export default NDProofsPage;

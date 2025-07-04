@@ -5,7 +5,6 @@
   min-width: 60px;
   height: 25px;
   border-radius: 13px;
-  background-color: var(--color-4);
   color: var(--text-color);
   cursor: grab !important;
   position: relative;
@@ -15,11 +14,27 @@
     padding: 0 10px;
     border-radius: 13px;
 
+    background-color: var(--color-4);
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    &:not(.preview) {
+      transition: all 0.2s ease;
+
+      &:hover {
+        border-color: #999;
+        transform: scale(1.2);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+      }
+
+    }
+
     > .proof-mark {
       position: absolute !important;
       top: -12px;
       right: -12px;
     }
+
   }
 
   .proof-exp-input {
@@ -43,7 +58,7 @@
     border: none;
   }
 
-  &.highlight:not(.active) > .proof-component-content {
+  &.highlight > .proof-component-content {
     animation: bgHighlightPulse 1s ease-in-out infinite;
     color: var(--text-color);
   }
@@ -53,7 +68,7 @@
     color: var(--text-color);
   }
 
-  &.highlight-hover:not(.active) > .proof-component-content {
+  &.highlight-hover > .proof-component-content {
     animation: unset !important;
     transform: scale(1.4);
     background-color: var(--color-6) !important;

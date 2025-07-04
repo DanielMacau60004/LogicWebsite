@@ -28,6 +28,22 @@ export const DOUBLE_CLICK_THRESHOLD  = 250
 export const LOGICAL_SYMBOLS: string[] = ['⊥', '⊤', '¬', '∧', '∨', '→'];
 export const FOL_SYMBOLS: string[] = [...LOGICAL_SYMBOLS, '∀', '∃'];
 
+export const KEYWORD_TO_SYMBOLS: { [key: string]: { symbol: string; needsTrailingSpace: boolean } } = {
+    'bot':   { symbol: '⊥', needsTrailingSpace: true },
+    'top':   { symbol: '⊤', needsTrailingSpace: true },
+    'not':   { symbol: '¬', needsTrailingSpace: true },
+    '!':     { symbol: '¬', needsTrailingSpace: false },
+    'and':   { symbol: '∧', needsTrailingSpace: true },
+    '&&':    { symbol: '∧', needsTrailingSpace: false },
+    'or':    { symbol: '∨', needsTrailingSpace: true },
+    '||':    { symbol: '∨', needsTrailingSpace: false },
+    'to':    { symbol: '→', needsTrailingSpace: true },
+    '->':    { symbol: '→', needsTrailingSpace: false },
+    'exist': { symbol: '∃', needsTrailingSpace: true },
+    'uni':   { symbol: '∀', needsTrailingSpace: true }
+};
+
+
 export const GROUPING_SYMBOLS: string[] = ['(', ')'];
 export const GREEK_LETTERS: string[] = ['α', 'β', 'γ', 'δ', 'φ', 'ψ'];
 export const MARKS_SYMBOLS = Array.from({length: 20}, (_, i) => (i + 1).toString());
@@ -41,9 +57,9 @@ export const KeyActionMap: Map<string, BoardAction> = new Map([
     ['Ctrl+KeyY', BoardAction.Redo],
     ['Ctrl+KeyC', BoardAction.Copy],
     ['Ctrl+KeyV', BoardAction.Paste],
-    ['Digit1', BoardAction.SwitchFOL],
-    ['Digit2', BoardAction.SwitchHelp],
-    ['Digit3', BoardAction.SwitchFeedbackLevel],
+    ['Shift+Digit1', BoardAction.SwitchFOL],
+    ['Shift+Digit2', BoardAction.SwitchHelp],
+    ['Shift+Digit3', BoardAction.SwitchFeedbackLevel],
 ]);
 
 export const MarksColorsArray: string[] = [

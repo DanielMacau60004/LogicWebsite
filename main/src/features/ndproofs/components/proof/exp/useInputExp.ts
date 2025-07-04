@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {GlobalState} from "../../../../../store";
 import {selectEditingComponent, updateComponent} from "../../../../../store/boardSlice";
 import {ExpComponent} from "../../../types/proofBoard";
-import {EXP_KEYBOARD_COMPONENT_ID} from "../../../constants";
+import {EXP_KEYBOARD_COMPONENT_ID, KEYWORD_TO_SYMBOLS} from "../../../constants";
 import {testExpression} from "../../../services/requests";
 
 const SHOW_DELAY = 150
@@ -44,17 +44,20 @@ export function useInputExp({exp}: { exp: ExpComponent }) {
             //Check if the formula is correct
             if (cleanValue) {
                 testExpression(cleanValue, isFOL, feedbackLevel).then(response => {
-                    const isWFF = response !== undefined && response.isWFF
-                    const value = isWFF ? response?.response : cleanValue
-                    const errors: Record<string, any> = {};
+                    if(response === undefined)
+                        return
 
-                    if(!isWFF && response?.response)
-                        errors[response?.response] = null;
+                    const isWFF = !response.hasError
+                    const value = isWFF ? response.exp.value : cleanValue
+                    let errors: Record<string, any> = {};
+
+                    if(!isWFF) errors = response.exp.errors;
 
                     dispatch(updateComponent({
                         component: {...components[exp.id], value: value, isWFF: isWFF, errors: errors},
                         saveState: true
                     }));
+
                 })
             } else {
                 dispatch(updateComponent({
@@ -85,26 +88,59 @@ export function useInputExp({exp}: { exp: ExpComponent }) {
         dispatch(selectEditingComponent({...components[exp.id], value: value}))
     };
 
+    function tryReplaceKeywordBeforeCursor(
+        text: string,
+        cursor: number
+    ): { replaced: boolean; newValue: string; newCursor: number } {
+        const before = text.slice(0, cursor - 1);
+        const triggerChar = text[cursor - 1];
+        const after = text.slice(cursor);
+
+        for (const [keyword, { symbol, needsTrailingSpace }] of Object.entries(KEYWORD_TO_SYMBOLS)) {
+            if (!before.endsWith(keyword)) continue;
+
+            if (needsTrailingSpace) {
+                const isBoundary = [' ', ')', ',', ';'].includes(triggerChar);
+                if (!isBoundary) continue;
+            }
+
+            const keywordStart = cursor - 1 - keyword.length;
+
+            const newValue =
+                text.slice(0, keywordStart) + symbol + " " + triggerChar + after;
+
+            const newCursor = keywordStart + symbol.length +1;
+
+            return { replaced: true, newValue, newCursor };
+        }
+
+        return { replaced: false, newValue: text, newCursor: cursor };
+    }
+
+
+
     const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') finalizeEditing()
+        if (e.key === 'Enter') finalizeEditing();
 
-        if(value === undefined) return
+        if (value === undefined) return;
         const input = ref.current;
+        if (input === null) return;
 
-        if(input === null) return
         const selectionStart = input.selectionStart ?? 0;
         const selectionEnd = input.selectionEnd ?? 0;
 
         if (e.key === "(") {
             e.preventDefault();
-            const newValue = value.slice(0, selectionStart) +
-                "()" + value.slice(selectionEnd);
+            const newValue =
+                value.slice(0, selectionStart) + "()" + value.slice(selectionEnd);
             setValue(newValue);
             setTimeout(() => {
                 input.setSelectionRange(selectionStart + 1, selectionStart + 1);
             }, 0);
+            return;
         }
-        else if (e.key === "Backspace") {
+
+        if (e.key === "Backspace") {
             if (
                 value[selectionStart - 1] === "(" &&
                 value[selectionStart] === ")"
@@ -117,9 +153,44 @@ export function useInputExp({exp}: { exp: ExpComponent }) {
                 setTimeout(() => {
                     input.setSelectionRange(selectionStart - 1, selectionStart - 1);
                 }, 0);
+                return;
             }
         }
+
+        if ([" ", ")", ",", ";"].includes(e.key)) {
+            setTimeout(() => {
+                console.log(e.key)
+                const currentValue = input.value;
+                const cursor = input.selectionStart ?? 0;
+                console.log(cursor)
+                const { replaced, newValue, newCursor } = tryReplaceKeywordBeforeCursor(currentValue, cursor);
+                if (replaced) {
+                    setValue(newValue);
+                    setTimeout(() => {
+                        input.setSelectionRange(newCursor, newCursor);
+                    }, 10);
+                }
+            }, 10);
+        }
+
+
     };
+
+
+    const onInput = (e: React.FormEvent<HTMLInputElement>) => {
+        const input = e.currentTarget;
+        const cursor = input.selectionStart ?? 0;
+        const { replaced, newValue, newCursor } = tryReplaceKeywordBeforeCursor(input.value, cursor);
+        if (replaced) {
+            setValue(newValue);
+            setTimeout(() => {
+                input.setSelectionRange(newCursor, newCursor);
+            }, 0);
+        } else {
+            setValue(input.value);
+        }
+    };
+
 
     return {isSelected, size, ref, value, onBlur, onChange, onKeyDown}
 

@@ -3,27 +3,17 @@ import {PreviewTreeComponent} from "../types/proofBoard";
 import {FeedbackLevel} from "../types/feedback";
 
 
-export async function testExpression(expression: string, isFOL: boolean, feedBack: FeedbackLevel): Promise<{
-    isWFF: boolean,
-    response: string
-} | undefined> {
+export async function testExpression(expression: string, isFOL: boolean, feedBack: FeedbackLevel): Promise<any | undefined> {
     const api = new ExpressionsControllerApi()
 
     try {
         let response: any;
         if (isFOL) response = await api.verifyFOLExpression({body: expression, level: feedBack})
         else response = await api.verifyPLExpression({body: expression, level: feedBack})
-
-
-        return {isWFF: response.code === 200, response: response.result.exp};
+        return response.result;
     } catch (error: any) {
-        const text = await error?.response.text();
-        try {
-            const jsonResponse = JSON.parse(text);
-            return {isWFF: false, response: jsonResponse.result};
-        } catch (err) {
-            return
-        }
+        console.log(error)
+        return
     }
 }
 
@@ -42,18 +32,10 @@ export async function testProof(proof: PreviewTreeComponent, isFOL: boolean, exe
             else response = await api.verifyGeneralPLProblem({treeComponent: proof, level: feedBack})
         }
 
-        console.log(response)
         return {response: response.result};
     } catch (error: any) {
-        if(!error) return
-
-        const text = await error?.response.text();
-        try {
-            const jsonResponse = JSON.parse(text);
-            return {response: jsonResponse.result};
-        } catch (err) {
-            return
-        }
+        console.log(error)
+        return
     }
 }
 
@@ -62,15 +44,14 @@ export async function solveProblem(exercise: string[], isFOL: boolean, feedBack:
 
     try {
         let response: any;
-        if (isFOL) response = await api.solveFOLProblem({problem: exercise, level: feedBack})
-        else response = await api.solvePLProblem({problem: exercise, level: feedBack})
+        if (isFOL) response = await api.solveFOLProblem({problem: exercise})
+        else response = await api.solvePLProblem({problem: exercise})
 
-        console.log(response.result.proof)
         return response.result.proof as PreviewTreeComponent;
 
     } catch (error: any) {
-        const text = await error?.response.text();
-        console.log(text)
+        console.log(error)
+        return
     }
 }
 

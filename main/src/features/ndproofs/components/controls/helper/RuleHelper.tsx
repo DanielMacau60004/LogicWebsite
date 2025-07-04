@@ -5,7 +5,9 @@ import {BOARD_CONTROLLERS_ID} from "../../../constants";
 import "./RuleHelper.scss"
 import {ReactNode} from "react";
 
-export function RuleHelper({rule, children}: { rule: RULE, children: ReactNode }) {
+export function RuleHelper({rule, children, show}: { rule: RULE, children: ReactNode, show?: number }) {
+
+    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
 
     const renderTooltip = (props: any) => {
         const isVisible  =props.hasDoneInitialMeasure
@@ -26,9 +28,10 @@ export function RuleHelper({rule, children}: { rule: RULE, children: ReactNode }
     return (
         <OverlayTrigger
             placement="right"
-            delay={{show: 0, hide: 0}}
+            delay={{show: show ? show : 0, hide: 0}}
             overlay={renderTooltip}
             container={document.getElementById(BOARD_CONTROLLERS_ID)}
+            trigger={isTouchDevice ? undefined: ["hover","focus"]}
 
         >
             <div>

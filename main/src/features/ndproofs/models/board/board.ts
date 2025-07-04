@@ -21,7 +21,7 @@ export function board(exercise?: string[]): Board {
         exercise: [],
         problem: undefined,
         isFOL: false,
-        isHelpMode: false,
+        isHelpMode: true,
         currentProof: undefined,
         feedbackLevel: FeedbackLevel.Solution
     };
@@ -46,9 +46,6 @@ export function board(exercise?: string[]): Board {
         board.boardItems[id] = id;
         APPENDS.APPEND_MAIN_COMPONENT_ID = id
     }
-
-    console.log(board.boardItems);
-    console.log(board.components);
 
     return board;
 }

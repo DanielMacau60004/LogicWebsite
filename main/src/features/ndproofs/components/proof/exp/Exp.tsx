@@ -11,6 +11,7 @@ import {useSelector} from "react-redux";
 import {GlobalState} from "../../../../../store";
 import {FeedbackLevel} from "../../../types/feedback";
 
+
 export function Exp({exp}: { exp: ExpComponent }) {
     const state = useSelector((state: GlobalState) => state.board);
     const {isSelected, value, show, hasMarkValue, markComponent, onRender} = useExp({exp});
@@ -49,7 +50,7 @@ export function ExpPreview({exp}: { exp: PreviewExpComponent }) {
                 <div className={"exp-markFormula"} dangerouslySetInnerHTML={{__html: exp.markFormula}}/>}
             {exp.subTree && <div className={"exp-subTree"} dangerouslySetInnerHTML={{__html: exp.subTree}}/>}
             <div className="proof-exp">
-                <div className="proof-component-content">
+                <div className="proof-component-content preview">
 
                     <div dangerouslySetInnerHTML={{__html: value ?? ""}}/>
                 </div>

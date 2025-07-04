@@ -231,7 +231,8 @@ const slice = createSlice({
         paste: (state) => {
             if (!state.isEditable) return
 
-            if (state.copy && state.copy in state.components) {
+            if (state.copy && state.copy in state.components &&
+                (state.editing === undefined || state.editing.type !== ComponentType.EXP)) {
                 saveStateForUndo(state);
 
                 const newID = Boards.duplicateComponent(state, state.components[state.copy])

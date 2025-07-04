@@ -24,7 +24,7 @@ export const Boards = {
 
             case ComponentType.EXP:
                 const expCMP = state.components[component.id];
-                return !!expCMP?.value;
+                return !!expCMP?.value  && (expCMP.isWFF===undefined || expCMP.isWFF)
 
             default:
                 return false;
@@ -201,7 +201,6 @@ export const Boards = {
                 delete state.components[tree.id];
 
                 state.active = undefined
-
             }
 
             delete state.components[tree.rule!!]
