@@ -1,0 +1,27 @@
+@import "../../../../../style/variables";
+
+.tools-controls {
+  z-index: 200;
+  position: absolute;
+  height: auto;
+  top:20px;
+  left: 20px;
+  padding: 10px;
+}
+
+.tools-controls-btn {
+  border-radius: 10px;
+  background-color: var(--color-6) !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: unset !important;
+  padding: 10px 18px !important;
+  color: var(--text-color) !important;
+  border: none !important;
+  opacity: 1 !important;
+}
+
+.tools-controls-btn:hover:not(:disabled) {
+  transform: scale(1.2);
+}
