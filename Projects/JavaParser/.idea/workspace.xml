@@ -63,12 +63,12 @@
     &quot;assignee&quot;: &quot;DanielMacau60004&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/DanielMacau60004/LogicWebsite.git",
-    "accountId": "a1f6f68b-9cad-4c6e-8273-ec5161e97fb3"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/DanielMacau60004/LogicWebsite.git&quot;,
+    &quot;accountId&quot;: &quot;a1f6f68b-9cad-4c6e-8273-ec5161e97fb3&quot;
   }
-}]]></component>
+}</component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
