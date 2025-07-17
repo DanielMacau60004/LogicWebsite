@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 /**
  * 
  * @export
@@ -37,9 +37,7 @@ export interface RuleComponent {
  * Check if a given object implements the RuleComponent interface.
  */
 export function instanceOfRuleComponent(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function RuleComponentFromJSON(json: any): RuleComponent {
@@ -47,27 +45,24 @@ export function RuleComponentFromJSON(json: any): RuleComponent {
 }
 
 export function RuleComponentFromJSONTyped(json: any, ignoreDiscriminator: boolean): RuleComponent {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'type': !exists(json, 'type') ? undefined : json['type'],
-        'value': !exists(json, 'value') ? undefined : json['value'],
+        'type': json['type'] == null ? undefined : json['type'],
+        'value': json['value'] == null ? undefined : json['value'],
     };
 }
 
 export function RuleComponentToJSON(value?: RuleComponent | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'type': value.type,
-        'value': value.value,
+        'type': value['type'],
+        'value': value['value'],
     };
 }
 

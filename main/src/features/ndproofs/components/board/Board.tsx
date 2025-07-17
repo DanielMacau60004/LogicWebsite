@@ -20,6 +20,7 @@ import {Exercise} from "../exercise/Exercise";
 import {ToolsControl} from "../controls/tools/ToolsControl";
 import {ProofState} from "../controls/proofState/ProofState";
 import {StateControl} from "../controls/state/StateControl";
+import {DangerControl} from "../controls/tools/DangerControl";
 
 export function Board() {
     useGeneralEvents()
@@ -70,10 +71,10 @@ export function Board() {
                         </TransformComponent>
 
 
-                        {/* TEMPORARY DEBUG */}
+                        {/* TEMPORARY DEBUG
                         <div style={{backgroundColor: "red", position: "absolute", bottom: 0, right: 0}}>
-                            Level: {feedbackLevel} HelpMode: {isHelpMode ? "true" : "false"} FOL: {isFOL ? "true" : "false"} Entities: {Object.keys(components).length} Zoom: {zoom}
-                        </div>
+                            Entities: {Object.keys(components).length} Zoom: {zoom}
+                        </div>*/}
 
                         <div id={BOARD_CONTROLLERS_ID}>
                             <Exercise/>
@@ -84,6 +85,7 @@ export function Board() {
 
                             <StateControl/>
                             <ToolsControl zoomToElement={zoomToElement}/>
+                            <DangerControl zoomToElement={zoomToElement}/>
                         </div>
 
                     </DndContext>

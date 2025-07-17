@@ -23,7 +23,7 @@ export function ExpInput({exp}: { exp: ExpComponent }) {
             aria-autocomplete="none"
             onSubmit={onBlur}
             onKeyDown={onKeyDown}
-            maxLength={50}
+            maxLength={80}
             onMouseDown={(e)=>{e.stopPropagation()}}
         />
     )

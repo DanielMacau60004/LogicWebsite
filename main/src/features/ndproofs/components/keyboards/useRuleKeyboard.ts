@@ -23,8 +23,9 @@ export function useRuleBoard() {
             if(parent && parent.type === ComponentType.EXP) {
                 dispatch(selectComponent(parent))
                 dispatch(appendTree(tree(exp(parent.value), rule(char as RULE), [exp()], [])))
-            } else
+            } else{
                 dispatch(updateComponent({component: {...components[editing.id], value: char}, saveState: true}));
+            }
 
             dispatch(selectEditingComponent(undefined));
         }

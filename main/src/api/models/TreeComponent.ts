@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { ExpComponent } from './ExpComponent';
 import {
     ExpComponentFromJSON,
@@ -49,7 +49,7 @@ export interface TreeComponent {
      * @type {{ [key: string]: any; }}
      * @memberof TreeComponent
      */
-    errors?: { [key: string]: any; } | null;
+    errors?: { [key: string]: any; };
     /**
      * 
      * @type {ExpComponent}
@@ -73,16 +73,26 @@ export interface TreeComponent {
      * @type {any}
      * @memberof TreeComponent
      */
-    hypotheses?: any | null;
+    hypotheses?: any;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof TreeComponent
+     */
+    genHints?: boolean;
+    /**
+     * 
+     * @type {{ [key: string]: string; }}
+     * @memberof TreeComponent
+     */
+    env?: { [key: string]: string; };
 }
 
 /**
  * Check if a given object implements the TreeComponent interface.
  */
 export function instanceOfTreeComponent(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function TreeComponentFromJSON(json: any): TreeComponent {
@@ -90,35 +100,36 @@ export function TreeComponentFromJSON(json: any): TreeComponent {
 }
 
 export function TreeComponentFromJSONTyped(json: any, ignoreDiscriminator: boolean): TreeComponent {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'type': !exists(json, 'type') ? undefined : json['type'],
-        'errors': !exists(json, 'errors') ? undefined : json['errors'],
-        'conclusion': !exists(json, 'conclusion') ? undefined : ExpComponentFromJSON(json['conclusion']),
-        'marks': !exists(json, 'marks') ? undefined : ((json['marks'] as Array<any>).map(MarkComponentFromJSON)),
-        'rule': !exists(json, 'rule') ? undefined : RuleComponentFromJSON(json['rule']),
-        'hypotheses': !exists(json, 'hypotheses') ? undefined : json['hypotheses'],
+        'type': json['type'] == null ? undefined : json['type'],
+        'errors': json['errors'] == null ? undefined : json['errors'],
+        'conclusion': json['conclusion'] == null ? undefined : ExpComponentFromJSON(json['conclusion']),
+        'marks': json['marks'] == null ? undefined : ((json['marks'] as Array<any>).map(MarkComponentFromJSON)),
+        'rule': json['rule'] == null ? undefined : RuleComponentFromJSON(json['rule']),
+        'hypotheses': json['hypotheses'] == null ? undefined : json['hypotheses'],
+        'genHints': json['genHints'] == null ? undefined : json['genHints'],
+        'env': json['env'] == null ? undefined : json['env'],
     };
 }
 
 export function TreeComponentToJSON(value?: TreeComponent | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'type': value.type,
-        'errors': value.errors,
-        'conclusion': ExpComponentToJSON(value.conclusion),
-        'marks': value.marks === undefined ? undefined : ((value.marks as Array<any>).map(MarkComponentToJSON)),
-        'rule': RuleComponentToJSON(value.rule),
-        'hypotheses': value.hypotheses,
+        'type': value['type'],
+        'errors': value['errors'],
+        'conclusion': ExpComponentToJSON(value['conclusion']),
+        'marks': value['marks'] == null ? undefined : ((value['marks'] as Array<any>).map(MarkComponentToJSON)),
+        'rule': RuleComponentToJSON(value['rule']),
+        'hypotheses': value['hypotheses'],
+        'genHints': value['genHints'],
+        'env': value['env'],
     };
 }
 

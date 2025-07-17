@@ -23,6 +23,7 @@ import {RuleHelper} from "../../controls/helper/RuleHelper";
 import {FaQuestion} from "react-icons/fa";
 import ErrorTooltip from "../../others/ErrorTooltip";
 import {FeedbackLevel} from "../../../types/feedback";
+import {deepCopy} from "../../../../../utils/general";
 
 export function Tree({tree}: { tree: TreeComponent }) {
     const {drag, isRoot, isSelected, onRender} = useTreeState(tree);

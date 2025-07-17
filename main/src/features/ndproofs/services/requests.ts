@@ -55,6 +55,21 @@ export async function solveProblem(exercise: string[], isFOL: boolean, feedBack:
     }
 }
 
+export async function getHint(exercise: string[], goal: string[], isFOL: boolean, feedBack: FeedbackLevel): Promise<string> {
+    const api = new NdProofsControllerApi()
+
+    try {
+        let response: any;
+        if (isFOL) response = await api.verifyFOLHint({problem: exercise, goal: goal, level: feedBack})
+        else response = await api.verifyPLHint({problem: exercise, goal: goal, level: feedBack})
+
+        return response.result as string;
+
+    } catch (error: any) {
+        console.log(error)
+        return "Failed to load hint!"
+    }
+}
 
 export async function loadExercises(maxExercises: number, isFOL: boolean): Promise<string[][] | undefined> {
     const api = new NdProofsControllerApi()

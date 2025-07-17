@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { Component } from './Component';
 import {
     ComponentFromJSON,
@@ -38,9 +38,7 @@ export interface MarkComponent extends Component {
  * Check if a given object implements the MarkComponent interface.
  */
 export function instanceOfMarkComponent(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function MarkComponentFromJSON(json: any): MarkComponent {
@@ -48,25 +46,22 @@ export function MarkComponentFromJSON(json: any): MarkComponent {
 }
 
 export function MarkComponentFromJSONTyped(json: any, ignoreDiscriminator: boolean): MarkComponent {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         ...ComponentFromJSONTyped(json, ignoreDiscriminator),
-        'value': !exists(json, 'value') ? undefined : json['value'],
+        'value': json['value'] == null ? undefined : json['value'],
     };
 }
 
 export function MarkComponentToJSON(value?: MarkComponent | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         ...ComponentToJSON(value),
-        'value': value.value,
+        'value': value['value'],
     };
 }
 

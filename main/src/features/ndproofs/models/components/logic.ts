@@ -5,14 +5,21 @@ import {deepCopy} from "../../../../utils/general";
 
 export const Components = {
 
-    reset(board: Board, component: Component, id?: number): Component {
+    reset(board: Board, component: Component, keepValue: boolean, id?: number): Component {
         const componentId = id ?? board.currentId++;
 
         const type = component.type === ComponentType.TREE ? ComponentType.EXP : component.type
         let markId
-        if(type === ComponentType.EXP)
+        if(type === ComponentType.EXP) {
             markId = Boards.appendComponent(board, mark(), id)
-        const element = {id: componentId, value: undefined, parent: component.parent, type, mark: markId};
+            board.components[markId].parent = componentId
+        }
+
+        const value = !keepValue ? undefined : (component.type === ComponentType.EXP ? component.value :
+            component.type === ComponentType.TREE ? board.components[component.conclusion].value :
+                undefined)
+
+        const element = {id: componentId, value: value, parent: component.parent, type, mark: markId};
         board.components[componentId] = element;
 
         return element

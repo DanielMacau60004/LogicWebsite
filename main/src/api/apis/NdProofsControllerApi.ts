@@ -48,6 +48,12 @@ export interface SolvePLProblemRequest {
     problem: Array<string>;
 }
 
+export interface VerifyFOLHintRequest {
+    problem: Array<string>;
+    goal: Array<string>;
+    level: VerifyFOLHintLevelEnum;
+}
+
 export interface VerifyFOLProblemRequest {
     problem: Array<string>;
     level: VerifyFOLProblemLevelEnum;
@@ -64,6 +70,12 @@ export interface VerifyGeneralPLProblemRequest {
     treeComponent: TreeComponent;
 }
 
+export interface VerifyPLHintRequest {
+    problem: Array<string>;
+    goal: Array<string>;
+    level: VerifyPLHintLevelEnum;
+}
+
 export interface VerifyPLProblemRequest {
     problem: Array<string>;
     level: VerifyPLProblemLevelEnum;
@@ -78,8 +90,11 @@ export class NdProofsControllerApi extends runtime.BaseAPI {
     /**
      */
     async getFOLProblemRaw(requestParameters: GetFOLProblemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
-        if (requestParameters.problemNum === null || requestParameters.problemNum === undefined) {
-            throw new runtime.RequiredError('problemNum','Required parameter requestParameters.problemNum was null or undefined when calling getFOLProblem.');
+        if (requestParameters['problemNum'] == null) {
+            throw new runtime.RequiredError(
+                'problemNum',
+                'Required parameter "problemNum" was null or undefined when calling getFOLProblem().'
+            );
         }
 
         const queryParameters: any = {};
@@ -87,7 +102,7 @@ export class NdProofsControllerApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/nd/fol/problem/{problemNum}`.replace(`{${"problemNum"}}`, encodeURIComponent(String(requestParameters.problemNum))),
+            path: `/nd/fol/problem/{problemNum}`.replace(`{${"problemNum"}}`, encodeURIComponent(String(requestParameters['problemNum']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -112,12 +127,12 @@ export class NdProofsControllerApi extends runtime.BaseAPI {
     async getFOLProblemsRaw(requestParameters: GetFOLProblemsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
         const queryParameters: any = {};
 
-        if (requestParameters.page !== undefined) {
-            queryParameters['page'] = requestParameters.page;
+        if (requestParameters['page'] != null) {
+            queryParameters['page'] = requestParameters['page'];
         }
 
-        if (requestParameters.size !== undefined) {
-            queryParameters['size'] = requestParameters.size;
+        if (requestParameters['size'] != null) {
+            queryParameters['size'] = requestParameters['size'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -146,8 +161,11 @@ export class NdProofsControllerApi extends runtime.BaseAPI {
     /**
      */
     async getPLProblemRaw(requestParameters: GetPLProblemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
-        if (requestParameters.problemNum === null || requestParameters.problemNum === undefined) {
-            throw new runtime.RequiredError('problemNum','Required parameter requestParameters.problemNum was null or undefined when calling getPLProblem.');
+        if (requestParameters['problemNum'] == null) {
+            throw new runtime.RequiredError(
+                'problemNum',
+                'Required parameter "problemNum" was null or undefined when calling getPLProblem().'
+            );
         }
 
         const queryParameters: any = {};
@@ -155,7 +173,7 @@ export class NdProofsControllerApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/nd/pl/problem/{problemNum}`.replace(`{${"problemNum"}}`, encodeURIComponent(String(requestParameters.problemNum))),
+            path: `/nd/pl/problem/{problemNum}`.replace(`{${"problemNum"}}`, encodeURIComponent(String(requestParameters['problemNum']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -180,12 +198,12 @@ export class NdProofsControllerApi extends runtime.BaseAPI {
     async getPLProblemsRaw(requestParameters: GetPLProblemsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
         const queryParameters: any = {};
 
-        if (requestParameters.page !== undefined) {
-            queryParameters['page'] = requestParameters.page;
+        if (requestParameters['page'] != null) {
+            queryParameters['page'] = requestParameters['page'];
         }
 
-        if (requestParameters.size !== undefined) {
-            queryParameters['size'] = requestParameters.size;
+        if (requestParameters['size'] != null) {
+            queryParameters['size'] = requestParameters['size'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -214,14 +232,17 @@ export class NdProofsControllerApi extends runtime.BaseAPI {
     /**
      */
     async solveFOLProblemRaw(requestParameters: SolveFOLProblemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
-        if (requestParameters.problem === null || requestParameters.problem === undefined) {
-            throw new runtime.RequiredError('problem','Required parameter requestParameters.problem was null or undefined when calling solveFOLProblem.');
+        if (requestParameters['problem'] == null) {
+            throw new runtime.RequiredError(
+                'problem',
+                'Required parameter "problem" was null or undefined when calling solveFOLProblem().'
+            );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.problem) {
-            queryParameters['problem'] = requestParameters.problem;
+        if (requestParameters['problem'] != null) {
+            queryParameters['problem'] = requestParameters['problem'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -250,14 +271,17 @@ export class NdProofsControllerApi extends runtime.BaseAPI {
     /**
      */
     async solvePLProblemRaw(requestParameters: SolvePLProblemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
-        if (requestParameters.problem === null || requestParameters.problem === undefined) {
-            throw new runtime.RequiredError('problem','Required parameter requestParameters.problem was null or undefined when calling solvePLProblem.');
+        if (requestParameters['problem'] == null) {
+            throw new runtime.RequiredError(
+                'problem',
+                'Required parameter "problem" was null or undefined when calling solvePLProblem().'
+            );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.problem) {
-            queryParameters['problem'] = requestParameters.problem;
+        if (requestParameters['problem'] != null) {
+            queryParameters['problem'] = requestParameters['problem'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -285,27 +309,97 @@ export class NdProofsControllerApi extends runtime.BaseAPI {
 
     /**
      */
-    async verifyFOLProblemRaw(requestParameters: VerifyFOLProblemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
-        if (requestParameters.problem === null || requestParameters.problem === undefined) {
-            throw new runtime.RequiredError('problem','Required parameter requestParameters.problem was null or undefined when calling verifyFOLProblem.');
+    async verifyFOLHintRaw(requestParameters: VerifyFOLHintRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
+        if (requestParameters['problem'] == null) {
+            throw new runtime.RequiredError(
+                'problem',
+                'Required parameter "problem" was null or undefined when calling verifyFOLHint().'
+            );
         }
 
-        if (requestParameters.level === null || requestParameters.level === undefined) {
-            throw new runtime.RequiredError('level','Required parameter requestParameters.level was null or undefined when calling verifyFOLProblem.');
+        if (requestParameters['goal'] == null) {
+            throw new runtime.RequiredError(
+                'goal',
+                'Required parameter "goal" was null or undefined when calling verifyFOLHint().'
+            );
         }
 
-        if (requestParameters.treeComponent === null || requestParameters.treeComponent === undefined) {
-            throw new runtime.RequiredError('treeComponent','Required parameter requestParameters.treeComponent was null or undefined when calling verifyFOLProblem.');
+        if (requestParameters['level'] == null) {
+            throw new runtime.RequiredError(
+                'level',
+                'Required parameter "level" was null or undefined when calling verifyFOLHint().'
+            );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.problem) {
-            queryParameters['problem'] = requestParameters.problem;
+        if (requestParameters['problem'] != null) {
+            queryParameters['problem'] = requestParameters['problem'];
         }
 
-        if (requestParameters.level !== undefined) {
-            queryParameters['level'] = requestParameters.level;
+        if (requestParameters['goal'] != null) {
+            queryParameters['goal'] = requestParameters['goal'];
+        }
+
+        if (requestParameters['level'] != null) {
+            queryParameters['level'] = requestParameters['level'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/nd/fol/hint`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        if (this.isJsonMime(response.headers.get('content-type'))) {
+            return new runtime.JSONApiResponse<string>(response);
+        } else {
+            return new runtime.TextApiResponse(response) as any;
+        }
+    }
+
+    /**
+     */
+    async verifyFOLHint(requestParameters: VerifyFOLHintRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
+        const response = await this.verifyFOLHintRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async verifyFOLProblemRaw(requestParameters: VerifyFOLProblemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
+        if (requestParameters['problem'] == null) {
+            throw new runtime.RequiredError(
+                'problem',
+                'Required parameter "problem" was null or undefined when calling verifyFOLProblem().'
+            );
+        }
+
+        if (requestParameters['level'] == null) {
+            throw new runtime.RequiredError(
+                'level',
+                'Required parameter "level" was null or undefined when calling verifyFOLProblem().'
+            );
+        }
+
+        if (requestParameters['treeComponent'] == null) {
+            throw new runtime.RequiredError(
+                'treeComponent',
+                'Required parameter "treeComponent" was null or undefined when calling verifyFOLProblem().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['problem'] != null) {
+            queryParameters['problem'] = requestParameters['problem'];
+        }
+
+        if (requestParameters['level'] != null) {
+            queryParameters['level'] = requestParameters['level'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -317,7 +411,7 @@ export class NdProofsControllerApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: TreeComponentToJSON(requestParameters.treeComponent),
+            body: TreeComponentToJSON(requestParameters['treeComponent']),
         }, initOverrides);
 
         if (this.isJsonMime(response.headers.get('content-type'))) {
@@ -337,18 +431,24 @@ export class NdProofsControllerApi extends runtime.BaseAPI {
     /**
      */
     async verifyGeneralFOLProblemRaw(requestParameters: VerifyGeneralFOLProblemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
-        if (requestParameters.level === null || requestParameters.level === undefined) {
-            throw new runtime.RequiredError('level','Required parameter requestParameters.level was null or undefined when calling verifyGeneralFOLProblem.');
+        if (requestParameters['level'] == null) {
+            throw new runtime.RequiredError(
+                'level',
+                'Required parameter "level" was null or undefined when calling verifyGeneralFOLProblem().'
+            );
         }
 
-        if (requestParameters.treeComponent === null || requestParameters.treeComponent === undefined) {
-            throw new runtime.RequiredError('treeComponent','Required parameter requestParameters.treeComponent was null or undefined when calling verifyGeneralFOLProblem.');
+        if (requestParameters['treeComponent'] == null) {
+            throw new runtime.RequiredError(
+                'treeComponent',
+                'Required parameter "treeComponent" was null or undefined when calling verifyGeneralFOLProblem().'
+            );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.level !== undefined) {
-            queryParameters['level'] = requestParameters.level;
+        if (requestParameters['level'] != null) {
+            queryParameters['level'] = requestParameters['level'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -360,7 +460,7 @@ export class NdProofsControllerApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: TreeComponentToJSON(requestParameters.treeComponent),
+            body: TreeComponentToJSON(requestParameters['treeComponent']),
         }, initOverrides);
 
         if (this.isJsonMime(response.headers.get('content-type'))) {
@@ -380,18 +480,24 @@ export class NdProofsControllerApi extends runtime.BaseAPI {
     /**
      */
     async verifyGeneralPLProblemRaw(requestParameters: VerifyGeneralPLProblemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
-        if (requestParameters.level === null || requestParameters.level === undefined) {
-            throw new runtime.RequiredError('level','Required parameter requestParameters.level was null or undefined when calling verifyGeneralPLProblem.');
+        if (requestParameters['level'] == null) {
+            throw new runtime.RequiredError(
+                'level',
+                'Required parameter "level" was null or undefined when calling verifyGeneralPLProblem().'
+            );
         }
 
-        if (requestParameters.treeComponent === null || requestParameters.treeComponent === undefined) {
-            throw new runtime.RequiredError('treeComponent','Required parameter requestParameters.treeComponent was null or undefined when calling verifyGeneralPLProblem.');
+        if (requestParameters['treeComponent'] == null) {
+            throw new runtime.RequiredError(
+                'treeComponent',
+                'Required parameter "treeComponent" was null or undefined when calling verifyGeneralPLProblem().'
+            );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.level !== undefined) {
-            queryParameters['level'] = requestParameters.level;
+        if (requestParameters['level'] != null) {
+            queryParameters['level'] = requestParameters['level'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -403,7 +509,7 @@ export class NdProofsControllerApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: TreeComponentToJSON(requestParameters.treeComponent),
+            body: TreeComponentToJSON(requestParameters['treeComponent']),
         }, initOverrides);
 
         if (this.isJsonMime(response.headers.get('content-type'))) {
@@ -422,27 +528,97 @@ export class NdProofsControllerApi extends runtime.BaseAPI {
 
     /**
      */
-    async verifyPLProblemRaw(requestParameters: VerifyPLProblemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
-        if (requestParameters.problem === null || requestParameters.problem === undefined) {
-            throw new runtime.RequiredError('problem','Required parameter requestParameters.problem was null or undefined when calling verifyPLProblem.');
+    async verifyPLHintRaw(requestParameters: VerifyPLHintRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
+        if (requestParameters['problem'] == null) {
+            throw new runtime.RequiredError(
+                'problem',
+                'Required parameter "problem" was null or undefined when calling verifyPLHint().'
+            );
         }
 
-        if (requestParameters.level === null || requestParameters.level === undefined) {
-            throw new runtime.RequiredError('level','Required parameter requestParameters.level was null or undefined when calling verifyPLProblem.');
+        if (requestParameters['goal'] == null) {
+            throw new runtime.RequiredError(
+                'goal',
+                'Required parameter "goal" was null or undefined when calling verifyPLHint().'
+            );
         }
 
-        if (requestParameters.treeComponent === null || requestParameters.treeComponent === undefined) {
-            throw new runtime.RequiredError('treeComponent','Required parameter requestParameters.treeComponent was null or undefined when calling verifyPLProblem.');
+        if (requestParameters['level'] == null) {
+            throw new runtime.RequiredError(
+                'level',
+                'Required parameter "level" was null or undefined when calling verifyPLHint().'
+            );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.problem) {
-            queryParameters['problem'] = requestParameters.problem;
+        if (requestParameters['problem'] != null) {
+            queryParameters['problem'] = requestParameters['problem'];
         }
 
-        if (requestParameters.level !== undefined) {
-            queryParameters['level'] = requestParameters.level;
+        if (requestParameters['goal'] != null) {
+            queryParameters['goal'] = requestParameters['goal'];
+        }
+
+        if (requestParameters['level'] != null) {
+            queryParameters['level'] = requestParameters['level'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/nd/pl/hint`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        if (this.isJsonMime(response.headers.get('content-type'))) {
+            return new runtime.JSONApiResponse<string>(response);
+        } else {
+            return new runtime.TextApiResponse(response) as any;
+        }
+    }
+
+    /**
+     */
+    async verifyPLHint(requestParameters: VerifyPLHintRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
+        const response = await this.verifyPLHintRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async verifyPLProblemRaw(requestParameters: VerifyPLProblemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
+        if (requestParameters['problem'] == null) {
+            throw new runtime.RequiredError(
+                'problem',
+                'Required parameter "problem" was null or undefined when calling verifyPLProblem().'
+            );
+        }
+
+        if (requestParameters['level'] == null) {
+            throw new runtime.RequiredError(
+                'level',
+                'Required parameter "level" was null or undefined when calling verifyPLProblem().'
+            );
+        }
+
+        if (requestParameters['treeComponent'] == null) {
+            throw new runtime.RequiredError(
+                'treeComponent',
+                'Required parameter "treeComponent" was null or undefined when calling verifyPLProblem().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['problem'] != null) {
+            queryParameters['problem'] = requestParameters['problem'];
+        }
+
+        if (requestParameters['level'] != null) {
+            queryParameters['level'] = requestParameters['level'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -454,7 +630,7 @@ export class NdProofsControllerApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: TreeComponentToJSON(requestParameters.treeComponent),
+            body: TreeComponentToJSON(requestParameters['treeComponent']),
         }, initOverrides);
 
         if (this.isJsonMime(response.headers.get('content-type'))) {
@@ -473,6 +649,17 @@ export class NdProofsControllerApi extends runtime.BaseAPI {
 
 }
 
+/**
+ * @export
+ */
+export const VerifyFOLHintLevelEnum = {
+    None: 'NONE',
+    Low: 'LOW',
+    Medium: 'MEDIUM',
+    High: 'HIGH',
+    Solution: 'SOLUTION'
+} as const;
+export type VerifyFOLHintLevelEnum = typeof VerifyFOLHintLevelEnum[keyof typeof VerifyFOLHintLevelEnum];
 /**
  * @export
  */
@@ -506,6 +693,17 @@ export const VerifyGeneralPLProblemLevelEnum = {
     Solution: 'SOLUTION'
 } as const;
 export type VerifyGeneralPLProblemLevelEnum = typeof VerifyGeneralPLProblemLevelEnum[keyof typeof VerifyGeneralPLProblemLevelEnum];
+/**
+ * @export
+ */
+export const VerifyPLHintLevelEnum = {
+    None: 'NONE',
+    Low: 'LOW',
+    Medium: 'MEDIUM',
+    High: 'HIGH',
+    Solution: 'SOLUTION'
+} as const;
+export type VerifyPLHintLevelEnum = typeof VerifyPLHintLevelEnum[keyof typeof VerifyPLHintLevelEnum];
 /**
  * @export
  */

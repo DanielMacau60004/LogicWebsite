@@ -96,20 +96,15 @@ export function useInputExp({exp}: { exp: ExpComponent }) {
         const triggerChar = text[cursor - 1];
         const after = text.slice(cursor);
 
-        for (const [keyword, { symbol, needsTrailingSpace }] of Object.entries(KEYWORD_TO_SYMBOLS)) {
+        for (const [keyword, { symbol, needsSpace }] of Object.entries(KEYWORD_TO_SYMBOLS)) {
             if (!before.endsWith(keyword)) continue;
 
-            if (needsTrailingSpace) {
-                const isBoundary = [' ', ')', ',', ';'].includes(triggerChar);
-                if (!isBoundary) continue;
-            }
-
             const keywordStart = cursor - 1 - keyword.length;
-
             const newValue =
-                text.slice(0, keywordStart) + symbol + " " + triggerChar + after;
+                text.slice(0, keywordStart) + symbol + (needsSpace ? triggerChar: "") + after;
 
-            const newCursor = keywordStart + symbol.length +1;
+            let newCursor = keywordStart + symbol.length + 1;
+            if (!needsSpace) newCursor -=1;
 
             return { replaced: true, newValue, newCursor };
         }
@@ -122,18 +117,18 @@ export function useInputExp({exp}: { exp: ExpComponent }) {
     const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') finalizeEditing();
 
-        if (value === undefined) return;
+        //if (value === undefined) setValue("");
         const input = ref.current;
         if (input === null) return;
-
         const selectionStart = input.selectionStart ?? 0;
         const selectionEnd = input.selectionEnd ?? 0;
 
         if (e.key === "(") {
             e.preventDefault();
-            const newValue =
-                value.slice(0, selectionStart) + "()" + value.slice(selectionEnd);
+            const val = value === undefined ? "" : value
+            const newValue = val.slice(0, selectionStart) + "()" + val.slice(selectionEnd);
             setValue(newValue);
+
             setTimeout(() => {
                 input.setSelectionRange(selectionStart + 1, selectionStart + 1);
             }, 0);
@@ -141,14 +136,12 @@ export function useInputExp({exp}: { exp: ExpComponent }) {
         }
 
         if (e.key === "Backspace") {
-            if (
-                value[selectionStart - 1] === "(" &&
-                value[selectionStart] === ")"
-            ) {
+            const val = value === undefined ? "" : value
+            if (val[selectionStart - 1] === "(" && val[selectionStart] === ")") {
                 e.preventDefault();
                 const newValue =
-                    value.slice(0, selectionStart - 1) +
-                    value.slice(selectionStart + 1);
+                    val.slice(0, selectionStart - 1) +
+                    val.slice(selectionStart + 1);
                 setValue(newValue);
                 setTimeout(() => {
                     input.setSelectionRange(selectionStart - 1, selectionStart - 1);
@@ -157,12 +150,10 @@ export function useInputExp({exp}: { exp: ExpComponent }) {
             }
         }
 
-        if ([" ", ")", ",", ";"].includes(e.key)) {
+        if ([" "].includes(e.key)) {
             setTimeout(() => {
-                console.log(e.key)
                 const currentValue = input.value;
                 const cursor = input.selectionStart ?? 0;
-                console.log(cursor)
                 const { replaced, newValue, newCursor } = tryReplaceKeywordBeforeCursor(currentValue, cursor);
                 if (replaced) {
                     setValue(newValue);

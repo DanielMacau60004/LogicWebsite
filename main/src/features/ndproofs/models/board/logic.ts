@@ -11,7 +11,18 @@ import {
 import {RULE_DETAILS} from "../../types/proofRules";
 import {BoardPosition} from "./position";
 import {Components} from "../components/logic";
-import {exp, mark} from "../components/components";
+import {exp, mark, treeExp} from "../components/components";
+import {deepCopy} from "../../../../utils/general";
+import {
+    addTree,
+    deleteComponent,
+    reportErrors,
+    selectComponent,
+    selectDraggingComponent,
+    updateComponent, updateCurrentProof
+} from "../../../../store/boardSlice";
+import {testProof} from "../../services/requests";
+import {useDispatch} from "react-redux";
 
 export const Boards = {
 
@@ -30,6 +41,7 @@ export const Boards = {
                 return false;
         }
     },
+
     reportErrors(state: Board, component: PreviewComponent): void {
         switch (component.type) {
             case ComponentType.TREE:
@@ -52,6 +64,7 @@ export const Boards = {
                 break;
         }
     },
+
     appendComponent(state: Board, component: PreviewComponent, parent?: number): number {
         const id = state.currentId++;
 
@@ -207,6 +220,10 @@ export const Boards = {
             tree.rule = undefined
             tree.hypotheses = undefined
 
+            const e = state.components[tree.conclusion]
+            e.mark = this.appendComponent(state, mark())
+            state.components[e.mark].parent = tree.conclusion
+
             const previous = document.getElementById(String(tree.conclusion));
             if (previous) {
                 const rect = previous.getBoundingClientRect();
@@ -221,7 +238,6 @@ export const Boards = {
         if (!tree.hypotheses) return
 
         const current = tree.hypotheses.length;
-
         if (current < targetCount) {
             for (let i = 0; i < targetCount - current; i++) {
                 const id = this.appendComponent(state, exp());
@@ -253,7 +269,6 @@ export const Boards = {
         if (!tree.marks) return;
 
         const current = tree.marks.length;
-
         if (current < targetCount) {
             for (let i = 0; i < targetCount - current; i++) {
                 const id = this.appendComponent(state, mark());
@@ -293,6 +308,56 @@ export const Boards = {
         }
 
         return newID
-    }
+    },
 
+    testTree(state: Board, component: TreeComponent, dispatch: any) : void {
+        if(state.problem === undefined) return
+
+        const conclusion = state.components[component.conclusion].value
+        const exercise = [...state.problem.premises, state.problem.conclusion]
+        const shouldCompareConclusion = conclusion === state.problem.conclusion
+        const tree = Boards.convertToPreview(state, component.id) as PreviewTreeComponent
+
+        if(!Boards.canBeSubmitted(state, tree)) {
+            dispatch(updateComponent({component: {...component, hasErrors: true, solveExercise: undefined, isValid: undefined}, saveState: false}))
+            dispatch(reportErrors(tree))
+            return
+        }
+
+        testProof(tree, state.isFOL, exercise, shouldCompareConclusion, state.feedbackLevel).then(it => {
+            if (it?.response) {
+                let result = it.response
+
+                dispatch(selectComponent(undefined))
+                if (result.proof === undefined)
+                    return
+
+                if (result.proof.type === ComponentType.EXP)
+                    result.proof = treeExp(result.proof)
+
+                result.proof.hasErrors = result.hasError
+                result.proof.proved = {};
+                if (result.premises)
+                    result.proof.proved.premises = result.premises;
+
+                if (result.conclusion)
+                    result.proof.proved.conclusion = result.conclusion;
+
+                if (result.hypotheses)
+                    result.proof.proved.hypotheses = result.hypotheses;
+
+                if(!result.hasError) {
+                    result.proof.isValid = true;
+                    result.proof.solveExercise = shouldCompareConclusion;
+                }
+
+                result.proof.position = component.position
+                dispatch(selectComponent(component))
+                dispatch(selectDraggingComponent(undefined))
+                dispatch(deleteComponent({saveState: false}))
+                dispatch(addTree({component: result.proof, saveState: false}))
+                dispatch(updateCurrentProof(result))
+            }
+        })
+    }
 }

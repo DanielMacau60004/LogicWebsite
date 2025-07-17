@@ -28,19 +28,19 @@ export const DOUBLE_CLICK_THRESHOLD  = 250
 export const LOGICAL_SYMBOLS: string[] = ['⊥', '⊤', '¬', '∧', '∨', '→'];
 export const FOL_SYMBOLS: string[] = [...LOGICAL_SYMBOLS, '∀', '∃'];
 
-export const KEYWORD_TO_SYMBOLS: { [key: string]: { symbol: string; needsTrailingSpace: boolean } } = {
-    'bot':   { symbol: '⊥', needsTrailingSpace: true },
-    'top':   { symbol: '⊤', needsTrailingSpace: true },
-    'not':   { symbol: '¬', needsTrailingSpace: true },
-    '!':     { symbol: '¬', needsTrailingSpace: false },
-    'and':   { symbol: '∧', needsTrailingSpace: true },
-    '&&':    { symbol: '∧', needsTrailingSpace: false },
-    'or':    { symbol: '∨', needsTrailingSpace: true },
-    '||':    { symbol: '∨', needsTrailingSpace: false },
-    'to':    { symbol: '→', needsTrailingSpace: true },
-    '->':    { symbol: '→', needsTrailingSpace: false },
-    'exist': { symbol: '∃', needsTrailingSpace: true },
-    'uni':   { symbol: '∀', needsTrailingSpace: true }
+export const KEYWORD_TO_SYMBOLS: { [key: string]: { symbol: string; needsSpace: boolean } } = {
+    'bot':   { symbol: '⊥', needsSpace: true },
+    'top':   { symbol: '⊤', needsSpace: true },
+    'not':   { symbol: '¬', needsSpace: false },
+    '!':     { symbol: '¬', needsSpace: false },
+    'and':   { symbol: '∧', needsSpace: true },
+    '&&':    { symbol: '∧', needsSpace: true },
+    'or':    { symbol: '∨', needsSpace: true },
+    '||':    { symbol: '∨', needsSpace: true },
+    'to':    { symbol: '→', needsSpace: true },
+    '->':    { symbol: '→', needsSpace: true },
+    'exist': { symbol: '∃', needsSpace: false },
+    'all':   { symbol: '∀', needsSpace: false }
 };
 
 

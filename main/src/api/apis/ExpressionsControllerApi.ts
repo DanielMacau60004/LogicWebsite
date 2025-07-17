@@ -33,18 +33,24 @@ export class ExpressionsControllerApi extends runtime.BaseAPI {
     /**
      */
     async verifyFOLExpressionRaw(requestParameters: VerifyFOLExpressionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
-        if (requestParameters.level === null || requestParameters.level === undefined) {
-            throw new runtime.RequiredError('level','Required parameter requestParameters.level was null or undefined when calling verifyFOLExpression.');
+        if (requestParameters['level'] == null) {
+            throw new runtime.RequiredError(
+                'level',
+                'Required parameter "level" was null or undefined when calling verifyFOLExpression().'
+            );
         }
 
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError('body','Required parameter requestParameters.body was null or undefined when calling verifyFOLExpression.');
+        if (requestParameters['body'] == null) {
+            throw new runtime.RequiredError(
+                'body',
+                'Required parameter "body" was null or undefined when calling verifyFOLExpression().'
+            );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.level !== undefined) {
-            queryParameters['level'] = requestParameters.level;
+        if (requestParameters['level'] != null) {
+            queryParameters['level'] = requestParameters['level'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -56,7 +62,7 @@ export class ExpressionsControllerApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: requestParameters.body as any,
+            body: requestParameters['body'] as any,
         }, initOverrides);
 
         if (this.isJsonMime(response.headers.get('content-type'))) {
@@ -76,18 +82,24 @@ export class ExpressionsControllerApi extends runtime.BaseAPI {
     /**
      */
     async verifyPLExpressionRaw(requestParameters: VerifyPLExpressionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
-        if (requestParameters.level === null || requestParameters.level === undefined) {
-            throw new runtime.RequiredError('level','Required parameter requestParameters.level was null or undefined when calling verifyPLExpression.');
+        if (requestParameters['level'] == null) {
+            throw new runtime.RequiredError(
+                'level',
+                'Required parameter "level" was null or undefined when calling verifyPLExpression().'
+            );
         }
 
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError('body','Required parameter requestParameters.body was null or undefined when calling verifyPLExpression.');
+        if (requestParameters['body'] == null) {
+            throw new runtime.RequiredError(
+                'body',
+                'Required parameter "body" was null or undefined when calling verifyPLExpression().'
+            );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.level !== undefined) {
-            queryParameters['level'] = requestParameters.level;
+        if (requestParameters['level'] != null) {
+            queryParameters['level'] = requestParameters['level'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -99,7 +111,7 @@ export class ExpressionsControllerApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: requestParameters.body as any,
+            body: requestParameters['body'] as any,
         }, initOverrides);
 
         if (this.isJsonMime(response.headers.get('content-type'))) {

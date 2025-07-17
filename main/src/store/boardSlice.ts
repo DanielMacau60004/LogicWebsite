@@ -5,7 +5,8 @@ import {
     BoardCurrentProof,
     Component,
     ComponentType,
-    Position, PreviewComponent,
+    Position,
+    PreviewComponent,
     PreviewTreeComponent,
     RuleComponent,
     TreeComponent
@@ -16,8 +17,10 @@ import {Components} from "../features/ndproofs/models/components/logic";
 import {BoardDrag} from "../features/ndproofs/models/board/drag";
 import {BoardPosition} from "../features/ndproofs/models/board/position";
 import {MAX_SCALE, MIN_SCALE} from "../features/ndproofs/constants";
-import {expSidebar} from "../features/ndproofs/models/components/components";
+import {expSidebar, treeExp} from "../features/ndproofs/models/components/components";
 import {feedbackLevels} from "../features/ndproofs/types/feedback";
+import {testProof} from "../features/ndproofs/services/requests";
+import {GlobalState} from "./index";
 
 const MOVEMENT_THRESHOLD = 10;
 const MAX_HISTORY_DEPTH = 20;
@@ -144,6 +147,9 @@ const slice = createSlice({
                     state.components[state.editing.parent] as TreeComponent)
                 state.components[component.id] = component
             } else state.components[component.id] = component
+
+            if (component.type === ComponentType.EXP)
+                component.genHints = undefined
             //state.editing = component
         },
         deleteComponent: (state, action: PayloadAction<{ saveState: boolean }>) => {
@@ -164,9 +170,9 @@ const slice = createSlice({
                     if (active.parent) {
                         const parent = state.components[active.parent]
                         if (Components.isASimpleTree(parent) && parent.parent) {
-                            state.components[parent.id] = Components.reset(state, parent, parent.id)
+                            state.components[parent.id] = Components.reset(state, parent, false, parent.id)
                         } else
-                            state.components[active.id] = Components.reset(state, active, active.id)
+                            state.components[active.id] = Components.reset(state, active, false, active.id)
                     } else {
                         delete state.boardItems[active.id];
                         delete state.components[active.id];
@@ -272,6 +278,28 @@ const slice = createSlice({
             const nextIndex = (currentIndex + 1) % feedbackLevels.length;
             state.feedbackLevel = feedbackLevels[nextIndex];
         },
+        testTree: (state, action: PayloadAction<TreeComponent>) => {
+
+            if (state.problem === undefined) return
+            const component = action.payload
+            const conclusion = state.components[component.conclusion].value
+            const exercise = [...state.problem.premises, state.problem.conclusion]
+            const shouldCompareConclusion = conclusion === state.problem.conclusion
+            const tree = Boards.convertToPreview(state, component.id) as PreviewTreeComponent
+
+            if (!Boards.canBeSubmitted(state, tree)) {
+                updateComponent({
+                    component: {
+                        ...component,
+                        hasErrors: true,
+                        solveExercise: undefined,
+                        isValid: undefined
+                    }, saveState: false
+                })
+                reportErrors(tree)
+                return
+            }
+        },
         setExercise: (state, action: PayloadAction<{ exercise: string[], isFOL: boolean }>) => {
             Object.assign(state, board(action.payload.exercise));
             state.isFOL = action.payload.isFOL
@@ -336,6 +364,7 @@ export const {
     switchFOL,
     switchHelpMode,
     switchFeedbackLevel,
+    testTree,
     setExercise,
     updateCurrentProof,
     reportErrors

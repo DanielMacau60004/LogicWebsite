@@ -32,6 +32,7 @@ import {Components} from "../../models/components/logic";
 import {testProof} from "../../services/requests";
 import {Boards} from "../../models/board/logic";
 import {exp, treeExp} from "../../models/components/components";
+import {deepCopy} from "../../../../utils/general";
 
 export function useBoardDnd() {
     const dispatch: any = useDispatch()
@@ -59,52 +60,8 @@ export function useBoardDnd() {
             dispatch(paste());
             return true
         } else if (clickedID === SUBMIT_COMPONENT_ID && problem) {
-            const conclusion = components[component.conclusion].value
-            const exercise = [...problem.premises, problem.conclusion]
-            const shouldCompareConclusion = conclusion === problem.conclusion
-            const tree = Boards.convertToPreview(state, component.id) as PreviewTreeComponent
-
-            if(!Boards.canBeSubmitted(state, tree)) {
-                dispatch(updateComponent({component: {...component, hasErrors: true, solveExercise: undefined, isValid: undefined}, saveState: false}))
-                dispatch(reportErrors(tree))
-                return true
-            }
-
-            testProof(tree, isFOL, exercise, shouldCompareConclusion, feedbackLevel).then(it => {
-                if (it?.response) {
-                    let result = it.response
-
-                    dispatch(selectComponent(undefined))
-                    if (result.proof === undefined)
-                        return
-
-                    if (result.proof.type === ComponentType.EXP)
-                        result.proof = treeExp(result.proof)
-
-                    result.proof.hasErrors = result.hasError
-                    result.proof.proved = {};
-                    if (result.premises)
-                        result.proof.proved.premises = result.premises;
-
-                    if (result.conclusion)
-                        result.proof.proved.conclusion = result.conclusion;
-
-                    if (result.hypotheses)
-                        result.proof.proved.hypotheses = result.hypotheses;
-
-                    if(!result.hasError) {
-                        result.proof.isValid = true;
-                        result.proof.solveExercise = shouldCompareConclusion;
-                    }
-
-                    result.proof.position = component.position
-                    dispatch(selectComponent(component))
-                    dispatch(selectDraggingComponent(undefined))
-                    dispatch(deleteComponent({saveState: false}))
-                    dispatch(addTree({component: result.proof, saveState: false}))
-                    dispatch(updateCurrentProof(result))
-                }
-            })
+            Boards.testTree(state, component, dispatch)
+            return true;
         }
 
         return false

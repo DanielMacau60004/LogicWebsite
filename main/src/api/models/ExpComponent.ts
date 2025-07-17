@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { MarkComponent } from './MarkComponent';
 import {
     MarkComponentFromJSON,
@@ -44,15 +44,25 @@ export interface ExpComponent {
      * @memberof ExpComponent
      */
     mark?: MarkComponent;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ExpComponent
+     */
+    genHints?: boolean;
+    /**
+     * 
+     * @type {{ [key: string]: string; }}
+     * @memberof ExpComponent
+     */
+    env?: { [key: string]: string; };
 }
 
 /**
  * Check if a given object implements the ExpComponent interface.
  */
 export function instanceOfExpComponent(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function ExpComponentFromJSON(json: any): ExpComponent {
@@ -60,29 +70,30 @@ export function ExpComponentFromJSON(json: any): ExpComponent {
 }
 
 export function ExpComponentFromJSONTyped(json: any, ignoreDiscriminator: boolean): ExpComponent {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'type': !exists(json, 'type') ? undefined : json['type'],
-        'value': !exists(json, 'value') ? undefined : json['value'],
-        'mark': !exists(json, 'mark') ? undefined : MarkComponentFromJSON(json['mark']),
+        'type': json['type'] == null ? undefined : json['type'],
+        'value': json['value'] == null ? undefined : json['value'],
+        'mark': json['mark'] == null ? undefined : MarkComponentFromJSON(json['mark']),
+        'genHints': json['genHints'] == null ? undefined : json['genHints'],
+        'env': json['env'] == null ? undefined : json['env'],
     };
 }
 
 export function ExpComponentToJSON(value?: ExpComponent | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'type': value.type,
-        'value': value.value,
-        'mark': MarkComponentToJSON(value.mark),
+        'type': value['type'],
+        'value': value['value'],
+        'mark': MarkComponentToJSON(value['mark']),
+        'genHints': value['genHints'],
+        'env': value['env'],
     };
 }
 

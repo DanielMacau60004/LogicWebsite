@@ -10,7 +10,7 @@ import ErrorTooltip from "../../others/ErrorTooltip";
 import {useSelector} from "react-redux";
 import {GlobalState} from "../../../../../store";
 import {FeedbackLevel} from "../../../types/feedback";
-
+import {HintTooltip} from "../../others/HintTooltip";
 
 export function Exp({exp}: { exp: ExpComponent }) {
     const state = useSelector((state: GlobalState) => state.board);
@@ -20,10 +20,16 @@ export function Exp({exp}: { exp: ExpComponent }) {
 
     return (
         <>
+            <div className="exp-help">
+
             {hasErrors && state.feedbackLevel !== FeedbackLevel.None && <ErrorTooltip errors={exp.errors}/>}
+            {exp.genHints !== undefined && state.feedbackLevel !== FeedbackLevel.None && exp.genHints &&
+                <HintTooltip exp={exp}/>}
+            </div>
 
             <Droppable id={String(exp.id)} className="proof-component proof-exp" onRender={onRender}>
                 <ExpMenu show={show} markComponent={markComponent}/>
+
 
                 <div className="proof-component-content">
                     {isSelected ? (

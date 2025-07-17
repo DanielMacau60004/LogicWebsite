@@ -50,7 +50,7 @@ export const BoardDrag = {
             else pDragging.conclusion = dropping.id;
         } else if (isConclusion && pDropping?.parent) {
             const ppDropping = state.components[pDropping.parent];
-            const empty = Components.reset(state, pDropping);
+            const empty = Components.reset(state, pDropping, false);
             const idx = ppDropping?.hypotheses.indexOf(pDropping.id);
             if (idx !== undefined) ppDropping.hypotheses[idx] = empty.id;
 
@@ -90,7 +90,7 @@ export const BoardDrag = {
         let element = dragging;
 
         if (dragging.parent !== undefined) {
-            const element = Components.reset(state, dragging)
+            const element = Components.reset(state, dragging, false)
             const pDragging = state.components[dragging.parent]
             const dragIndex = pDragging?.hypotheses.indexOf(dragging.id)
 
