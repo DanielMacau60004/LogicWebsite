@@ -1,0 +1,12 @@
+.openapi-generator-ignore
+apis/ExpressionsControllerApi.ts
+apis/NdProofsControllerApi.ts
+apis/index.ts
+index.ts
+models/Component.ts
+models/ExpComponent.ts
+models/MarkComponent.ts
+models/RuleComponent.ts
+models/TreeComponent.ts
+models/index.ts
+runtime.ts

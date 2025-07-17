@@ -1,0 +1,87 @@
+@import "../../../../style/variables";
+
+@mixin center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+}
+
+.aux-keyboard {
+  background-color: var(--color-2) !important;
+  border-radius: 10px;
+  border: unset !important;
+  padding: 6px;
+  z-index: 1000 !important;
+
+  &.bs-popover-top .popover-arrow::after {
+    border-top-color: var(--color-2);
+  }
+
+  &.bs-popover-bottom .popover-arrow::after {
+    border-bottom-color: var(--color-2);
+  }
+
+  &.bs-popover-start .popover-arrow::after {
+    border-left-color: var(--color-2);
+  }
+
+  &.bs-popover-end .popover-arrow::after {
+    border-right-color: var(--color-2);
+  }
+
+  .key {
+    width: 30px !important;
+    height: 25px !important;
+    display: inline-block !important;
+    border-radius: 10px;
+    background-color: var(--color-5) !important;
+    border: unset !important;
+    color: var(--text-color) !important;
+    margin: 2px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    @include center-content;
+
+    &.large {
+      width: 40px !important;
+    }
+
+    &.delete {
+      background-color: var(--color-6) !important;
+      font-size: 20px;
+      line-height: 1 !important;
+
+      &:hover {
+        color: var(--text-color) !important;
+        background-color: var(--color-3) !important;
+      }
+    }
+
+    &:hover {
+      color: var(--text-color) !important;
+      background-color: var(--color-3) !important;
+    }
+  }
+
+}
+
+.aux-keyboard-content {
+
+  &.inline {
+    display: flex;
+    justify-content: center;
+  }
+
+  &.scrollable {
+    overflow-y: scroll;
+    max-height: 240px;
+    scrollbar-width: none;
+  }
+
+  &.small {
+    max-height: 180px;
+  }
+}
