@@ -1,0 +1,15 @@
+@import "../../../../../style/variables";
+@import "../Proof";
+
+.proof-rule {
+  border-radius: 5px;
+  width: 30px;
+  height: 25px;
+  background-color: var(--color-5);
+  color: var(--text-color);
+  cursor: pointer;
+
+  > .proof-component-content {
+    @include center-content;
+  }
+}

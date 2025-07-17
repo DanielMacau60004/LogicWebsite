@@ -1,0 +1,33 @@
+@import "../../../../../style/variables";
+
+.danger-controls {
+  z-index: 200;
+  position: absolute;
+  height: auto;
+  top:50vh;
+  transform: translateY(-50%);
+  right: 20px;
+  padding: 10px;
+}
+
+.danger-controls-btn {
+  width: 60px !important;
+  border-radius: 10px;
+  background-color: rgb(var(--color-danger)) !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: unset !important;
+  padding: 8px 15px !important;
+  color: var(--text-color) !important;
+  border: none !important;
+  opacity: 1 !important;
+}
+
+
+.danger-controls-btn:hover:not(:disabled) {
+  transform: scale(1.2);
+}
+
+
+

@@ -1,0 +1,43 @@
+@mixin center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+}
+
+.incorrect-tooltip-icon {
+  color: var(--text-color);
+  padding: 2px;
+  border-radius: 20px;
+  cursor: pointer;
+  display: inline-block;
+
+  > div {
+    @include center-content;
+  }
+
+  &.small {
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  &.incorrect {
+    background-color: rgb(var(--color-danger)) !important;
+  }
+
+}
+
+.incorrect-tooltip {
+  max-width: 300px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.text-wrapper {
+  display: inline-block;
+  max-width: 300px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}

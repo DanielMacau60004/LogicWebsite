@@ -1,0 +1,40 @@
+.add-btn {
+  width: 50px;
+  height: 50px;
+  background-color: var(--color-6) !important;
+  display: inline-block;
+
+  &:hover {
+    background-color: var(--color-5) !important;
+  }
+}
+
+.add-premise-btn,
+.create-premise-btn {
+  background-color: var(--color-6) !important;
+
+  &:hover {
+    background-color: var(--color-5) !important;
+  }
+}
+
+.fol-toggle .form-check-input {
+  color: var(--text-color);
+  height: 20px;
+  width: 50px !important;
+}
+
+.fol-toggle .form-check-input::before {
+  background-color: white;
+}
+
+.fol-toggle .form-check-input:checked {
+  background-color: var(--color-6) !important;
+  border-color: var(--color-6) !important;
+  color: var(--text-color);
+}
+
+.fol-toggle .form-check-input:checked {
+  background-color: #4caf50;
+  border-color: #4caf50;
+}

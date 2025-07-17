@@ -1,0 +1,48 @@
+@import "../../../../../style/variables";
+
+.proof-state {
+  //user-select: none;
+  position: absolute !important;
+  right: 20px;
+  top: 120px;
+  text-align: center;
+  color: var(--text-color);
+  max-height: 60vh;
+  //height: 60vh;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  min-width: 200px;
+}
+
+.proof-state-content {
+  > .content {
+    border-radius: 5px !important;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-color: color-mix(in srgb, var(--color-4) 30%, transparent);
+
+    >h5 {
+      border-radius: 5px !important;
+      width: 100%;
+      background-color: var(--color-6);
+      padding: 5px;
+    }
+
+
+    >.proof-tree {
+      margin: 0 5px;
+      background-color: transparent !important;
+      padding: 0 !important;
+    }
+
+    > .proof-component {
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+  }
+}
+
