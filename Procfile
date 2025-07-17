@@ -1,1 +1,1 @@
-web: npm --prefix ./main start
+web: npm install && npm start
