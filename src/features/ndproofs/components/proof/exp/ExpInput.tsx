@@ -25,6 +25,7 @@ export function ExpInput({exp}: { exp: ExpComponent }) {
             onKeyDown={onKeyDown}
             maxLength={80}
             onMouseDown={(e)=>{e.stopPropagation()}}
+            onTouchStart={(e) => e.stopPropagation()}
         />
     )
 }

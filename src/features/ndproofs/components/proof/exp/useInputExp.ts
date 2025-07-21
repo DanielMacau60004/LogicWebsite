@@ -23,15 +23,12 @@ export function useInputExp({exp}: { exp: ExpComponent }) {
 
         const input = ref.current;
         const timer = setTimeout(() => {
-
             const length = input.value.length;
-
-            if (document.activeElement !== input) {
+            //if (document.activeElement !== input) {
                 if (length > 0)
                     input.setSelectionRange(length, length);
                 input.focus()
-            }
-
+            //}
         }, SHOW_DELAY);
 
         return () => clearTimeout(timer);
