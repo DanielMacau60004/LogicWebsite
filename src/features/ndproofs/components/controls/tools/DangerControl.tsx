@@ -50,6 +50,7 @@ function FeedbackLevelBtn() {
         <button
             onClick={() => {dispatch(switchFeedbackLevel());}}
             className="danger-controls-btn ms-1 mt-1"
+            title={feedbackLevel}
         >
             {"❙".repeat(feedbackLevels.indexOf(feedbackLevel)+1)}
         </button>

@@ -37,7 +37,7 @@ import {deepCopy} from "../../../../utils/general";
 export function useBoardDnd() {
     const dispatch: any = useDispatch()
     const state = useSelector((state: GlobalState) => state.board)
-    const {isEditable, components, editing, isFOL, problem, feedbackLevel} = useSelector((state: GlobalState) => state.board)
+    const {isEditable, components, editing, isFOL, problem, active} = useSelector((state: GlobalState) => state.board)
     const lastClickTime = useRef<number>(0);
 
     function isDoubleClick(): boolean {
@@ -74,7 +74,8 @@ export function useBoardDnd() {
     }
 
     function handleExpActions(component: ExpComponent) {
-        if (isDoubleClick() && (component.editable ?? true)) {
+        if ((isDoubleClick() && (component.editable ?? true)) ||
+            (active !== undefined && active.id === component.id)) {
             dispatch(selectEditingComponent(component))
             dispatch(selectComponent(undefined))
         } else setupSelectedRule(component.id)

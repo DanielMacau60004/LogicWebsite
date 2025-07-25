@@ -83,7 +83,7 @@ function TreeChildren({tree}: { tree: TreeComponent }) {
 }
 
 function TreeRuleRow({tree}: { tree: TreeComponent }) {
-    const {drag, components, isHelpMode} = useSelector((state: GlobalState) => state.board);
+    const {drag, components, isHelpMode, editing} = useSelector((state: GlobalState) => state.board);
     const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
 
     return (
@@ -96,7 +96,7 @@ function TreeRuleRow({tree}: { tree: TreeComponent }) {
             </td>
             <td>
                 {
-                    isHelpMode && !isTouchDevice ? (
+                    !isTouchDevice ? (
                         <RuleHelper rule={components[tree.rule!!].value} show={500}>
                             <Rule rule={components[tree.rule!!] as RuleComponent} />
                         </RuleHelper>
@@ -112,7 +112,7 @@ function TreeRuleRow({tree}: { tree: TreeComponent }) {
                 </td>
             ))}
             {
-                isHelpMode && isTouchDevice && <td>
+                isTouchDevice && <td>
                     <RuleHelper rule={components[tree.rule!!].value}>
                         <div className={"rule-helper"}>
                             <FaQuestion/>

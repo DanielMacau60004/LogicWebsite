@@ -1,7 +1,7 @@
 import {
     Board,
     Component,
-    ComponentType,
+    ComponentType, ExpComponent,
     PreviewComponent,
     PreviewMarkComponent,
     PreviewTreeComponent,
@@ -25,6 +25,36 @@ import {testProof} from "../../services/requests";
 import {useDispatch} from "react-redux";
 
 export const Boards = {
+
+    collectExpValues(state: Board, component: Component): Set<string> {
+        switch (component.type) {
+            case ComponentType.TREE:
+                const tree = component as TreeComponent;
+                const result = new Set<string>();
+
+                const conclusionValues = this.collectExpValues(state, state.components[tree.conclusion]);
+                conclusionValues.forEach(value => result.add(value));
+
+                if (tree.hypotheses) {
+                    for (const h of tree.hypotheses) {
+                        const hypoValues = this.collectExpValues(state, state.components[h]);
+                        hypoValues.forEach(value => result.add(value));
+                    }
+                }
+
+                return result;
+
+            case ComponentType.EXP:
+                const expCMP = state.components[component.id];
+                const hasErrors = !!Object.keys(expCMP.errors || {}).length;
+                if (expCMP?.value && !hasErrors)
+                    return new Set([expCMP.value]);
+                return new Set();
+
+            default:
+                return new Set();
+        }
+    },
 
     canBeSubmitted(state: Board, component: PreviewComponent): boolean {
         switch (component.type) {

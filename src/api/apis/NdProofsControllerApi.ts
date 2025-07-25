@@ -22,6 +22,14 @@ import {
     TreeComponentToJSON,
 } from '../models/index';
 
+export interface ExpsFOLRequest {
+    exps: Array<string>;
+}
+
+export interface ExpsPLRequest {
+    exps: Array<string>;
+}
+
 export interface GetFOLProblemRequest {
     problemNum: number;
 }
@@ -86,6 +94,84 @@ export interface VerifyPLProblemRequest {
  * 
  */
 export class NdProofsControllerApi extends runtime.BaseAPI {
+
+    /**
+     */
+    async expsFOLRaw(requestParameters: ExpsFOLRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
+        if (requestParameters['exps'] == null) {
+            throw new runtime.RequiredError(
+                'exps',
+                'Required parameter "exps" was null or undefined when calling expsFOL().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['exps'] != null) {
+            queryParameters['exps'] = requestParameters['exps'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/nd/fol/exps`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        if (this.isJsonMime(response.headers.get('content-type'))) {
+            return new runtime.JSONApiResponse<string>(response);
+        } else {
+            return new runtime.TextApiResponse(response) as any;
+        }
+    }
+
+    /**
+     */
+    async expsFOL(requestParameters: ExpsFOLRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
+        const response = await this.expsFOLRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async expsPLRaw(requestParameters: ExpsPLRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
+        if (requestParameters['exps'] == null) {
+            throw new runtime.RequiredError(
+                'exps',
+                'Required parameter "exps" was null or undefined when calling expsPL().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['exps'] != null) {
+            queryParameters['exps'] = requestParameters['exps'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/nd/pl/exps`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        if (this.isJsonMime(response.headers.get('content-type'))) {
+            return new runtime.JSONApiResponse<string>(response);
+        } else {
+            return new runtime.TextApiResponse(response) as any;
+        }
+    }
+
+    /**
+     */
+    async expsPL(requestParameters: ExpsPLRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
+        const response = await this.expsPLRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
 
     /**
      */

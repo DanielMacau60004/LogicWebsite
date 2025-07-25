@@ -41,7 +41,8 @@ function cloneState(state: Board): Omit<Board, 'redoStack' | 'undoStack'> {
         isFOL: state.isFOL,
         isHelpMode: state.isHelpMode,
         currentProof: undefined,
-        feedbackLevel: state.feedbackLevel
+        feedbackLevel: state.feedbackLevel,
+        exps: state.exps
     };
 }
 
@@ -76,7 +77,7 @@ function handleRedo(state: Board, addUndo: boolean) {
 
 const slice = createSlice({
     name: 'board',
-    initialState: board(),
+    initialState: board(false),
     reducers: {
         appendTree: (state, action: PayloadAction<PreviewTreeComponent>) => {
             if (!state.active || !state.active.parent) return
@@ -301,8 +302,7 @@ const slice = createSlice({
             }
         },
         setExercise: (state, action: PayloadAction<{ exercise: string[], isFOL: boolean }>) => {
-            Object.assign(state, board(action.payload.exercise));
-            state.isFOL = action.payload.isFOL
+            Object.assign(state, board(action.payload.isFOL, action.payload.exercise));
         },
         updateCurrentProof: (state, action: PayloadAction<any>) => {
             const result = action.payload
@@ -341,6 +341,9 @@ const slice = createSlice({
         },
         reportErrors(state, action: PayloadAction<PreviewComponent>): void {
             Boards.reportErrors(state, action.payload)
+        },
+        setExps(state, action: PayloadAction<string[]>): void {
+            state.exps = action.payload
         }
     }
 });
@@ -367,7 +370,8 @@ export const {
     testTree,
     setExercise,
     updateCurrentProof,
-    reportErrors
+    reportErrors,
+    setExps
 } = slice.actions;
 
 export const boardReducer = slice.reducer;

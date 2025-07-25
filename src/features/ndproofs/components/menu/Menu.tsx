@@ -2,9 +2,9 @@ import "./Menu.scss"
 import {Col, Container, Row} from "react-bootstrap";
 import {useNavigate} from 'react-router-dom';
 import {useDispatch} from "react-redux";
-import {setExercise} from "../../../../store/boardSlice";
+import {setExercise, setExps} from "../../../../store/boardSlice";
 import {useEffect, useState} from "react";
-import {loadExercises} from "../../services/requests";
+import {loadExercises, loadExps} from "../../services/requests";
 import {NewProof} from "./NewProof";
 
 interface ExerciseComponentProps {
@@ -18,6 +18,8 @@ function ExerciseComponent({ exercises, isFOL }: ExerciseComponentProps) {
 
     const handleClick = (exercise: string[]) => {
         dispatch(setExercise({ exercise, isFOL }));
+        loadExps(exercise, isFOL).then(r => dispatch(setExps(r)));
+
         navigate(`/exercise`);
     };
 
@@ -61,7 +63,6 @@ export function Menu() {
             const folData = await loadExercises(200, true);
             if (folData) setFOLExercises(folData);
         }
-
         fetchExercises();
     }, []);
 

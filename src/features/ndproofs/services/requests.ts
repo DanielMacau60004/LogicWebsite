@@ -93,3 +93,19 @@ export async function loadExercises(maxExercises: number, isFOL: boolean): Promi
         return
     }
 }
+
+export async function loadExps(exps: string[], isFOL: boolean): Promise<string[]> {
+    const api = new NdProofsControllerApi()
+
+    try {
+        let response: any;
+        response = isFOL
+            ? await api.expsFOL({exps: exps})
+            : await api.expsPL({exps: exps});
+
+        if (response.result)
+            return response.result.exps
+
+    } catch (error: any) {}
+    return []
+}

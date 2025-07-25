@@ -102,11 +102,15 @@
 }
 
 .proof-rules {
+  > td:last-child {
+    padding-right: 20px;
+  }
 
   > td {
     > hr {
       margin: 0;
       padding: 0;
     }
+
   }
 }

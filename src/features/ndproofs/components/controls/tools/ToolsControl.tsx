@@ -20,8 +20,8 @@ function HomeBtn() {
     const navigate = useNavigate();
     return (
         <Button className={"tools-controls-btn"}
-                onClick={() => {navigate('/');}}>
-            <AiFillHome   size={30}/>
+                onClick={() => {navigate('/');}} title="Back to Home">
+            <AiFillHome size={30}/>
         </Button>
     )
 }
@@ -32,7 +32,7 @@ function AdderBtn({zoomToElement}: {
     const {handleAdderClick} = useToolsControl(zoomToElement)
 
     return (
-        <Button className={"tools-controls-btn mt-2"} onMouseDown={handleAdderClick}>
+        <Button className={"tools-controls-btn mt-2"} onMouseDown={handleAdderClick} title="Add Tree">
             <FaTree size={30}/>
         </Button>
     )

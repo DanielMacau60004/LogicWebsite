@@ -18,7 +18,8 @@ export interface Board {
     isFOL: boolean,
     isHelpMode: boolean,
     currentProof?: BoardCurrentProof,
-    feedbackLevel : FeedbackLevel
+    feedbackLevel : FeedbackLevel,
+    exps: string[]
 }
 
 export interface BoardCurrentProof {

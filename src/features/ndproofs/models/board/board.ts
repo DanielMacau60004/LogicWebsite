@@ -4,7 +4,7 @@ import {exp, expSidebar, mark, rule, treeExp} from "../components/components";
 import {APPENDS, BOARD_HEIGHT, BOARD_WIDTH, INT_SCALE} from "../../constants";
 import {FeedbackLevel} from "../../types/feedback";
 
-export function board(exercise?: string[]): Board {
+export function board(isFOL: boolean, exercise?: string[]): Board {
 
     const board: Board = {
         currentId: 1,
@@ -20,10 +20,11 @@ export function board(exercise?: string[]): Board {
         zoom: INT_SCALE,
         exercise: [],
         problem: undefined,
-        isFOL: false,
+        isFOL: isFOL,
         isHelpMode: true,
         currentProof: undefined,
-        feedbackLevel: FeedbackLevel.Solution
+        feedbackLevel: FeedbackLevel.Solution,
+        exps: []
     };
 
     APPENDS.APPEND_TREE_COMPONENT_ID = Boards.appendComponent(board, expSidebar(""))
@@ -45,7 +46,9 @@ export function board(exercise?: string[]): Board {
 
         board.boardItems[id] = id;
         APPENDS.APPEND_MAIN_COMPONENT_ID = id
+
     }
+
 
     return board;
 }

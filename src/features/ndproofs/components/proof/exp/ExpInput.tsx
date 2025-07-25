@@ -6,7 +6,6 @@ export function ExpInput({exp}: { exp: ExpComponent }) {
     const {size, ref, value, onBlur, onChange, onKeyDown} = useInputExp({exp})
 
     return (
-
         <input
             id="input-expression"
             key={exp.id}
@@ -24,7 +23,7 @@ export function ExpInput({exp}: { exp: ExpComponent }) {
             onSubmit={onBlur}
             onKeyDown={onKeyDown}
             maxLength={80}
-            onMouseDown={(e)=>{e.stopPropagation()}}
+            onMouseDown={(e) => e.stopPropagation()}
             onTouchStart={(e) => e.stopPropagation()}
         />
     )

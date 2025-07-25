@@ -32,7 +32,6 @@ export function RuleHelper({rule, children, show}: { rule: RULE, children: React
             overlay={renderTooltip}
             container={document.getElementById(BOARD_CONTROLLERS_ID)}
             trigger={isTouchDevice ? undefined: ["hover","focus"]}
-
         >
             <div>
                 {children}

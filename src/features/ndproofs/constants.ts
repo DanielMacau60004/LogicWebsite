@@ -29,6 +29,12 @@ export const LOGICAL_SYMBOLS: string[] = ['⊥', '⊤', '¬', '∧', '∨', '→
 export const FOL_SYMBOLS: string[] = [...LOGICAL_SYMBOLS, '∀', '∃'];
 
 export const KEYWORD_TO_SYMBOLS: { [key: string]: { symbol: string; needsSpace: boolean } } = {
+    'alpha':   { symbol: 'α', needsSpace: true },
+    'beta':  { symbol: 'β', needsSpace: true },
+    'gamma': { symbol: 'γ', needsSpace: true },
+    'delta': { symbol: 'δ', needsSpace: true },
+    'phi':   { symbol: 'φ', needsSpace: true },
+    'psi':   { symbol: 'ψ', needsSpace: true },
     'bot':   { symbol: '⊥', needsSpace: true },
     'top':   { symbol: '⊤', needsSpace: true },
     'not':   { symbol: '¬', needsSpace: false },
