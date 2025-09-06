@@ -15,7 +15,7 @@ type ZoomButtonProps = {
 
 function ZoomIn({onClick, disabled}: ZoomButtonProps) {
     return (
-        <Button className={"board-controls-btn mb-2 p-1"} onClick={onClick} disabled={disabled}>
+        <Button className={"board-controls-btn mb-2 p-1"} onClick={onClick} disabled={disabled} title="Zoom in">
             <TiZoomInOutline  size={40}/>
         </Button>
     )
@@ -23,7 +23,7 @@ function ZoomIn({onClick, disabled}: ZoomButtonProps) {
 
 function ZoomOut({onClick, disabled}: ZoomButtonProps) {
     return (
-        <Button className={"board-controls-btn mb-2 p-1"} onClick={onClick} disabled={disabled}>
+        <Button className={"board-controls-btn mb-2 p-1"} onClick={onClick} disabled={disabled} title="Zoom out">
             <TiZoomOut size={40}/>
         </Button>
     )

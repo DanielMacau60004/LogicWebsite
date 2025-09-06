@@ -1,10 +1,10 @@
-import {Board, PreviewTreeComponent,} from "../../types/proofBoard";
+import {Board, NDProblem, PreviewTreeComponent,} from "../../types/proofBoard";
 import {Boards} from "./logic";
 import {exp, expSidebar, mark, rule, treeExp} from "../components/components";
 import {APPENDS, BOARD_HEIGHT, BOARD_WIDTH, INT_SCALE} from "../../constants";
 import {FeedbackLevel} from "../../types/feedback";
 
-export function board(isFOL: boolean, exercise?: string[]): Board {
+export function board(isFOL: boolean, exercise?: NDProblem): Board {
 
     const board: Board = {
         currentId: 1,
@@ -32,9 +32,9 @@ export function board(isFOL: boolean, exercise?: string[]): Board {
     APPENDS.APPEND_MARK_COMPONENT_ID = Boards.appendComponent(board, mark())
 
     if (exercise) {
-        board.problem = {conclusion: exercise[exercise.length - 1], premises: exercise.slice(0, exercise.length - 1)}
+        board.problem = exercise
 
-        boardExercise(exercise).forEach(component => {
+        boardExercise([...exercise.premises, exercise.conclusion]).forEach(component => {
             const id = Boards.appendComponent(board, component);
             board.exercise[id] = id;
         });

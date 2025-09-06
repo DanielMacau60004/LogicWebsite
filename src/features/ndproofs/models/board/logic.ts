@@ -262,6 +262,18 @@ export const Boards = {
 
         }
 
+        //TODO Hardcoded...
+        const symbol = "⊥"
+        if (ruleInfo && ruleInfo.preview != null) {
+            if (ruleInfo.preview.conclusion?.value === symbol)
+                state.components[tree.conclusion].value = symbol;
+
+            for (let i = 0; i < ruleInfo.preview.hypotheses!.length; i++) {
+                if (ruleInfo.preview.hypotheses![i].value === symbol)
+                    state.components[tree.hypotheses![i]].value = symbol;
+            }
+        }
+
     },
 
     updateHypotheses(state: Board, tree: TreeComponent, targetCount: number) {

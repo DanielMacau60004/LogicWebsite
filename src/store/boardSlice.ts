@@ -4,7 +4,7 @@ import {
     Board,
     BoardCurrentProof,
     Component,
-    ComponentType,
+    ComponentType, NDProblem,
     Position,
     PreviewComponent,
     PreviewTreeComponent,
@@ -210,6 +210,9 @@ const slice = createSlice({
             let dragging = state.components[active.id];
             let dropping = state.components[Number(over)];
 
+            if(dragging.type === ComponentType.TREE)
+                dragging = state.components[(Components.getLastParent(state, dragging) as TreeComponent).conclusion]
+
             if (Components.canDrop(state, dragging, dropping)) {
                 saveStateForUndo(state);
                 BoardDrag.dragInsideComponents(state, dragging, dropping)
@@ -301,7 +304,7 @@ const slice = createSlice({
                 return
             }
         },
-        setExercise: (state, action: PayloadAction<{ exercise: string[], isFOL: boolean }>) => {
+        setExercise: (state, action: PayloadAction<{ exercise: NDProblem, isFOL: boolean}>) => {
             Object.assign(state, board(action.payload.isFOL, action.payload.exercise));
         },
         updateCurrentProof: (state, action: PayloadAction<any>) => {

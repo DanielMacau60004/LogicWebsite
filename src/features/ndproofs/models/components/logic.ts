@@ -1,4 +1,4 @@
-import {Board, Component, ComponentType} from "../../types/proofBoard";
+import {Board, Component, ComponentType, TreeComponent} from "../../types/proofBoard";
 import {Boards} from "../board/logic";
 import {mark} from "./components";
 import {deepCopy} from "../../../../utils/general";
@@ -63,6 +63,10 @@ export const Components = {
 
     canDrop(board: Board, dragging?: Component, dropping?: Component): boolean {
         if (!dragging || !dropping) return false;
+
+        if(dragging.type === ComponentType.TREE) {
+            dragging = board.components[(Components.getLastParent(board, dragging) as TreeComponent).conclusion]
+        }
 
         const hasTheCorrectType = dragging.type === dropping.type && dragging.type === ComponentType.EXP
 

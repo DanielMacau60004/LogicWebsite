@@ -29,8 +29,9 @@ export interface BoardCurrentProof {
 }
 
 export interface NDProblem {
-    conclusion: string
-    premises: string[]
+    conclusion: string,
+    premises: string[],
+    symbols: string[]
 }
 
 export enum BoardAction {

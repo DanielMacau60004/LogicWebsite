@@ -6,9 +6,10 @@ import {setExercise, setExps} from "../../../../store/boardSlice";
 import {useEffect, useState} from "react";
 import {loadExercises, loadExps} from "../../services/requests";
 import {NewProof} from "./NewProof";
+import {NDProblem} from "../../types/proofBoard";
 
 interface ExerciseComponentProps {
-    exercises: string[][];
+    exercises: NDProblem[];
     isFOL: boolean;
 }
 
@@ -16,9 +17,9 @@ function ExerciseComponent({ exercises, isFOL }: ExerciseComponentProps) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const handleClick = (exercise: string[]) => {
+    const handleClick = (exercise: NDProblem) => {
         dispatch(setExercise({ exercise, isFOL }));
-        loadExps(exercise, isFOL).then(r => dispatch(setExps(r)));
+        loadExps([...exercise.premises, exercise.conclusion], isFOL).then(r => dispatch(setExps(r)));
 
         navigate(`/exercise`);
     };
@@ -26,8 +27,8 @@ function ExerciseComponent({ exercises, isFOL }: ExerciseComponentProps) {
     return (
         <>
             {exercises.map((exercise, index) => {
-                const conclusion = exercise[exercise.length - 1];
-                const premises = exercise.slice(0, exercise.length - 1);
+                const conclusion = exercise.conclusion;
+                const premises = exercise.premises;
 
                 return (
                     <button
@@ -52,8 +53,8 @@ function ExerciseComponent({ exercises, isFOL }: ExerciseComponentProps) {
 
 export function Menu() {
 
-    const [PLExercises, setPLExercises] = useState<string[][]>([]);
-    const [FOLExercises, setFOLExercises] = useState<string[][]>([]);
+    const [PLExercises, setPLExercises] = useState<NDProblem[]>([]);
+    const [FOLExercises, setFOLExercises] = useState<NDProblem[]>([]);
 
     useEffect(() => {
         async function fetchExercises() {

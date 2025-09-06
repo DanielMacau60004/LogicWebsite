@@ -44,9 +44,10 @@ export function useInputExp({exp}: { exp: ExpComponent }) {
         const currentValue = input.value;
         const cursor = input.selectionStart ?? 0;
         const {replaced, newValue, newCursor} = tryReplaceKeywordBeforeCursor(currentValue + ' ', cursor + 1);
-        const cleanValue = value?.trim() === "" ? undefined : newValue?.trim();
+        const cleanValue = !value?.trim() ? undefined : newValue?.trim();
 
         if (cleanValue !== components[exp.id].value) {
+            console.log(cleanValue)
             //Check if the formula is correct
             if (cleanValue) {
                 const existingExps = Boards.collectExpValues(state, Components.getLastParent(state, exp));
@@ -69,10 +70,8 @@ export function useInputExp({exp}: { exp: ExpComponent }) {
                     const value = isWFF ? response.exp.value : cleanValue
                     let errors: Record<string, any> = {};
 
-                    console.log(isWFF+" " + allExist)
                     if (!isWFF) errors = response.exp.errors;
                     else if (!allExist){
-                        console.log("SENT!")
                         loadExps(exercise, isFOL).then(r => dispatch(setExps(r)));
                     }
 

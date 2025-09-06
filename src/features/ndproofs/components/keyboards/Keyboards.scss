@@ -51,6 +51,7 @@
     }
 
     &.fit {
+      min-width: 30px !important;
       width: fit-content !important;
 
     }

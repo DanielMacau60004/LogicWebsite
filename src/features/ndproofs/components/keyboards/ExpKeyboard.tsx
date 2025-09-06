@@ -5,14 +5,12 @@ import {Keyboard, renderKeyButtons} from "./Keyboard";
 import {
     EXP_KEYBOARD_COMPONENT_ID,
     FOL_SYMBOLS,
-    GREEK_LETTERS,
     GROUPING_SYMBOLS,
     LOGICAL_SYMBOLS
 } from "../../constants";
 
 export function ExpKeyboard() {
-    const {ref, target, show, style, isFOL, list, onKeyClick, onKeyClickExp} = useExpBoard()
-
+    const {ref, target, show, style, isFOL, list, problem, onKeyClick, onKeyClickExp} = useExpBoard()
     return (
         <Keyboard id={EXP_KEYBOARD_COMPONENT_ID} ref={ref} show={show} target={target} style={style}
                   placement={"bottom"}>
@@ -20,7 +18,7 @@ export function ExpKeyboard() {
                 {renderKeyButtons(EXP_KEYBOARD_COMPONENT_ID, isFOL ? FOL_SYMBOLS : LOGICAL_SYMBOLS, "key", onKeyClick)}
             </div>
             <div className="aux-keyboard-content inline">
-                {renderKeyButtons(EXP_KEYBOARD_COMPONENT_ID, GREEK_LETTERS, "key", onKeyClick)}
+                {problem && renderKeyButtons(EXP_KEYBOARD_COMPONENT_ID, problem.symbols, "key fit", onKeyClick)}
                 {renderKeyButtons(EXP_KEYBOARD_COMPONENT_ID, GROUPING_SYMBOLS, "key large", onKeyClick)}
             </div>
 

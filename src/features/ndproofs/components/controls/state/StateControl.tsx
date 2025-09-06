@@ -10,7 +10,7 @@ type StateButtonProps = {
 
 function UndoState({onClick, disabled}: StateButtonProps) {
     return (
-        <Button className={"state-controls-btn ms-2"} onClick={onClick} disabled={disabled}>
+        <Button className={"state-controls-btn ms-2"} onClick={onClick} disabled={disabled} title="Undo">
             <FaArrowRotateLeft size={25}/>
         </Button>
     )
@@ -18,7 +18,7 @@ function UndoState({onClick, disabled}: StateButtonProps) {
 
 function RedoState({onClick, disabled}: StateButtonProps) {
     return (
-        <Button className={"state-controls-btn ms-2"} onClick={onClick} disabled={disabled}>
+        <Button className={"state-controls-btn ms-2"} onClick={onClick} disabled={disabled} title="Redo">
             <FaArrowRotateRight size={25}/>
         </Button>
     )

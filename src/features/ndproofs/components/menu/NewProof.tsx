@@ -2,13 +2,6 @@ import React, {useRef, useState} from "react";
 import {Button, Form, Modal} from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
 import "./NewProof.scss"
-import {
-    BOARD_CONTROLLERS_ID,
-    EXP_INPUT_COMPONENT_ID,
-    EXP_KEYBOARD_COMPONENT_ID,
-    FOL_SYMBOLS, GREEK_LETTERS, GROUPING_SYMBOLS,
-    LOGICAL_SYMBOLS
-} from "../../constants";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import {ExpKeyboard} from "../keyboards/ExpKeyboard";
 import {Keyboard, renderKeyButtons} from "../keyboards/Keyboard";

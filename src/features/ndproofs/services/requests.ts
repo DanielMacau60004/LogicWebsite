@@ -1,5 +1,5 @@
 import {ExpressionsControllerApi, NdProofsControllerApi} from "../../../api";
-import {PreviewTreeComponent} from "../types/proofBoard";
+import {NDProblem, PreviewTreeComponent} from "../types/proofBoard";
 import {FeedbackLevel} from "../types/feedback";
 
 
@@ -71,7 +71,7 @@ export async function getHint(exercise: string[], goal: string[], isFOL: boolean
     }
 }
 
-export async function loadExercises(maxExercises: number, isFOL: boolean): Promise<string[][] | undefined> {
+export async function loadExercises(maxExercises: number, isFOL: boolean): Promise<NDProblem[] | undefined> {
     const api = new NdProofsControllerApi()
 
     try {
@@ -84,7 +84,7 @@ export async function loadExercises(maxExercises: number, isFOL: boolean): Promi
             const problems = response.result.content;
 
             return problems.map((item: any) => {
-                return [...item.premises, item.conclusion];
+                return {premises: item.premises, conclusion: item.conclusion, symbols: item.symbols} as NDProblem;
             });
 
         }

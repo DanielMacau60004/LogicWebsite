@@ -1,27 +1,20 @@
 import "./ToolsControl.scss"
 import {Button} from "react-bootstrap";
-import {FaPlus} from "react-icons/fa";
+import {FaTree} from "react-icons/fa";
 
 import {useToolsControl} from "./useToolsControl";
-import {VscOutput} from "react-icons/vsc";
-import { RiTreeLine } from "react-icons/ri";
-
-import { TbHelp } from "react-icons/tb";
-import { TbHelpOff } from "react-icons/tb";
-import {useDispatch, useSelector} from "react-redux";
-import {GlobalState} from "../../../../../store";
-import {switchHelpMode} from "../../../../../store/boardSlice";
-import { AiFillHome } from "react-icons/ai";
+import {AiFillHome} from "react-icons/ai";
 import {useNavigate} from "react-router-dom";
-import { RiTreeFill } from "react-icons/ri";
-import { FaTree } from "react-icons/fa";
+import { IoMdAdd } from "react-icons/io";
 
 function HomeBtn() {
     const navigate = useNavigate();
     return (
         <Button className={"tools-controls-btn"}
-                onClick={() => {navigate('/');}} title="Back to Home">
-            <AiFillHome size={30}/>
+                onClick={() => {
+                    navigate('/');
+                }} title="Back to Home">
+            <AiFillHome size={20}/>
         </Button>
     )
 }
@@ -32,18 +25,26 @@ function AdderBtn({zoomToElement}: {
     const {handleAdderClick} = useToolsControl(zoomToElement)
 
     return (
-        <Button className={"tools-controls-btn mt-2"} onMouseDown={handleAdderClick} title="Add Tree">
-            <FaTree size={30}/>
+        <Button className={"tools-controls-btn px-5"} onMouseDown={handleAdderClick} title="Add a new proof">
+            <IoMdAdd size={25}/>
         </Button>
     )
 }
 
-export function ToolsControl({ zoomToElement }: { zoomToElement: (selector: string, scale?: number, transitionTime?: number) => void }) {
+export function ToolsControl({zoomToElement}: {
+    zoomToElement: (selector: string, scale?: number, transitionTime?: number) => void
+}) {
 
     return (
-        <div className="tools-controls p-0 list-unstyled d-flex flex-column align-items-center">
-            <HomeBtn/>
-            <AdderBtn zoomToElement={zoomToElement}/>
-        </div>
+        <>
+            <div className="tools-controls p-0 list-unstyled d-flex flex-column align-items-center">
+                <HomeBtn/>
+
+            </div>
+            <div className="tools-controls-bottom p-0 list-unstyled d-flex flex-row align-items-center">
+
+                <AdderBtn zoomToElement={zoomToElement}/>
+            </div>
+        </>
     )
 }

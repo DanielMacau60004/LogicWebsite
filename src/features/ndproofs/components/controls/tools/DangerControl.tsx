@@ -20,7 +20,7 @@ function SolverBtn({zoomToElement}: {
     const {handleSolverClick} = useToolsControl(zoomToElement)
 
     return (
-        <Button className={"danger-controls-btn ms-1 mt-1"} onMouseDown={handleSolverClick}>
+        <Button className={"danger-controls-btn ms-1 mt-1"} onMouseDown={handleSolverClick} title="Solve exercise">
             <VscOutput size={25}/>
         </Button>
     )
@@ -34,7 +34,7 @@ function HelperBtn() {
         <Button className={"danger-controls-btn ms-1 mt-1"}
         onClick={()=>{
             dispatch(switchHelpMode())
-        }}>
+        }} title={isHelpMode ? "Show rules tooltip" : "Hide rules tooltip"}>
 
             {isHelpMode && <TbHelp  size={25}/>}
             {!isHelpMode && <TbHelpOff  size={25}/>}
@@ -65,6 +65,7 @@ function LanguageBtn() {
         <button
             onClick={() => {dispatch(switchFOL());}}
             className="danger-controls-btn ms-1 mt-1"
+            title={"Current language"}
         >
             {isFOL ? "FOL" : "PL"}
         </button>

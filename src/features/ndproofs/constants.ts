@@ -35,23 +35,32 @@ export const KEYWORD_TO_SYMBOLS: { [key: string]: { symbol: string; needsSpace: 
     'delta': { symbol: 'δ', needsSpace: true },
     'phi':   { symbol: 'φ', needsSpace: true },
     'psi':   { symbol: 'ψ', needsSpace: true },
+
     'bot':   { symbol: '⊥', needsSpace: true },
     'top':   { symbol: '⊤', needsSpace: true },
+
     'not':   { symbol: '¬', needsSpace: false },
+    '~':     { symbol: '¬', needsSpace: false },
     '!':     { symbol: '¬', needsSpace: false },
+
     'and':   { symbol: '∧', needsSpace: true },
     '&&':    { symbol: '∧', needsSpace: true },
+    '&':     { symbol: '∧', needsSpace: true },
+
     'or':    { symbol: '∨', needsSpace: true },
     '||':    { symbol: '∨', needsSpace: true },
+    '|':     { symbol: '∨', needsSpace: true },
+
     'to':    { symbol: '→', needsSpace: true },
     '->':    { symbol: '→', needsSpace: true },
+    
     'exist': { symbol: '∃', needsSpace: false },
     'all':   { symbol: '∀', needsSpace: false }
 };
 
 
 export const GROUPING_SYMBOLS: string[] = ['(', ')'];
-export const GREEK_LETTERS: string[] = ['α', 'β', 'γ', 'δ', 'φ', 'ψ'];
+//export const GREEK_LETTERS: string[] = ['α', 'β', 'γ', 'δ', 'φ', 'ψ'];
 export const MARKS_SYMBOLS = Array.from({length: 20}, (_, i) => (i + 1).toString());
 
 export const SUB_TREE_SYMBOL = '𝒟'

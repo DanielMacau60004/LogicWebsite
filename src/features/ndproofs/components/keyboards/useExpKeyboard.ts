@@ -41,7 +41,7 @@ function filterExpressionsByPrefix(
 
 
 export function useExpBoard() {
-    const {components, editing, isFOL, exps} = useSelector((state: GlobalState) => state.board)
+    const {components, editing, isFOL, exps, problem} = useSelector((state: GlobalState) => state.board)
     const {ref, target, show, style} = useKeyBoard({type: ComponentType.EXP})
 
     let list: string[] = [];
@@ -61,7 +61,7 @@ export function useExpBoard() {
             if (editing.id && components[editing.id])
                 forceInputChange(currentInput, newValue)
 
-            currentInput.selectionStart = currentInput.selectionEnd = cursorPos + 1;
+            currentInput.selectionStart = currentInput.selectionEnd = cursorPos + currentInput.value.length;
         }
     };
 
@@ -78,5 +78,5 @@ export function useExpBoard() {
     };
 
 
-    return {ref, target, show, style, isFOL, list, onKeyClick, onKeyClickExp}
+    return {ref, target, show, style, isFOL, list, problem, onKeyClick, onKeyClickExp}
 }
