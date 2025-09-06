@@ -185,131 +185,479 @@ The semantics of \gls{FOL} is an extension of that of \gls{PL}, incorporating th
 \label{chap:prop-deduction}
 We have already presented the notion of semantic consequence. Now, we will show how to prove whether an expression is a semantic consequence of a set of formulas using deduction systems. There are two ways to approach a deduction system: the semantic approach looks at what the formulas mean in different ways, and the syntactic approach looks at how to use symbols in a deductive system~\cite{gouveia_lgica}. There are numerous deductive systems in logic, with some of the most well-known being resolution, tableau, and natural deduction. In this thesis, we will concentrate on the \gls{ND} system, a type of syntactic deduction system that uses a predefined set of rules known as inference rules. The main idea behind of this deduction system is, by applying inference rules to the premises, we hope to get some more formulas, and by applying more inference rules to those, to eventually reach the conclusion~\cite{huth_2004_logic}.
 
-There are different styles that represent these proofs. For example, the Fitch style uses a linear structure with deeper indentation levels to represent assumptions or intermediate steps in the proof, and the Gentzen style organizes the proof in a tree-shaped structure. In this thesis, we will only focus on the tree-style representation. These tree-shaped structures, also known as deduction trees, represent proofs and are built by starting with individual trees and successively applying rules of inference to generate new trees. Individual trees are constructed from nodes, which are formulas. The formulas at the leaves are called hypotheses and are associated with marks (numbers). The formula at the root is the conclusion of the proof. Marks are used to identify distinct hypotheses and premises. The rules are represented using fractions (a horizontal line), where the premises or hypotheses appear above the line and the rule’s conclusion appears below it. The rule’s name and the marks for the hypotheses are normally placed on the right-hand side of the fraction.
+There are different styles that represent these proofs. For example, the Fitch style uses a linear structure with deeper indentation levels to represent assumptions or intermediate steps in the proof, and the Gentzen style organizes the proof in a tree-shaped structure. In this thesis, we will only focus on the tree-style representation.
 
-There are two types of rules for each logical connective: introduction (\(I\)), which constructs more complex formulas from simpler ones, and elimination (\(E\)), which extracts information from complex formulas. Additionally, a special rule, known as absurdity (\(\bot\)), allows deriving any conclusion from a contradiction. Each rule has its own characteristics, and some can only be applied under specific circumstances, called side conditions. For simplicity, we will not cover them here. Some rules close hypotheses, while others do not. A hypothesis is considered closed if its mark is used in a rule of the tree; otherwise, it is open.
+The most basic Gentzen style proof trees are composed of just a formula, that matches an axiom. More complex trees are obtained from these by successively applying inference rules, which are visually represented using horizontal lines, where the premises (hypotheses) appear above the line and the rule’s conclusion appears below. Since some of these inference rules have hypothetical assumptions, Gentzen style proofs use (numbered) marks on the leafs as a mechanism to reference such hypothesis. An hypothesis (tree leaf) is considered discharged or closed if its mark is referenced by a rule applied below in the tree, meaning that this hypothesis is an assumption of such rule. An hypothesis is said to be open if it is not closed. The rule’s name and the corresponding marks for the hypotheses are placed on the right-hand side of the horizontal line.
+The formula at the root of a proof tree is called the conclusion of the proof, and formulas at the leaves are called hypotheses.   
 
-An example of a rule that can close a hypothesis is the Introduction rule for Implication. This rule introduces a new hypothesis containing the antecedent of the implication, which can then be used in subproofs within the proof where the rule was applied. A different example is the Introduction rule for Conjunction, which creates branching by splitting the proof into two subproofs, requiring the proof of both the left and right sides of the conjunction. Below, we present the complete list of inference rules. In these rules, \( \mathcal{D} \) represents subtrees within branches, and marks are denoted by \( m \) and \( n \).
+Regarding the inference rules, we will consider the usual classical logic rules. For each classical connective or quantifier $\Delta$, we have two rules: introduction rule ($\Delta_I$), which constructs more complex formulas from simpler ones, and elimination rules ($\Delta_E$), which extracts information from complex formulas. Additionally, a special rule, known as absurdity (\(\bot\)), allows deriving any conclusion from an explicit contradiction $\bot$. Some rules can only be applied under specific circumstances, called side conditions. %\autoref{fig:nd-rules} lists the complete set of classical rules we consider. Greek letters represent generic formulas, symbols of the form \( \mathcal{D} \) represent subtrees within branches, \( m \) and \( n \) denote marks, and \(\displaystyle \varphi^m\) over \( \mathcal{D} \) represents the fact that $\varphi$ can be used as an assumption in \( \mathcal{D} \). With \(\displaystyle \left[ \varphi \right]^x_{\substack{t}}\) we represent the result of substituting free occurrences of $x$ with $t$ in $\varphi$.%
 
-\paragraph{Propositional Logic Rules}
-\label{sec:pl_rules}
-\[
-\begin{array}{c c}
+\subsection{Rules} 
+In this section, we present the list of rules considering the usual classical logic rules from \gls{PL} and \gls{FOL}. For every rule, Greek letters represent generic formulas, symbols of the form \( \mathcal{D} \) represent subtrees within branches, \( m \) and \( n \) denote marks, and \(\displaystyle \varphi^m\) over \( \mathcal{D} \) represents the fact that $\varphi$ can be used as an assumption in \( \mathcal{D} \). With \(\displaystyle \left[ \varphi \right]^x_{\substack{t}}\) we represent the result of substituting free occurrences of $x$ with $t$ in $\varphi$.%
 
-\multicolumn{2}{c}{
-\frac{\overset{\displaystyle\mathcal{D}_1\strut}{\displaystyle \varphi \strut}\quad \overset{\displaystyle\mathcal{D}_2\strut} {\displaystyle \psi \strut}}{\displaystyle \varphi \land \psi \strut} \quad (\land_I)
-} \\[5pt]
-\multicolumn{2}{c}{\textbf{Conjunction Introduction}} \\[10pt]
-\end{array}
-\]
+\subsubsection*{Conjunction Rules}
 
-\[
-\begin{array}{c c}
+The conjunction rules allow us to combine and separate statements involving conjunctions (\(\land\)). The introduction rule (\(\land_I\)) lets us conclude \(\varphi \land \psi\) when both \(\varphi\) and \(\psi\) hold. The elimination rules (\(\land_{E_r}\) and \(\land_{E_l}\)) let us extract each part from a conjunction.
 
-\frac{\displaystyle \overset{\displaystyle\mathcal{D} \strut} {\varphi \land \psi \strut}}{\displaystyle \varphi \strut} \quad (\land_{E_r}) 
-& \frac{\displaystyle \overset{\displaystyle\mathcal{D} \strut} {\varphi \land \psi \strut}}{\displaystyle \psi \strut} \quad (\land_{E_l}) \\[5pt]
-\textbf{Conjunction Elimination, right} & \textbf{Conjunction Elimination, left} \\[10pt]
-\end{array}
-\]
+\vspace{0.5cm}
 
-\[
-\begin{array}{c c}
-\frac{\displaystyle \overset{\displaystyle\mathcal{D} \strut} {\varphi 
-\strut}}{\displaystyle \varphi \vee \psi \strut} \quad (\vee_{I_r}) 
-& \frac{\displaystyle \overset{\displaystyle\mathcal{D} \strut} {\psi \strut}}{\displaystyle \varphi \vee \psi \strut} \quad (\vee_{I_l}) \\[5pt]
-\textbf{Disjunction Introduction, right} & \textbf{Disjunction Introduction, left} \\[10pt]
+\noindent
+\begin{minipage}{0.32\linewidth}
+\centering
+\textbf{Introduction}\\
+\begin{prooftree}
+  \AxiomC{$\overset{\displaystyle\mathcal{D}_1 \strut} {\varphi}$}
+  \AxiomC{$\overset{\displaystyle\mathcal{D}_2 \strut} {\psi}$}
+  \RightLabel{$(\land_I)$}
+  \BinaryInfC{$\varphi \land \psi$}
+\end{prooftree}
+\end{minipage}\hfill
+\begin{minipage}{0.32\linewidth}
+\centering
+\textbf{Elimination, Right}\\
+\begin{prooftree}
+  \AxiomC{$\overset{\displaystyle\mathcal{D} \strut} {\varphi \land \psi}$}
+  \RightLabel{$(\land_{E_r})$}
+  \UnaryInfC{$\varphi$}
+\end{prooftree}
+\end{minipage}\hfill
+\begin{minipage}{0.32\linewidth}
+\centering
+\textbf{Elimination, Left}\\
+\begin{prooftree}
+  \AxiomC{$\overset{\displaystyle\mathcal{D} \strut} {\varphi \land \psi}$}
+  \RightLabel{$(\land_{E_l})$}
+  \UnaryInfC{$\psi$}
+\end{prooftree}
+\end{minipage}
 
-\end{array}
-\]
+\vspace{0.5cm}
 
-\[
-\begin{array}{c c}
-\multicolumn{2}{c}{
-\frac{\overset{\displaystyle\mathcal{D}_1 \strut} {\displaystyle\varphi_1 \vee \varphi_2 \strut} \quad \quad \overset{\displaystyle[\varphi_1]^m\strut}{\overset{\displaystyle\mathcal{D}_2 \strut} {\displaystyle\psi 
-\strut}} \quad \quad \overset{\displaystyle[\varphi_2]^n\strut}{\overset{\displaystyle\mathcal{D}_3 \strut} {\displaystyle\psi 
-\strut}}}{\displaystyle\psi\strut} \quad (\vee_E, m, n)
-} \\[5pt]
-\multicolumn{2}{c}{\textbf{Disjunction Elimination}} \\[10pt]
-\end{array}
-\]
 
-\[
-\begin{array}{c c}
-\frac{\overset{\displaystyle\mathcal{D}_1\strut}{\displaystyle \varphi \strut}\quad \overset{\displaystyle\mathcal{D}_2\strut} {\displaystyle \varphi \to \psi \strut}}{\displaystyle\psi\strut} \quad (\to_E) 
-& \frac{\overset{\displaystyle[\varphi]^m\strut}{\overset{\displaystyle\mathcal{D} \strut} {\displaystyle\psi 
-\strut}}}{\displaystyle \varphi \to \psi \strut} \quad (\to_I, m) \\[5pt]
-\textbf{Implication Elimination} & \textbf{Implication Introduction}\\[10pt]
-\end{array}
-\]
 
-\[
-\begin{array}{c c}
-\frac{\overset{\displaystyle\mathcal{D}_1\strut}{\displaystyle \varphi \strut}\quad \overset{\displaystyle\mathcal{D}_2\strut} {\displaystyle \neg \varphi \strut}}{\displaystyle\bot\strut} \quad (\neg_E) 
-& \frac{\overset{\displaystyle[\varphi]^m\strut}{\overset{\displaystyle\mathcal{D} \strut} {\displaystyle\bot 
-\strut}}}{\displaystyle\neg \varphi\strut} \quad (\neg_I, m) \\[5pt]
-\textbf{Negation Elimination} & \textbf{Negation Introduction}\\[10pt]
-\end{array}
-\]
+\subsubsection*{Disjunction Rules}
 
-\[
-\begin{array}{c c}
-\multicolumn{2}{c}{
-\frac{\overset{\displaystyle[\neg\varphi]^m\strut}{\overset{\displaystyle\mathcal{D} \strut} {\displaystyle\bot 
-\strut}}}{\displaystyle \varphi\strut} \quad (\bot, m)
-} \\[5pt]
-\multicolumn{2}{c}{\textbf{Contradiction}} \\[10pt]
-\end{array}
-\]
+Disjunction rules allow us to introduce or eliminate statements involving disjunctions (\(\vee\)). The introduction rules (\(\vee_{I_r}\) and \(\vee_{I_l}\)) let us add a disjunction from one side.
 
-\paragraph{First-Order Logic Additional Rules}
-\label{sec:fol_rules}
+\vspace{0.5cm}
 
-\[
-\begin{array}{c c}
-\frac{{\overset{\displaystyle\mathcal{D} \strut} {\displaystyle\forall_x \, \varphi 
-\strut}}}{\displaystyle\left[ \varphi \right]^x_{\substack{t}}\strut} \quad (\forall_E)
-& \frac{{\overset{\displaystyle\mathcal{D} \strut} {\displaystyle\left[ \varphi\right]^x_{\substack{y}} 
-\strut}}}{\displaystyle\forall_x \, \varphi\strut} \quad (\forall_I) \\[5pt]
-\textbf{Universal Elimination} & \textbf{Universal Introduction}\\[10pt]
-\end{array}
-\]
+\noindent
+\begin{minipage}{0.48\linewidth}
+\centering
+\textbf{Introduction, Right}\\
+\begin{prooftree}
+  \AxiomC{$\overset{\displaystyle\mathcal{D} \strut} {\varphi}$}
+  \RightLabel{$(\vee_{I_r})$}
+  \UnaryInfC{$\varphi \vee \psi$}
+\end{prooftree}
+\end{minipage}\hfill
+\begin{minipage}{0.48\linewidth}
+\centering
+\textbf{Introduction, Left}\\
+\begin{prooftree}
+  \AxiomC{$\overset{\displaystyle\mathcal{D} \strut} {\psi}$}
+  \RightLabel{$(\vee_{I_l})$}
+  \UnaryInfC{$\varphi \vee \psi$}
+\end{prooftree}
+\end{minipage}
 
-\[
-\begin{array}{c c}
-\frac{\overset{\displaystyle\mathcal{D}_1 \strut} {\displaystyle\exists_x \, \varphi \strut} \quad \quad \overset{\displaystyle(\left[ \varphi \right]^x_{\substack{y}})^m\strut}{\overset{\displaystyle\mathcal{D}_2 \strut} {\displaystyle\psi 
-\strut}}}{\displaystyle\psi\strut} \quad (\exists_E, m)
-& \frac{{\overset{\displaystyle\mathcal{D} \strut} {\displaystyle\left[ \varphi \right]^x_{\substack{t}} 
-\strut}}}{\displaystyle\exists_x \, \varphi\strut} \quad (\exists_I) \\[5pt]
-\textbf{Existential Elimination} & \textbf{Existential Introduction}\\[10pt]
-\end{array}
-\]
+\vspace{0.5cm}
+The elimination rule (\(\vee_E\)) lets us conclude a formula \(\psi\) if it follows from both disjuncts. 
 
-Building these proofs can be done in two different ways: bottom-up by starting from the conclusion and top-down by starting from the premises or open clauses. Let’s prove \(\{\psi\}\) \(\vdash \varphi \to (\psi \land \varphi)\) using a bottom-up approach (Figure \ref{tab:proof-tree-part}), where \(\psi\) is the premise and \(\varphi \to (\psi \land \varphi)\) is the conclusion. The first step is to apply the Introduction rule for Implication. From this rule, we derive a new hypothesis (\(\varphi\)), which we will mark with the number two, since we already have a premise marked with the number one. At this point in the proof, we have \(\psi \land \varphi\), which cannot be associated with any mark, so we need to proceed. The second step is to apply the Introduction rule for Conjunction. Subsequently, both expressions in the leaves can now be associated with marks one and two, respectively. Since the only leaves, at this point, are \(\psi\) and \(\varphi\), with \(\psi\) being a premise and \(\varphi\) being closed by the Introduction rule for Implication, we can conclude \(\{\psi\} \vdash \varphi \to (\psi \land \varphi)\). More generally, we say that a formula \(\varphi\) is a consequence of a set of formulas if there exists a derivation tree where the root is \(\varphi\) and all open hypotheses in the tree are premises.
+Side conditions for the Elimination of the Disjunction(\(\vee_E\)) rule:
+\begin{itemize}
+  \item In \(\mathcal{D}_2\) and \(\mathcal{D}_3\), only assumptions of the form \([\varphi_1]^m\) and \([\varphi_2]^n\), respectively, are discharged.
+  \item The marks \(m\) and \(n\) are new: they do not occur elsewhere in the derivation tree.
+\end{itemize}
 
-\begin{figure}[h!]
-    \[
-    \begin{array}{c@{\hspace{1cm}}c}
-            \frac{\displaystyle \psi \land \varphi\strut}{\displaystyle \varphi \to (\psi \land \varphi)\strut} \quad (\to_I, 2) &
-            \frac{\displaystyle\frac{\displaystyle \psi^1 \quad \varphi^2\strut}{\displaystyle \psi \land \varphi\strut}\quad (\land_I)\strut}{\displaystyle \varphi \to (\psi \land \varphi)\strut} \quad (\to_I, 2)\\[10pt]
-            \textbf{First step} & \textbf{Second step} \\
-    \end{array}
-      \]
-    \caption{Example of a deduction tree proving \{\(\psi\)\} \( \vdash \varphi \to (\psi \land \varphi) \) using a bottom-up approach.}
-    \label{tab:proof-tree-part}
-\end{figure}
+\noindent
+\begin{minipage}{\linewidth}
+\centering
+\vspace{0.5cm}
+\textbf{Elimination}\\
+\begin{prooftree}
+  \AxiomC{$\overset{\displaystyle\mathcal{D}_1 \strut} {\varphi_1 \vee \varphi_2}$}
+  \AxiomC{$[\varphi_1]^m$}
+  \noLine
+  \UnaryInfC{$\overset{\displaystyle\mathcal{D}_2 \strut} {\psi}$}
+  \AxiomC{$[\varphi_2]^n$}
+  \noLine
+  \UnaryInfC{$\overset{\displaystyle\mathcal{D}_3 \strut} {\psi}$}
+  \RightLabel{$(\vee_E, m, n)$}
+  \TrinaryInfC{$\psi$}
+\end{prooftree}
+\end{minipage}
 
-In logic courses, students often struggle with \gls{ND} exercises. The reason why this happens is the fact that some steps in the proofs are not immediately obvious, and trees can become quite large with many branches. Becoming proficient requires significant exposure and practice. Figure \ref{tab:proof-tree1} illustrates a more complex example of a proof.
-\begin{figure}[h!]
-    \centering
-    \[
-    \frac{\displaystyle \frac{\displaystyle \frac{
-    \displaystyle \neg (\varphi \lor \psi)^1 \quad \displaystyle \frac{\psi^2}{(\varphi \lor \psi) \strut} \quad (\lor_{I_l}) \strut}
-    {\displaystyle \bot \strut} \quad (\displaystyle \neg_E)\strut} {\displaystyle \neg \psi \strut} \quad (\neg_I, 2) \strut}
-    {\neg (\varphi \lor \psi) \to \neg \psi \strut} \quad (\to_I, 1)
-    \]
-    \caption{Example of a more complex deduction tree proving \( \vdash \neg (\varphi \lor \psi) \to \neg \psi \).}
-    \label{tab:proof-tree1}
-\end{figure}
+\vspace{0.5cm}
+
+\subsubsection*{Implication Rules}
+
+Implication rules allow us to reason about conditional statements (\(\to\)). The elimination rule (\(\to_E\)) lets us apply an implication: if \(\varphi\) and \(\varphi \to \psi\) are both true, then we can conclude \(\psi\). The introduction rule (\(\to_I\)) allows us to derive \(\varphi \to \psi\) by assuming \(\varphi\) and proving \(\psi\) under that assumption.
+
+\noindent
+\begin{minipage}{0.48\linewidth}
+\centering
+\vspace{0.5cm}
+\textbf{Elimination}
+\begin{prooftree}
+  \AxiomC{$\overset{\displaystyle\mathcal{D}_1 \strut} {\varphi}$}
+  \AxiomC{$\overset{\displaystyle\mathcal{D}_2 \strut} {\varphi \to \psi}$}
+  \RightLabel{$(\to_E)$}
+  \BinaryInfC{$\psi$}
+\end{prooftree}
+\end{minipage}\hfill
+\begin{minipage}{0.48\linewidth}
+\centering
+\vspace{0.5cm}
+\textbf{Introduction}
+\begin{prooftree}
+  \AxiomC{$[\varphi]^m$}
+  \noLine
+  \UnaryInfC{$\overset{\displaystyle\mathcal{D} \strut} {\psi}$}
+  \RightLabel{$(\to_I, m)$}
+  \UnaryInfC{$\varphi \to \psi$}
+\end{prooftree}
+\end{minipage}
+
+\vspace{0.5cm}
+
+\noindent
+Side conditions for the Introduction of the Implication(\(\to_I\)) rule:
+\begin{itemize}
+  \item \(m\) is the mark of one or more assumptions \(\varphi\) that were open, or
+  \item \(m\) is a new mark, i.e., it does not occur elsewhere in the proof tree.
+\end{itemize}
+
+\subsubsection*{Negation Rules}
+
+Negation rules allow us to handle statements involving negation (\(\neg\)). The elimination rule (\(\neg_E\)) derives a contradiction (\(\bot\)) from a formula and its negation. The introduction rule (\(\neg_I\)) allows us to infer the negation of a statement if assuming it leads to a contradiction.
+
+\noindent
+\begin{minipage}{0.48\linewidth}
+\centering
+\vspace{0.5cm}
+\textbf{Elimination}
+\begin{prooftree}
+  \AxiomC{$\overset{\displaystyle\mathcal{D}_1 \strut} {\varphi}$}
+  \AxiomC{$\overset{\displaystyle\mathcal{D}_2 \strut} {\neg \varphi}$}
+  \RightLabel{$(\neg_E)$}
+  \BinaryInfC{$\bot$}
+\end{prooftree}
+\end{minipage}\hfill
+\begin{minipage}{0.48\linewidth}
+\centering
+\vspace{0.5cm}
+\textbf{Introduction}
+\begin{prooftree}
+  \AxiomC{$[\varphi]^m$}
+  \noLine
+  \UnaryInfC{$\overset{\displaystyle\mathcal{D} \strut} {\bot}$}
+  \RightLabel{$(\neg_I, m)$}
+  \UnaryInfC{$\neg \varphi$}
+\end{prooftree}
+\end{minipage}
+
+\vspace{0.5cm}
+
+Side conditions for the Introduction of Negation(\(\neg_I\)) rule:
+\begin{itemize}
+  \item \(m\) is the mark of one or more assumptions \(\varphi\) that were open
+\end{itemize}
+
+\subsubsection*{Absurdity}
+
+The absurdity rule is a key step in proofs by contradiction. It allows us to infer \(\varphi\) when assuming its negation \(\neg \varphi\) leads to a contradiction \(\bot\). This inference is not always intuitive and requires careful justification, as some statements can only be proven by contradiction.
+
+\begin{minipage}{\linewidth}
+\centering
+\begin{prooftree}
+  \AxiomC{$[\neg \varphi]^m$}
+  \noLine
+  \UnaryInfC{$\overset{\displaystyle\mathcal{D} \strut} {\bot}$}
+  \RightLabel{$(\bot, m)$}
+  \UnaryInfC{$\varphi$}
+\end{prooftree}
+\end{minipage}
+
+\vspace{0.5cm}
+
+Side conditions for the Absurdity (\(\bot\)) rule:
+\begin{itemize}
+  \item \(m\) is the mark of one or more assumptions \(\neg \varphi\) that were open, or
+  \item \(m\) is a new mark, i.e., it does not occur elsewhere in the proof tree.
+\end{itemize}
+
+\subsubsection*{Universal Rules}
+
+Universal rules handle statements involving universal quantification (\(\forall\)). The elimination rule (\(\forall_E\)) allows us to instantiate a universally quantified statement with a specific term. The introduction rule (\(\forall_I\)) allows us to generalize a formula over a variable.
+
+\noindent
+\begin{minipage}{0.48\linewidth}
+\centering
+\vspace{0.5cm}
+\textbf{Elimination}
+\begin{prooftree}
+  \AxiomC{$\overset{\displaystyle\mathcal{D} \strut}{\forall_x \, \varphi}$}
+  \RightLabel{$(\forall_E)$}
+  \UnaryInfC{$\left[ \varphi \right]^x_{\substack{t}}$}
+\end{prooftree}
+\end{minipage}\hfill
+\begin{minipage}{0.48\linewidth}
+\centering
+\vspace{0.5cm}
+\textbf{Introduction}
+\begin{prooftree}
+  \AxiomC{$\overset{\displaystyle\mathcal{D} \strut}{\left[ \varphi \right]^x_{\substack{y}}}$}
+  \RightLabel{$(\forall_I)$}
+  \UnaryInfC{$\forall_x \, \varphi$}
+\end{prooftree}
+\end{minipage}
+
+\vspace{0.5cm}
+
+Side conditions for the Elimination of Universal(\(\forall_E\)) rule:
+\begin{itemize}
+  \item The term \(t\) must be free in \(x\) in \(\varphi\)
+\end{itemize}
+
+Side conditions for the Introduction of Universal(\(\forall_I\)) rule:
+\begin{itemize}
+  \item The variable \(y\) does not occur free in any open assumptions of the derivation \(\mathcal{D}\);
+  \item If \(x = y\), then \(y\) does not occur free in \(\varphi\);
+\end{itemize}
+
+\subsubsection*{Existential Rules}
+
+Existential rules handle statements involving existential quantification (\(\exists\)). The introduction rule (\(\exists_I\)) allows us to infer an existential statement by demonstrating that the formula holds for a specific term. The elimination rule (\(\exists_E\)) allows us to reason from an existential statement by temporarily assuming that the formula holds for an arbitrary element.
+
+
+\noindent
+\begin{minipage}{0.48\linewidth}
+\centering
+\vspace{0.5cm}
+\textbf{Introduction}
+\begin{prooftree}
+  \AxiomC{$\overset{\displaystyle\mathcal{D} \strut}{\left[ \varphi \right]^x_{\substack{t}}}$}
+  \RightLabel{$(\exists_I)$}
+  \UnaryInfC{$\exists_x \, \varphi$}
+\end{prooftree}
+\end{minipage}\hfill
+\begin{minipage}{0.48\linewidth}
+\centering
+\vspace{0.5cm}
+\textbf{Elimination}
+\begin{prooftree}
+  \AxiomC{$\overset{\displaystyle\mathcal{D}_1 \strut}{\exists_x \, \varphi}$}
+  \AxiomC{$(\left[ \varphi \right]^x_{\substack{y}})^m$}
+  \noLine
+  \UnaryInfC{$\overset{\displaystyle\mathcal{D}_2 \strut}{\psi}$}
+  \RightLabel{$(\exists_E, m)$}
+  \BinaryInfC{$\psi$}
+\end{prooftree}
+\end{minipage}
+
+\vspace{0.5cm}
+
+Side conditions for the Introduction of Existential(\(\forall_I\)) rule:
+\begin{itemize}
+  \item The term \(t\) must be free in \(x\) in \(\varphi\)
+\end{itemize}
+
+Side conditions for the Elimination of Existential(\(\exists_E\)) rule:
+\begin{itemize}
+  \item The variable \(y\) does not occur free in \(\psi\), nor in any open assumptions of the derivation \(\mathcal{D}_2\) other than \([\varphi]^x_y\);
+  \item If \(x = y\), then \(y\) does not occur free in \(\varphi\);
+  \item The mark \(m\) discharges only (possibly multiple) assumptions of the form \([\varphi]^x_y\) in \(\mathcal{D}_2\)
+\end{itemize}
+
+
+\subsection{Proofs}
+
+To construct these proofs, it is not necessary to follow a strict or fixed order. One approach is to start from the conclusion (bottom-up) and apply the introduction rules, which focus on decomposing the main goal into simpler sub-goals that are easier to prove. Alternatively, the proof can begin from the premises or open clauses (top-down), applying the elimination rules to derive different formulas.
+
+\subsubsection*{Examples}
+Let's prove: \(\{a \land b\} \vdash (b \to c) \to c\). In this case, we decided to apply the introduction rules first. Since the conclusion is an implication, the implication introduction rule (\(\to_I\)) is applied, which results in:
+
+\begin{prooftree}
+  \AxiomC{$c$}
+  \RightLabel{$(\to_I,)$}
+  \UnaryInfC{$(b \to c) \to c$}
+\end{prooftree}
+
+This rule application can discharge assumptions, allowing \(b \to c\) to be assumed as a hypothesis. At this point, since no mark has been assigned to \(b \to c\) within the branches of the proof, it is not necessary to specify a mark in the rule. In fact, assigning a mark to rules is optional, particularly when no assumptions are discharged.
+
+Next, as the current hypothesis cannot be simplified further, elimination rules are applied. The new goal is to prove \(\{a \land b, b \to c\} \vdash c\). Since \(c\) can only be obtained from \(b\), and \(a \land b\) is available as a hypothesis, \(b\) can be derived by applying the conjunction elimination rule on the left (\(\land_{\text{E}_l}\)) as follows:
+
+\begin{prooftree}
+  \AxiomC{$a \land b$}
+  \RightLabel{$(\land_{\text{E}_l})$}
+  \UnaryInfC{$b$}
+  \noLine
+  \UnaryInfC{$\vphantom{b}$}
+
+  \RightLabel{$\vphantom{(\to_E)}$}
+  \AxiomC{$\vphantom{b \to c^2}$}
+
+  \noLine
+  \BinaryInfC{$c$}
+
+  \RightLabel{$(\to_I,)$}
+  \UnaryInfC{$(b \to c) \to c$}
+\end{prooftree}
+
+Having established \(b\), \(c\) can be proved from \(b \to c\) by applying the implication elimination rule (\(\to_E\)). Finally, the corresponding marks are applied to the leaves. The hypothesis \(a \land b\) cannot be discharged by any rule and remains an open hypothesis. In contrast, \(b \to c\) can be discharged by the \(\to_I\) rule, so these are marked with the same label.
+
+\begin{prooftree}
+  \AxiomC{$a \land b$}
+  \RightLabel{$(\land_{\text{E}_l})$}
+  \UnaryInfC{$b$}
+
+  \RightLabel{$(\to_E)$}
+  \AxiomC{$\overset{2}{b \to c}$}
+
+  \BinaryInfC{$c$}
+
+  \RightLabel{$(\to_I, 2)$}
+  \UnaryInfC{$(b \to c) \to c$}
+\end{prooftree}
+
+The proof is considered complete when the conclusion (the root of the tree) matches the conclusion in the initial problem, and when the set of all open hypotheses is contained within the set of premises of the original problem. In this example, both conditions are satisfied, therefore, the proof is complete.\\
+
+Let's now prove the tautology: \(\vdash \lnot(a \lor b) \to \lnot a\). We will start again from the bottom by applying the introduction rule for implication \((\to_I)\). So we get:
+
+\begin{prooftree}
+  \AxiomC{$\lnot a$}
+  \RightLabel{$(\to_I,)$}
+  \UnaryInfC{$\lnot(a \lor b) \to \lnot a$}
+\end{prooftree}
+
+Next, we apply the introduction rule for negation \((\lnot_I)\), as the conclusion of the implication is a negated formula.
+
+\begin{prooftree}
+  \AxiomC{$\bot$}
+  \RightLabel{$(\lnot_I,)$}
+  \UnaryInfC{$\lnot a$}
+
+  \RightLabel{$(\to_I,)$}
+  \UnaryInfC{$\lnot(a \lor b) \to \lnot a$}
+\end{prooftree}
+
+At this point, we assume \(a\) as a hypothesis, with the goal of deriving a contradiction in order to prove \(\lnot a\). The current set of hypotheses is \(\{\lnot(a \lor b), a\}\). To reach a contradiction, we aim to derive \(a \lor b\), since it contradicts \(\lnot(a \lor b)\). We already have \(a\) as a hypothesis, so we can derive \(a \lor b\) by applying the disjunction introduction rule on the left \((\lor_{\text{I}_l})\), as shown below:
+
+\begin{prooftree}
+  \AxiomC{$a$}
+  \RightLabel{$(\lor_{\text{I}_l})$}
+  \UnaryInfC{$a \lor b$}
+  \noLine
+
+  \RightLabel{$\vphantom{(\lnot_E)}$}
+  \AxiomC{$\lnot(a \lor b)$}
+  \noLine
+\BinaryInfC{$\vphantom{b}$}
+    \noLine
+    
+  \UnaryInfC{$\bot$}
+  \RightLabel{$(\lnot_I,)$}
+  \UnaryInfC{$\lnot a$}
+
+  \RightLabel{$(\to_I,)$}
+  \UnaryInfC{$\lnot(a \lor b) \to \lnot a$}
+\end{prooftree}
+
+Now we can assemble the complete proof with the appropriate hypothesis markings:
+
+\begin{prooftree}
+  \AxiomC{$\overset{2}{a}$}
+  \RightLabel{$(\lor_{\text{I}_l})$}
+  \UnaryInfC{$a \lor b$}
+  \RightLabel{$(\lnot_E)$}
+
+  \AxiomC{$\overset{1}{\lnot(a \lor b)}$}
+
+  \BinaryInfC{$\bot$}
+  \RightLabel{$(\lnot_I, 2)$}
+  \UnaryInfC{$\lnot a$}
+
+  \RightLabel{$(\to_I, 1)$}
+  \UnaryInfC{$\lnot(a \lor b) \to \lnot a$}
+\end{prooftree}
+
+Now, in a final example involving \gls{FOL}, we will prove: \(\{\exists x \lnot P(x)\} \vdash \lnot \forall x P(x)\). We begin by applying the introduction rule for negation \((\lnot_I)\) on the conclusion:
+
+\begin{prooftree}
+  \AxiomC{$\bot$}
+  \RightLabel{$(\lnot_I,)$}
+  \UnaryInfC{$\lnot \forall x P(x)$}
+\end{prooftree}
+
+Next, a natural choice is to apply the elimination rule for the existential quantifier \((\exists_E)\), using the premise \(\exists x \lnot P(x)\), which produces:
+
+\begin{prooftree}
+  \AxiomC{$\exists x \lnot P(x)$}
+  \AxiomC{$\bot$}
+  \RightLabel{$(\exists_E,)$}
+  \BinaryInfC{$\bot$}
+  \RightLabel{$(\lnot_I,)$}
+  \UnaryInfC{$\lnot \forall x P(x)$}
+\end{prooftree}
+
+We must now ensure that the side conditions required by \(\exists_E\) are satisfied. Applying this rule introduces a new instance of the form \(\lnot P(?)\), where \((?)\) is a placeholder for some element (term) we have not yet specified. As in the previous proof, we aim to derive a contradiction. This can be achieved by applying the elimination rule for the universal quantifier \((\forall_E)\) to the hypothesis \(\forall x P(x)\), instantiating it with a constant \(a\), resulting in \(P(a)\). The side condition for this rule requires that \(a\) be free for \(x\) in \(P(x)\), and this condition is satisfied.
+
+By matching the hypothesis derived from \(\exists_E\) with \(a\), we obtain \(\lnot P(a)\), and thus a contradiction arises. As a final step, we verify that all side conditions imposed by \(\exists_E\) are met, which they are. The complete proof is given below:
+
+\begin{prooftree}
+  \AxiomC{$\exists x \lnot P(x)$}
+  \AxiomC{$\overset{1}{\forall x P(x)}$}
+  \RightLabel{$(\forall_E)$}
+  \UnaryInfC{$P(a)$}
+  \AxiomC{$\overset{2}{\lnot P(a)}$}
+  \RightLabel{$(\lnot_E)$}
+  \BinaryInfC{$\bot$}
+
+  \RightLabel{$(\exists_E, 2)$}
+  \BinaryInfC{$\bot$}
+  \RightLabel{$(\lnot_I, 1)$}
+  \UnaryInfC{$\lnot \forall x P(x)$}
+\end{prooftree}
+
+
+
+\subsubsection*{Challenges}
+Natural deduction proofs present several challenges to users. One of the first difficulties is that many problems can have more than one valid solution. There is not always a single "correct" path, some proofs may be longer or use different rules, but still reach the same conclusion. This makes it harder to know which strategy to follow. The user must also know all the inference rules along with their side conditions. During the proof process, it is common to apply incorrect rules or apply them in the wrong order, which can lead to a dead end. As the proof progresses, new hypotheses appear and the goals change. Users must keep track of where and when they can use these hypotheses, which becomes even more difficult when dealing with side conditions in \gls{FOL}, such as avoiding free variables. These difficulties increase when the proof strategy itself is not straightforward. In some cases, no direct proof exists, and the result must be shown by contradiction. Some proofs also grow quite large, with many branches and assumptions, making it harder to follow and manage the steps correctly.
+
+Below, we present an example of a proof in \gls{FOL} that shows how the process can become complicated. The proof demonstrates: \(\{\exists x \forall y L(x,y), \forall x \forall y (L(x,y) \to L(y,x))\} \vdash \forall x \exists y L(x,y)\). In this case, an auxiliary variable is required to swap the order of the variables in \(L(x,y)\).
+
+
+\begin{prooftree}
+  \AxiomC{$\exists x \forall y L(x,y)$}
+  
+  \AxiomC{$\overset{3}{\forall y L(x,y)}$}
+  \RightLabel{($\forall_E$)}
+
+  \UnaryInfC{$L(x,w)$}
+  
+  \AxiomC{$\forall x \forall y (L(x,y) \to L(y,x))$}
+  \RightLabel{($\forall_E$)}
+  
+  \UnaryInfC{$\forall y (L(x,y) \to L(y,x))$}
+  \RightLabel{($\forall_E$)}
+  
+  \UnaryInfC{$L(x,w) \to L(w,x)$}
+  \RightLabel{($\to_E$)}
+
+  \BinaryInfC{$L(w,x)$}
+
+  \RightLabel{($\exists_I$)}
+  \UnaryInfC{$\exists y L(w,y)$}
+
+  \RightLabel{($\forall_I$)}
+  \UnaryInfC{$\forall x \exists y L(x,y)$}
+
+
+  \RightLabel{($\exists_E,3$)}
+  \BinaryInfC{$\forall x \exists y L(x,y)$}
+\end{prooftree}
+
     
 
 

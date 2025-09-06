@@ -13,92 +13,190 @@
 \label{ann:nd_rules}
 
 \section{Propositional Logic Rules}
-\[
-\begin{array}{c c}
 
-\multicolumn{2}{c}{
-\frac{\overset{\displaystyle\mathcal{D}_1\strut}{\displaystyle \varphi \strut}\quad \overset{\displaystyle\mathcal{D}_2\strut} {\displaystyle \psi \strut}}{\displaystyle \varphi \land \psi \strut} \quad (\land I)
-} \\[5pt]
-\multicolumn{2}{c}{\textbf{Conjunction Introduction}} \\[10pt]
-\end{array}
-\]
+\begin{minipage}{0.32\linewidth}
+\centering
+\textbf{Conjunction Introduction}\\
+\begin{prooftree}
+  \AxiomC{$\overset{\displaystyle\mathcal{D}_1 \strut} {\varphi}$}
+  \AxiomC{$\overset{\displaystyle\mathcal{D}_2 \strut} {\psi}$}
+  \RightLabel{$(\land_I)$}
+  \BinaryInfC{$\varphi \land \psi$}
+\end{prooftree}
+\end{minipage}\hfill
+\begin{minipage}{0.32\linewidth}
+\centering
+\textbf{Conjunction Elimination Right}\\
+\begin{prooftree}
+  \AxiomC{$\overset{\displaystyle\mathcal{D} \strut} {\varphi \land \psi}$}
+  \RightLabel{$(\land_{E_r})$}
+  \UnaryInfC{$\varphi$}
+\end{prooftree}
+\end{minipage}\hfill
+\begin{minipage}{0.32\linewidth}
+\centering
+\textbf{Conjunction Elimination Left}\\
+\begin{prooftree}
+  \AxiomC{$\overset{\displaystyle\mathcal{D} \strut} {\varphi \land \psi}$}
+  \RightLabel{$(\land_{E_l})$}
+  \UnaryInfC{$\psi$}
+\end{prooftree}
+\end{minipage}
 
-\[
-\begin{array}{c c}
+\vspace{0.5cm}
 
-\frac{\displaystyle \overset{\displaystyle\mathcal{D} \strut} {\varphi \land \psi \strut}}{\displaystyle \varphi \strut} \quad (\land E_r) 
-& \frac{\displaystyle \overset{\displaystyle\mathcal{D} \strut} {\varphi \land \psi \strut}}{\displaystyle \psi \strut} \quad (\land E_l) \\[5pt]
-\textbf{Conjunction Elimination, right} & \textbf{Conjunction Elimination, left} \\[10pt]
-\end{array}
-\]
+\begin{minipage}{0.48\linewidth}
+\centering
+\textbf{Disjunction Introduction Right}\\
+\begin{prooftree}
+  \AxiomC{$\overset{\displaystyle\mathcal{D} \strut} {\varphi}$}
+  \RightLabel{$(\vee_{I_r})$}
+  \UnaryInfC{$\varphi \vee \psi$}
+\end{prooftree}
+\end{minipage}\hfill
+\begin{minipage}{0.48\linewidth}
+\centering
+\textbf{Disjunction Introduction Left}\\
+\begin{prooftree}
+  \AxiomC{$\overset{\displaystyle\mathcal{D} \strut} {\psi}$}
+  \RightLabel{$(\vee_{I_l})$}
+  \UnaryInfC{$\varphi \vee \psi$}
+\end{prooftree}
+\end{minipage}
 
-\[
-\begin{array}{c c}
-\frac{\displaystyle \overset{\displaystyle\mathcal{D} \strut} {\varphi 
-\strut}}{\displaystyle \varphi \vee \psi \strut} \quad (\vee I_r) 
-& \frac{\displaystyle \overset{\displaystyle\mathcal{D} \strut} {\psi \strut}}{\displaystyle \varphi \vee \psi \strut} \quad (\vee I_l) \\[5pt]
-\textbf{Disjunction Introduction, right} & \textbf{Disjunction Introduction, left} \\[10pt]
+\vspace{0.5cm}
 
-\end{array}
-\]
+\begin{minipage}{\linewidth}
+\centering
+\vspace{0.5cm}
+\textbf{Disjunction Elimination}\\
+\begin{prooftree}
+  \AxiomC{$\overset{\displaystyle\mathcal{D}_1 \strut} {\varphi_1 \vee \varphi_2}$}
+  \AxiomC{$[\varphi_1]^m$}
+  \noLine
+  \UnaryInfC{$\overset{\displaystyle\mathcal{D}_2 \strut} {\psi}$}
+  \AxiomC{$[\varphi_2]^n$}
+  \noLine
+  \UnaryInfC{$\overset{\displaystyle\mathcal{D}_3 \strut} {\psi}$}
+  \RightLabel{$(\vee_E, m, n)$}
+  \TrinaryInfC{$\psi$}
+\end{prooftree}
+\end{minipage}
 
-\[
-\begin{array}{c c}
-\multicolumn{2}{c}{
-\frac{\overset{\displaystyle\mathcal{D}_1 \strut} {\displaystyle\varphi \vee \psi \strut} \quad \quad \overset{\displaystyle[\varphi_1]^m\strut}{\overset{\displaystyle\mathcal{D}_2 \strut} {\displaystyle\psi 
-\strut}} \quad \quad \overset{\displaystyle[\varphi_2]^n\strut}{\overset{\displaystyle\mathcal{D}_3 \strut} {\displaystyle\psi 
-\strut}}}{\displaystyle\psi\strut} \quad (\vee E, m, n)
-} \\[5pt]
-\multicolumn{2}{c}{\textbf{Disjunction Elimination}} \\[10pt]
-\end{array}
-\]
+\vspace{0.5cm}
 
-\[
-\begin{array}{c c}
-\frac{\overset{\displaystyle\mathcal{D}_1\strut}{\displaystyle \varphi \strut}\quad \overset{\displaystyle\mathcal{D}_2\strut} {\displaystyle \varphi \to \psi \strut}}{\displaystyle\psi\strut} \quad (\to E) 
-& \frac{\overset{\displaystyle[\varphi]^m\strut}{\overset{\displaystyle\mathcal{D} \strut} {\displaystyle\varphi 
-\strut}}}{\displaystyle \varphi \to \psi \strut} \quad (\to I, m) \\[5pt]
-\textbf{Implication Elimination} & \textbf{Implication Introduction}\\[10pt]
-\end{array}
-\]
+\begin{minipage}{0.48\linewidth}
+\centering
+\vspace{0.5cm}
+\textbf{Implication Elimination}
+\begin{prooftree}
+  \AxiomC{$\overset{\displaystyle\mathcal{D}_1 \strut} {\varphi}$}
+  \AxiomC{$\overset{\displaystyle\mathcal{D}_2 \strut} {\varphi \to \psi}$}
+  \RightLabel{$(\to_E)$}
+  \BinaryInfC{$\psi$}
+\end{prooftree}
+\end{minipage}\hfill
+\begin{minipage}{0.48\linewidth}
+\centering
+\vspace{0.5cm}
+\textbf{Implication Introduction}
+\begin{prooftree}
+  \AxiomC{$[\varphi]^m$}
+  \noLine
+  \UnaryInfC{$\overset{\displaystyle\mathcal{D} \strut} {\psi}$}
+  \RightLabel{$(\to_I, m)$}
+  \UnaryInfC{$\varphi \to \psi$}
+\end{prooftree}
+\end{minipage}
 
-\[
-\begin{array}{c c}
-\frac{\overset{\displaystyle\mathcal{D}_1\strut}{\displaystyle \varphi \strut}\quad \overset{\displaystyle\mathcal{D}_2\strut} {\displaystyle \neg \varphi \strut}}{\displaystyle\bot\strut} \quad (\neg E) 
-& \frac{\overset{\displaystyle[\varphi]^m\strut}{\overset{\displaystyle\mathcal{D} \strut} {\displaystyle\bot 
-\strut}}}{\displaystyle\neg \varphi\strut} \quad (\neg I, m) \\[5pt]
-\textbf{Negation Elimination} & \textbf{Negation Introduction}\\[10pt]
-\end{array}
-\]
+\vspace{0.5cm}
 
-\[
-\begin{array}{c c}
-\multicolumn{2}{c}{
-\frac{\overset{\displaystyle[\neg\varphi]^m\strut}{\overset{\displaystyle\mathcal{D} \strut} {\displaystyle\bot 
-\strut}}}{\displaystyle \varphi\strut} \quad (\bot, m)
-} \\[5pt]
-\multicolumn{2}{c}{\textbf{Contradiction}} \\[10pt]
-\end{array}
-\]
+\begin{minipage}{0.48\linewidth}
+\centering
+\vspace{0.5cm}
+\textbf{Negation Elimination}
+\begin{prooftree}
+  \AxiomC{$\overset{\displaystyle\mathcal{D}_1 \strut} {\varphi}$}
+  \AxiomC{$\overset{\displaystyle\mathcal{D}_2 \strut} {\neg \varphi}$}
+  \RightLabel{$(\neg_E)$}
+  \BinaryInfC{$\bot$}
+\end{prooftree}
+\end{minipage}\hfill
+\begin{minipage}{0.48\linewidth}
+\centering
+\vspace{0.5cm}
+\textbf{Negation Introduction}
+\begin{prooftree}
+  \AxiomC{$[\varphi]^m$}
+  \noLine
+  \UnaryInfC{$\overset{\displaystyle\mathcal{D} \strut} {\bot}$}
+  \RightLabel{$(\neg_I, m)$}
+  \UnaryInfC{$\neg \varphi$}
+\end{prooftree}
+\end{minipage}
+
+\vspace{0.5cm}
+
+\begin{minipage}{\linewidth}
+\centering
+\vspace{0.5cm}
+\textbf{Absurdity}
+\begin{prooftree}
+  \AxiomC{$[\neg \varphi]^m$}
+  \noLine
+  \UnaryInfC{$\overset{\displaystyle\mathcal{D} \strut} {\bot}$}
+  \RightLabel{$(\bot, m)$}
+  \UnaryInfC{$\varphi$}
+\end{prooftree}
+\end{minipage}
+
+\vspace{0.5cm}
 
 \section{First-Order Logic Additional Rules}
 
-\[
-\begin{array}{c c}
-\frac{{\overset{\displaystyle\mathcal{D} \strut} {\displaystyle\forall x \, \varphi 
-\strut}}}{\displaystyle\left[ \varphi \right]^x_{\substack{t}}\strut} \quad (\forall E)
-& \frac{{\overset{\displaystyle\mathcal{D} \strut} {\displaystyle\left[ \varphi\right]^x_{\substack{y}} 
-\strut}}}{\displaystyle\forall x \, \varphi\strut} \quad (\forall I) \\[5pt]
-\textbf{Universal Elimination} & \textbf{Universal Introduction}\\[10pt]
-\end{array}
-\]
+\begin{minipage}{0.48\linewidth}
+\centering
+\vspace{0.5cm}
+\textbf{Universal Elimination}
+\begin{prooftree}
+  \AxiomC{$\overset{\displaystyle\mathcal{D} \strut}{\forall_x \, \varphi}$}
+  \RightLabel{$(\forall_E)$}
+  \UnaryInfC{$\left[ \varphi \right]^x_{\substack{t}}$}
+\end{prooftree}
+\end{minipage}\hfill
+\begin{minipage}{0.48\linewidth}
+\centering
+\vspace{0.5cm}
+\textbf{Universal Introduction}
+\begin{prooftree}
+  \AxiomC{$\overset{\displaystyle\mathcal{D} \strut}{\left[ \varphi \right]^x_{\substack{y}}}$}
+  \RightLabel{$(\forall_I)$}
+  \UnaryInfC{$\forall_x \, \varphi$}
+\end{prooftree}
+\end{minipage}
 
-\[
-\begin{array}{c c}
-\frac{\overset{\displaystyle\mathcal{D}_1 \strut} {\displaystyle\exists x \, \varphi \strut} \quad \quad \overset{\displaystyle(\left[ \varphi \right]^x_{\substack{y}})^m\strut}{\overset{\displaystyle\mathcal{D}_2 \strut} {\displaystyle\psi 
-\strut}}}{\displaystyle\psi\strut} \quad (\exists E, m)
-& \frac{{\overset{\displaystyle\mathcal{D} \strut} {\displaystyle\left[ \varphi \right]^x_{\substack{t}} 
-\strut}}}{\displaystyle\exists x \, \varphi\strut} \quad (\exists I) \\[5pt]
-\textbf{Existential Elimination} & \textbf{Existential Introduction}\\[10pt]
-\end{array}
-\]
+\vspace{0.5cm}
+
+\begin{minipage}{0.48\linewidth}
+\centering
+\vspace{0.5cm}
+\textbf{Existential Introduction}
+\begin{prooftree}
+  \AxiomC{$\overset{\displaystyle\mathcal{D} \strut}{\left[ \varphi \right]^x_{\substack{t}}}$}
+  \RightLabel{$(\exists_I)$}
+  \UnaryInfC{$\exists_x \, \varphi$}
+\end{prooftree}
+\end{minipage}\hfill
+\begin{minipage}{0.48\linewidth}
+\centering
+\vspace{0.5cm}
+\textbf{Existential Elimination}
+\begin{prooftree}
+  \AxiomC{$\overset{\displaystyle\mathcal{D}_1 \strut}{\exists_x \, \varphi}$}
+  \AxiomC{$(\left[ \varphi \right]^x_{\substack{y}})^m$}
+  \noLine
+  \UnaryInfC{$\overset{\displaystyle\mathcal{D}_2 \strut}{\psi}$}
+  \RightLabel{$(\exists_E, m)$}
+  \BinaryInfC{$\psi$}
+\end{prooftree}
+\end{minipage}

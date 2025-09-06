@@ -12,20 +12,24 @@
 
 Providing meaningful feedback is a complex challenge. In this section, we present the key elements that would contribute to producing meaningful feedback, along with a potential solution using an algorithm that is currently under development. This concept is still in the research phase, and some aspects remain unsolved. However, initial scripts have been developed to explore its feasibility and support some of the claims made in this text. 
 
-\section{Feedback Components}
-To develop an advanced feedback system for \gls{ND} exercises, we first need to define its key components. An effective system should provide relevant information to assist students in solving proofs, making the process more teaching-like. With this in mind, we identify three fundamental aspects of a well-designed feedback system:
+\section{Objectives}
+Before we introduce the proposed algorithm, we must clarify its main goal. We want our algorithm to be able to support advanced feedback for students learning and practicing the construction of \gls{ND} proofs. Such effective feedback system should be able to deliver relevant information to assist students at any stage of their exercise resolution. Focusing on this main goal, we identified five fundamental objectives a well-designed feedback system should satisfy:
 
 \begin{itemize}
-    \item \textbf{Providing guidance on rule applications:} Some rule applications in \gls{ND} are not obvious, making it difficult for students to progress. The system should identify such situations and suggest applicable rules. When students are unsure how to proceed, it can also provide step-by-step guidance or even a complete resolution, depending on the proficiency level.
-    
-    \item \textbf{Breaking proofs into smaller sub-proofs:} To simplify reasoning, the feedback should allow students to focus on smaller proofs. By dividing proofs into smaller steps, it will reduce the cognitive load and encourage incremental learning.
-    
-    \item \textbf{Indicating the distance to a solution:} Showing how many steps (rule applications) are needed to complete the proof helps students maintain focus and gain a clear sense of progress.
+
+\item \textbf {Context-aware feedback:} The system should be able to adapt to the student's approach, following their reasoning throughout the proof. Since \gls{ND} exercises can often be solved in multiple valid ways, students may choose different strategies or shift directions during resolution. The feedback system must be flexible enough to track their logic and offer guidance aligned with the student's chosen proof strategy, rather than enforcing a single ideal solution.
+
+\item \textbf {Providing guidance on rule applications:} Some rule applications in \gls{ND} are not obvious, making it difficult for students to progress. A paradigmatic example is the case of proofs by contradiction, which is a distinctive feature of classical logic. In some cases no direct proof exists, and the result can only be proved by contradiction: \(\varphi\) is proved by assuming \(\neg \varphi\) and showing that this leads to a contradiction. The feedback system should be able to identify such situations and suggest the appropriate rule applications.
+
+\item \textbf {Breaking proofs into smaller sub-proofs:} Proofs in ND are incrementally built from smaller proofs. Dividing proofs into smaller steps reduces the cognitive load and simplifies reasoning. Therefore, the feedback system should encourage students to start with smaller proofs and incrementally build the main proof. 
+
+\item \textbf{Indicating the distance to a solution:} Showing how many steps (rule applications) are needed to complete the proof helps students maintain focus and gain a clear sense of progress.
+
+\item \textbf{Improvements in the proof:} Providing feedback about irrelevant steps taken or possible shortcuts that could make the proof clearer. It should also allow visualizing different ways to tackle the same problem.
+
 \end{itemize}
 
-These components offer several advantages in the learning process. By providing structured and clear information, the system becomes more robust, helping students overcome challenges throughout the proof.
-
-In the next section, we present an algorithm that is still under development and addresses the previously mentioned points.
+Designing an algorithm that provides the basis for a feedback mechanism satisfying the above requirements is quite challenging. We aim to provide structured and clear information, as a tool for helping students to overcome the usual challenges of producing \gls{ND} proofs.
 
 \section{Algorithm}
 Research has already started on developing an algorithm to provide the previously mentioned components. The motivation behind this algorithm is the lack of development tools that offer meaningful and powerful feedback for \gls{ND}. While some tools were referenced in Section \ref{chap:assistants}, they do not fully address the feedback components. By designing our own algorithm with a focus on these components, we gain greater control over the assistance system, ensuring a more adaptable and effective environment.
