@@ -68,9 +68,11 @@ export function useBoardDnd() {
     }
 
     function setupSelectedRule(id: number) {
-        const rule = components[APPENDS.APPEND_RULE_COMPONENT_ID]
-        dispatch(updateComponent({component: {...rule, value: undefined, parent: id}, saveState: false}))
+        const rule_bot = components[APPENDS.APPEND_RULE_TOP_COMPONENT_ID]
+        dispatch(updateComponent({component: {...rule_bot, value: undefined, parent: id}, saveState: false}))
 
+        const rule_top = components[APPENDS.APPEND_RULE_BOTTOM_COMPONENT_ID]
+        dispatch(updateComponent({component: {...rule_top, value: undefined, parent: id}, saveState: false}))
     }
 
     function handleExpActions(component: ExpComponent) {

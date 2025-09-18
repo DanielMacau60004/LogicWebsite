@@ -5,6 +5,7 @@ import {GlobalState} from "../../../../../store";
 import {ExpComponent, PreviewExpComponent} from "../../../types/proofBoard";
 import {DroppableRender} from "../../../../../components/Droppable";
 import {Components} from "../../../models/components/logic";
+import {deepCopy} from "../../../../../utils/general";
 
 const EMPTY_VALUE = ""
 

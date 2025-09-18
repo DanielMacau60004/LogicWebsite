@@ -71,10 +71,10 @@ export function Board() {
                         </TransformComponent>
 
 
-                        {/* TEMPORARY DEBUG
+
                         <div style={{backgroundColor: "red", position: "absolute", bottom: 0, right: 0}}>
                             Entities: {Object.keys(components).length} Zoom: {zoom}
-                        </div>*/}
+                        </div>
 
                         <div id={BOARD_CONTROLLERS_ID}>
                             <Exercise/>

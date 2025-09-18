@@ -11,12 +11,12 @@ import {useSelector} from "react-redux";
 import {GlobalState} from "../../../../../store";
 import {FeedbackLevel} from "../../../types/feedback";
 import {HintTooltip} from "../../others/HintTooltip";
+import {deepCopy} from "../../../../../utils/general";
 
 export function Exp({exp}: { exp: ExpComponent }) {
     const state = useSelector((state: GlobalState) => state.board);
-    const {isSelected, value, show, hasMarkValue, markComponent, onRender} = useExp({exp});
+    const {isSelected, value, hasMarkValue, markComponent, onRender} = useExp({exp});
     const hasErrors = !!Object.keys(exp.errors || {}).length;
-
 
     return (
         <>
@@ -28,7 +28,7 @@ export function Exp({exp}: { exp: ExpComponent }) {
             </div>
 
             <Droppable id={String(exp.id)} className="proof-component proof-exp" onRender={onRender}>
-                <ExpMenu show={show} markComponent={markComponent}/>
+                <ExpMenu exp={exp} markComponent={markComponent}/>
 
 
                 <div className="proof-component-content">

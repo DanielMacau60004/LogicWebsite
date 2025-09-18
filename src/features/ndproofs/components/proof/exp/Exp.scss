@@ -82,12 +82,16 @@
 
 .rule-adder {
   position: absolute;
-  top: -40px;
+  top: -35px;
   left: 50%;
   transform: translateX(-50%);
   justify-content: center;
   align-items: center;
   margin-bottom: 5px;
+
+  &.rule-bottom {
+    top: 35px !important;
+  }
 }
 
 .mark-adder {

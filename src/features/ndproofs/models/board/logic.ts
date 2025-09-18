@@ -23,6 +23,7 @@ import {
 } from "../../../../store/boardSlice";
 import {testProof} from "../../services/requests";
 import {useDispatch} from "react-redux";
+import {APPENDS} from "../../constants";
 
 export const Boards = {
 
@@ -334,13 +335,26 @@ export const Boards = {
         const newTree = state.components[newID]
 
         const currentParent = state.components[active.parent]
-        if (!Components.isASimpleTree(currentParent)) {
-            const index = currentParent?.hypotheses?.indexOf(active.id)
-            currentParent.hypotheses[index] = newID
-            newTree.parent = currentParent.id
 
-            Boards.deleteEntireComponent(state, active)
-            delete state.components[active.id]
+        if (!Components.isASimpleTree(currentParent)) {
+           // const tree = currentParent as TreeComponent
+            const index = currentParent.hypotheses?.indexOf(active.id)
+
+            if(index >= 0) {
+                currentParent.hypotheses[index] = newID
+
+                newTree.parent = currentParent.id
+                Boards.deleteEntireComponent(state, active)
+                delete state.components[active.id]
+            } else {
+                state.boardItems[newID] = newID
+                const parent = Components.getLastParent(state, active)
+
+                Boards.deleteEntireComponent(state, parent)
+                delete state.boardItems[parent.id]
+                delete state.components[parent.id]
+            }
+
         } else {
             state.boardItems[newID] = newID
             newTree.position = currentParent.position

@@ -126,6 +126,7 @@ function TreeRuleRow({tree}: { tree: TreeComponent }) {
 
 function TreeConclusionRow({tree}: { tree: TreeComponent }) {
     const {components} = useSelector((state: GlobalState) => state.board);
+
     return (
         <tr>
             <td></td>

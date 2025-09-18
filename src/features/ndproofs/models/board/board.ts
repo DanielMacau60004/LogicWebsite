@@ -28,7 +28,8 @@ export function board(isFOL: boolean, exercise?: NDProblem): Board {
     };
 
     APPENDS.APPEND_TREE_COMPONENT_ID = Boards.appendComponent(board, expSidebar(""))
-    APPENDS.APPEND_RULE_COMPONENT_ID = Boards.appendComponent(board, rule())
+    APPENDS.APPEND_RULE_TOP_COMPONENT_ID = Boards.appendComponent(board, rule())
+    APPENDS.APPEND_RULE_BOTTOM_COMPONENT_ID = Boards.appendComponent(board, rule())
     APPENDS.APPEND_MARK_COMPONENT_ID = Boards.appendComponent(board, mark())
 
     if (exercise) {
