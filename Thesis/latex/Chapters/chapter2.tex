@@ -23,7 +23,7 @@ Logic in general is defined as the study of the principles of reasoning. \gls{PL
 
 To define a formal language, one must choose the alphabet of the language and establish the set of words that make up the language. These words are usually called formulas when the formal language is associated with a logic, as is the case here. The alphabet of the language is a set of symbols that, when combined, form formulas, with each formula being a finite sequence of symbols from the alphabet~\cite{gouveia_lgica}. In \gls{PL}, we have propositional symbols, conventionally represented by lowercase letters (\(p\), \(q\), \(r\)), and symbols that represent relations between propositions (\(\neg\), \(\land\), \(\lor\), \(\to\), \(\leftrightarrow\)), also known as logical connectives. To represent generic formulas, we use Greek letters (\(\phi\), \(\psi\), \(\gamma\)). Another important symbol in \gls{PL} is parentheses, which help resolve ambiguities in formulas, similar to their use in mathematics to indicate operation priority. Additionally, we have two constants, one to represent truth, (\(\top\)), and one to represent falsehood (\(\bot\)).
 
-For the sake of interpretation, we will use the propositions (\(p\), \(q\) and \(r\)) introduced in the previous example in the following explanations. Tables \ref{tab:logical_constants_and_prop_vars} and \ref{tab:logical_connectives} list all the logical constants and connectives of the \gls{PL} alphabet.
+For the sake of interpretation, we will use the propositions (\(p\), \(q\) and \(r\)) introduced in the previous example in the following explanations. \autoref{tab:logical_constants_and_prop_vars} and \autoref{tab:logical_connectives} list all the logical constants and connectives of the \gls{PL} alphabet.
 
 \begin{table}[h!]
     \centering
@@ -118,7 +118,7 @@ Another branch of logic is \gls{FOL}, also known as predicate logic. Unlike \gls
     \item "If a variable is an integer and positive, then it is greater than zero." 
 \end{itemize}  
 
-\gls{FOL} extends \gls{PL} syntax by adding features that make it more expressive. It introduces quantifiers, which allow us to generalize or specify expressions, making it possible to express universal truths (\(\forall\)) or existential statements (\(\exists\))~\cite{huth_2004_logic}. Moreover, FOL enables the use of variables, typically represented by (\(x\), \(y\), \(z\)) within a given domain. Predicates, which express properties or relationships, allow \gls{FOL} to capture facts about objects and their interactions. Predicates are represented by words starting with capital letters, such as \( \text{Cat}(x) \), which expresses that \( x \) is a cat. Predicates always return a truth value and can have different arities. We can also define binary relations, such as equality, which is represented by the symbol \( = \). Equality is a binary relation that indicates when two terms refer to the same object in the domain. Similar to predicates, \gls{FOL} includes functions that allow referring to objects in the domain based on other objects in the domain. Functions are represented by words starting with lowercase letters, such as \( \text{father}(x) \), which return a specific value from the domain (e.g., the father of \( x \)). Tables \ref{tab:pred_var_const_fun} and \ref{tab:quant} present examples of symbols in \gls{FOL}.
+\gls{FOL} extends \gls{PL} syntax by adding features that make it more expressive. It introduces quantifiers, which allow us to generalize or specify expressions, making it possible to express universal truths (\(\forall\)) or existential statements (\(\exists\))~\cite{huth_2004_logic}. Moreover, FOL enables the use of variables, typically represented by (\(x\), \(y\), \(z\)) within a given domain. Predicates, which express properties or relationships, allow \gls{FOL} to capture facts about objects and their interactions. Predicates are represented by words starting with capital letters, such as \( \text{Cat}(x) \), which expresses that \( x \) is a cat. Predicates always return a truth value and can have different arities. We can also define binary relations, such as equality, which is represented by the symbol \( = \). Equality is a binary relation that indicates when two terms refer to the same object in the domain. Similar to predicates, \gls{FOL} includes functions that allow referring to objects in the domain based on other objects in the domain. Functions are represented by words starting with lowercase letters, such as \( \text{father}(x) \), which return a specific value from the domain (e.g., the father of \( x \)). \autoref{tab:pred_var_const_fun} and \autoref{tab:quant} present examples of symbols in \gls{FOL}.
 
 
 \begin{table}[h!]
@@ -192,7 +192,8 @@ The formula at the root of a proof tree is called the conclusion of the proof, a
 
 Regarding the inference rules, we will consider the usual classical logic rules. For each classical connective or quantifier $\Delta$, we have two rules: introduction rule ($\Delta_I$), which constructs more complex formulas from simpler ones, and elimination rules ($\Delta_E$), which extracts information from complex formulas. Additionally, a special rule, known as absurdity (\(\bot\)), allows deriving any conclusion from an explicit contradiction $\bot$. Some rules can only be applied under specific circumstances, called side conditions. %\autoref{fig:nd-rules} lists the complete set of classical rules we consider. Greek letters represent generic formulas, symbols of the form \( \mathcal{D} \) represent subtrees within branches, \( m \) and \( n \) denote marks, and \(\displaystyle \varphi^m\) over \( \mathcal{D} \) represents the fact that $\varphi$ can be used as an assumption in \( \mathcal{D} \). With \(\displaystyle \left[ \varphi \right]^x_{\substack{t}}\) we represent the result of substituting free occurrences of $x$ with $t$ in $\varphi$.%
 
-\subsection{Rules} 
+\subsection{Rules}
+\label{nd:rules} 
 In this section, we present the list of rules considering the usual classical logic rules from \gls{PL} and \gls{FOL}. For every rule, Greek letters represent generic formulas, symbols of the form \( \mathcal{D} \) represent subtrees within branches, \( m \) and \( n \) denote marks, and \(\displaystyle \varphi^m\) over \( \mathcal{D} \) represents the fact that $\varphi$ can be used as an assumption in \( \mathcal{D} \). With \(\displaystyle \left[ \varphi \right]^x_{\substack{t}}\) we represent the result of substituting free occurrences of $x$ with $t$ in $\varphi$.%
 
 \subsubsection*{Conjunction Rules}
@@ -236,7 +237,7 @@ The conjunction rules allow us to combine and separate statements involving conj
 
 
 \subsubsection*{Disjunction Rules}
-
+\label{rule:dis}
 Disjunction rules allow us to introduce or eliminate statements involving disjunctions (\(\vee\)). The introduction rules (\(\vee_{I_r}\) and \(\vee_{I_l}\)) let us add a disjunction from one side.
 
 \vspace{0.5cm}
@@ -265,7 +266,7 @@ Disjunction rules allow us to introduce or eliminate statements involving disjun
 The elimination rule (\(\vee_E\)) lets us conclude a formula \(\psi\) if it follows from both disjuncts. 
 
 Side conditions for the Elimination of the Disjunction(\(\vee_E\)) rule:
-\begin{itemize}
+\begin{itemize}[noitemsep]
   \item In \(\mathcal{D}_2\) and \(\mathcal{D}_3\), only assumptions of the form \([\varphi_1]^m\) and \([\varphi_2]^n\), respectively, are discharged.
   \item The marks \(m\) and \(n\) are new: they do not occur elsewhere in the derivation tree.
 \end{itemize}
@@ -323,7 +324,7 @@ Implication rules allow us to reason about conditional statements (\(\to\)). The
 
 \noindent
 Side conditions for the Introduction of the Implication(\(\to_I\)) rule:
-\begin{itemize}
+\begin{itemize}[noitemsep]
   \item \(m\) is the mark of one or more assumptions \(\varphi\) that were open, or
   \item \(m\) is a new mark, i.e., it does not occur elsewhere in the proof tree.
 \end{itemize}
@@ -360,7 +361,7 @@ Negation rules allow us to handle statements involving negation (\(\neg\)). The 
 \vspace{0.5cm}
 
 Side conditions for the Introduction of Negation(\(\neg_I\)) rule:
-\begin{itemize}
+\begin{itemize}[noitemsep]
   \item \(m\) is the mark of one or more assumptions \(\varphi\) that were open
 \end{itemize}
 
@@ -382,13 +383,13 @@ The absurdity rule is a key step in proofs by contradiction. It allows us to inf
 \vspace{0.5cm}
 
 Side conditions for the Absurdity (\(\bot\)) rule:
-\begin{itemize}
+\begin{itemize}[noitemsep]
   \item \(m\) is the mark of one or more assumptions \(\neg \varphi\) that were open, or
   \item \(m\) is a new mark, i.e., it does not occur elsewhere in the proof tree.
 \end{itemize}
 
 \subsubsection*{Universal Rules}
-
+\label{rule:uni}
 Universal rules handle statements involving universal quantification (\(\forall\)). The elimination rule (\(\forall_E\)) allows us to instantiate a universally quantified statement with a specific term. The introduction rule (\(\forall_I\)) allows us to generalize a formula over a variable.
 
 \noindent
@@ -416,18 +417,18 @@ Universal rules handle statements involving universal quantification (\(\forall\
 \vspace{0.5cm}
 
 Side conditions for the Elimination of Universal(\(\forall_E\)) rule:
-\begin{itemize}
+\begin{itemize}[noitemsep]
   \item The term \(t\) must be free in \(x\) in \(\varphi\)
 \end{itemize}
 
 Side conditions for the Introduction of Universal(\(\forall_I\)) rule:
-\begin{itemize}
+\begin{itemize}[noitemsep]
   \item The variable \(y\) does not occur free in any open assumptions of the derivation \(\mathcal{D}\);
   \item If \(x = y\), then \(y\) does not occur free in \(\varphi\);
 \end{itemize}
 
 \subsubsection*{Existential Rules}
-
+\label{rule:exist}
 Existential rules handle statements involving existential quantification (\(\exists\)). The introduction rule (\(\exists_I\)) allows us to infer an existential statement by demonstrating that the formula holds for a specific term. The elimination rule (\(\exists_E\)) allows us to reason from an existential statement by temporarily assuming that the formula holds for an arbitrary element.
 
 
@@ -459,12 +460,12 @@ Existential rules handle statements involving existential quantification (\(\exi
 \vspace{0.5cm}
 
 Side conditions for the Introduction of Existential(\(\forall_I\)) rule:
-\begin{itemize}
+\begin{itemize}[noitemsep]
   \item The term \(t\) must be free in \(x\) in \(\varphi\)
 \end{itemize}
 
 Side conditions for the Elimination of Existential(\(\exists_E\)) rule:
-\begin{itemize}
+\begin{itemize}[noitemsep]
   \item The variable \(y\) does not occur free in \(\psi\), nor in any open assumptions of the derivation \(\mathcal{D}_2\) other than \([\varphi]^x_y\);
   \item If \(x = y\), then \(y\) does not occur free in \(\varphi\);
   \item The mark \(m\) discharges only (possibly multiple) assumptions of the form \([\varphi]^x_y\) in \(\mathcal{D}_2\)
@@ -661,7 +662,7 @@ Below, we present an example of a proof in \gls{FOL} that shows how the process 
     
 
 
-%Looking at the example in \ref{tab:proof-tree}, if we consider a bottom-up solution, the first step is to apply the Implication Introduction rule to the conclusion. By doing so, we add the left part of the implication as a hypothesis and assign it a mark, numbered 1. Next, the Negation Introduction rule (\(\neg I\)) is applied. From this rule, \(\psi\) is obtained and added to our list of hypotheses, with a fresh mark assigned, numbered 2. Negation Elimination rule (\(\neg E\)) then is followed. This rule requires an expression and its negation to be applied. The hypothesis introduced in the first rule serves this purpose. The left side of the rule is closed. To complete the proof, the right side must also be closed. As a final step, the Disjunction Introduction rule on the left (\(\lor I_l\)) is applied, and the proof is closed using hypothesis 2.
+%Looking at the example in \autoref{tab:proof-tree}, if we consider a bottom-up solution, the first step is to apply the Implication Introduction rule to the conclusion. By doing so, we add the left part of the implication as a hypothesis and assign it a mark, numbered 1. Next, the Negation Introduction rule (\(\neg I\)) is applied. From this rule, \(\psi\) is obtained and added to our list of hypotheses, with a fresh mark assigned, numbered 2. Negation Elimination rule (\(\neg E\)) then is followed. This rule requires an expression and its negation to be applied. The hypothesis introduced in the first rule serves this purpose. The left side of the rule is closed. To complete the proof, the right side must also be closed. As a final step, the Disjunction Introduction rule on the left (\(\lor I_l\)) is applied, and the proof is closed using hypothesis 2.
 
 
 \section{Proof Assistants}
@@ -675,7 +676,7 @@ Isabelle is a generic framework for interactive theorem proving. Isabelle/HOL is
 
 Sledgehammer is an extremely powerful tool in Isabelle/HOL, which connects it with external provers by sending its problems to remote servers, increasing the efficiency of the prover. Additionally, it can automate proofs by utilizing various tactics that external provers have discovered. This automatization can be useful when combined with large proofs, as it can omit certain steps by using tactics. However, it may also hide some of the underlying reasoning behind the proof, making it harder for users to understand the intermediate steps. Since this tool cannot provide a full proof or a step-by-step resolution, it may not be suitable for developing our feedback.
 
-However, Isabelle/HOL has tools for making counterexamples. For example, Nitpick uses a solver to systematically look for edge cases, and QuickCheck creates tests at random to test the properties of the expressions. These tools can be used in our feedback system to provide counterexamples to students, assisting them in identifying errors in their reasoning and improving their comprehension of the exercises. Figure \ref{img:isabelle-counter} shows an example of how these tools are used and the corresponding counterexample found.
+However, Isabelle/HOL has tools for making counterexamples. For example, Nitpick uses a solver to systematically look for edge cases, and QuickCheck creates tests at random to test the properties of the expressions. These tools can be used in our feedback system to provide counterexamples to students, assisting them in identifying errors in their reasoning and improving their comprehension of the exercises. \autoref{img:isabelle-counter} shows an example of how these tools are used and the corresponding counterexample found.
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.5\linewidth]{Isabelle-counter}
@@ -685,7 +686,7 @@ However, Isabelle/HOL has tools for making counterexamples. For example, Nitpick
 
 \subsection{Lean}
 \label{chap:lean}
-Lean is a functional programming language that can be used as an interactive theorem prover~\cite{programming}. The structure of the proofs in this tool is very similar to the one presented in~\ref{chap:prop-deduction}, where it is possible to use rules defined in \gls{ND}, in contrast to Isabelle/HOL. Figure \ref{img:lean_example} shows an example of a proof in \gls{ND} using Lean's style, while Figure \ref{tab:lean_example} presents its representation in tree form.
+Lean is a functional programming language that can be used as an interactive theorem prover~\cite{programming}. The structure of the proofs in this tool is very similar to the one presented in~\autoref{chap:prop-deduction}, where it is possible to use rules defined in \gls{ND}, in contrast to Isabelle/HOL. \autoref{img:lean_example} shows an example of a proof in \gls{ND} using Lean's style, while \autoref{tab:lean_example} presents its representation in tree form.
 
 \begin{figure}[htbp]
     \centering
@@ -706,7 +707,7 @@ Lean is a functional programming language that can be used as an interactive the
           \label{tab:lean_example}
       \end{figure}
 
-Lean also has a tool to automate proofs called Aesop~\cite{leanprovercommunity_2021_github}. Unlike Isabelle/HOL, Aesop can provide a step-by-step proof, but not in the format presented above. The generated proof uses different tactics that are generally not easy to directly map to \gls{ND} rules. However, Aesop allows users to define their own rules/tactics to help with automation. It is possible to restrict the domain of the rules used in the automation process. Perhaps by defining the set of all \gls{ND} rules, we could achieve the desired output, enabling the generation of proofs using only valid rules. If we successfully accomplish this, we will have a reliable method for implementing our feedback. Another interesting feature of Aesop is that it allows the user to use part of their proof to generate the rest of it when possible.
+Lean also has a tool to automate proofs called Aesop~\cite{leanprovercommunity_2021_github}. Unlike Isabelle/HOL, Aesop can provide a step-by-step proof, but not in the format presented above. The generated proof uses different tactics that are generally not easy to directly map to \gls{ND} rules. However, Aesop allows users to define their own rules/tactics to help with automation. It is possible to restrict the domain of the rules used in the automation process. Perhaps by defining the set of all \gls{ND} rules, we could achieve the desired output, enabling the generation of proofs using only valid rules. Another interesting feature of Aesop is that it allows the user to use part of their proof to generate the rest of it when possible.
 
 
 

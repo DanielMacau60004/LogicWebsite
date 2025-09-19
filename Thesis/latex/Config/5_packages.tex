@@ -45,13 +45,35 @@
 \usepackage{makecell}      % Multiline table cells and control vertical and horizontal alignment
 
 \usepackage{tcolorbox}    % pretty print color boxes
-
 \usepackage{bussproofs}
 \usepackage{caption}
 \usepackage{graphicx}
 \usepackage{subcaption}   
+\usepackage{listings}
+\usepackage{xcolor}   
+\usepackage{hyperref}
+\usepackage{fmtcount}
+\usepackage{enumitem}
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+\usepackage{amsmath}
+
+\renewcommand\figureautorefname{Figure}
+\renewcommand\algorithmautorefname{Algorithm}
+\renewcommand\sectionautorefname{Section}
+\renewcommand\subsectionautorefname{Subsection}
+\renewcommand*{\tableautorefname}{Table}
+\renewcommand\chapterautorefname{Chapter}
 
 
+\setlength{\intextsep}{6pt}
+\setlength{\textfloatsep}{6pt}
+\setlength{\floatsep}{6pt}
+\captionsetup{skip=4pt, belowskip=0pt, aboveskip=4pt}
+
+\setlistdepth{3}
+\setlist[enumerate,1]{label=\textbf{\arabic*.}, ref=\arabic*}
+\setlist[enumerate,2]{label=\textbf{\theenumi.\arabic*.}, ref=\theenumi.\arabic*}
+\setlist[enumerate,3]{label=\textbf{\theenumii.\arabic*.}, ref=\theenumii.\arabic*}
 
 % \usepackage{indentfirst}       % Indent first list after a (sub)section title
 
@@ -90,3 +112,41 @@
 %       {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
 %       {€}{{\EUR}}1 {£}{{\pounds}}1
 % }
+
+
+\lstdefinestyle{javastyle}{
+  language=Java,
+  basicstyle=\ttfamily\scriptsize, % font style and size
+  keywordstyle=\color{blue}\bfseries,
+  stringstyle=\color{teal},
+  commentstyle=\color{gray}\itshape,
+  stepnumber=1,
+  showstringspaces=false,
+  tabsize=2,
+  breaklines=true,
+  captionpos=b,
+  moredelim=[is][\color{red!70!black}\bfseries]{@@}{@@},
+}
+
+\lstdefinelanguage{json}{
+    basicstyle=\ttfamily\scriptsize,
+    breaklines=true,
+    showstringspaces=false,
+    tabsize=1,
+    morestring=[b]",
+    stringstyle=\color[rgb]{0.64,0.08,0.08}, 
+    numbers=left, 
+    numberstyle=\tiny, 
+    stepnumber=1,
+    firstnumber=1,
+    numbersep=5pt,
+    literate=
+      {⊢}{{$\vdash$}}1
+      {∨}{{$\vee$}}1
+      {→}{{$\to$}}1
+      {true}{{{\color[rgb]{0,0.5,0}true}}}4   
+      {false}{{{\color[rgb]{0,0.5,0}false}}}5
+      {null}{{{\color[rgb]{0,0.5,0}null}}}4,
+}
+
+\newtheorem{definition}{Definition}[section]
