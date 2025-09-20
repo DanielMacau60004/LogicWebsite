@@ -338,7 +338,7 @@ The definition of proved goal is extremely important because it is used as a sto
     {\fontsize{10pt}{10pt}\selectfont \textbf{Goal:} \(\{a \vee b\} \vdash a\)}
     \begin{prooftree}
       \AxiomC{$a \vee b$}
-      \AxiomC{$\overset{2}{a}$}
+      \AxiomC{${a}^2$}
       \AxiomC{$a$}
       \RightLabel{($\vee_E, 2, \_$)}
       \TrinaryInfC{$a$}
@@ -609,22 +609,22 @@ The resulting trimmed graphs, in these examples, are the same but is not always 
 \centering
 \begin{prooftree}
 
-  \AxiomC{$\overset{2}{a}$}
+  \AxiomC{${a}^2$}
   \RightLabel{$(\lor_{I_r})$}
   \UnaryInfC{$a \lor \lnot a$}
 
-  \AxiomC{$\overset{1}{\lnot(a \lor \lnot a)}$}
+  \AxiomC{${\lnot(a \lor \lnot a)}^1$}
 
   \RightLabel{$(\lnot_E)$}
   \BinaryInfC{$\bot$}
   \RightLabel{$(\bot,2)$}
   \UnaryInfC{$\lnot a$}
 
-  \AxiomC{$\overset{3}{\lnot a}$}
+  \AxiomC{${\lnot a}^3$}
   \RightLabel{$(\lor_{I_l})$}
   \UnaryInfC{$a \lor \lnot a$}
 
- \AxiomC{$\overset{1}{\lnot(a \lor \lnot a)}$}
+ \AxiomC{${\lnot(a \lor \lnot a)}^1$}
 
   \RightLabel{$(\lnot_E)$}
   \BinaryInfC{$\bot$}
@@ -646,11 +646,11 @@ The resulting trimmed graphs, in these examples, are the same but is not always 
 \centering
 \begin{prooftree}
 
-  \AxiomC{$\overset{2}{a}$}
+  \AxiomC{${a}^2$}
   \RightLabel{$(\lor_{I_r})$}
   \UnaryInfC{$a \lor \lnot a$}
 
-  \AxiomC{$\overset{1}{\lnot(a \lor \lnot a)}$}
+  \AxiomC{${\lnot(a \lor \lnot a)}^1$}
 
   \RightLabel{$(\lnot_E)$}
   \BinaryInfC{$\bot$}
@@ -659,7 +659,7 @@ The resulting trimmed graphs, in these examples, are the same but is not always 
   \RightLabel{$(\lor_{I_l})$}
   \UnaryInfC{$a \lor \lnot a$}
 
- \AxiomC{$\overset{1}{\lnot(a \lor \lnot a)}$}
+ \AxiomC{${\lnot(a \lor \lnot a)}^1$}
     
   \RightLabel{$(\lnot_E)$}
   \BinaryInfC{$\bot$}
@@ -715,7 +715,7 @@ With the final graph, and a way to extract solutions given a target goal as inpu
 \centering
 \textbf{Incomplete proof}
 \begin{prooftree}
-  \AxiomC{$\overset{1}{q}$}
+  \AxiomC{${q}^1$}
   \noLine
   \AxiomC{$\textbf{\large ?}$}
   \UnaryInfC{$q \to p$}
@@ -738,7 +738,7 @@ With the final graph, and a way to extract solutions given a target goal as inpu
 Target goal: \(\{(p \to q) \to p, q\} \vdash q \to p\)
 \begin{prooftree}
 
-  \AxiomC{$\overset{2}{q}$}
+  \AxiomC{${q}^2$}
   \RightLabel{$(\to_I)$}
   \UnaryInfC{$p \to q$}
   
@@ -769,7 +769,7 @@ Target goal: \(\{(p \to q) \to p, q\} \vdash q \to p\)
   \noLine
   \UnaryInfC{$p \land q$}
 
-  \AxiomC{$\overset{2}{p \land q}$}
+  \AxiomC{${p \land q}^2$}
   \RightLabel{$(\land_{E_r})$}
   \UnaryInfC{$p$}
   \RightLabel{$(\to_I, 2)$}
@@ -794,7 +794,7 @@ Target goal: \(\{(p \to q) \to p, q\} \vdash q \to p\)
 Target goal: \(\{(p \to q) \to p, q\} \vdash p \land q\)
 \begin{prooftree}
 
-  \AxiomC{$\overset{1}{q}$}
+  \AxiomC{${q}^1$}
   \RightLabel{$(\to_I)$}
   \UnaryInfC{$p \to q$}
   
@@ -803,7 +803,7 @@ Target goal: \(\{(p \to q) \to p, q\} \vdash p \land q\)
   \RightLabel{$(\to_E)$}
   \BinaryInfC{$p$}
   
-  \AxiomC{$\overset{1}{q}$}
+  \AxiomC{${q}^1$}
   
   \RightLabel{$(\land_I)$}
   \BinaryInfC{$p \land q$}

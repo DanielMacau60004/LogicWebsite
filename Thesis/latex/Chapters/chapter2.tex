@@ -72,7 +72,7 @@ We have defined the symbols that make up the \gls{PL} alphabet. Now, we will spe
 \]
 
 \textbf{Examples of WFF:}
-\begin{itemize}
+\begin{itemize}[itemsep=2pt]
     \renewcommand{\labelitemi}{}
     \item \(\top\): "True".
     \item \(((p \land q) \to r)\): "If it is raining and it is cold, then it is snowing."
@@ -97,7 +97,7 @@ To define a language, we also need to define its semantics. In \gls{PL}, this is
 
 With this definition, we can evaluate the nature of a formula.
 
-\begin{itemize}
+\begin{itemize}[itemsep=2pt]
     \renewcommand{\labelitemi}{}
     \item \textbf{Possible}: Exists an interpretation that satisfies it.
     \item \textbf{Valid (Tautological)}: Is satisfied by all interpretations.
@@ -111,7 +111,7 @@ A key task in \gls{PL} and in Logic in general is to determine whether a formula
 Another branch of logic is \gls{FOL}, also known as predicate logic. Unlike \gls{PL}, which focuses solely on simple declarative statements, \gls{FOL} extends this by introducing new components that enable us to express more complex declarative sentences, capturing relationships between objects and their properties within a specified domain~\cite{huth_2004_logic}. In this context, objects refer to specific entities within the domain of discourse, such as animals, persons, numbers, or things, which can be described or related through properties and predicates.
 
 \textbf{Examples of First-Order Sentences:}
-\begin{itemize}
+\begin{itemize}[itemsep=2pt]
     \renewcommand{\labelitemi}{}  
     \item "There's a black cat that likes baths." 
     \item "John is a friend of Mary." 
@@ -151,8 +151,6 @@ Another branch of logic is \gls{FOL}, also known as predicate logic. Unlike \gls
 
 We can extend the definition of a \gls{WFF} from \gls{PL} to represent a \gls{WFF} in \gls{FOL}. To accomplish this, we must first introduce a new concept known as a term. A term is an expression that represents a specific object in the domain. A simple version of an inductive definition of a \gls{WFF} within \gls{FOL} is shown below. 
 
-
-
 \[
 \left\{
 \begin{array}{ll}
@@ -183,14 +181,15 @@ The semantics of \gls{FOL} is an extension of that of \gls{PL}, incorporating th
 \section{Natural Deduction} 
 
 \label{chap:prop-deduction}
-We have already presented the notion of semantic consequence. Now, we will show how to prove whether an expression is a semantic consequence of a set of formulas using deduction systems. There are two ways to approach a deduction system: the semantic approach looks at what the formulas mean in different ways, and the syntactic approach looks at how to use symbols in a deductive system~\cite{gouveia_lgica}. There are numerous deductive systems in logic, with some of the most well-known being resolution, tableau, and natural deduction. In this thesis, we will concentrate on the \gls{ND} system, a type of syntactic deduction system that uses a predefined set of rules known as inference rules. The main idea behind of this deduction system is, by applying inference rules to the premises, we hope to get some more formulas, and by applying more inference rules to those, to eventually reach the conclusion~\cite{huth_2004_logic}.
+We have already presented the notion of semantic consequence. Now, we will show how to prove whether an expression is a semantic consequence of a set of formulas using deduction systems. The main idea behind of this deduction system is, by applying inference rules to the premises, we hope to get some more formulas, and by applying more inference rules to those, to eventually reach the conclusion~\cite{huth_2004_logic}. There are numerous deductive systems in logic, with some of the most well-known being resolution, tableau, and natural deduction. In this thesis, we will focus on the \gls{ND} system, a type of syntactic deduction system that uses a predefined set of rules known as inference rules.
 
-There are different styles that represent these proofs. For example, the Fitch style uses a linear structure with deeper indentation levels to represent assumptions or intermediate steps in the proof, and the Gentzen style organizes the proof in a tree-shaped structure. In this thesis, we will only focus on the tree-style representation.
+There are different styles that represent \gls{ND} proofs. For example, the Fitch style uses a linear structure with deeper indentation levels to represent assumptions or intermediate steps in the proof, and the Gentzen style organizes the proof in a tree-shaped structure. In this thesis, we will only focus on the tree-style representation.
 
-The most basic Gentzen style proof trees are composed of just a formula, that matches an axiom. More complex trees are obtained from these by successively applying inference rules, which are visually represented using horizontal lines, where the premises (hypotheses) appear above the line and the rule’s conclusion appears below. Since some of these inference rules have hypothetical assumptions, Gentzen style proofs use (numbered) marks on the leafs as a mechanism to reference such hypothesis. An hypothesis (tree leaf) is considered discharged or closed if its mark is referenced by a rule applied below in the tree, meaning that this hypothesis is an assumption of such rule. An hypothesis is said to be open if it is not closed. The rule’s name and the corresponding marks for the hypotheses are placed on the right-hand side of the horizontal line.
-The formula at the root of a proof tree is called the conclusion of the proof, and formulas at the leaves are called hypotheses.   
+The most basic Gentzen style proof trees are composed of just a formula. More complex trees are obtained from these by successively applying inference rules, which are visually represented using horizontal lines, where the premises (hypotheses) appear above the line and the rule’s conclusion appears below. Since some of these inference rules have hypothetical assumptions, Gentzen style proofs use (numbered) marks on the leafs as a mechanism to reference such hypothesis. An hypothesis (tree leaf) is considered discharged or closed if its mark is referenced by a rule applied below in the tree, meaning that this hypothesis is an assumption of such rule. An hypothesis is said to be open if it is not closed. The rule’s name and the corresponding marks for the hypotheses are placed on the right-hand side of the horizontal line. The formula at the root of a proof tree is called the conclusion of the proof, and formulas at the leaves are called hypotheses.   
 
-Regarding the inference rules, we will consider the usual classical logic rules. For each classical connective or quantifier $\Delta$, we have two rules: introduction rule ($\Delta_I$), which constructs more complex formulas from simpler ones, and elimination rules ($\Delta_E$), which extracts information from complex formulas. Additionally, a special rule, known as absurdity (\(\bot\)), allows deriving any conclusion from an explicit contradiction $\bot$. Some rules can only be applied under specific circumstances, called side conditions. %\autoref{fig:nd-rules} lists the complete set of classical rules we consider. Greek letters represent generic formulas, symbols of the form \( \mathcal{D} \) represent subtrees within branches, \( m \) and \( n \) denote marks, and \(\displaystyle \varphi^m\) over \( \mathcal{D} \) represents the fact that $\varphi$ can be used as an assumption in \( \mathcal{D} \). With \(\displaystyle \left[ \varphi \right]^x_{\substack{t}}\) we represent the result of substituting free occurrences of $x$ with $t$ in $\varphi$.%
+Regarding the inference rules, we will consider the usual classical logic rules. For each classical connective or quantifier $\Delta$, we have two rules: introduction rule ($\Delta_I$), which constructs more complex formulas from simpler ones, and elimination rules ($\Delta_E$), which extracts information from complex formulas. Additionally, a special rule, known as absurdity (\(\bot\)), allows deriving any conclusion from an explicit contradiction $\bot$. Some rules can only be applied under specific circumstances, called side conditions.
+
+We can conclude that we have proven a consequence \(\Gamma \vdash \phi\) when the conclusion (the root of the tree) is \(\phi\) and the set of all open hypotheses is contained in \(\Gamma\).
 
 \subsection{Rules}
 \label{nd:rules} 
@@ -263,7 +262,7 @@ Disjunction rules allow us to introduce or eliminate statements involving disjun
 \end{minipage}
 
 \vspace{0.5cm}
-The elimination rule (\(\vee_E\)) lets us conclude a formula \(\psi\) if it follows from both disjuncts. 
+The elimination rule (\(\vee_E\)) lets us conclude a formula \(\psi\) if it follows from both disjuncts. This is the first rule where we explicitly make use of marks. Marks indicate which hypotheses are being applied in the rule. In the case of disjunction, we assume both the left and right sides of the disjunction and must derive the same conclusion from each. Once the same conclusion is obtained from both sides, the disjunction itself can be concluded.
 
 Side conditions for the Elimination of the Disjunction(\(\vee_E\)) rule:
 \begin{itemize}[noitemsep]
@@ -293,7 +292,7 @@ Side conditions for the Elimination of the Disjunction(\(\vee_E\)) rule:
 
 \subsubsection*{Implication Rules}
 
-Implication rules allow us to reason about conditional statements (\(\to\)). The elimination rule (\(\to_E\)) lets us apply an implication: if \(\varphi\) and \(\varphi \to \psi\) are both true, then we can conclude \(\psi\). The introduction rule (\(\to_I\)) allows us to derive \(\varphi \to \psi\) by assuming \(\varphi\) and proving \(\psi\) under that assumption.
+Implication rules allow us to reason about conditional statements (\(\to\)). The elimination rule (\(\to_E\)) lets us apply an implication: if \(\varphi\) and \(\varphi \to \psi\) are both true, then we can conclude \(\psi\). The introduction rule (\(\to_I\)) allows us to derive \(\varphi \to \psi\) by assuming \(\varphi\) and proving \(\psi\) under that assumption, and therefore we use marks to indicate this temporary hypothesis.
 
 \noindent
 \begin{minipage}{0.48\linewidth}
@@ -326,7 +325,7 @@ Implication rules allow us to reason about conditional statements (\(\to\)). The
 Side conditions for the Introduction of the Implication(\(\to_I\)) rule:
 \begin{itemize}[noitemsep]
   \item \(m\) is the mark of one or more assumptions \(\varphi\) that were open, or
-  \item \(m\) is a new mark, i.e., it does not occur elsewhere in the proof tree.
+  \item \(m\) is a new mark, i.e., it does not occur elsewhere in the proof tree\footnote{This side condition covers the case in which the hypothesis does not need to be used.}.
 \end{itemize}
 
 \subsubsection*{Negation Rules}
@@ -367,7 +366,7 @@ Side conditions for the Introduction of Negation(\(\neg_I\)) rule:
 
 \subsubsection*{Absurdity}
 
-The absurdity rule is a key step in proofs by contradiction. It allows us to infer \(\varphi\) when assuming its negation \(\neg \varphi\) leads to a contradiction \(\bot\). This inference is not always intuitive and requires careful justification, as some statements can only be proven by contradiction.
+The absurdity rule is a key step in proofs by contradiction. It allows us to infer \(\varphi\) when assuming its negation \(\neg \varphi\) leads to a contradiction \(\bot\). Although this inference is not always intuitive, in classical logic some statements can only be proven by contradiction.
 
 \begin{minipage}{\linewidth}
 \centering
@@ -387,6 +386,9 @@ Side conditions for the Absurdity (\(\bot\)) rule:
   \item \(m\) is the mark of one or more assumptions \(\neg \varphi\) that were open, or
   \item \(m\) is a new mark, i.e., it does not occur elsewhere in the proof tree.
 \end{itemize}
+
+\vspace{1em}
+The rules presented so far cover the \gls{PL} system. We now extend them to \gls{FOL}, where, naturally, the side conditions become more complex.
 
 \subsubsection*{Universal Rules}
 \label{rule:uni}
@@ -418,7 +420,7 @@ Universal rules handle statements involving universal quantification (\(\forall\
 
 Side conditions for the Elimination of Universal(\(\forall_E\)) rule:
 \begin{itemize}[noitemsep]
-  \item The term \(t\) must be free in \(x\) in \(\varphi\)
+  \item The term \(t\) must be free for \(x\) in \(\varphi\)\footnote{A variable is free if it is not bound by any quantifier within its scope, meaning it can be replaced or instantiated without affecting other parts of the formula.}
 \end{itemize}
 
 Side conditions for the Introduction of Universal(\(\forall_I\)) rule:
@@ -461,7 +463,7 @@ Existential rules handle statements involving existential quantification (\(\exi
 
 Side conditions for the Introduction of Existential(\(\forall_I\)) rule:
 \begin{itemize}[noitemsep]
-  \item The term \(t\) must be free in \(x\) in \(\varphi\)
+  \item The term \(t\) must be free for \(x\) in \(\varphi\)
 \end{itemize}
 
 Side conditions for the Elimination of Existential(\(\exists_E\)) rule:
@@ -474,10 +476,10 @@ Side conditions for the Elimination of Existential(\(\exists_E\)) rule:
 
 \subsection{Proofs}
 
-To construct these proofs, it is not necessary to follow a strict or fixed order. One approach is to start from the conclusion (bottom-up) and apply the introduction rules, which focus on decomposing the main goal into simpler sub-goals that are easier to prove. Alternatively, the proof can begin from the premises or open clauses (top-down), applying the elimination rules to derive different formulas.
+To construct these proofs, it is not necessary to follow a strict or fixed order. One approach is to start from the conclusion (bottom-up) and apply the introduction rules, which focus on decomposing the main goal into simpler sub-goals that are easier to prove. Alternatively, the proof can begin from the premises or open clauses (top-down), applying the elimination rules to derive different formulas. Usually, a combination of both approaches is necessary.
 
 \subsubsection*{Examples}
-Let's prove: \(\{a \land b\} \vdash (b \to c) \to c\). In this case, we decided to apply the introduction rules first. Since the conclusion is an implication, the implication introduction rule (\(\to_I\)) is applied, which results in:
+Let us prove: \(\{a \land b\} \vdash (b \to c) \to c\). In this case, we decided to apply the introduction rules first. Since the conclusion is an implication, the implication introduction rule (\(\to_I\)) is applied, which results in:
 
 \begin{prooftree}
   \AxiomC{$c$}
@@ -505,8 +507,7 @@ Next, as the current hypothesis cannot be simplified further, elimination rules 
   \RightLabel{$(\to_I,)$}
   \UnaryInfC{$(b \to c) \to c$}
 \end{prooftree}
-
-Having established \(b\), \(c\) can be proved from \(b \to c\) by applying the implication elimination rule (\(\to_E\)). Finally, the corresponding marks are applied to the leaves. The hypothesis \(a \land b\) cannot be discharged by any rule and remains an open hypothesis. In contrast, \(b \to c\) can be discharged by the \(\to_I\) rule, so these are marked with the same label.
+This step creates a separate tree, which is a feature we want in our tool, allowing the user to divide reasoning into distinct proofs that can later be connected. Having established \(b\), \(c\) can be proved from \(b \to c\) by applying the implication elimination rule (\(\to_E\)). Finally, the corresponding marks are applied to the leaves. The hypothesis \(a \land b\) cannot be discharged by any rule and remains an open hypothesis. In contrast, \(b \to c\) can be discharged by the \(\to_I\) rule, so these are marked with the same label.
 
 \begin{prooftree}
   \AxiomC{$a \land b$}
@@ -514,7 +515,7 @@ Having established \(b\), \(c\) can be proved from \(b \to c\) by applying the i
   \UnaryInfC{$b$}
 
   \RightLabel{$(\to_E)$}
-  \AxiomC{$\overset{2}{b \to c}$}
+  \AxiomC{${b \to c}^2$}
 
   \BinaryInfC{$c$}
 
@@ -522,9 +523,9 @@ Having established \(b\), \(c\) can be proved from \(b \to c\) by applying the i
   \UnaryInfC{$(b \to c) \to c$}
 \end{prooftree}
 
-The proof is considered complete when the conclusion (the root of the tree) matches the conclusion in the initial problem, and when the set of all open hypotheses is contained within the set of premises of the original problem. In this example, both conditions are satisfied, therefore, the proof is complete.\\
+The proof has \(a \land b\) as the open hypothesis and \((b \to c) \to c\) as the conclusion. Our initial goal was to prove the consequence \(\{a \land b\} \vdash (b \to c) \to c\). Since the open hypothesis \(a \land b\) is contained in \(\{a \land b\}\) and both conclusions match, we can conclude that our proof indeed proves the consequence.
 
-Let's now prove the tautology: \(\vdash \lnot(a \lor b) \to \lnot a\). We will start again from the bottom by applying the introduction rule for implication \((\to_I)\). So we get:
+Let us now prove a tautology: \(\vdash \lnot(a \lor b) \to \lnot a\). We begin from the bottom by applying the implication introduction rule \((\to_I)\), assuming \(\lnot(a \lor b)\) as a hypothesis. So we get:
 
 \begin{prooftree}
   \AxiomC{$\lnot a$}
@@ -568,12 +569,12 @@ At this point, we assume \(a\) as a hypothesis, with the goal of deriving a cont
 Now we can assemble the complete proof with the appropriate hypothesis markings:
 
 \begin{prooftree}
-  \AxiomC{$\overset{2}{a}$}
+  \AxiomC{$a^2$}
   \RightLabel{$(\lor_{\text{I}_l})$}
   \UnaryInfC{$a \lor b$}
   \RightLabel{$(\lnot_E)$}
 
-  \AxiomC{$\overset{1}{\lnot(a \lor b)}$}
+  \AxiomC{$\lnot(a \lor b)^1$}
 
   \BinaryInfC{$\bot$}
   \RightLabel{$(\lnot_I, 2)$}
@@ -583,64 +584,64 @@ Now we can assemble the complete proof with the appropriate hypothesis markings:
   \UnaryInfC{$\lnot(a \lor b) \to \lnot a$}
 \end{prooftree}
 
-Now, in a final example involving \gls{FOL}, we will prove: \(\{\exists x \lnot P(x)\} \vdash \lnot \forall x P(x)\). We begin by applying the introduction rule for negation \((\lnot_I)\) on the conclusion:
+Now, in a final example involving \gls{FOL}, we will prove: \(\{\exists x \;\lnot P(x)\} \vdash \lnot \forall x \;P(x)\). We begin by applying the introduction rule for negation \((\lnot_I)\) on the conclusion, which adds the hypothesis \(\forall x \;P(x)\):
 
 \begin{prooftree}
   \AxiomC{$\bot$}
   \RightLabel{$(\lnot_I,)$}
-  \UnaryInfC{$\lnot \forall x P(x)$}
+  \UnaryInfC{$\lnot \forall x \;P(x)$}
 \end{prooftree}
 
-Next, a natural choice is to apply the elimination rule for the existential quantifier \((\exists_E)\), using the premise \(\exists x \lnot P(x)\), which produces:
+Next, a natural choice is to apply the elimination rule for the existential quantifier \((\exists_E)\), using the premise \(\exists x \;\lnot P(x)\), which produces:
 
 \begin{prooftree}
-  \AxiomC{$\exists x \lnot P(x)$}
+  \AxiomC{$\exists x \;\lnot P(x)$}
   \AxiomC{$\bot$}
   \RightLabel{$(\exists_E,)$}
   \BinaryInfC{$\bot$}
   \RightLabel{$(\lnot_I,)$}
-  \UnaryInfC{$\lnot \forall x P(x)$}
+  \UnaryInfC{$\lnot \forall x \;P(x)$}
 \end{prooftree}
 
-We must now ensure that the side conditions required by \(\exists_E\) are satisfied. Applying this rule introduces a new instance of the form \(\lnot P(?)\), where \((?)\) is a placeholder for some element (term) we have not yet specified. As in the previous proof, we aim to derive a contradiction. This can be achieved by applying the elimination rule for the universal quantifier \((\forall_E)\) to the hypothesis \(\forall x P(x)\), instantiating it with a constant \(a\), resulting in \(P(a)\). The side condition for this rule requires that \(a\) be free for \(x\) in \(P(x)\), and this condition is satisfied.
+We must now ensure that the side conditions required by \(\exists_E\) are satisfied. Applying this rule introduces a new hypothesis of the form \(\lnot P(?)\), where \(?\) is a placeholder for a variable that we have not yet specified. As in the previous proof, we aim to derive a contradiction. This can be achieved by applying the elimination rule for the universal quantifier \((\forall_E)\) to the hypothesis \(\forall x P(x)\), instantiating it with a variable \(y\), resulting in \(P(y)\). The side condition for this rule requires that \(y\) be free for \(x\) in \(P(x)\), and this condition is satisfied.
 
-By matching the hypothesis derived from \(\exists_E\) with \(a\), we obtain \(\lnot P(a)\), and thus a contradiction arises. As a final step, we verify that all side conditions imposed by \(\exists_E\) are met, which they are. The complete proof is given below:
+By matching the hypothesis derived from \(\exists_E\) with \(y\), we obtain \(\lnot P(y)\), and thus a contradiction arises. As a final step, we verify that all side conditions imposed by \(\exists_E\) are met, which they are. The complete proof is given below:
 
 \begin{prooftree}
-  \AxiomC{$\exists x \lnot P(x)$}
-  \AxiomC{$\overset{1}{\forall x P(x)}$}
+  \AxiomC{$\exists x \;\lnot P(x)$}
+  \AxiomC{${\forall x \;P(x)}^1$}
   \RightLabel{$(\forall_E)$}
-  \UnaryInfC{$P(a)$}
-  \AxiomC{$\overset{2}{\lnot P(a)}$}
+  \UnaryInfC{$P(y)$}
+  \AxiomC{${\lnot P(y)}^2$}
   \RightLabel{$(\lnot_E)$}
   \BinaryInfC{$\bot$}
 
   \RightLabel{$(\exists_E, 2)$}
   \BinaryInfC{$\bot$}
   \RightLabel{$(\lnot_I, 1)$}
-  \UnaryInfC{$\lnot \forall x P(x)$}
+  \UnaryInfC{$\lnot \forall x \;P(x)$}
 \end{prooftree}
 
 
 
 \subsubsection*{Challenges}
-Natural deduction proofs present several challenges to users. One of the first difficulties is that many problems can have more than one valid solution. There is not always a single "correct" path, some proofs may be longer or use different rules, but still reach the same conclusion. This makes it harder to know which strategy to follow. The user must also know all the inference rules along with their side conditions. During the proof process, it is common to apply incorrect rules or apply them in the wrong order, which can lead to a dead end. As the proof progresses, new hypotheses appear and the goals change. Users must keep track of where and when they can use these hypotheses, which becomes even more difficult when dealing with side conditions in \gls{FOL}, such as avoiding free variables. These difficulties increase when the proof strategy itself is not straightforward. In some cases, no direct proof exists, and the result must be shown by contradiction. Some proofs also grow quite large, with many branches and assumptions, making it harder to follow and manage the steps correctly.
+Natural deduction proofs present several challenges to users. One of the first difficulties is that many problems can have more than one valid solution. There is not always a single "correct" path, some proofs may be longer or use different rules, but still reach the same conclusion. This makes it harder to know which strategy to follow. The user must also know all the inference rules along with their side conditions. During the proof process, it is common to apply incorrect rules or apply them in the wrong order, which can lead to a dead end. As the proof progresses, new hypotheses appear and the intermediate goals change. Users must keep track of where and when they can use these hypotheses, which becomes even more difficult when dealing with side conditions in \gls{FOL}, such as checking free variables. These difficulties increase when the proof strategy itself is not straightforward. In some cases, no direct proof exists, and the result must be shown by contradiction. Some proofs also grow quite large, with many branches and assumptions, making it harder to follow and manage the steps correctly.
 
-Below, we present an example of a proof in \gls{FOL} that shows how the process can become complicated. The proof demonstrates: \(\{\exists x \forall y L(x,y), \forall x \forall y (L(x,y) \to L(y,x))\} \vdash \forall x \exists y L(x,y)\). In this case, an auxiliary variable is required to swap the order of the variables in \(L(x,y)\).
+Below, we present an example of a proof in \gls{FOL} that shows how the process can become complicated.
 
 
 \begin{prooftree}
-  \AxiomC{$\exists x \forall y L(x,y)$}
+  \AxiomC{$\exists x \forall y \;L(x,y)$}
   
-  \AxiomC{$\overset{3}{\forall y L(x,y)}$}
+  \AxiomC{${\forall y \;L(x,y)}^3$}
   \RightLabel{($\forall_E$)}
 
   \UnaryInfC{$L(x,w)$}
   
-  \AxiomC{$\forall x \forall y (L(x,y) \to L(y,x))$}
+  \AxiomC{$\forall x \forall y \;(L(x,y) \to L(y,x))$}
   \RightLabel{($\forall_E$)}
   
-  \UnaryInfC{$\forall y (L(x,y) \to L(y,x))$}
+  \UnaryInfC{$\forall y \;(L(x,y) \to L(y,x))$}
   \RightLabel{($\forall_E$)}
   
   \UnaryInfC{$L(x,w) \to L(w,x)$}
@@ -649,18 +650,17 @@ Below, we present an example of a proof in \gls{FOL} that shows how the process 
   \BinaryInfC{$L(w,x)$}
 
   \RightLabel{($\exists_I$)}
-  \UnaryInfC{$\exists y L(w,y)$}
+  \UnaryInfC{$\exists y \;L(w,y)$}
 
   \RightLabel{($\forall_I$)}
-  \UnaryInfC{$\forall x \exists y L(x,y)$}
+  \UnaryInfC{$\forall x \exists y \;L(x,y)$}
 
 
   \RightLabel{($\exists_E,3$)}
-  \BinaryInfC{$\forall x \exists y L(x,y)$}
+  \BinaryInfC{$\forall x \exists y \;L(x,y)$}
 \end{prooftree}
 
-    
-
+The proof demonstrates: \(\{\exists x \forall y \; L(x,y), \forall x \forall y \;(L(x,y) \to L(y,x))\} \vdash \forall x \exists y \;L(x,y)\). In this case, an auxiliary variable is required to swap the order of the variables in \(L(x,y)\).   
 
 %Looking at the example in \autoref{tab:proof-tree}, if we consider a bottom-up solution, the first step is to apply the Implication Introduction rule to the conclusion. By doing so, we add the left part of the implication as a hypothesis and assign it a mark, numbered 1. Next, the Negation Introduction rule (\(\neg I\)) is applied. From this rule, \(\psi\) is obtained and added to our list of hypotheses, with a fresh mark assigned, numbered 2. Negation Elimination rule (\(\neg E\)) then is followed. This rule requires an expression and its negation to be applied. The hypothesis introduced in the first rule serves this purpose. The left side of the rule is closed. To complete the proof, the right side must also be closed. As a final step, the Disjunction Introduction rule on the left (\(\lor I_l\)) is applied, and the proof is closed using hypothesis 2.
 

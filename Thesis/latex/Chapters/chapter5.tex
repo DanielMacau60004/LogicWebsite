@@ -220,11 +220,11 @@ Let us show some examples of proofs represented in both ways, using our language
 \begin{minipage}[t]{0.48\textwidth}
 \centering
 \begin{prooftree}
-  \AxiomC{$\overset{2}{q}$}
+  \AxiomC{${q}^2$}
   \RightLabel{$(\to_I)$}
   \UnaryInfC{$p \to q$}
   
-  \AxiomC{$\overset{1}{(p \to q) \to p}$}
+  \AxiomC{${(p \to q) \to p}^1$}
   
   \RightLabel{$(\to_E)$}
   \BinaryInfC{$p$}
@@ -257,9 +257,9 @@ In the second example, we show a proof in \gls{FOL}, displayed in \autoref{parse
 \begin{minipage}[t]{0.48\textwidth}
 \centering
 \begin{prooftree}
-  \AxiomC{$\overset{1}{\exists y \; \forall x \;\phi}$}
+  \AxiomC{${\exists y \; \forall x \;\phi}^1$}
 
-  \AxiomC{$\overset{2}{\forall x \;\phi}$}
+  \AxiomC{${\forall x \;\phi}^2$}
   \RightLabel{$(\forall_E)$}
   \UnaryInfC{$\phi$}
   \RightLabel{$(\exists_I)$}
