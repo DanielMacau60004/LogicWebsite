@@ -1,26 +1,19 @@
 import {DragEndEvent, DragStartEvent,} from "@dnd-kit/core";
 import {
-    addTree,
     copy,
     deleteComponent,
     dragComponent,
-    paste, reportErrors,
+    paste,
     selectComponent,
     selectDraggingComponent,
     selectEditingComponent,
     sideDragging,
-    updateComponent, updateCurrentProof,
+    updateComponent,
 } from "../../../../store/boardSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {GlobalState} from "../../../../store";
 import {useRef} from "react";
-import {
-    BoardCurrentProof,
-    ComponentType,
-    ExpComponent,
-    PreviewTreeComponent,
-    TreeComponent
-} from "../../types/proofBoard";
+import {ComponentType, ExpComponent, PreviewTreeComponent, TreeComponent} from "../../types/proofBoard";
 import {
     APPENDS,
     CLONE_COMPONENT_ID,
@@ -29,10 +22,7 @@ import {
     SUBMIT_COMPONENT_ID
 } from "../../constants";
 import {Components} from "../../models/components/logic";
-import {testProof} from "../../services/requests";
 import {Boards} from "../../models/board/logic";
-import {exp, treeExp} from "../../models/components/components";
-import {deepCopy} from "../../../../utils/general";
 
 export function useBoardDnd() {
     const dispatch: any = useDispatch()
@@ -80,7 +70,19 @@ export function useBoardDnd() {
             (active !== undefined && active.id === component.id)) {
             dispatch(selectEditingComponent(component))
             dispatch(selectComponent(undefined))
-        } else setupSelectedRule(component.id)
+        } /*else {
+            if(state.active && state.active.id !== component.id) {
+                let dragging = state.components[state.active.id];
+                let dropping = state.components[Number(component.id)];
+
+                if(Components.canDrop(state, dragging, dropping)) {
+                    dispatch(selectDraggingComponent(Components.getLastParent(state,state.active) as TreeComponent))
+                    dispatch(dragComponent({over: component.id, position: {x: 100, y: 100}}))
+                    return
+                }
+            }*/
+        else setupSelectedRule(component.id)
+
     }
 
     function handleDragStart(event: DragStartEvent) {
@@ -93,7 +95,7 @@ export function useBoardDnd() {
 
         if (!component) {
             dispatch(selectComponent(undefined))
-            dispatch(selectEditingComponent(undefined)) //This was commented
+            dispatch(selectEditingComponent(undefined))
             return;
         }
 
@@ -108,17 +110,16 @@ export function useBoardDnd() {
         const clickedID = (event.activatorEvent.target as HTMLElement).closest('.proof-component')?.id;
 
         if (component.type === ComponentType.TREE) {
-           //dragging = component as TreeComponent
-            if(component.parent !== undefined) {
+            //dragging = component as TreeComponent
+            if (component.parent !== undefined) {
                 if (!isNaN(Number(clickedID)) && Number(clickedID) in components) {
                     const cmp = components[Number(clickedID)]
 
-                    if(cmp.type === ComponentType.EXP)
+                    if (cmp.type === ComponentType.EXP)
                         dragging = components[cmp.parent!] as TreeComponent
                     else dragging = Components.getLastParent(state, cmp) as TreeComponent
                 }
-            }
-            else dragging = component as TreeComponent
+            } else dragging = component as TreeComponent
         }
 
         dispatch(selectEditingComponent(undefined))
@@ -133,7 +134,6 @@ export function useBoardDnd() {
             component = components[Number(clickedID)]
 
         dispatch(selectComponent(component))
-
         const editable = (component.parent && (components[component.parent]?.editable ?? true));
 
         //Handle exp actions

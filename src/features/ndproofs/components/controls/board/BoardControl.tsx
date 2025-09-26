@@ -39,9 +39,9 @@ export function LockButton({ locked, onUnlock, onLock }: LockButtonProps) {
 
     return (
         <Button
-            className={`board-controls-btn mb-2 ${!locked ? "board-control-disabled" : ""}`}
+            className={`board-controls-btn mb-2 ${!locked ? "board-control-locked" : ""}`}
             onClick={locked ? onUnlock : onLock}
-            title={locked ? "Unlock" : "Lock"}
+            title={locked ? "Lock" : "Unlock"}
         >
             {!locked ? <FaLock size={20} /> : <FaUnlock size={20} />}
         </Button>

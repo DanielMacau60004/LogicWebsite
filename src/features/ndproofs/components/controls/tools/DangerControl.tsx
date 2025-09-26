@@ -17,21 +17,26 @@ import {feedbackLevels} from "../../../types/feedback";
 function SolverBtn({zoomToElement}: {
     zoomToElement: (selector: string, scale?: number, transitionTime?: number) => void
 }) {
+    const isEditable = useSelector((state: GlobalState) => state.board.isEditable);
     const {handleSolverClick} = useToolsControl(zoomToElement)
 
     return (
-        <Button className={"danger-controls-btn ms-1 mt-1"} onMouseDown={handleSolverClick} title="Solve exercise">
+        <Button
+                disabled={!isEditable}
+                className={`danger-controls-btn ms-1 mt-1 ${!isEditable ? "danger-controls-locked" : ""}`}
+                onMouseDown={handleSolverClick} title="Solve exercise">
             <VscOutput size={25}/>
         </Button>
     )
 }
 
 function HelperBtn() {
-    const isHelpMode = useSelector((state: GlobalState) => state.board.isHelpMode);
+    const {isHelpMode, isEditable} = useSelector((state: GlobalState) => state.board)
     const dispatch = useDispatch();
 
     return (
-        <Button className={"danger-controls-btn ms-1 mt-1"}
+        <Button className={`danger-controls-btn ms-1 mt-1 ${!isEditable ? "danger-controls-locked" : ""}`}
+                disabled={!isEditable}
         onClick={()=>{
             dispatch(switchHelpMode())
         }} title={isHelpMode ? "Show rules tooltip" : "Hide rules tooltip"}>
@@ -43,13 +48,14 @@ function HelperBtn() {
 }
 
 function FeedbackLevelBtn() {
-    const feedbackLevel = useSelector((state: GlobalState) => state.board.feedbackLevel);
+    const {feedbackLevel, isEditable} = useSelector((state: GlobalState) => state.board)
     const dispatch = useDispatch();
 
     return (
         <button
+            disabled={!isEditable}
             onClick={() => {dispatch(switchFeedbackLevel());}}
-            className="danger-controls-btn ms-1 mt-1"
+            className={`danger-controls-btn ms-1 mt-1 ${!isEditable ? "danger-controls-locked" : ""}`}
             title={feedbackLevel}
         >
             {"❙".repeat(feedbackLevels.indexOf(feedbackLevel)+1)}
@@ -58,13 +64,14 @@ function FeedbackLevelBtn() {
 }
 
 function LanguageBtn() {
-    const isFOL = useSelector((state: GlobalState) => state.board.isFOL);
+    const {isFOL, isEditable} = useSelector((state: GlobalState) => state.board)
     const dispatch = useDispatch();
 
     return (
         <button
+            disabled={!isEditable}
             onClick={() => {dispatch(switchFOL());}}
-            className="danger-controls-btn ms-1 mt-1"
+            className={`danger-controls-btn ms-1 mt-1 ${!isEditable ? "danger-controls-locked" : ""}`}
             title={"Current language"}
         >
             {isFOL ? "FOL" : "PL"}

@@ -24,6 +24,10 @@
   opacity: 1 !important;
 }
 
+.danger-controls-locked {
+  color: var(--text-color) !important;
+  background-color: var(--color-2) !important;
+}
 
 .danger-controls-btn:hover:not(:disabled) {
   transform: scale(1.2);

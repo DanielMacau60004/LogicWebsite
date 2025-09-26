@@ -212,7 +212,6 @@ const slice = createSlice({
 
             if(dragging.type === ComponentType.TREE)
                 dragging = state.components[(Components.getLastParent(state, dragging) as TreeComponent).conclusion]
-
             if (Components.canDrop(state, dragging, dropping)) {
                 saveStateForUndo(state);
                 BoardDrag.dragInsideComponents(state, dragging, dropping)

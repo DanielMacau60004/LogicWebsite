@@ -28,6 +28,11 @@
   background-color: var(--color-2) !important;
 }
 
+.board-control-locked {
+  color: var(--text-color) !important;
+  background-color: var(--color-4) !important;
+}
+
 .board-controls-btn:hover:not(:disabled) {
   transform: scale(1.2);
 }

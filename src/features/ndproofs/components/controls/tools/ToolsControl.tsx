@@ -22,10 +22,12 @@ function HomeBtn() {
 function AdderBtn({zoomToElement}: {
     zoomToElement: (selector: string, scale?: number, transitionTime?: number) => void
 }) {
-    const {handleAdderClick} = useToolsControl(zoomToElement)
+    const {handleAdderClick, locked} = useToolsControl(zoomToElement)
 
     return (
-        <Button className={"tools-controls-btn px-5"} onMouseDown={handleAdderClick} title="Add a new proof">
+        <Button onMouseDown={handleAdderClick} title="Add a new proof"
+                disabled={locked}
+            className={`tools-controls-btn px-5 ${locked ? "tools-controls-locked" : ""}`}>
             <IoMdAdd size={25}/>
         </Button>
     )

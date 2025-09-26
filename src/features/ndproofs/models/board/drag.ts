@@ -79,6 +79,7 @@ export const BoardDrag = {
             }
         } else {
             state.components[dragging.id].position = undefined;
+
             if (state.components[dropping.id]) {
                 state.components[dropping.id].position = undefined;
             }

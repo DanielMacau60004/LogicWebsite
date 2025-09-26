@@ -9,7 +9,7 @@ export type Position = { x: number; y: number };
 
 export function useToolsControl(zoomToElement: (selector: string, scale?: number, transitionTime?: number) => void) {
     const dispatch = useDispatch();
-    const {problem, isFOL, zoom, currentId, feedbackLevel} = useSelector((state: GlobalState) => state.board)
+    const {problem, isFOL, zoom, currentId, feedbackLevel, isEditable} = useSelector((state: GlobalState) => state.board)
     const state = useTransformContext();
 
     const handleAdderClick = () => {
@@ -55,5 +55,6 @@ export function useToolsControl(zoomToElement: (selector: string, scale?: number
         }
     };
 
-    return {handleAdderClick, handleSolverClick};
+    const locked = !isEditable
+    return {handleAdderClick, handleSolverClick, locked};
 }

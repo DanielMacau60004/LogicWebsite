@@ -29,8 +29,8 @@ export function StateControl() {
 
     return (
         <div className="state-controls p-0 list-unstyled d-flex flex-row align-items-center">
-            <UndoState onClick={onUndo} disabled={canUndo}/>
-            <RedoState onClick={onRedo} disabled={canRedo}/>
+            <UndoState onClick={onUndo} disabled={!canUndo}/>
+            <RedoState onClick={onRedo} disabled={!canRedo}/>
         </div>
     )
 }

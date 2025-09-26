@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-export const BASE_PATH = "https://logic-api-server-ee180d51e64e.herokuapp.com/".replace(/\/+$/, "");
+export const BASE_PATH = "https://logic-server-87aa7ed8344c.herokuapp.com/".replace(/\/+$/, "");
 //export const BASE_PATH = "http://localhost:8080".replace(/\/+$/, "");
 
 export interface ConfigurationParameters {
