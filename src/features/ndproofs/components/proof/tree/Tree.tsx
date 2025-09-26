@@ -96,7 +96,7 @@ function TreeRuleRow({tree}: { tree: TreeComponent }) {
             </td>
             <td>
                 {
-                    !isTouchDevice ? (
+                    !isTouchDevice && isHelpMode? (
                         <RuleHelper rule={components[tree.rule!!].value} show={500}>
                             <Rule rule={components[tree.rule!!] as RuleComponent} />
                         </RuleHelper>
@@ -112,7 +112,7 @@ function TreeRuleRow({tree}: { tree: TreeComponent }) {
                 </td>
             ))}
             {
-                isTouchDevice && <td>
+                isTouchDevice && isHelpMode && <td>
                     <RuleHelper rule={components[tree.rule!!].value}>
                         <div className={"rule-helper"}>
                             <FaQuestion/>
