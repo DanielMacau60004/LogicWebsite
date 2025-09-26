@@ -4,11 +4,11 @@ import {useRule} from "./useRule";
 import "./Rule.scss"
 
 export function Rule({rule}: { rule: RuleComponent }) {
-    const {id, ref, value, className, onBlur} = useRule({rule})
+    const {id, ref, value, className, hasValue, onBlur} = useRule({rule})
     return (
         <div id={id} ref={ref} onBlur={onBlur} tabIndex={0}
              className={`proof-component proof-rule ${className}`}>
-            <div className={"proof-component-content"}>
+            <div className={"proof-component-content"}  title={hasValue ? "" : "Add rule"}>
                 {value}
             </div>
         </div>

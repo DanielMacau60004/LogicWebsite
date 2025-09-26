@@ -16,7 +16,7 @@ export function useInputExp({exp}: { exp: ExpComponent }) {
     const {editing, components, isFOL, feedbackLevel, problem, exps} = useSelector((state: GlobalState) => state.board)
     const dispatch: any = useDispatch()
 
-    const [value, setValue] = useState(exp.value);
+    const [value, setValue] = useState<string>(exp.value ?? "");
 
     const isSelected = editing?.id === exp.id
     const size = value ? value.length + 2 : 2
@@ -47,7 +47,6 @@ export function useInputExp({exp}: { exp: ExpComponent }) {
         const cleanValue = !value?.trim() ? undefined : newValue?.trim();
 
         if (cleanValue !== components[exp.id].value) {
-            console.log(cleanValue)
             //Check if the formula is correct
             if (cleanValue) {
                 const existingExps = Boards.collectExpValues(state, Components.getLastParent(state, exp));
@@ -138,35 +137,7 @@ export function useInputExp({exp}: { exp: ExpComponent }) {
         //if (value === undefined) setValue("");
         const input = ref.current;
         if (input === null) return;
-        //const selectionStart = input.selectionStart ?? 0;
-        //const selectionEnd = input.selectionEnd ?? 0;
 
-        /*if (e.key === "(") {
-            e.preventDefault();
-            const val = value === undefined ? "" : value
-            const newValue = val.slice(0, selectionStart) + "()" + val.slice(selectionEnd);
-            setValue(newValue);
-
-            setTimeout(() => {
-                input.setSelectionRange(selectionStart + 1, selectionStart + 1);
-            }, 0);
-            return;
-        }
-
-        if (e.key === "Backspace") {
-            const val = value === undefined ? "" : value
-            if (val[selectionStart - 1] === "(" && val[selectionStart] === ")") {
-                e.preventDefault();
-                const newValue =
-                    val.slice(0, selectionStart - 1) +
-                    val.slice(selectionStart + 1);
-                setValue(newValue);
-                setTimeout(() => {
-                    input.setSelectionRange(selectionStart - 1, selectionStart - 1);
-                }, 0);
-                return;
-            }
-        }*/
 
         if ([" "].includes(e.key)) {
             setTimeout(() => {
@@ -182,7 +153,6 @@ export function useInputExp({exp}: { exp: ExpComponent }) {
                 }
             }, 10);
         }
-
 
     };
 

@@ -16,6 +16,7 @@ export function useRule({rule}: { rule: RuleComponent }) {
     const value = rule.value ?  rule.value : EMPTY_VALUE;
     const isSelected = editing?.id === rule.id
     const className = rule.value ? "" : "empty"
+    const hasValue = value !== EMPTY_VALUE
 
     useEffect(() => {
         if (!isSelected || !ref.current) return;
@@ -43,6 +44,6 @@ export function useRule({rule}: { rule: RuleComponent }) {
           dispatch(selectEditingComponent(undefined));
     };
 
-    return {id, ref, value, className, onBlur}
+    return {id, ref, value, className, onBlur, hasValue}
 
 }

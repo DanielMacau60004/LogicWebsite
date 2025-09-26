@@ -24,9 +24,10 @@ import {FaQuestion} from "react-icons/fa";
 import ErrorTooltip from "../../others/ErrorTooltip";
 import {FeedbackLevel} from "../../../types/feedback";
 import {deepCopy} from "../../../../../utils/general";
+import {Boards} from "../../../models/board/logic";
 
 export function Tree({tree}: { tree: TreeComponent }) {
-    const {drag, isRoot, isSelected, onRender} = useTreeState(tree);
+    const {drag, isRoot, isSelected, shouldCompareConclusion, hasErrors, onRender} = useTreeState(tree);
 
     return (
         <Draggable
@@ -34,7 +35,8 @@ export function Tree({tree}: { tree: TreeComponent }) {
             className={`proof-component proof-tree ${isRoot ? "root" : ""} ${tree.hasErrors ? "error" : ""}`}
             onRender={onRender}
         >
-            {isSelected && !drag && <TreeMenu hasErrors={tree.hasErrors} isValid={tree.isValid} solveCurrentExercise={tree.solveExercise}/>}
+            {isSelected && !drag && <TreeMenu hasErrors={tree.hasErrors || hasErrors} isValid={tree.isValid}
+                                             shouldCompareConclusion={shouldCompareConclusion} solveCurrentExercise={tree.solveExercise}/>}
             <TreeContent tree={tree}/>
         </Draggable>
     );

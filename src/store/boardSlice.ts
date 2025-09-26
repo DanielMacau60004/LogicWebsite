@@ -324,7 +324,7 @@ const slice = createSlice({
             if (result.premises) {
                 result.premises.forEach((p: string | undefined) => {
                     const id = Boards.appendComponent(state, expSidebar(p as string, undefined));
-                    console.log(deepCopy(expSidebar(p as string, undefined)))
+
                     current.premises!.push(id);
                 });
             }

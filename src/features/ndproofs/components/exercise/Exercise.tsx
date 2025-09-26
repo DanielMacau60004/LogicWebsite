@@ -21,7 +21,7 @@ export function Exercise() {
 
     return (
         <div className="exercise p-0 list-unstyled d-flex flex-row align-items-center">
-            <div className={"exercise-content"}>
+            <div className={"exercise-content"} title={"Drag me"}>
                 {state.exercise.map((premise: number, index) => {
                     const isLast = index === state.exercise.length - 1;
 

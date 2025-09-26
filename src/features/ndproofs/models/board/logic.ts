@@ -1,7 +1,7 @@
 import {
     Board,
     Component,
-    ComponentType, ExpComponent,
+    ComponentType,
     PreviewComponent,
     PreviewMarkComponent,
     PreviewTreeComponent,
@@ -12,18 +12,17 @@ import {RULE_DETAILS} from "../../types/proofRules";
 import {BoardPosition} from "./position";
 import {Components} from "../components/logic";
 import {exp, mark, treeExp} from "../components/components";
-import {deepCopy} from "../../../../utils/general";
 import {
     addTree,
     deleteComponent,
     reportErrors,
     selectComponent,
     selectDraggingComponent,
-    updateComponent, updateCurrentProof
+    updateComponent,
+    updateCurrentProof
 } from "../../../../store/boardSlice";
 import {testProof} from "../../services/requests";
-import {useDispatch} from "react-redux";
-import {APPENDS} from "../../constants";
+import {deepCopy} from "../../../../utils/general";
 
 export const Boards = {
 
@@ -66,10 +65,26 @@ export const Boards = {
 
             case ComponentType.EXP:
                 const expCMP = state.components[component.id];
-                return !!expCMP?.value  && (expCMP.isWFF===undefined || expCMP.isWFF)
+                return !!expCMP?.value && (expCMP.isWFF === undefined || expCMP.isWFF)
 
             default:
                 return false;
+        }
+    },
+
+    hasErrors(state: Board, component: PreviewComponent): boolean {
+        switch (component.type) {
+            case ComponentType.TREE:
+                const tree = component as PreviewTreeComponent;
+                const results = tree.hypotheses?.map(h => this.hasErrors(state, h)) ?? [];
+                return this.hasErrors(state, tree.conclusion) && results.every(Boolean);
+
+            case ComponentType.EXP:
+                const expCMP = state.components[component.id];
+                return expCMP.isWFF !== undefined && !expCMP.isWFF
+
+            default:
+                return true;
         }
     },
 
@@ -109,7 +124,8 @@ export const Boards = {
                 const marks = tree.marks?.map((mark: PreviewMarkComponent) =>
                     this.appendComponent(state, mark, id));
 
-                state.components[id] = { ...tree,
+                state.components[id] = {
+                    ...tree,
                     id, type: ComponentType.TREE, parent, position: tree.position, conclusion, rule, hypotheses, marks,
                     editable: tree.editable, clone: tree.clone
                 }
@@ -173,8 +189,8 @@ export const Boards = {
                 // Recursively extract nested PreviewComponents
                 const conclusion = this.convertToPreview(state, tree.conclusion);
 
-                if(!Components.isASimpleTree(tree))
-                    conclusion.mark  = undefined
+                if (!Components.isASimpleTree(tree))
+                    conclusion.mark = undefined
 
                 const rule = tree.rule !== undefined ? this.convertToPreview(state, tree.rule) : undefined;
                 const hypotheses = tree.hypotheses?.map((hypId: number) => this.convertToPreview(state, hypId));
@@ -337,10 +353,10 @@ export const Boards = {
         const currentParent = state.components[active.parent]
 
         if (!Components.isASimpleTree(currentParent)) {
-           // const tree = currentParent as TreeComponent
+            // const tree = currentParent as TreeComponent
             const index = currentParent.hypotheses?.indexOf(active.id)
 
-            if(index >= 0) {
+            if (index >= 0) {
                 currentParent.hypotheses[index] = newID
 
                 newTree.parent = currentParent.id
@@ -366,16 +382,23 @@ export const Boards = {
         return newID
     },
 
-    testTree(state: Board, component: TreeComponent, dispatch: any) : void {
-        if(state.problem === undefined) return
+    testTree(state: Board, component: TreeComponent, dispatch: any): void {
+        if (state.problem === undefined) return
 
         const conclusion = state.components[component.conclusion].value
         const exercise = [...state.problem.premises, state.problem.conclusion]
         const shouldCompareConclusion = conclusion === state.problem.conclusion
         const tree = Boards.convertToPreview(state, component.id) as PreviewTreeComponent
 
-        if(!Boards.canBeSubmitted(state, tree)) {
-            dispatch(updateComponent({component: {...component, hasErrors: true, solveExercise: undefined, isValid: undefined}, saveState: false}))
+        if (!Boards.canBeSubmitted(state, tree)) {
+            dispatch(updateComponent({
+                component: {
+                    ...component,
+                    hasErrors: true,
+                    solveExercise: undefined,
+                    isValid: undefined
+                }, saveState: false
+            }))
             dispatch(reportErrors(tree))
             return
         }
@@ -402,7 +425,7 @@ export const Boards = {
                 if (result.hypotheses)
                     result.proof.proved.hypotheses = result.hypotheses;
 
-                if(!result.hasError) {
+                if (!result.hasError) {
                     result.proof.isValid = true;
                     result.proof.solveExercise = shouldCompareConclusion;
                 }

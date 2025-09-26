@@ -5,10 +5,11 @@ import {CLONE_COMPONENT_ID, DELETE_COMPONENT_ID, SUBMIT_COMPONENT_ID} from "../.
 type TreeMenuProps = {
     hasErrors: boolean;
     isValid: boolean;
+    shouldCompareConclusion: boolean;
     solveCurrentExercise: boolean;
 };
 
-export function TreeMenu({ hasErrors, isValid, solveCurrentExercise }: TreeMenuProps) {
+export function TreeMenu({ hasErrors, isValid, shouldCompareConclusion, solveCurrentExercise }: TreeMenuProps) {
 
     return (
         <>
@@ -18,18 +19,24 @@ export function TreeMenu({ hasErrors, isValid, solveCurrentExercise }: TreeMenuP
                 </div>
             )}
 
+            {hasErrors && (
+                <div className="proof-properties top-center invalid">
+                    {"Errors found"}
+                </div>
+            )}
+
             <div className="proof-properties top-right">
-                <button id={DELETE_COMPONENT_ID} className="proof-component">
-                    <FaTrash size={20} />
+                <button id={DELETE_COMPONENT_ID} className="proof-component" title={"Delete"}>
+                <FaTrash size={20} />
                 </button>
-                <button id={CLONE_COMPONENT_ID} className="proof-component">
+                <button id={CLONE_COMPONENT_ID} className="proof-component" title={"Duplicate"}>
                     <FaClone size={20} />
                 </button>
             </div>
 
             <div className="proof-properties bottom-center">
                 <button id={SUBMIT_COMPONENT_ID} className="proof-component proof-check">
-                    Check Proof
+                    {shouldCompareConclusion ? "Check" : "Check"}
                 </button>
             </div>
         </>

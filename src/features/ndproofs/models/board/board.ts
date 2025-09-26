@@ -21,7 +21,7 @@ export function board(isFOL: boolean, exercise?: NDProblem): Board {
         exercise: [],
         problem: undefined,
         isFOL: isFOL,
-        isHelpMode: true,
+        isHelpMode: false,
         currentProof: undefined,
         feedbackLevel: FeedbackLevel.Low,
         exps: []

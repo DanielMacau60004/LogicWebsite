@@ -39,9 +39,11 @@
     background-color: transparent;
     padding: 5px 10px;
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
 
     &.top-right {
-      top: -35px;
+      top: -25px;
       right: -35px;
     }
 
@@ -98,7 +100,7 @@
 }
 
 .proof-check {
-  width: 120px;
+  width: 80px;
 }
 
 .proof-rules {

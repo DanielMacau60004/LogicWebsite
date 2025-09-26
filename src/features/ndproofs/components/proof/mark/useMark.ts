@@ -24,6 +24,7 @@ export function useMark({mark}: { mark: MarkComponent }) {
     const isSelected = editing?.id === mark.id
     const className = mark.value ? "" : "empty"
     const style = mark.value ? {backgroundColor: MarksColorsArray[(mark.value - 1) % MarksColorsArray.length]} as React.CSSProperties : undefined
+    const hasValue = value !== EMPTY_VALUE
 
     useEffect(() => {
         if (!isSelected || !ref.current) return;
@@ -50,5 +51,5 @@ export function useMark({mark}: { mark: MarkComponent }) {
             dispatch(selectEditingComponent(undefined));
     };
 
-    return {id, ref, value, className, style, onBlur}
+    return {id, ref, value, className, style, onBlur, hasValue}
 }
