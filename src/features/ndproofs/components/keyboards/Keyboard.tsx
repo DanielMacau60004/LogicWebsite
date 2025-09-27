@@ -33,7 +33,7 @@ type ExpKeyBoardProps = {
 
 export function Keyboard({id, ref, show, target, placement, style, children}: ExpKeyBoardProps) {
     return (
-        <div id={id} tabIndex={-1} ref={ref} style={style}>
+        <div id={id} tabIndex={-1} ref={ref} style={{ ...style, zIndex: 2000 }}>
 
             <Overlay
                 show={show}

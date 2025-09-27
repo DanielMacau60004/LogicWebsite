@@ -79,13 +79,12 @@ export function Board() {
                         <div id={BOARD_CONTROLLERS_ID}>
                             <Exercise/>
                             <BoardControl instance={instance}/>
-                            <ExpKeyboard/>
-                            <RuleKeyboard/>
-                            <MarkKeyboard/>
-
                             <StateControl/>
                             <ToolsControl zoomToElement={zoomToElement}/>
                             <DangerControl zoomToElement={zoomToElement}/>
+                            <ExpKeyboard/>
+                            <RuleKeyboard/>
+                            <MarkKeyboard/>
                         </div>
 
                     </DndContext>

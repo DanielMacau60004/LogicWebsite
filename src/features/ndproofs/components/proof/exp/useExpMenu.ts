@@ -26,7 +26,7 @@ export function useExpMenu({exp}: { exp: ExpComponent }) {
             (state.active && state.active.id === exp.id) ||
             (state.active && state.active.parent === exp.id) ||
             (state.editing && exp.mark !== undefined && state.editing.id === exp.mark)
-        ) && (exp.mark === undefined || markComponent?.value === undefined || markComponent?.value === null)
+        )
     );
 
 

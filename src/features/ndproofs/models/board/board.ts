@@ -23,7 +23,7 @@ export function board(isFOL: boolean, exercise?: NDProblem): Board {
         isFOL: isFOL,
         isHelpMode: false,
         currentProof: undefined,
-        feedbackLevel: FeedbackLevel.Low,
+            feedbackLevel: FeedbackLevel.Medium,
         exps: []
     };
 
