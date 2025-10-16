@@ -54,7 +54,7 @@ function FeedbackLevelBtn() {
     return (
         <button
             disabled={!isEditable}
-            //onClick={() => {dispatch(switchFeedbackLevel());}}
+            onClick={() => {dispatch(switchFeedbackLevel());}}
             className={`danger-controls-btn ms-1 mt-1 ${!isEditable ? "danger-controls-locked" : ""}`}
             title={"Feedback level\n" + feedbackLevel}
         >
@@ -83,7 +83,7 @@ export function DangerControl({ zoomToElement }: { zoomToElement: (selector: str
 
     return (
         <div className="danger-controls p-0 list-unstyled d-flex flex-column align-items-center">
-            {/*<SolverBtn zoomToElement={zoomToElement}/>*/}
+            {/* <SolverBtn zoomToElement={zoomToElement}/>*/}
             <HelperBtn/>
             <FeedbackLevelBtn/>
             {/*<LanguageBtn/>*/}

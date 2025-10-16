@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {GlobalState} from "../../../../../store";
-import {selectEditingComponent, setExercise, setExps, updateComponent} from "../../../../../store/boardSlice";
+import {selectEditingComponent, setExps, updateComponent} from "../../../../../store/boardSlice";
 import {ExpComponent} from "../../../types/proofBoard";
 import {EXP_KEYBOARD_COMPONENT_ID, KEYWORD_TO_SYMBOLS} from "../../../constants";
 import {loadExps, testExpression} from "../../../services/requests";
@@ -70,7 +70,7 @@ export function useInputExp({exp}: { exp: ExpComponent }) {
                     let errors: Record<string, any> = {};
 
                     if (!isWFF) errors = response.exp.errors;
-                    else if (!allExist){
+                    else if (!allExist) {
                         loadExps(exercise, isFOL).then(r => dispatch(setExps(r)));
                     }
 
@@ -102,11 +102,6 @@ export function useInputExp({exp}: { exp: ExpComponent }) {
         finalizeEditing()
     };
 
-    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setValue(e.target.value);
-        dispatch(selectEditingComponent({...components[exp.id], value: e.target.value}))
-    };
-
     function tryReplaceKeywordBeforeCursor(
         text: string,
         cursor: number
@@ -131,31 +126,62 @@ export function useInputExp({exp}: { exp: ExpComponent }) {
         return {replaced: false, newValue: text, newCursor: cursor};
     }
 
-    const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') finalizeEditing();
+    const handleKeywordReplacement = (
+        input: HTMLInputElement | null,
+        currentValue: string
+    ) => {
+        if (!input) return;
 
-        //if (value === undefined) setValue("");
-        const input = ref.current;
-        if (input === null) return;
+        const cursor = input.selectionStart ?? currentValue.length;
+        const {replaced, newValue, newCursor} = tryReplaceKeywordBeforeCursor(currentValue, cursor);
 
+        if (replaced) {
+            setValue(newValue);
+            dispatch(selectEditingComponent({...components[exp.id], value: newValue}));
 
-        if ([" "].includes(e.key)) {
             setTimeout(() => {
-                const currentValue = input.value;
-                const cursor = input.selectionStart ?? 0;
-                const {replaced, newValue, newCursor} = tryReplaceKeywordBeforeCursor(currentValue, cursor);
-                if (replaced) {
-                    setValue(newValue);
-                    dispatch(selectEditingComponent({...components[exp.id], value: newValue}))
-                    setTimeout(() => {
-                        input.setSelectionRange(newCursor, newCursor);
-                    }, 10);
-                }
+                input.setSelectionRange(newCursor, newCursor);
             }, 10);
+        }
+    };
+
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setValue(e.target.value);
+        dispatch(selectEditingComponent({...components[exp.id], value: e.target.value}))
+    };
+
+    const onInput = (e: React.FormEvent<HTMLInputElement>) => {
+        const input = e.currentTarget;
+        const newVal = input.value;
+
+        setValue(newVal);
+        dispatch(selectEditingComponent({...components[exp.id], value: newVal}));
+
+        const native = e.nativeEvent as InputEvent;
+        const inputType = native.inputType;
+        const data = native.data;
+
+        let lastChar: string | null = null;
+
+        if ((inputType === "insertText" || inputType === "insertCompositionText") && data) {
+            lastChar = data;
+        }
+
+        if (lastChar) {
+            if (lastChar === " ") {
+                setTimeout(() => {
+                    handleKeywordReplacement(input, newVal);
+                }, 10);
+            }
         }
 
     };
 
-    return {isSelected, size, ref, value, onBlur, onChange, onKeyDown}
+    const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') finalizeEditing();
+
+    };
+
+    return {isSelected, size, ref, value, onBlur, onChange, onKeyDown, onInput}
 
 }

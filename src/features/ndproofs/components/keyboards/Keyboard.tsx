@@ -7,19 +7,22 @@ export function renderKeyButtons(
     id: string,
     symbols: string[],
     className: string,
-    onKeyClick: (char: any) => void
+    onKeyClick: (char: any) => void,
+    title?: string
 ) {
     return symbols.map((symbol) => (
         <button
-            id={id + "-key"}
+            id={`${id}-key`}
             key={symbol}
             className={className}
             onClick={() => onKeyClick(symbol)}
+            title={title || undefined}
         >
             {symbol}
         </button>
     ));
 }
+
 
 type ExpKeyBoardProps = {
     id: string;

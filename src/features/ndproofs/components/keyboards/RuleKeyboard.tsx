@@ -115,7 +115,7 @@ export function RuleKeyboard() {
             <Keyboard id={RULE_KEYBOARD_COMPONENT_ID} ref={ref} show={show} target={target} style={style}
                       placement={"right-start"}>
                 <div className="aux-keyboard-content scrollable">
-                    {canDelete && renderKeyButtons(RULE_KEYBOARD_COMPONENT_ID, ['⨯'], "key large delete", onKeyClick)}
+                    {canDelete && renderKeyButtons(RULE_KEYBOARD_COMPONENT_ID, ['⨯'], "key large delete", onKeyClick, "Remove rule")}
                     {renderKeyTypeRuleButtons(RULE_KEYBOARD_COMPONENT_ID, Array.from(groupedByType.keys()),
                         "key large")}
                 </div>

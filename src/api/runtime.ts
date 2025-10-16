@@ -13,7 +13,7 @@
  */
 
 export const BASE_PATH = "https://logic-server-87aa7ed8344c.herokuapp.com/".replace(/\/+$/, "");
-//export const BASE_PATH = "http://localhost:8080".replace(/\/+$/, "");
+//export const BASE_PATH = "http://85.245.36.205:8080".replace(/\/+$/, "");
 
 export interface ConfigurationParameters {
     basePath?: string; // override base path

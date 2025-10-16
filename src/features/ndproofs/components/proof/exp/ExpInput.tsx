@@ -3,7 +3,7 @@ import {useInputExp} from "./useInputExp";
 import {ExpComponent} from "../../../types/proofBoard";
 
 export function ExpInput({exp}: { exp: ExpComponent }) {
-    const {size, ref, value, onBlur, onChange, onKeyDown} = useInputExp({exp})
+    const {size, ref, value, onBlur, onChange, onKeyDown, onInput} = useInputExp({exp})
 
     return (
         <input
@@ -21,6 +21,7 @@ export function ExpInput({exp}: { exp: ExpComponent }) {
             spellCheck="false"
             aria-autocomplete="none"
             onSubmit={onBlur}
+            onInput={onInput}
             onKeyDown={onKeyDown}
             maxLength={80}
             onMouseDown={(e) => e.stopPropagation()}

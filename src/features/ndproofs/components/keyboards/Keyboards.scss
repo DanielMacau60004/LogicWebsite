@@ -37,7 +37,7 @@
     height: 30px !important;
     display: inline-block !important;
     border-radius: 10px;
-    background-color: var(--color-5) !important;
+    background-color: var(--color-5);
     border: unset !important;
     color: var(--text-color) !important;
     margin: 2px;
@@ -57,7 +57,7 @@
     }
 
     &.delete {
-      background-color: var(--color-6) !important;
+      background-color: rgb(var(--color-danger)) !important;
       font-size: 20px;
       line-height: 1 !important;
 

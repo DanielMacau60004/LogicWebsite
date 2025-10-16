@@ -6,6 +6,7 @@ body {
 
 .tooltip {
   opacity: 1 !important;
+  z-index: 100000 !important;
 }
 
 .tooltip .tooltip-inner {

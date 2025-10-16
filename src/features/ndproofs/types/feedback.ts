@@ -11,6 +11,6 @@ export const feedbackLevels: FeedbackLevel[] = [
     FeedbackLevel.None,
     FeedbackLevel.Low,
     FeedbackLevel.Medium,
-    FeedbackLevel.High,
-    FeedbackLevel.Solution
+    //FeedbackLevel.High,
+    //FeedbackLevel.Solution
 ];
