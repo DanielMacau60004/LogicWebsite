@@ -14,7 +14,7 @@
   border: unset !important;
   max-width: 400px !important;
   padding: 6px;
-  z-index: 1000 !important;
+  z-index: 100 !important;
 
   &.bs-popover-top .popover-arrow::after {
     border-top-color: var(--color-2);

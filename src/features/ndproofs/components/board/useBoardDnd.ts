@@ -40,6 +40,8 @@ export function useBoardDnd() {
     }
 
     function handleTreeActions(component: TreeComponent, clickedID?: string): boolean {
+        const submitting = component.isBeingSubmitted ?? false;
+
         if (clickedID === DELETE_COMPONENT_ID) {
             dispatch(selectComponent(Components.getLastParent(state, component)));
             dispatch(deleteComponent({saveState: true}));
@@ -49,7 +51,7 @@ export function useBoardDnd() {
             dispatch(copy());
             dispatch(paste());
             return true
-        } else if (clickedID === SUBMIT_COMPONENT_ID && problem) {
+        } else if (clickedID === SUBMIT_COMPONENT_ID && problem && !submitting) {
             Boards.testTree(state, component, dispatch)
             return true;
         }
@@ -59,10 +61,12 @@ export function useBoardDnd() {
 
     function setupSelectedRule(id: number) {
         const rule_bot = components[APPENDS.APPEND_RULE_TOP_COMPONENT_ID]
-        dispatch(updateComponent({component: {...rule_bot, value: undefined, parent: id}, saveState: false}))
+        dispatch(updateComponent({component: {...rule_bot, value: undefined, parent: id}, saveState: false,
+            shouldNotResetTree: false}))
 
         const rule_top = components[APPENDS.APPEND_RULE_BOTTOM_COMPONENT_ID]
-        dispatch(updateComponent({component: {...rule_top, value: undefined, parent: id}, saveState: false}))
+        dispatch(updateComponent({component: {...rule_top, value: undefined, parent: id}, saveState: false,
+            shouldNotResetTree: false}))
     }
 
     function handleExpActions(component: ExpComponent) {

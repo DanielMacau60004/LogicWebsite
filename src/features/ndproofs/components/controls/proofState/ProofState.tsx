@@ -13,6 +13,8 @@ export function ProofState() {
 
     const {premises, conclusion, hypotheses} = state.currentProof
 
+
+
     return (
         <div className="proof-state">
             <div className={"proof-state-content"}>

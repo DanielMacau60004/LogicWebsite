@@ -17,8 +17,7 @@ export function useTreeState(tree: TreeComponent) {
         (active && Components.getLastParent(state, active).id === tree.id) ||
         (editing && Components.getLastParent(state, editing).id === tree.id);
 
-    const isSelected = active && active.id && active.type === ComponentType.TREE &&
-        Components.getLastParent(state, active).id === tree.id;
+    const isSelected = active && active.id && Components.getLastParent(state, active).id === tree.id;
 
     const shouldCompareConclusion = state.problem! && state.components[tree.conclusion].value === state.problem.conclusion
 

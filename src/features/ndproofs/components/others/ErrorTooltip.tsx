@@ -87,7 +87,8 @@ const ErrorTooltip: React.FC<TooltipWrapperProps> = (
                 ],
             }}
         >
-            <span className={`incorrect-tooltip-icon incorrect small ${className}`} style={style}>
+            <span className={`incorrect-tooltip-icon incorrect small ${className}`} style={style}
+            id={"error"}>
                 <div>
                     <FaExclamation/>
                 </div>

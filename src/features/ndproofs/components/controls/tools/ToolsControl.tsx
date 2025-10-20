@@ -27,7 +27,7 @@ function AdderBtn({zoomToElement}: {
     return (
         <Button onMouseDown={handleAdderClick} title="Add a new proof"
                 disabled={locked}
-            className={`tools-controls-btn px-5 ${locked ? "tools-controls-locked" : ""}`}>
+            className={`add-block tools-controls-btn px-5 ${locked ? "tools-controls-locked" : ""}`}>
             <IoMdAdd size={25}/>
         </Button>
     )

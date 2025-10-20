@@ -36,10 +36,11 @@ function HelperBtn() {
 
     return (
         <Button className={`danger-controls-btn ms-1 mt-1 ${!isEditable ? "danger-controls-locked" : ""}`}
+                id={"helpMode"}
                 disabled={!isEditable}
         onClick={()=>{
             dispatch(switchHelpMode())
-        }} title={isHelpMode ? "Show rules tooltip" : "Hide rules tooltip"}>
+        }} title={!isHelpMode ? "Show rules tooltip" : "Hide rules tooltip"}>
 
             {isHelpMode && <TbHelp  size={25}/>}
             {!isHelpMode && <TbHelpOff  size={25}/>}
@@ -52,14 +53,15 @@ function FeedbackLevelBtn() {
     const dispatch = useDispatch();
 
     return (
-        <button
+        <Button
             disabled={!isEditable}
             onClick={() => {dispatch(switchFeedbackLevel());}}
             className={`danger-controls-btn ms-1 mt-1 ${!isEditable ? "danger-controls-locked" : ""}`}
+            id={"feedbackLevel"}
             title={"Feedback level\n" + feedbackLevel}
         >
             {"❙".repeat(feedbackLevels.indexOf(feedbackLevel)+1)}
-        </button>
+        </Button>
     );
 }
 

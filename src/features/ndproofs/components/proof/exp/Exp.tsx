@@ -7,16 +7,18 @@ import "./Exp.scss"
 import {ExpMenu} from "./ExpMenu";
 import {ExpInput} from "./ExpInput";
 import ErrorTooltip from "../../others/ErrorTooltip";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {GlobalState} from "../../../../../store";
 import {FeedbackLevel} from "../../../types/feedback";
 import {HintTooltip} from "../../others/HintTooltip";
 import {deepCopy} from "../../../../../utils/general";
+import {selectComponent, selectEditingComponent} from "../../../../../store/boardSlice";
 
 export function Exp({exp}: { exp: ExpComponent }) {
     const state = useSelector((state: GlobalState) => state.board);
     const {isSelected, value, hasMarkValue, markComponent, onRender} = useExp({exp});
     const hasErrors = !!Object.keys(exp.errors || {}).length;
+    const dispatch: any = useDispatch()
 
     return (
         <>
@@ -30,8 +32,14 @@ export function Exp({exp}: { exp: ExpComponent }) {
             <Droppable id={String(exp.id)} className="proof-component proof-exp" onRender={onRender}>
                 <ExpMenu exp={exp} markComponent={markComponent}/>
 
-
-                <div className="proof-component-content">
+                <div className="proof-component-content"
+                     onMouseDownCapture={(e) => {
+                         if (e.button === 2 && (exp.editable ?? true)) {
+                             dispatch(selectEditingComponent(exp));
+                             dispatch(selectComponent(undefined));
+                         }
+                     }}
+                >
                     {isSelected ? (
                         <ExpInput exp={exp}/>
                     ) : (value)}

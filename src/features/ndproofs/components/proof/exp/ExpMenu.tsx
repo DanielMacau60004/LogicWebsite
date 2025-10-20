@@ -16,7 +16,7 @@ export function ExpMenu({exp, markComponent}: { exp: ExpComponent, markComponent
     return (
         <>
             {showRuleTop && (
-                <div className="rule-adder">
+                <div className="rule-adder rule-top">
                     <Rule rule={rule_top as RuleComponent}/>
                 </div>
             )}

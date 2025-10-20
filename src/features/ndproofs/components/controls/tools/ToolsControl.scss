@@ -1,7 +1,7 @@
 @import "../../../../../style/variables";
 
 .tools-controls {
-  z-index: 200;
+  z-index: 100;
   position: absolute;
   height: auto;
   top:20px;
@@ -10,7 +10,7 @@
 }
 
 .tools-controls-bottom {
-  z-index: 200;
+  z-index: 100;
   position: absolute;
   height: auto;
   bottom:20px;

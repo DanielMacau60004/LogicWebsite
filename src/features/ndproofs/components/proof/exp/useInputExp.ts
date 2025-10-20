@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {GlobalState} from "../../../../../store";
+import {GlobalState, store} from "../../../../../store";
 import {selectEditingComponent, setExps, updateComponent} from "../../../../../store/boardSlice";
 import {ExpComponent} from "../../../types/proofBoard";
 import {EXP_KEYBOARD_COMPONENT_ID, KEYWORD_TO_SYMBOLS} from "../../../constants";
@@ -69,15 +69,20 @@ export function useInputExp({exp}: { exp: ExpComponent }) {
                     const value = isWFF ? response.exp.value : cleanValue
                     let errors: Record<string, any> = {};
 
-                    if (!isWFF) errors = response.exp.errors;
-                    else if (!allExist) {
+                    if (!isWFF)
+                        errors = response.exp.errors;
+
+                    else if (!allExist)
                         loadExps(exercise, isFOL).then(r => dispatch(setExps(r)));
-                    }
 
                     dispatch(updateComponent({
                         component: {...components[exp.id], value: value, isWFF: isWFF, errors: errors},
                         saveState: true
                     }));
+
+                    if(!isWFF)
+                        dispatch(updateComponent({component: {...Components.getLastParent(state, exp), hasErrors: true},
+                            saveState: false, shouldNotResetTree: false}))
 
                 })
             } else {

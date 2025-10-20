@@ -4,7 +4,8 @@ import {
     Board,
     BoardCurrentProof,
     Component,
-    ComponentType, NDProblem,
+    ComponentType,
+    NDProblem,
     Position,
     PreviewComponent,
     PreviewTreeComponent,
@@ -17,10 +18,8 @@ import {Components} from "../features/ndproofs/models/components/logic";
 import {BoardDrag} from "../features/ndproofs/models/board/drag";
 import {BoardPosition} from "../features/ndproofs/models/board/position";
 import {MAX_SCALE, MIN_SCALE} from "../features/ndproofs/constants";
-import {expSidebar, treeExp} from "../features/ndproofs/models/components/components";
+import {expSidebar} from "../features/ndproofs/models/components/components";
 import {feedbackLevels} from "../features/ndproofs/types/feedback";
-import {testProof} from "../features/ndproofs/services/requests";
-import {GlobalState} from "./index";
 
 const MOVEMENT_THRESHOLD = 10;
 const MAX_HISTORY_DEPTH = 20;
@@ -90,6 +89,8 @@ const slice = createSlice({
                     tree as TreeComponent)
             }
 
+            //action.payload.hasErrors = undefined
+            //action.payload.isValid = undefined
             state.active = undefined
         },
         addTree: (state, action: PayloadAction<{ component: PreviewTreeComponent, saveState: boolean }>) => {
@@ -99,6 +100,9 @@ const slice = createSlice({
             const id = Boards.appendComponent(state, action.payload.component)
             state.boardItems[id] = id
             state.active = state.components[id]
+
+            //action.payload.component.hasErrors = undefined
+            //action.payload.component.isValid = undefined
         },
         sideDragging: (state, action: PayloadAction<{ dragging: TreeComponent, preview: PreviewTreeComponent }>) => {
             saveStateForUndo(state);
@@ -138,7 +142,10 @@ const slice = createSlice({
                 state.editing = undefined
             }
         },
-        updateComponent: (state, action: PayloadAction<{ component: Component, saveState: boolean }>) => {
+        updateComponent: (state, action: PayloadAction<{
+            component: Component, saveState: boolean,
+            shouldNotResetTree?: boolean
+        }>) => {
             const {component, saveState} = action.payload
 
             if (saveState) saveStateForUndo(state);
@@ -151,6 +158,13 @@ const slice = createSlice({
 
             if (component.type === ComponentType.EXP)
                 component.genHints = undefined
+
+            if (action.payload.shouldNotResetTree !== false) {
+                const t = Components.getLastParent(state, action.payload.component)
+                t.hasErrors = undefined
+                t.isValid = undefined
+            }
+
             //state.editing = component
         },
         deleteComponent: (state, action: PayloadAction<{ saveState: boolean }>) => {
@@ -210,16 +224,39 @@ const slice = createSlice({
             let dragging = state.components[active.id];
             let dropping = state.components[Number(over)];
 
-            if(dragging.type === ComponentType.TREE)
+            if (dragging.type === ComponentType.TREE)
                 dragging = state.components[(Components.getLastParent(state, dragging) as TreeComponent).conclusion]
+
             if (Components.canDrop(state, dragging, dropping)) {
                 saveStateForUndo(state);
                 BoardDrag.dragInsideComponents(state, dragging, dropping)
+
+                const t1 = Components.getLastParent(state, dragging)
+                t1.hasErrors = undefined
+                t1.isValid = undefined
+
+                const t2 = Components.getLastParent(state, dropping)
+                t2.hasErrors = undefined
+                t2.isValid = undefined
+
             } else {
                 saveStateForUndo(state);
-                BoardDrag.dragOutsideComponent(state, position, state.components[drag!!.id] as TreeComponent)
-            }
 
+                const hasParent = state.components[drag!!.id].parent !== undefined
+                if (hasParent) {
+                    const t1 = Components.getLastParent(state, state.components[drag!!.id])
+                    t1.hasErrors = undefined
+                    t1.isValid = undefined
+                }
+
+                BoardDrag.dragOutsideComponent(state, position, state.components[drag!!.id] as TreeComponent)
+
+                if (hasParent) {
+                    const t1 = Components.getLastParent(state, state.components[drag!!.id])
+                    t1.hasErrors = undefined
+                    t1.isValid = undefined
+                }
+            }
 
         },
         copy: (state) => {
@@ -303,7 +340,7 @@ const slice = createSlice({
                 return
             }
         },
-        setExercise: (state, action: PayloadAction<{ exercise: NDProblem, isFOL: boolean}>) => {
+        setExercise: (state, action: PayloadAction<{ exercise: NDProblem, isFOL: boolean }>) => {
             Object.assign(state, board(action.payload.isFOL, action.payload.exercise));
         },
         updateCurrentProof: (state, action: PayloadAction<any>) => {

@@ -77,14 +77,15 @@ export const Boards = {
             case ComponentType.TREE:
                 const tree = component as PreviewTreeComponent;
                 const results = tree.hypotheses?.map(h => this.hasErrors(state, h)) ?? [];
-                return this.hasErrors(state, tree.conclusion) && results.every(Boolean);
-
+                return this.hasErrors(state, tree.conclusion) || results.some(Boolean);
             case ComponentType.EXP:
                 const expCMP = state.components[component.id];
-                return expCMP.isWFF !== undefined && !expCMP.isWFF
-
+                return (
+                    (expCMP.isWFF !== undefined && !expCMP.isWFF) ||
+                    (expCMP.errors ? Object.keys(expCMP.errors).length > 0 : false)
+                );
             default:
-                return true;
+                return false;
         }
     },
 
@@ -402,6 +403,13 @@ export const Boards = {
             dispatch(reportErrors(tree))
             return
         }
+
+        dispatch(updateComponent({
+            component: { ...component, isBeingSubmitted: true },
+            saveState: false,
+            shouldNotResetTree: false
+        }));
+
 
         testProof(tree, state.isFOL, exercise, shouldCompareConclusion, state.feedbackLevel).then(it => {
             if (it?.response) {

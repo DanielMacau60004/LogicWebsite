@@ -58,10 +58,21 @@
       left: -25px;
     }
 
+    &.left-center {
+      left: -25px;
+      top: 50%;
+      transform: translate(0,-50%);
+    }
+
     &.bottom-center {
       bottom: -25px;
       left: 50%;
       transform: translate(-50%);
+    }
+
+    &.bottom-right {
+      bottom: -25px;
+      right: -35px;
     }
 
     > button {
@@ -69,7 +80,7 @@
       border: none;
       color: var(--text-color);
       margin: 2px 4px 0 0;
-      padding: 6px;
+      padding: 8px;
       border-radius: 5px;
     }
 
@@ -100,7 +111,18 @@
 }
 
 .proof-check {
-  width: 80px;
+  border-radius: 15px !important;
+  padding: 10px !important;
+
+  &.valid {
+    background-color: rgba(var(--color-success), 1) !important;
+    color: var(--text-color);
+  }
+
+  &.invalid {
+    background-color: rgba(var(--color-danger), 1) !important;
+    color: var(--text-color);
+  }
 }
 
 .proof-rules {
@@ -116,3 +138,13 @@
 
   }
 }
+
+.spin {
+  animation: spin 1s linear infinite;
+  font-size: 1.1rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+

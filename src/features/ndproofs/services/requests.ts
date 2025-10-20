@@ -21,6 +21,7 @@ export async function testProof(proof: PreviewTreeComponent, isFOL: boolean, exe
     , feedBack: FeedbackLevel): Promise<{ response: any } | undefined> {
     const api = new NdProofsControllerApi()
 
+    await new Promise(r => setTimeout(r, 500));
     try {
         let response: any;
 

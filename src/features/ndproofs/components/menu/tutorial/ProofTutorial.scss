@@ -1,0 +1,19 @@
+.__floater__body {
+  >div {
+    >div {
+      margin-top: 0 !important;
+    }
+  }
+}
+
+.react-joyride__spotlight {
+  pointer-events: none !important;
+}
+
+.react-joyride__tooltip [data-test-id="button-primary"] {
+  background-color: var(--color-6) !important;
+}
+
+.react-joyride__tooltip [data-test-id="button-primary"]:hover {
+  background-color: var(--color-2) !important;
+}

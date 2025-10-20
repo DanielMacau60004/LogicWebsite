@@ -35,8 +35,9 @@ export function Tree({tree}: { tree: TreeComponent }) {
             className={`proof-component proof-tree ${isRoot ? "root" : ""} ${tree.hasErrors ? "error" : ""}`}
             onRender={onRender}
         >
-            {isSelected && !drag && <TreeMenu hasErrors={tree.hasErrors || hasErrors} isValid={tree.isValid}
-                                             shouldCompareConclusion={shouldCompareConclusion} solveCurrentExercise={tree.solveExercise}/>}
+            {isSelected && !drag && <TreeMenu hasErrors={tree.hasErrors || hasErrors} isValid={tree.isValid && !tree.hasErrors}
+                                             isBeingSubmitted={tree.isBeingSubmitted}
+                                              shouldCompareConclusion={shouldCompareConclusion} solveCurrentExercise={tree.solveExercise}/>}
             <TreeContent tree={tree}/>
         </Draggable>
     );
